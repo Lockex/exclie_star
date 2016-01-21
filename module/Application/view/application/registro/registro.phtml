@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Material Admin - Login</title>
+
+		<!-- BEGIN META -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="your,keywords">
+		<meta name="description" content="Short explanation about this website">
+		<!-- END META -->
+
+		<!-- BEGIN STYLESHEETS -->
+		<link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/bootstrap.css?1422792965" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/materialadmin.css?1425466319" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/font-awesome.min.css?1422529194" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/summernote/summernote.css?1425218701" />
+		
+		<!-- END STYLESHEETS -->
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="../../js/libs/utils/html5shiv.js?1403934957"></script>
+		<script type="text/javascript" src="../../js/libs/utils/respond.min.js?1403934956"></script>
+		<![endif]-->
+	</head>
+	<body class="menubar-hoverable header-fixed ">
+		
+		<!-- BEGIN LOGIN SECTION -->
+		<section class="section-account">
+			<div class="img-backdrop" style="background-image: url('<?php echo $this->basePath() ?>/public/img/img16.jpg')"></div>
+			<div class="spacer"></div>
+			<div class="card contain-sm style-transparent">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<br/>
+							
+							<span class="text-lg text-bold text-primary">Registro de Usuario</span>
+							<br/><br/>
+							<form id="sesion" class="form Form-validate floating-label" action="/exclie_reborn/login" accept-charset="utf-8" method="post" novalidate="novalidate">	
+
+
+
+								<div class="form-group">
+									<input type="text" class="form-control" id="username" name="usuario">
+									<label for="usuario">Usuario</label>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" id="nombre" name="nombre">
+									<label for="nombre">Nombre Completo</label>
+								</div>
+								<div class="form-group">
+									<input type="email" class="form-control" id="email" name="email" required>
+									<label for="email">Correo Electrónico</label>
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control" id="password" name="password">
+									<label for="password">Contraseña</label>
+									
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-xs-6 text-left">
+										<div class="checkbox checkbox-inline checkbox-styled">
+											<label>
+												<input type="checkbox"> <span>Recordarme</span>
+											</label>
+										</div>
+									</div><!--end .col -->
+									<div class="col-xs-6 text-right">
+										<button class="btn btn-primary btn-raised" type="submit">Entrar</button>
+									</div><!--end .col -->
+								</div><!--end .row -->
+							</form>
+						</div><!--end .col -->
+								
+							</div><!--end .row -->
+						</div>
+
+						<!--end .card-body -->
+					</div><!--end .card -->
+				</section>
+				<!-- END LOGIN SECTION -->
+
+				<!-- BEGIN JAVASCRIPT -->
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-1.11.2.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap/bootstrap.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/spin.js/spin.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/autosize/jquery.autosize.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/App.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppNavigation.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppOffcanvas.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppCard.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppForm.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppNavSearch.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppVendor.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/demo/Demo.js"></script>
+				<!-- END JAVASCRIPT -->
+
+			</body>
+		</html>		
