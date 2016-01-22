@@ -313,21 +313,35 @@
 						<div class="col-xs-12">
 							<h4>Datos Personales</h4>
 							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
 							<dl class="dl-horizontal dl-icon">
-								<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
-								<dd>
-									<span class="opacity-50">Career</span><br/>
-									<span class="text-medium">Manager director, Commercial manager, Commercial assistant</span>
-								</dd>
 								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 								<dd>
-									<span class="opacity-50">Birthday</span><br/>
-									<span class="text-medium">Juli 30</span>
+									<span class="opacity-50">Años</span><br/>
+									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Dirección</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;<?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
+									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
+									<span class="text-medium"><span class="opacity-50">C.P</span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Tipo Sanguíneo</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?></span>
 								</dd>
 							</dl><!--end .dl-horizontal -->
+							<?php } ?>
 							<br/>
 							<h4>Antecedentes</h4>
 							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
 							<dl class="dl-horizontal dl-icon">
 								<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
 								<dd>
@@ -350,6 +364,7 @@
 									</span>
 								</dd>
 							</dl><!--end .dl-horizontal -->
+							<?php } ?>
 						</div><!--end .col -->
 					</div><!--end .row -->
 				</div><!--end .hbox-column -->
