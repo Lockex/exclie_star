@@ -42,6 +42,21 @@ return array(
                     ),
                 ),
             ),
+            'pacientes' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/pacientes[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Pacientes',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -97,6 +112,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\Registro' => 'Application\Controller\RegistroController',
+            'Application\Controller\Pacientes' => 'Application\Controller\PacientesController',
         ),
     ),
     'view_manager' => array(

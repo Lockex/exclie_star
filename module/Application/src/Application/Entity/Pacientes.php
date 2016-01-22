@@ -1,5 +1,5 @@
 <?php 
-namespace CsnUser\Entity;
+namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -64,7 +64,7 @@ class Pacientes {
     protected $RFC;
     /** @ORM\Column(type="date") */
     protected $FECHA_REGISTRO;
-    /** @ORM\ManyToOne(targetEntity="User") @ORM\JoinColumn(referencedColumnName="id") */
+    /** @ORM\ManyToOne(targetEntity="Usuarios") @ORM\JoinColumn(referencedColumnName="id") */
     protected $USUARIO;
     /** @ORM\Column(type="string",nullable=true) */
     protected $ESTADO_CIVIL;
@@ -567,7 +567,7 @@ class Pacientes {
 
         return $this;
     }
-    public function addANTECEDENTE(\CsnUser\Entity\CIE10 $CIE10)
+    public function addANTECEDENTE(\Application\Entity\CIE10 $CIE10)
     {
         $this->ANTECEDENTES[] = $CIE10;
 
