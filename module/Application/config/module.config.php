@@ -57,7 +57,7 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
-
+            ),
             'consultados' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
