@@ -32,6 +32,7 @@ class PacientesController extends AbstractActionController
       $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p 
         WHERE CONCAT(p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO,' ',p.NOMBRE,' ',p.ID) like '%$dato[0]%'");
       $pacientes = $query->getArrayResult();
+      $json = array();
       foreach($pacientes as $pac) {
         if(!$pac['FECHA_NACIMIENTO']) {
           $fechanac = '';
@@ -42,10 +43,8 @@ class PacientesController extends AbstractActionController
         'value' => $pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' '.$pac['NOMBRE'],
         'name' => 'pac'.$pac['ID'],
         'fecha' => $fechanac,
-        'tel1' => $pac['TELEFONO_1'],
-        'tel2' => $pac['TELEFONO_2'],
         'idPac' => $pac['ID'],
-        'dependencia' => $pac['DEPENDENCIA']);
+        );
       }
       $resultado = new JsonModel($json);
       return $resultado;

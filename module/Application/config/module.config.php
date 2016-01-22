@@ -59,15 +59,19 @@ return array(
                 'may_terminate' => true,
             ),
             'consultados' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/consultados',
+                    'route' => '/consultados[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*',
+                    ),
                     'defaults' => array(
                         'controller' => 'Application\Controller\Consultados',
-                        'action'     => 'consulta',
+                        'action' => 'consulta',
                     ),
                 ),
-
+                'may_terminate' => true,
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
