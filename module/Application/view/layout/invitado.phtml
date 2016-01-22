@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Expediente Clínico Electrónico</title>
+
+        <!-- BEGIN META -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="your,keywords">
+        <meta name="description" content="Short explanation about this website">
+        <!-- END META -->
+
+        <!-- BEGIN STYLESHEETS -->
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/materialadmin.css" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/font-awesome.min.css" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/material-design-iconic-font.min.css" />
+        
+        <!-- END STYLESHEETS -->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="../../js/libs/utils/html5shiv.js?1403934957"></script>
+        <script type="text/javascript" src="../../js/libs/utils/respond.min.js?1403934956"></script>
+        <![endif]-->
+    </head>
+    <!-- BEGIN JAVASCRIPT -->
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-1.11.2.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/autosize/jquery.autosize.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/core/source/App.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppCard.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppForm.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/jquery.dataTables.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
+
+    <!-- END JAVASCRIPT -->
+    <body class="menubar-hoverable header-fixed">
+
+        <!-- BEGIN HEADER-->
+        <header id="header" >
+            <div class="headerbar">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="headerbar-left">
+                    <ul class="header-nav header-nav-options">
+                        <li class="header-nav-brand" >
+                            <div class="brand-holder">
+                                <a href="#">
+                                    <span class="text-lg text-bold text-primary">EXCLIE</span>
+                                </a>
+                            </div>
+                        </li>                      
+                    </ul>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="headerbar-right">
+                    
+                    <ul class="header-nav header-nav-profile">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+                                <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg" alt="" />
+                                <span class="profile-info">
+                                    Invitado
+                                    <small>Paciente Nuevo</small>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animation-dock">                                
+                                <li><a href="<?php echo $this->basePath() ?>/user/logout"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+                            </ul><!--end .dropdown-menu -->
+                        </li><!--end .dropdown -->
+                    </ul><!--end .header-nav-profile -->                   
+                </div><!--end #header-navbar-collapse -->
+            </div>
+        </header>
+        <!-- END HEADER-->
+
+        <!-- BEGIN BASE-->
+        <div id="base">
+
+            <!-- BEGIN OFFCANVAS LEFT -->
+            <div class="offcanvas">
+            </div><!--end .offcanvas-->
+            <!-- END OFFCANVAS LEFT -->
+
+            <!-- BEGIN CONTENT-->
+            <div id="content">
+                <section>
+                    <?php echo $this->content; ?>
+                </section>
+            </div><!--end #content-->
+            <!-- END CONTENT -->
+
+        </div><!--end #base-->
+        <!-- END BASE -->
+
+        
+
+    </body>
+</html>

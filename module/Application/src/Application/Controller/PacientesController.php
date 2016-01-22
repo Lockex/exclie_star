@@ -15,8 +15,15 @@ use Zend\View\Model\JsonModel;
 
 class PacientesController extends AbstractActionController
 {
+
+    protected $_objectManager;
+
     public function indexAction()
     {
+        // Si el usuario es invitado va a utilizar la plantilla de invitado
+        //if($this->identity()->getRole()->getId() == 6) {
+          $this->layout('layout/invitado');
+        //}
         return new ViewModel();
     }
 
@@ -50,10 +57,10 @@ class PacientesController extends AbstractActionController
      * @return EntityManager
      */
     private function getObjectManager() {
-        if (null === $this->entityManager) {
-            $this->entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        if (null === $this->_objectManager) {
+            $this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         }
 
-        return $this->entityManager;
+        return $this->_objectManager;
     }
 }

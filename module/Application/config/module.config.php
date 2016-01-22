@@ -137,6 +137,7 @@ return array(
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'layout/vacio'           => __DIR__ . '/../view/layout/vacio.phtml',
+            'layout/invitado'           => __DIR__ . '/../view/layout/invitado.phtml',
             'layout/login'           => __DIR__ . '/../view/application/index/login.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
