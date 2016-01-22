@@ -42,6 +42,16 @@ return array(
                     ),
                 ),
             ),
+            'consultados' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/consultados',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Consultados',
+                        'action'     => 'consulta',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -97,6 +107,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\Registro' => 'Application\Controller\RegistroController',
+            'Application\Controller\Consultados' => 'Application\Controller\ConsultadosController',
         ),
     ),
     'view_manager' => array(
