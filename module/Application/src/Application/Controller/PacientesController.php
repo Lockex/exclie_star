@@ -24,10 +24,15 @@ class PacientesController extends AbstractActionController
         //if($this->identity()->getRole()->getId() == 6) {
           $this->layout('layout/invitado');
         //}
-        return new ViewModel();
+        $om = $this->getObjectManager();
+        $estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
+        $municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
+        $data = array('estados' => $estados, 'municipios' => $municipios);
+        return new ViewModel($data);
     }
 
-    public function pacientesjsonAction() {
+    public function pacientesjsonAction() 
+    {
       $dato = $this->getRequest()->getQuery('term');
       $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p 
         WHERE CONCAT(p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO,' ',p.NOMBRE,' ',p.ID) like '%$dato[0]%'");
@@ -49,6 +54,16 @@ class PacientesController extends AbstractActionController
       $resultado = new JsonModel($json);
       return $resultado;
     }
+
+
+    public function guardarpacienteAction()
+    {
+      $om = $this->getObjectManager();
+      if($this->request->isPost()) {
+        
+      }
+    }
+
 
     /**
      * get entityManager
