@@ -5,7 +5,7 @@
 		<div class="tools pull-left">
 			<form class="navbar-search" role="search">
                 <div class="form-group">
-                    <input type="text" id="buscadorpacientes" class="form-control" name="headerSearch" placeholder="Buscar Paciente">
+                    <input type="text" id="buscarpaciente" class="form-control" name="buscarpaciente" placeholder="Buscar Paciente">
                     <input type="hidden" class="form-control" id="idpaciente">
                 </div>
                 <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
@@ -189,7 +189,7 @@
 										<div class="timeline-entry">
 											<div class="card style-default-light">
 												<div class="card-body small-padding">
-													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg?1404026744" alt="" />
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg" alt="" />
 													<span class="text-medium">Received a <a class="text-primary" href="../../../html/mail/inbox.html">message</a> from <span class="text-primary">Ann Lauren</span></span><br/>
 													<span class="opacity-50">
 														Saturday, Oktober 18, 2014
@@ -231,7 +231,7 @@
 										<div class="timeline-entry">
 											<div class="card style-primary">
 												<div class="card-body small-padding">
-													<p><img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar5.jpg?1404026513" alt="" />
+													<p><img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar5.jpg" alt="" />
 													<span class="text-medium">Contacted <a class="text-primary-dark" href="../../../html/mail/inbox.html">Mabel Logan</a></span><br/>
 													<span class="opacity-50">
 														Saturday, Juli 23, 2014
@@ -360,6 +360,8 @@
 </div>
 
 
-	<button class="btn ink-reaction btn-floating-action btn-lg btn-primary-dark pull-right" type="button"><i class="md md-add"></i></button>
+<button class="btn ink-reaction btn-floating-action btn-lg btn-primary-dark pull-right" type="button"><i class="md md-add"></i></button>
 
-	
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
