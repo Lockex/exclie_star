@@ -42,6 +42,7 @@ return array(
                     ),
                 ),
             ),
+
             'pacientes' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -56,6 +57,17 @@ return array(
                     ),
                 ),
                 'may_terminate' => true,
+
+            'consultados' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/consultados',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Consultados',
+                        'action'     => 'consulta',
+                    ),
+                ),
+
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -113,6 +125,7 @@ return array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\Registro' => 'Application\Controller\RegistroController',
             'Application\Controller\Pacientes' => 'Application\Controller\PacientesController',
+            'Application\Controller\Consultados' => 'Application\Controller\ConsultadosController',
         ),
     ),
     'view_manager' => array(

@@ -1,0 +1,365 @@
+<div class="card">
+
+	<!-- BEGIN CONTACT DETAILS HEADER -->
+	<div class="card-head style-primary-dark">
+		<div class="tools pull-left">
+			<form class="navbar-search" role="search">
+                <div class="form-group">
+                    <input type="text" id="buscadorpacientes" class="form-control" name="headerSearch" placeholder="Buscar Paciente">
+                    <input type="hidden" class="form-control" id="idpaciente">
+                </div>
+                <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+            </form>
+		</div><!--end .tools -->
+		<div class="tools">
+			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
+                <i class="fa fa-user"></i>
+            </a>
+		</div><!--end .tools -->
+	</div><!--end .card-head -->
+	<!-- END CONTACT DETAILS HEADER -->
+
+	<!-- BEGIN CONTACT DETAILS -->
+	<div class="card-tiles">
+		<div class="hbox-md col-md-12">
+			<div class="hbox-column col-md-9">
+				<div class="row">
+
+					<!-- BEGIN CONTACTS NAV -->
+					<div class="col-sm-5 col-md-4 col-lg-3">
+						<ul class="nav nav-pills nav-stacked">
+							<li><small class="text-primary">CATEGORIAS</small></li>
+							<li><a href="../../../html/pages/contacts/search.html">Consultas <span class="pull-right badge style-accent">42</span></a></li>
+							<li><a href="../../../html/pages/contacts/search.html">Estudios <span class="pull-right badge style-accent">52</span></a></li>
+							<li><a href="../../../html/pages/contacts/search.html">Laboratorios <span class="pull-right badge style-accent">71</span></a></li>
+						</ul>
+						<hr>
+						<ul class="list divider-full-bleed">
+							<li><small class="text-primary">LISTADO</small></li>
+							<li class="tile">
+								<a class="tile-content ink-reaction">
+									<div class="tile-text">
+										21 Enero de 2015
+										<small>
+											Alguna causa x 
+										</small>
+									</div>
+									<div class="tile-icon">
+										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg">
+									</div>
+								</a>
+							</li>
+							<li class="tile">
+								<a class="tile-content ink-reaction">
+									<div class="tile-text">
+										20 Diciembre 2014
+										<small>
+											Dolor en parte inferior del abdomen
+										</small>
+									</div>
+									<div class="tile-icon">
+										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar12.jpg">
+									</div>
+								</a>
+							</li>
+							<li class="tile">
+								<a class="tile-content ink-reaction">
+									<div class="tile-text">
+										01 Diciembre 2014
+										<small>
+											Dolor Intenso de Cabeza
+										</small>
+									</div>
+									<div class="tile-icon">
+										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar14.jpg">
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div><!--end .col -->
+					<!-- END CONTACTS NAV -->
+
+					<!-- BEGIN CONTACTS MAIN CONTENT -->
+					<div class="col-sm-7 col-md-8 col-lg-9">
+						<div class="margin-bottom-xxl">
+							<div class="pull-left width-3 clearfix hidden-xs">
+								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
+									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
+								<?php } else  {?>
+									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
+                          		<?php } ?> 
+							</div>
+							<?php if(!isset($paciente)){ ?>
+								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
+							<?php }else{ ?>
+							<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+							<?php } ?>
+							&nbsp;&nbsp;
+						</div><!--end .margin-bottom-xxl -->
+						<ul class="nav nav-tabs" data-toggle="tabs">
+							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
+							<li><a href="#notes">NOTAS</a></li>
+							<li><a href="#activity">ACTIVIDAD</a></li>
+						</ul>
+						<div class="tab-content">
+
+							<!-- BEGIN CONTACTS NOTES -->
+							<div class="tab-pane" id="notes">
+								<br/>
+								<form class="form" id="formNote" accept-charset="utf-8" method="post">
+									<span class="opacity-50">Agregar una nota</span>
+									<div class="form-group">
+										<textarea id="summernote" name="message" class="form-control control-3-rows" placeholder="Enter note ..." spellcheck="false"></textarea>
+									</div>
+									<div class="form-group clearfix">
+										<button type="submit" class="btn btn-raised btn-default-light pull-right">Agregar</button>
+									</div>
+								</form>
+								<div class="list-results list-results-underlined">
+									<div class="col-xs-12">
+										<p class="clearfix">
+											<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
+											<span class="pull-left">
+												<span class="text-bold">Saturday, Oktober 18, 2014</span><br/>
+												<span class="opacity-50">Note by Daniel Johnson.</span>
+											</span>
+										</p>
+										<div>
+											<em>"It looks like he wanted our help and there is an opening here."</em>
+										</div>
+									</div><!--end .col -->
+									<div class="col-xs-12">
+										<p class="clearfix">
+											<span class="fa fa-fw fa-envelope-o fa-2x pull-left"></span>
+											<span class="pull-left">
+												<span class="text-bold">Tuesday, Juli 08, 2011</span><br/>
+												<span class="opacity-50">Email via Ann Laurens.</span><br/>
+												<span class="opacity-50">Subject: Can we meet tomorrow and come to a decision?</span>
+											</span>
+										</p>
+										<div>
+												<p>
+													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+												</p>
+												<p>
+													Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+												</p>
+												<p>
+													Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra..
+												</p>
+										</div>
+									</div><!--end .col -->
+									<div class="col-xs-12">
+										<p class="clearfix">
+											<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
+											<span class="pull-left">
+												<span class="text-bold">Wednesday, May 28, 2014</span><br/>
+												<span class="opacity-50">Note by Daniel Johnson.</span>
+											</span>
+										</p>
+										<div>
+											<em>There should be a meeting scheduled soon.</em>
+										</div>
+									</div><!--end .col -->
+								</div><!--end .list-results -->
+							</div><!--end #notes -->
+							<!-- END CONTACTS NOTES -->
+
+							<!-- BEGIN CONTACTS ACTIVITY -->
+							<div class="tab-pane" id="activity">
+								<form class="form" id="formFilter" accept-charset="utf-8" method="post">
+									<br/>
+									<div class="text-center">
+										<label class="checkbox-inline checkbox-styled checkbox-default">
+											<input type="checkbox" value="option1" checked><span>System alerts</span>
+										</label>
+										<label class="checkbox-inline checkbox-styled checkbox-primary">
+											<input type="checkbox" value="option2" checked><span>Social activity</span>
+										</label>
+										<label class="checkbox-inline checkbox-styled checkbox-default-dark">
+											<input type="checkbox" value="option3" checked><span>Event</span>
+										</label>
+									</div>
+									<br/>
+								</form>
+								<hr class="no-margin"/>
+								<ul class="timeline collapse-md">
+									<li class="timeline-inverted">
+										<div class="timeline-circ"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg?1404026744" alt="" />
+													<span class="text-medium">Received a <a class="text-primary" href="../../../html/mail/inbox.html">message</a> from <span class="text-primary">Ann Lauren</span></span><br/>
+													<span class="opacity-50">
+														Saturday, Oktober 18, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="timeline-circ"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">User login at <span class="text-primary">8:15 pm</span></span><br/>
+													<span class="opacity-50">
+														Saturday, August 2, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="timeline-inverted">
+										<div class="timeline-circ style-default-dark"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-dark">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">Meeting in the <span class="text-primary">conference room</span></span><br/>
+													<span class="opacity-50">
+														Saturday, Juli 29, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="timeline-circ circ-xl style-accent"><span class="glyphicon glyphicon-upload"></span></div>
+										<div class="timeline-entry">
+											<div class="card style-primary">
+												<div class="card-body small-padding">
+													<p><img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar5.jpg?1404026513" alt="" />
+													<span class="text-medium">Contacted <a class="text-primary-dark" href="../../../html/mail/inbox.html">Mabel Logan</a></span><br/>
+													<span class="opacity-50">
+														Saturday, Juli 23, 2014
+													</span>
+												</p>
+												<em>
+													Can you send me the latest updates? Then I can see the new colors for the themes.
+												</em>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="timeline-inverted">
+										<div class="timeline-circ circ-lg"><span class="glyphicon glyphicon-plus-sign"></span></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">User registered on website</span><br/>
+													<span class="opacity-50">
+														Saturday, March 2, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul><!--end .timeline -->
+							</div><!--end #activity -->
+							<!-- END CONTACTS ACTIVITY -->
+
+							<!-- BEGIN VERCONSULTA DETAILS -->
+							<div class="tab-pane active" id="verconsulta">
+								<br>
+								<div class="row">
+									<div class="col-md-12">
+										<h3>Datos Paciente</h3>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<h1></h1>
+										<div class="card">
+											
+											<div class="card-body no-padding">
+												<form id="my-awesome-dropzone" class="dropzone dz-clickable" action="../../html/forms/advanced.html">
+													<div class="dz-message">
+														<h3>Drop files here or click to upload.</h3>
+														<em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+													</div>
+												</form>
+											</div><!--end .card-body -->
+										</div>
+									</div>
+								</div>
+							</div><!--end #details -->
+							<!-- END VERCONSULTA DETAILS -->
+						</div><!--end .tab-content -->
+					</div><!--end .col -->
+					<!-- END CONTACTS MAIN CONTENT -->
+				</div><!--end .row -->
+			</div><!--end .hbox-column -->
+		</div><!--end .hbox-md -->
+	</div><!--end .card-tiles -->
+	<!-- END CONTACTS DETAILS -->
+	<div class="offcanvas backdrop">
+		<!-- BEGIN CONTACTS COMMON DETAILS -->
+		<div id="datosgenerales" class="offcanvas-pane width-8">
+			<div class="offcanvas-head">
+                <header class="text-primary">Información del Paciente</header>
+                <div class="offcanvas-tools">
+                    <a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
+                        <i class="md md-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="offcanvas-body no-padding">
+				<div class="hbox-column col-md-12 style-default-light">
+					<div class="row">
+						<div class="col-xs-12">
+							<h4>Datos Personales</h4>
+							<br/>
+							<dl class="dl-horizontal dl-icon">
+								<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Career</span><br/>
+									<span class="text-medium">Manager director, Commercial manager, Commercial assistant</span>
+								</dd>
+								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Birthday</span><br/>
+									<span class="text-medium">Juli 30</span>
+								</dd>
+							</dl><!--end .dl-horizontal -->
+							<br/>
+							<h4>Antecedentes</h4>
+							<br/>
+							<dl class="dl-horizontal dl-icon">
+								<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Phone</span><br/>
+									<span class="text-medium">233-332-342</span> &nbsp;<span class="opacity-50">work</span><br/>
+									<span class="text-medium">766-766-4532</span> &nbsp;<span class="opacity-50">mobile</span>
+								</dd>
+								<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Email</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Address</span><br/>
+									<span class="text-medium">
+										Damrak 7<br/>
+										Amsterdam, 1012 LG<br/>
+										Netherlands
+									</span>
+								</dd>
+							</dl><!--end .dl-horizontal -->
+						</div><!--end .col -->
+					</div><!--end .row -->
+				</div><!--end .hbox-column -->
+			</div>
+		</div>
+		<!-- END CONTACTS COMMON DETAILS -->	
+	</div>
+</div>
+
+
+	<button class="btn ink-reaction btn-floating-action btn-lg btn-primary-dark pull-right" type="button"><i class="md md-add"></i></button>
+
+	

@@ -74,9 +74,16 @@ return array(
 					'registrationSuccess' => 'Invitado',
 					'registro' => 'Invitado',
 				),
+
 				'Application\Controller\Pacientes' => array(
 					'all' => 'Invitado',					
 				),
+
+				 'Application\Controller\Consultados' => array(
+                    'all'   => 'Admin',
+                    
+                ),
+
 				'CsnUser\Controller\Index' => array(
 					'login' => 'Invitado',
 					'logout' => 'Recepción',
