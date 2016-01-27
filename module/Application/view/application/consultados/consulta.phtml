@@ -12,10 +12,15 @@
             </form>
 		</div><!--end .tools -->
 		<div class="tools">
+			<?php if(isset($paciente))  {  ?>
+				<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
+	                <i class="fa fa-plus"></i>
+	            </a>
+            <?php } ?>
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
             </a>
-		</div><!--end .tools -->
+        </div><!--end .tools -->
 	</div><!--end .card-head -->
 	<!-- END CONTACT DETAILS HEADER -->
 
@@ -106,15 +111,6 @@
 							<!-- BEGIN CONTACTS NOTES -->
 							<div class="tab-pane" id="notes">
 								<br/>
-								<form class="form" id="formNote" accept-charset="utf-8" method="post">
-									<span class="opacity-50">Agregar una nota</span>
-									<div class="form-group">
-										<textarea id="summernote" name="message" class="form-control control-3-rows" placeholder="Enter note ..." spellcheck="false"></textarea>
-									</div>
-									<div class="form-group clearfix">
-										<button type="submit" class="btn btn-raised btn-default-light pull-right">Agregar</button>
-									</div>
-								</form>
 								<div class="list-results list-results-underlined">
 									<div class="col-xs-12">
 										<p class="clearfix">
@@ -275,14 +271,7 @@
 										<h1></h1>
 										<div class="card">
 											
-											<div class="card-body no-padding">
-												<form id="my-awesome-dropzone" class="dropzone dz-clickable" action="../../html/forms/advanced.html">
-													<div class="dz-message">
-														<h3>Drop files here or click to upload.</h3>
-														<em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-													</div>
-												</form>
-											</div><!--end .card-body -->
+											
 										</div>
 									</div>
 								</div>
@@ -327,7 +316,7 @@
 									<span class="opacity-50">Dirección</span><br/>
 									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;<?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
 									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
-									<span class="text-medium"><span class="opacity-50">C.P</span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
+									<span class="text-medium"><span class="opacity-50">C.P. </span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
 								</dd>
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
@@ -345,23 +334,34 @@
 							<dl class="dl-horizontal dl-icon">
 								<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
 								<dd>
-									<span class="opacity-50">Phone</span><br/>
+									<span class="opacity-50">Tabaquismo</span><br/>
 									<span class="text-medium">233-332-342</span> &nbsp;<span class="opacity-50">work</span><br/>
 									<span class="text-medium">766-766-4532</span> &nbsp;<span class="opacity-50">mobile</span>
 								</dd>
 								<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
 								<dd>
-									<span class="opacity-50">Email</span><br/>
+									<span class="opacity-50">Toxicomanias</span><br/>
 									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
 								</dd>
 								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
 								<dd>
-									<span class="opacity-50">Address</span><br/>
-									<span class="text-medium">
-										Damrak 7<br/>
-										Amsterdam, 1012 LG<br/>
-										Netherlands
-									</span>
+									<span class="opacity-50">Alcoholismo</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Aumento/Perdida de Peso</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Alergias</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Cirugias</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
 								</dd>
 							</dl><!--end .dl-horizontal -->
 							<?php } ?>
@@ -377,11 +377,20 @@
 	<input type="hidden" value="" id="pac" name="pac"/>
 </form>
 
-<button class="btn ink-reaction btn-floating-action btn-lg btn-primary-dark pull-right" type="button"><i class="md md-add"></i></button>
+<form action='<?php echo $this->basePath()?>/consultados/consultanew' method="post" name="fCon" id="fCon">
+	<input type="hidden" value="" id="pacienteid" name="pacienteid"/>
+</form>
 
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
 	var ruta = '<?php echo $this->basePath(); ?>';	
+
+	function nuevaConsulta(pac){
+    	
+    	document.getElementById('pacienteid').value = pac;
+        document.fCon.submit();
+    }
+	
 </script>

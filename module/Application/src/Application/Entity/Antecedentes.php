@@ -35,8 +35,6 @@ class Antecedentes {
    /** @ORM\Column(type="string",nullable=true) */
    protected $LUPUS;
    /** @ORM\Column(type="string",nullable=true) */
-   protected $ALERGIAS;
-   /** @ORM\Column(type="string",nullable=true) */
    protected $EJERCICIO;
    /** @ORM\Column(type="string",nullable=true) */
    protected $DROGAS;
@@ -44,8 +42,6 @@ class Antecedentes {
    protected $DIABETES;
    /** @ORM\Column(type="string",nullable=true) */
    protected $ARTRITIS;
-   /** @ORM\Column(type="string",nullable=true) */
-   protected $CANCER;
    /** @ORM\Column(type="string",nullable=true) */
    protected $ANTECEDENTES_NP;
      /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
@@ -311,30 +307,6 @@ class Antecedentes {
     public function setPACIENTE($PACIENTE)
     {
         $this->PACIENTE = $PACIENTE;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of CANCER.
-     *
-     * @return mixed
-     */
-    public function getCANCER()
-    {
-        return $this->CANCER;
-    }
-
-    /**
-     * Sets the value of CANCER.
-     *
-     * @param mixed $CANCER the 
-     *
-     * @return self
-     */
-    public function setCANCER($CANCER)
-    {
-        $this->CANCER = $CANCER;
 
         return $this;
     }

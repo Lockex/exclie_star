@@ -49,9 +49,17 @@ class Consultas {
     /** @ORM\Column(type="string",nullable=true) */
     protected $SENOSDATOS;
     /** @ORM\Column(type="string",nullable=true) */
+    protected $SENOSTAMANO;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $SENOSNUMERO;
+    /** @ORM\Column(type="string",nullable=true) */
     protected $CERVIXDATOS;
     /** @ORM\Column(type="string",nullable=true) */
     protected $CUELLODATOS;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $OVARIOSMEDIDA;
+    /** @ORM\Column(type="boolean",nullable=true) */
+    protected $OVARIOSCAPSULA;
     /** @ORM\Column(type="string",nullable=true) */
     protected $OVARIOSDATOS;
     /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
@@ -682,6 +690,102 @@ class Consultas {
     public function setOVARIOSDATOS($OVARIOSDATOS)
     {
         $this->OVARIOSDATOS = $OVARIOSDATOS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of SENOSNUMERO.
+     *
+     * @return mixed
+     */
+    public function getSENOSNUMERO()
+    {
+        return $this->SENOSNUMERO;
+    }
+
+    /**
+     * Sets the value of SENOSNUMERO.
+     *
+     * @param mixed $SENOSNUMERO the 
+     *
+     * @return self
+     */
+    public function setSENOSNUMERO($SENOSNUMERO)
+    {
+        $this->SENOSNUMERO = $SENOSNUMERO;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of OVARIOSMEDIDA.
+     *
+     * @return mixed
+     */
+    public function getOVARIOSMEDIDA()
+    {
+        return $this->OVARIOSMEDIDA;
+    }
+
+    /**
+     * Sets the value of OVARIOSMEDIDA.
+     *
+     * @param mixed $OVARIOSMEDIDA the 
+     *
+     * @return self
+     */
+    public function setOVARIOSMEDIDA($OVARIOSMEDIDA)
+    {
+        $this->OVARIOSMEDIDA = $OVARIOSMEDIDA;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of OVARIOSCAPSULA.
+     *
+     * @return mixed
+     */
+    public function getOVARIOSCAPSULA()
+    {
+        return $this->OVARIOSCAPSULA;
+    }
+
+    /**
+     * Sets the value of OVARIOSCAPSULA.
+     *
+     * @param mixed $OVARIOSCAPSULA the 
+     *
+     * @return self
+     */
+    public function setOVARIOSCAPSULA($OVARIOSCAPSULA)
+    {
+        $this->OVARIOSCAPSULA = $OVARIOSCAPSULA;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of SENOSTAMANO.
+     *
+     * @return mixed
+     */
+    public function getSENOSTAMANO()
+    {
+        return $this->SENOSTAMANO;
+    }
+
+    /**
+     * Sets the value of SENOSTAMANO.
+     *
+     * @param mixed $SENOSTAMANO the 
+     *
+     * @return self
+     */
+    public function setSENOSTAMANO($SENOSTAMANO)
+    {
+        $this->SENOSTAMANO = $SENOSTAMANO;
 
         return $this;
     }
