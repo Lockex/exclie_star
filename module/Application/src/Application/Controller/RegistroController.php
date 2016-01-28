@@ -56,31 +56,28 @@ class RegistroController extends AbstractActionController {
 	 */
 	public function registroAction() {
 		$this->layout('layout/vacio');
-		//$message = null;
+		$em = $this->getEntityManager();
+
+		$roles = $em->createQuery("SELECT r FROM CsnUser\Entity\Role r")->getArrayResult();
 
 		if ($this->request->isPost()) {
 
 			$user = new Usuarios();
-
-			//$passwd = $this->request->getPost('password');
-			//$passwd = (md5(uniqid(mt_rand(),$passwd);
-
 			$user->setUSUARIO($this->request->getPost('usuario'));
 			$user->setNOMBRE($this->request->getPost('nombre'));
 			$user->setEMAIL($this->request->getPost('email'));
-			//$user->setPASSWORD($passwd);
-			//$user->setPASSWORD($this->request->getPost('password'));
-			//	$user->setROL_id($this->request->getPost('srol'));
-			$user->setPASSWORD(UserCredentialsService::encryptpassword($user->getpassword()));
+			$user->setPASSWORD(UserCredentialsService::encryptpassword($this->request->getPost('password')));
+			$user->setFECHAREGISTRO(new \DateTime());
+			$user->setEMAILCONFIRMADO(1);
+			$user->setROL($em->find('CsnUser\Entity\Role', $this->request->getPost('rol')));
+			$user->setESTATUS($em->find('CsnUser\Entity\State', 2));
 
-			$entityManager = $this->getEntityManager();
-			$entityManager->persist($user);
-			$entityManager->flush();
+			$em->persist($user);
+			$em->flush();
 
-			//$objectManager->persist($user);
-			//$objectManager->flush();
-			//$message = 'Usuario Registrado';
 		}
+
+		return new ViewModel(array("roles" => $roles));
 
 	}
 
@@ -572,4 +569,5 @@ class RegistroController extends AbstractActionController {
 
 		return $this->userFormHelper;
 	}
+
 }
