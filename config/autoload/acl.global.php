@@ -83,6 +83,9 @@ return array(
                     'all'   => 'Admin',
                     
                 ),
+				 'Application\Controller\Notas' => array(
+					'all' => 'Admin',					
+				),
 
 				'CsnUser\Controller\Index' => array(
 					'login' => 'Invitado',

@@ -9,6 +9,7 @@ use DoctrineModule\StdLib\Hydrator\DoctrineObject;
 
 use Application\Entity\Pacientes;
 use Application\Entity\Consultas;
+use Application\Entity\Notaspaciente;
 
 class ConsultadosController extends AbstractActionController
 {
@@ -20,7 +21,14 @@ class ConsultadosController extends AbstractActionController
 			$pacienteid = $this->request->getPost('pac');
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
-			$data = array('paciente'=>$paciente);
+
+			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid");
+            $notas = $query2->getArrayResult();
+
+            $query3 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+            $consultas = $query3->getArrayResult();
+
+			$data = array('paciente'=>$paciente,'notas'=>$notas,'consultas'=>$consultas);
 		}else{
 
 			$data = array();
@@ -34,7 +42,12 @@ class ConsultadosController extends AbstractActionController
 			$pacienteid = $this->request->getPost('pacienteid');
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
-			$data = array('paciente'=>$paciente);
+
+			$query2 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $pacienteid");
+            $notas = $query2->getArrayResult();
+
+			$data = array('paciente'=>$paciente,'notas'=>$notas);
+			
 		}else{
 
 			$data = array();
@@ -56,14 +69,14 @@ class ConsultadosController extends AbstractActionController
 			$fum 			 = $this->request->getPost('fum');
 			$gestas 		 = $this->request->getPost('gestas');
 			$partos 		 = $this->request->getPost('partos');
-			$abortos		 = $this->request->getPost('abortos');
+			$abortos		 = $this->request->getPost('bortos');
 			$cesarea		 = $this->request->getPost('cesarea');
 			$tiroides_txt	 = $this->request->getPost('tiroidestxt');
 			$peso 			 = $this->request->getPost('peso');
 			$presion 		 = $this->request->getPost('presion');
 			$notas_tiroides  = $this->request->getPost('notasts');
-			$tamano_quiste	 = $this->request->getPost('tamanoq');
-			$numero_quiste   = $this->request->getPost('numeroq');
+			$tamanoq	     = $this->request->getPost('tamanoq');
+			$numeroq         = $this->request->getPost('numeroq');
 			$notas_cervix    = $this->request->getPost('notascx');
 			$medida_ovario   = $this->request->getPost('medidao');
 			$capsula_ovario  = $this->request->getPost('capsula');
@@ -73,20 +86,13 @@ class ConsultadosController extends AbstractActionController
 			$imagen_cervix	 = $this->request->getPost('imgcervix');
 			$imagen_ovarios  = $this->request->getPost('imgovarios');
 			$imagen_cuello 	 = $this->request->getPost('imgcuello');
+			$plan 	 		 = $this->request->getPost('plan');
 
 
 			/******* ---- Tratamiento de las Fechas ----  ******/
 			$fecha_hoy = new \DateTime(date('Y-m-d',strtotime($fecha)));
 			$fum2 = new \DateTime(date('Y-m-d',strtotime($fum)));
 			/******* ---- Tratamiento de las Fechas ----  ******/
-
-			
-
-	        $hydrator = new DoctrineObject(
-	          $objectManager,
-	          'Application\Entity\Consultas'
-	        );
-
 
 	        $consulta = new Consultas;
 
@@ -95,15 +101,15 @@ class ConsultadosController extends AbstractActionController
 	       	$consulta->setCICLO($ciclo);
 	       	$consulta->setFUM($fum2);
 	       	$consulta->setGESTAS($gestas);
-	       	$consulta->setGESTAS($partos);
-	       	$consulta->setGESTAS($abortos);
-	       	$consulta->setGESTAS($cesarea);
+	       	$consulta->setPARTOS($partos);
+	       	$consulta->setABORTOS($abortos);
+	       	$consulta->setCESAREAS($cesarea);
 	       	$consulta->setTIROIDESNUM($tiroides_txt);
 	       	$consulta->setPESO($peso);
 	       	$consulta->setPRESION($presion);
 	       	$consulta->setTIROIDESDATOS($notas_tiroides);
-	       	$consulta->setSENOSTAMANO($tamano_quiste);
-	       	$consulta->setSENOSNUMERO($numero_quiste);
+	       	$consulta->setSENOSTAMANO($tamanoq);
+	       	$consulta->setSENOSNUMERO($numeroq);
 	       	$consulta->setCERVIXDATOS($notas_cervix);
 	       	$consulta->setOVARIOSMEDIDA($medida_ovario);
 	       	$consulta->setOVARIOSCAPSULA($capsula_ovario);
@@ -114,6 +120,7 @@ class ConsultadosController extends AbstractActionController
 	       	$consulta->setOVARIOSIMAGEN($imagen_ovarios);
 	       	$consulta->setCUELLOIMAGEN($imagen_cuello);
 	       	$consulta->setPACIENTE($paciente);
+	       	$consulta->setPLAN($plan);
 
 	       	$objectManager->persist($consulta);            
         	$objectManager->flush();
@@ -121,6 +128,8 @@ class ConsultadosController extends AbstractActionController
         	return new JsonModel();
 		}
 	}
+
+	
 	/**
      * get entityManager
      *

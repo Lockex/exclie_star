@@ -34,52 +34,30 @@
 					<div class="col-sm-5 col-md-4 col-lg-3">
 						<ul class="nav nav-pills nav-stacked">
 							<li><small class="text-primary">CATEGORIAS</small></li>
-							<li><a href="../../../html/pages/contacts/search.html">Consultas <span class="pull-right badge style-accent">42</span></a></li>
-							<li><a href="../../../html/pages/contacts/search.html">Estudios <span class="pull-right badge style-accent">52</span></a></li>
-							<li><a href="../../../html/pages/contacts/search.html">Laboratorios <span class="pull-right badge style-accent">71</span></a></li>
+							<li class="active"><a href="#" onclick="listaConsultas();">Consultas <span class="pull-right badge style-accent"><?php if(isset($consultas)){echo count($consultas);} ?></span></a></li>
+							<!-- <li><a href="#">Estudios <span class="pull-right badge style-accent">52</span></a></li>
+							<li><a href="#">Laboratorios <span class="pull-right badge style-accent">71</span></a></li> -->
 						</ul>
 						<hr>
 						<ul class="list divider-full-bleed">
 							<li><small class="text-primary">LISTADO</small></li>
-							<li class="tile">
+							<?php if(isset($consultas)){ ?>
+							<?php foreach ($consultas as $con) { ?>
+								<li class="tile">
 								<a class="tile-content ink-reaction">
 									<div class="tile-text">
-										21 Enero de 2015
+										<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
 										<small>
-											Alguna causa x 
+											<?php echo $con['MOTIVO_CONS']; ?>
 										</small>
 									</div>
 									<div class="tile-icon">
-										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg">
+										<span class="fa fa-stethoscope fa-2x"></span>
 									</div>
 								</a>
 							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction">
-									<div class="tile-text">
-										20 Diciembre 2014
-										<small>
-											Dolor en parte inferior del abdomen
-										</small>
-									</div>
-									<div class="tile-icon">
-										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar12.jpg">
-									</div>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction">
-									<div class="tile-text">
-										01 Diciembre 2014
-										<small>
-											Dolor Intenso de Cabeza
-										</small>
-									</div>
-									<div class="tile-icon">
-										<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar14.jpg">
-									</div>
-								</a>
-							</li>
+							<?php } ?>
+							<?php } ?>
 						</ul>
 					</div><!--end .col -->
 					<!-- END CONTACTS NAV -->
@@ -111,53 +89,23 @@
 							<!-- BEGIN CONTACTS NOTES -->
 							<div class="tab-pane" id="notes">
 								<br/>
-								<div class="list-results list-results-underlined">
-									<div class="col-xs-12">
-										<p class="clearfix">
-											<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
-											<span class="pull-left">
-												<span class="text-bold">Saturday, Oktober 18, 2014</span><br/>
-												<span class="opacity-50">Note by Daniel Johnson.</span>
-											</span>
-										</p>
-										<div>
-											<em>"It looks like he wanted our help and there is an opening here."</em>
-										</div>
-									</div><!--end .col -->
-									<div class="col-xs-12">
-										<p class="clearfix">
-											<span class="fa fa-fw fa-envelope-o fa-2x pull-left"></span>
-											<span class="pull-left">
-												<span class="text-bold">Tuesday, Juli 08, 2011</span><br/>
-												<span class="opacity-50">Email via Ann Laurens.</span><br/>
-												<span class="opacity-50">Subject: Can we meet tomorrow and come to a decision?</span>
-											</span>
-										</p>
-										<div>
-												<p>
-													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								<?php if(!isset($notas) || $notas == ''){ echo 'No hay Notas'; } else{ ?>
+									<?php foreach($notas as $n) { ?>
+									<div class="list-results list-results-underlined">
+											<div class="col-xs-12">
+												<p class="clearfix">
+													<span class="fa fa-fw fa-file fa-2x pull-left text-accent-dark"></span>
+													<span class="pull-left">
+														<span class="text-bold"><?php echo date_format($n['FECHA'],'Y-m-d'); ?></span><br/>
+													</span>
 												</p>
-												<p>
-													Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-												</p>
-												<p>
-													Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra..
-												</p>
-										</div>
-									</div><!--end .col -->
-									<div class="col-xs-12">
-										<p class="clearfix">
-											<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
-											<span class="pull-left">
-												<span class="text-bold">Wednesday, May 28, 2014</span><br/>
-												<span class="opacity-50">Note by Daniel Johnson.</span>
-											</span>
-										</p>
-										<div>
-											<em>There should be a meeting scheduled soon.</em>
-										</div>
-									</div><!--end .col -->
-								</div><!--end .list-results -->
+												<div>
+													<em><?php echo $n['NOTAS']; ?></em>
+												</div>
+											</div><!--end .col -->
+									</div><!--end .list-results -->
+									<?php } ?>
+								<?php } ?>
 							</div><!--end #notes -->
 							<!-- END CONTACTS NOTES -->
 
@@ -263,7 +211,9 @@
 								<br>
 								<div class="row">
 									<div class="col-md-12">
-										<h3>Datos Paciente</h3>
+										<?php if(!isset($paciente)){ ?>
+										<h3>Busque paciente</h3>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="row">
@@ -387,10 +337,15 @@
 <script>
 	var ruta = '<?php echo $this->basePath(); ?>';	
 
-	function nuevaConsulta(pac){
-    	
-    	document.getElementById('pacienteid').value = pac;
+	function nuevaConsulta(pac)
+	{
+       	document.getElementById('pacienteid').value = pac;
         document.fCon.submit();
+    }
+
+    function listaConsultas()
+    {
+
     }
 	
 </script>

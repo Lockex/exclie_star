@@ -73,6 +73,21 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'notas' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/notas[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Notas',
+                        'action' => 'notas',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -130,6 +145,7 @@ return array(
             'Application\Controller\Registro' => 'Application\Controller\RegistroController',
             'Application\Controller\Pacientes' => 'Application\Controller\PacientesController',
             'Application\Controller\Consultados' => 'Application\Controller\ConsultadosController',
+            'Application\Controller\Notas' => 'Application\Controller\NotasController',
         ),
     ),
     'view_manager' => array(
