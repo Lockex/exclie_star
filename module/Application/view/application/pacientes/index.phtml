@@ -8,13 +8,14 @@
 					</div>
 					<div class="card-body ">
 						<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
-							<form class="form floating-label">
+							<form class="form form-validate floating-label" novalidate="novalidate">
 								<div class="form-wizard-nav">
 									<div class="progress"><div class="progress-bar progress-bar-primary"></div></div>
 									<ul class="nav nav-justified">
 										<li class="active"><a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title">GENERAL</span></a></li>
 										<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span></a></li>
-										<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">FINALES</span></a></li>
+										<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ANTECEDENTES 2</span></a></li>
+										<li><a href="#tab4" data-toggle="tab"><span class="step">3</span> <span class="title">AVISO DE PRIVACIDAD</span></a></li>
 									</ul>
 								</div><!--end .form-wizard-nav -->
 								<div class="tab-content clearfix">
@@ -31,19 +32,19 @@
 										<div class="row">						
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="Lastname1" required data-rule-minlength="2">
 													<label for="Lastname1">APELLIDO PATERNO</label>
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="Lastname1">
 													<label for="Lastname1">APELLIDO MATERNO</label>
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Firstname1">
+													<input type="text" class="form-control input-lg" id="Firstname1" name="NOMBRE" required data-rule-minlength="2">
 													<label for="Firstname1">NOMBRE(s)</label>
 												</div>
 											</div>
@@ -51,27 +52,27 @@
 										<div class="row">						
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<select class="form-control input-lg" name="sEstado" id="sEstados">
+													<select class="form-control input-lg" class="form-control input-lg" name="ESTADO" id="sEstados">
 														<?php foreach ($estados as $key => $estado): ?>
 															<option value="<?php echo $estado['ID'] ?>" 
 															<?php if ($estado['ID'] == 8): // Chihuahua predefinido ?>
 																selected
 															<?php endif ?>><?php echo $estado['NOMBRE']; ?></option>
 														<?php endforeach ?>
-													</select>
+													</select class="form-control input-lg">
 													<label for="Lastname1">CIUDAD</label>
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<select class="form-control input-lg" name="sEstado" id="sEstados">
+													<select class="form-control input-lg" class="form-control input-lg" name="MUNICIPIO" id="sEstados">
 														<?php foreach ($municipios as $key => $municipio): ?>
 															<option value="<?php echo $municipio['ID'] ?>" 
 															<?php if ($municipio['ID'] == 233): // Chihuahua predefinido ?>
 																selected	
 															<?php endif ?>><?php echo $municipio['NOMBRE']; ?></option>
 														<?php endforeach ?>
-													</select>
+													</select class="form-control input-lg">
 													<label for="Lastname1">MUNICIPIO</label>
 												</div>
 											</div>
@@ -79,19 +80,19 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
-													<label for="Lastname1">DIRECCION</label>
+													<input type="text" class="form-control input-lg" name="CALLE" id="Lastname1">
+													<label for="Lastname1">CALLE</label>
 												</div>
 											</div>
 											<div class="col-sm-3">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="NUM_EXT" id="Lastname1">
 													<label for="Lastname1">NUM EXT.</label>
 												</div>
 											</div>
 											<div class="col-sm-3">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="NUM_INT" id="Lastname1">
 													<label for="Lastname1">NUM INT.</label>
 												</div>
 											</div>
@@ -99,19 +100,19 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="COLONIA" id="Lastname1">
 													<label for="Lastname1">COLONIA</label>
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="TELEFONO1" id="Lastname1" data-inputmask="'mask': '(999) 999-9999'">
 													<label for="Lastname1">TELÉFONO 1</label>
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="TELEFONO2" id="Lastname1" data-inputmask="'mask': '(999) 999-9999'">
 													<label for="Lastname1">TELÉFONO 2</label>
 												</div>
 											</div>
@@ -119,25 +120,25 @@
 										<div class="row">						
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<input type="text" class="form-control input-lg" id="Lastname1">
+													<input type="text" class="form-control input-lg" name="OCUPACION" id="Lastname1">
 													<label for="Lastname1">OCUPACIÓN</label>
 												</div>
 											</div>
 
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<select class="form-control input-lg" name="sEstadocivil" id="sEstadocivil">
+													<select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil">
 														<option value="1">Soltero(a)</option>
 														<option value="2">Casado(a)</option>
 														<option value="3">Viudo(a)</option>
-													</select>
+													</select class="form-control input-lg">
 													<label for="Firstname1">ESTADO CIVIL</label>
 												</div>
 											</div>
 											
 											<div class="col-sm-4">
 												<div class="form-group floating-label">
-													<select class="form-control input-lg" name="sTipoSanguineo" id="sTipoSanguineo">
+													<select class="form-control input-lg" class="form-control input-lg" name="TIPO_SANGUINEO" id="sTipoSanguineo">
 														<option value="9">Desconoce</option>
 														<option value="1">O+</option>
 														<option value="2">A+</option>
@@ -147,7 +148,7 @@
 														<option value="6">B-</option>
 														<option value="7">AB+</option>
 														<option value="8">AB-</option>
-													</select>
+													</select class="form-control input-lg">
 													<label for="Lastname1">TIPO DE SANGRE</label>
 												</div>
 											</div>						
@@ -156,46 +157,317 @@
 
 									<!-- EMPIEZAN ANTECEDENTES -->
 									<div class="tab-pane" id="tab2">
+										<h3>Por favor contesta lo siguiente:</h3>
 										<div class="row">
-											<div class="form-group">
-												<div class="col-sm-6">
-												
-													<label class="checkbox-inline checkbox-styled">
-														<input type="checkbox">
-														<span>Fuma</span>
-													</label>
-													
-
-													<input type="text" class="form-control input-lg" id="Lastname1">
-													<label for="Lastname1">QUE TANTO FUMA?</label>
-													
-
-													<label class="checkbox-inline checkbox-styled">
-														<input type="checkbox">
-														<span>Bebe alcohol</span>
-													</label>
-													
-														
-												</div>																					
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divFuma">
+														<span style="font-size:18px">FUMAS?</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-4 hidden" id="divFuma">
+												<input type="text" id="verClase" class="form-control" name="FUMA">
+												<label>QUE TANTO FUMAS?</label>
+											</div>
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divBebe">
+														<span style="font-size:18px">BEBES ALCOHOL?</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-4 hidden" id="divBebe" >
+												<input type="text" class="form-control" name="BEBE">
+												<label>QUE TANTO BEBES ALCOHOL?</label>
+											</div>											
+										</div>
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divDroga">
+														<span style="font-size:18px">USAS ALGUNA DROGA?</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-4 hidden" id="divDroga" >
+												<input type="text" class="form-control" name="DROGAS">
+												<label>CUAL(es) DROGA(s) USAS?</label>
+											</div>
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divCirugia">
+														<span style="font-size:18px">HAS TENIDO CIRUGIAS?</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-4 hidden" id="divCirugia" >
+												<input type="text" class="form-control" name="CIRUGIAS">
+												<label>QUE CIRUGIAS?</label>
 											</div>
 										</div>
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divAlergia">
+														<span style="font-size:18px">TIENES ALERGIAS?</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-4 hidden" id="divAlergia" >
+												<input type="text" class="form-control" name="ALERGIAS">
+												<label>A QUÉ ERES ALÉRGICO?</label>
+											</div>											
+										</div>	
 										
 						
 									</div><!--end #tab2 -->
 									<div class="tab-pane" id="tab3">
-										<br/><br/>
-										<div class="form-group">
-											<input type="text" name="URL" id="URL" class="form-control">
-											<label for="URL" class="control-label">URL</label>
-											<p class="help-block">Starts with http://</p>
+										<h3>Alguno de tus parientes ha padecido de:</h3>
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divDiabetes">
+														<span style="font-size:18px">DIABETES</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divDiabetes">
+												<select class="form-control" name="DIABETES" id="sDiabetes">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE DIABETES?</label>
+											</div>
+											<div class="form-group col-sm-3">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divHipertension">
+														<span style="font-size:18px">HIPERTENSIÓN</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divHipertension" >
+												<select class="form-control" name="HIPERTENSION" id="sHipertension">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE HIPERTENSIÓN?</label>
+											</div>											
 										</div>
-										<div class="form-group">
-											<input type="text" name="rangelength" id="rangelength" class="form-control">
-											<label for="rangelength" class="control-label">Range restriction</label>
-											<p class="help-block">Between 5 and 10</p>
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divArtritis">
+														<span style="font-size:18px">ARTRITIS</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divArtritis" >
+												<select class="form-control" name="ARTRITIS" id="sArtritis">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE ARTRITIS?</label>
+											</div>
+											<div class="form-group col-sm-3">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divTiroides">
+														<span style="font-size:18px">ENFERMEDADES DE TIROIDES</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divTiroides" >
+												<select class="form-control" name="TIROIDES" id="sTiroides">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE DE TIROIDES?</label>
+											</div>
 										</div>
-									</div><!--end #tab3 -->									
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divCancer">
+														<span style="font-size:18px">CANCER</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divCancer" >
+												<select class="form-control" name="CANCER" id="sCancer">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE CANCER?</label>
+											</div>											
+										</div>
+										<div class="row">
+											<div class="form-group col-sm-2">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divLupus">
+														<span style="font-size:18px">LUPUS</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divLupus" >
+												<select class="form-control" name="LUPUS" id="sLupus">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE LUPUS?</label>
+											</div>											
+										</div>
+										<div class="row">
+											<div class="form-group col-sm-3">
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divCardiacas">
+														<span style="font-size:18px">ENFERMEDADES CARDIACAS</span>
+													</label>												
+												</div>		
+											</div>
+											<div class="form-group col-sm-3 hidden" id="divCardiacas" >
+												<select class="form-control" name="CARDIACAS" id="sCardiacas">
+													<option value="1">MADRE</option>
+													<option value="2">PADRE</option>
+													<option value="3">MADRE Y PADRE</option>
+													<option value="4">ABUELA</option>
+													<option value="5">ABUELO</option>
+													<option value="6">ABUELA Y ABUELO</option>
+												</select>
+												<label>QUIEN PACEDE CARDIACAS?</label>
+											</div>											
+										</div>	
+									</div><!--end #tab3 -->			
+									<div class="tab-pane" id="tab4">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="card"> 
+													<div class="card-head">
+														<header>Aviso de privacidad</header>
+													</div>
+													<div class="card-body scroll style-default-bright" style="height:450px;overflow:scroll">
+														<h4><?php echo nl2br("<p>
+															Tanto su salud, como la seguridad de sus datos personales, son mi prioridad, por lo que con la finalidad de proteger su privacidad frente a terceros, su derecho a la autodeterminación informativa, y salvaguardar la confidencialidad de su información personal, le doy a conocer el presente aviso de privacidad, a fin de que tenga conocimiento sobre los datos personales que estoy obligada(o) a obtener de usted, cuál es la razón de que los obtenga y qué uso les voy a dar; así como los medios que hay a su alcance para ejercer sus derechos en relación a su tratamiento, para lo anterior hago de su conocimiento lo siguiente:
+														</p>
+														<p> La Dra. Dynora Salazar, con domicilio en blvd. ortiz mena C.P. 31214 Chihuahua, Chihuahua, y con número 	 telefónico (614)430 3761 y (614)430 3762, es responsable de recabar sus datos personales, del uso que se 	   le dé a los mismos y de su protección, es necesario hacer de su conocimiento que uno de los derechos que tiene como paciente, es que yo como profesional de la salud, haga un expediente clínico de conformidad a lo señalado en la Ley General de Salud y las normas oficiales mexicanas correspondientes, entendiendo por expediente clínico, como el conjunto único de información y datos personales de un paciente, que puede estar integrado por documentos escritos, gráficos, imagenológicos, electrónicos, magnéticos, electromagnéticos, ópticos magneto-ópticos y de otras tecnologías por lo que el tratamiento que se le va a dar a sus datos personales, se ajustará a lo señalado en esa normativa.
+															Con la finalidad de respetar sus derechos como paciente y en cumplimiento a lo señalado en la Ley General de Salud y en la Norma Oficial Mexicana correspondiente, obtengo los siguientes: Datos de identificación: Nombre, estado civil, sexo, edad, fecha de nacimiento, domicilio, número telefónico de domicilio, oficina, y/o número de teléfono celular, ocupación, dirección de correo electrónico, si cuenta o no con seguro de gastos médicos mayores, en su caso nombre de la compañía aseguradora y número de póliza; actividad deportiva: tipo, recreativo, alto rendimiento, profesional, tiempo de realizarlo, datos sensibles: Antecedentes clínicos: alergias, cirugías previas, antecedentes heredo-familiares, AGO, toxicomanías antecedentes personales patológicos, tipo de sangre; lesiones presentada, mano dominante, tratamientos; padecimiento actual; exploración física: peso, talla, tensión arterial, frecuencia cardiaca y respiratoria—; estudios realizados; diagnóstico; tratamiento; valoración clínica y evolución.
+														</p>
+															<p>I.- Datos Personales que obtengo y finalidades para las que se lleva a cabo el
+															  tratamiento.</p>
+														<p>	Por otro lado, y en caso del expediente clínico electrónico, la norma oficial mexicana correspondiente, además solicita que se le requiera la siguiente información personal o datos personales: CURP, nombre del paciente, nivel socioeconómico, vivienda, tipo sanguíneo, discapacidad, grupo étnico y religión. Además, el domicilio y número telefónico.
+															En mi carácter de responsable del tratamiento de su información personal, me comprometo a que sus datos personales sensibles serán tratados bajo las más estrictas medidas de seguridad garantizando su confidencialidad.
+														</p>
+														<p>	Sus datos personales, son recolectados y tratados por el Responsable directamente o sus encargados, a fin de llevar a cabo los siguientes actos, como finalidades primarias:
+														</p>
+														<p>	 1.A) Actualizar el derecho a la protección a la salud, en términos de la Ley General de Salud.</p>
+														<p>	2.B) Dar el servicio de atención médica integral al paciente, con la finalidad de proteger, promover, restaurar la salud, con fines de diagnóstico, tratamiento y rehabilitación en su caso. Mediante atención preventiva, curativa, de rehabilitación y paliativa.</p>
+															<p>3.C) Crear, integrar, analizar y estudiar el expediente clínico del paciente, para prestar el servicio de consulta y diagnóstico médico.</p>
+															<p>4.D) Darle atención en el caso de ser necesario mediante procedimiento quirúrgico.</p>
+															<p>5.E) Realización de un resumen clínico</p>
+															<p>6.F) Dar seguimiento de cuidados paliativos</p>
+															<p>7.G) Facturación y cobranza por servicios</p>
+															<p>8.H) Estudios, registros, estadísticas y análisis de información de salud.</p> 9.
+															Cabe señalar, que el expediente clínico se integra en términos de la Norma Oficial Mexicana, NOM-004-SSA3-2012, Del Expediente Clínico emitido por la Secretaría de Salud y publicada en el Diario Oficial de la Federación el 15 de octubre de 2012. II.Consentimiento del Titular
+															El Titular manifiesta que el presente Aviso de Privacidad le ha sido dado a conocer por el Responsable. En el supuesto de que el Titular, no se encuentre de acuerdo en el tratamiento que el Responsable dará a sus Datos Personales, en los términos de este Aviso de Privacidad, podrá negar su consentimiento a través de su manifestación al final de este aviso.
+															El consentimiento del Titular podrá ser revocado en cualquier momento por éste, sin que se le atribuyan efectos retroactivos, en los términos y conforme a los procedimientos establecidos más adelante para ello conforme a este Aviso de Privacidad. No obstante cualquier disposición de este Aviso de Privacidad, el Titular reconoce que no se requerirá de su consentimiento para el tratamiento de sus datos personales por parte
+															 
+															del Responsable o de terceros en cualquiera de los casos señalados en el artículo 10 de la LFPDPPP.
+															En caso, de que los datos personales recopilados incluyan datos sensibles, el Responsable llevará a cabo actos que recojan y constituyan el consentimiento expreso del titular en términos del segundo párrafo del artículo 8 de la LFPDPPP y demás legislaciones aplicables, mediante la firma del formato correspondiente, sea impreso, o utilizando medios electrónicos, mediante el consentimiento expreso y suministro por parte del Titular de datos personales.
+															 En términos de lo establecido en el artículo 9 de la Ley Federal de Protección a los Datos Personales en Posesión de los Particulares, se le solicita su consentimiento expreso para el
+															 tratamiento de los datos personales sensibles, indicándonos si acepta o no el tratamiento:
+															Consiento que mis datos personales sensibles sean tratados conforme a los términos y condiciones del presente aviso de privacidad.
+															 _____________________Nombre y firma autógrafa del titular _____________________[medio electrónico o cualquier otro que se establezca para tal efecto.]
+															 En el supuesto de que sea necesaria la atención médica por parte del Dr. Rivas, a menores de edad, se recabarán los datos personales ya descritos anteriormente, correspondientes al menor de edad, previo consentimiento por escrito de alguno de sus padres, a fin de llevar a cabo la atención y diagnóstico médico del menor.
+															III.- Transferencias de Datos
+															El Responsable o cualquier de sus Encargados podrán realizar transferencias de datos personales a terceros nacionales o extranjeros, en el entendido de que el tratamiento que éstos terceros den a los datos personales del Titular deberá ajustarse a lo establecido en este Aviso de Privacidad, y únicamente con la siguiente finalidad: Facturación y pago de servicios profesionales a clínicas, hospitales o aseguradoras, servicio de referencia y contrareferencia, así como interconsulta.
+															Consiento que los datos personales del menor sean tratados conforme a los términos y condiciones del presente aviso de privacidad.
+															 _____________________Nombre y firma autógrafa del padre o tutor
+															   Si usted no manifiesta su oposición para que sus datos personales sean transferidos, se
+															entenderá que ha otorgado su consentimiento para ello.
+															  No consiento que mis datos personales sean transferidos en los términos que señala el presente aviso de privacidad.
+															Si consiento que mis datos personales sean transferidos en los términos que señala el presente aviso de privacidad.
+															 Si consiento que mis datos personales sensibles, sean transferidos en los términos que señala el presente aviso de privacidad.
+															El Titular manifiesta su consentimiento para que el Responsable o cualquier Encargado realicen transferencias de datos personales a terceros, en el entendido de que dicho tratamiento deberá ajustarse a lo establecido en este Aviso de Privacidad. El Titular reconoce y acepta que el Responsable no requiere de autorización ni confirmación de dicho Titular para realizar transferencias de datos personales nacionales, en los casos previstos en el artículo 37 de la LFPDPPP, o en cualquier otro caso de excepción previsto por la misma o la demás legislación aplicable. Situación que se actualiza con la transferencia de datos a autoridades sanitarias en términos del artículo 104 de la Ley General de Salud, o cualquier otra autoridad en materia de prevención de riesgos de salud pública.
+															IV.- Conservación y seguridad de los Datos Personales
+															El Responsable y/o sus Encargados conservarán los datos personales del Titular durante el tiempo que sea necesario para prestar la atención médica del paciente, o bien, por un periodo mínimo de 5 años, contados a partir de la fecha del último acto médico proporcionado por la profesionista Dra. Dynora Salazar Ponce al Titular, así como para mantener los registros contables, financieros y de auditoría en términos de la LFPDPPP y de la legislación mercantil, fiscal y administrativa vigente.
+															Los datos personales del Titular recolectados por el Responsable y/o sus Encargados se encontrarán protegidos por medidas de seguridad administrativas, técnicas y físicas adecuadas contra el daño, pérdida, alteración, destrucción o uso, acceso o tratamiento no autorizados, de conformidad con lo dispuesto en la LFPDPPP y de la regulación administrativa derivada de la misma.
+															V.- Departamento de Datos Personales/Oficina de Privacidad
+															Para cualquier comunicación acerca de nuestro Aviso de Privacidad, es necesario que envíe su petición vía electrónica dirigida al Responsable, que será el Responsable directa de sus datos personales, en la dirección de correo electrónico dynoras@hotmail.com.
+															VI.- Procedimiento para ejercer los Derechos ARCO
+															Usted como Titular, o a través de su representante, tiene derecho de acceder a sus datos personales que nos ha autorizado para tratar, así como a conocer la información relativa a las condiciones del tratamiento de los mismos; así como a rectificarlos en caso de ser
+															    
+															inexactos o incompletos; además, podrá solicitar en todo momento al Responsable la cancelación de sus datos personales, cuando considere que no están siendo tratados conforme a los principios y deberes que establece la LFPDPPP y su reglamento, o bien, oponerse al tratamiento de los mismos para fines específicos.
+															La responsable Dra. Dynora Salazar Ponce, ha implementado como mecanismo para el ejercicio de dichos derechos, la presentación de una solicitud de información en las oficinas de su consultorio, en el domicilio señalado en el presente aviso de privacidad, dirigida al profesionista como Responsable de la Privacidad, o bien, en la dirección electrónica dynoras@hotmail.com.
+															Para dar atención a su solicitud, ésta deberá contener la siguiente información:
+															  1.El nombre del titular, domicilio y/o dirección de correo electrónico para comunicarle la respuesta a su solicitud;
+															2.Los documentos que acrediten la identidad (credencial de elector, pasaporte, cédula profesional, o FM3) en fotocopia, o, en su caso, la representación legal del titular (copia simple en formato impreso o electrónico de la carta poder simple con firma autógrafa del Titular, el mandatario y sus correspondientes identificaciones oficiales – credencial de elector, pasaporte, cédula profesional, o FM-3);
+															3.La descripción clara y precisa de los datos personales respecto de los que se busca ejercer alguno de los derechos antes mencionados, y
+															4.Cualquier otro elemento o documento que facilite la localización de sus datos personales.
+															En el caso de solicitudes de rectificación de sus datos personales, deberá indicarse, además, las modificaciones a realizarse y aportar la documentación que sustente su petición.
+															La responsable, cuenta en términos de la LFPDPPP, con un plazo máximo de veinte días hábiles, contados desde la fecha en que se recibió la solicitud de acceso, rectificación, cancelación u oposición, para informar al Titular la determinación adoptada, a efecto de que, si resulta procedente, se haga efectiva la misma dentro de los quince días hábiles siguientes a la fecha en que se le comunica la respuesta al Titular.
+															Tratándose de solicitudes de acceso a datos personales, el Responsable procederá con su entrega, previa acreditación de la identidad del solicitante o de su representante legal, según corresponda, mediante la expedición de copias simples o documentos electrónicos, de manera gratuita, salvo los gastos de envío o el costo de reproducción en copias u otros formatos. En el caso de que el Titular reitere su solicitud en un periodo menor a doce meses, deberá cubrir los costos correspondientes equivalentes a no más de 3 días de Salario Mínimo Vigente en el Distrito Federal en términos de la LFPDPPP, a
+															menos que existan modificaciones sustanciales al Aviso de Privacidad que motiven nuevas consultas.
+															Para efectos de las solicitudes de cancelación de datos personales, además de lo dispuesto por el presente Aviso de Privacidad, se estará a lo dispuesto en el artículo 26 de la LFPDPPP, incluyendo los casos de excepción de cancelación de Datos Personales ahí señalados.
+															VII.- Revocación, limitación al uso o divulgación de sus datos personales
+															Para que usted pueda revocar el consentimiento que me ha otorgado para el tratamiento de sus datos personales, en cualquier momento, a fin de que deje de hacer uso de los mismos, con excepción de los supuestos establecidos en el artículo 10 de la LFPDPPP, deberá presentarme una solicitud de revocación. A fin de estar en posibilidad de atender su solicitud de revocación, los Titulares deberán proporcionar la información señalada en los puntos 1, 2, 3 y 4 del numeral VII establecidos con antelación, ante nuestra oficina de Privacidad a través de los medios señalados en el numeral VI del presente Aviso.
+															El responsable atenderá su petición en un plazo máximo de diez días hábiles siguientes a la recepción de su solicitud de revocación, y le informará sobre la procedencia de la misma, a través del envío de un correo a la dirección electrónica señalada por usted en su solicitud.
+															Le ofrecemos la posibilidad de limitar el uso o divulgación de sus datos personales, solicitando su inscripción en el listado de exclusión correspondiente, que para el efecto llevará el profesionista, con el fin de que sus datos personales no sean utilizados para finalidades secundarias, enviando un correo electrónico a la dirección electrónica señalada con antelación.
+															Para el efecto, deberán transcurrir 10 días hábiles posteriores a la recepción de su solicitud, para que se procese la baja.
+															VIII.- Cambios al Aviso de Privacidad
+															El responsable se reserva el derecho de actualizar periódicamente el presente Aviso de Privacidad conforme a los cambios de nuestras prácticas de información en atención a las novedades legislativas, políticas internas o nuevos requerimientos para la prestación de nuestros servicios o productos.
+															Estas modificaciones estarán disponibles al público, en las oficinas del consultorio de la
+															  
+															responsable, señalado en el presente aviso de privacidad, por lo que el Titular podrá consultarlas en los mismos. Se recomienda al Titular consultar nuestro Aviso de Privacidad, por lo menos semestralmente, para estar actualizado de las condiciones y términos del mismo.
+															El Responsable, entenderá que de no expresar lo contrario, significa que el Titular ha leído, entendido y acordado los términos ahí expuestos, lo que constituye su consentimiento a los cambios establecidos en dichas actualizaciones respecto al tratamiento de sus Datos Personales para efectos de la LFPDPPP y demás legislación aplicable.
+															El Titular de los Datos Personales podrá en caso de que considere que su derecho de protección de datos personales ha sido lesionado por el tratamiento indebido de sus datos personales, interponer su queja o denuncia correspondiente ante el Instituto Federal de Acceso a la Información y Protección de Datos (IFAI), para mayor información visite www. ifai.org.mx.") ?>
+														</h4>
+													</div>
+													<div class="card-actionbar">
+														<div class="card-actionbar-row">															
+															<a href="javascript:void(0);" class="btn btn-default btn-accent ink-reaction">Aceptar</a>
+														</div>
+													</div><!--end .card-actionbar -->
+												</div>
+											</div>
+										</div>
+									</div>						
 								</div><!--end .tab-content -->
+
 								<ul class="pager wizard">									
 									<li class="previous"><a class="btn-raised" href="javascript:void(0);">Atrás</a></li>									
 									<li class="next"><a class="btn-raised" href="javascript:void(0);">Siguiente</a></li>
@@ -215,3 +487,5 @@
 	<script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
 	<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoFormWizard.js"></script>
 	<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+	<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>

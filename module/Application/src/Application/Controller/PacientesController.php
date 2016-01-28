@@ -60,7 +60,8 @@ class PacientesController extends AbstractActionController
     {
       $om = $this->getObjectManager();
       if($this->request->isPost()) {
-        
+        $paciente = new Pacientes();
+        $paciente->setNOMBRE();
       }
     }
 
