@@ -17,6 +17,7 @@
 		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/font-awesome.min.css?1422529194" />
 		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/material-design-iconic-font.min.css?1421434286" />
 		<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/summernote/summernote.css?1425218701" />
+
 		
 		<!-- END STYLESHEETS -->
 
@@ -53,7 +54,7 @@
 
 
 								<div class="form-group">
-									<input type="text" class="form-control" id="Name1" name="Name1" required data-rule-minlength="6">
+									<input type="text" class="form-control" id="usuario" name="usuario" required data-rule-minlength="6">
 									<label for="usuario">Usuario</label>
 								</div>
 								<div class="form-group">
@@ -62,7 +63,12 @@
 								</div>
 								<div class="form-group">
 									<input type="email" class="form-control" id="email" name="email" required>
-									<label for="email">Correo Electrónico</label>
+									<label for="email">Correo Electrónico</label>									
+								</div>
+
+								<div class="form-group">
+									<input type="text" class="form-control"  id="telefono" name="telefono" data-inputmask="'mask': '999-999-9999'">
+									<label for="telefono">Teléfono</label>												
 								</div>
 
 								<div class="form-group">
@@ -84,6 +90,16 @@
 												</select>
 												<label for="rol">Rol que desempeña</label>
 											</div>
+
+								<div class="form-group" id="skills">
+												<ul class="list-unstyled" id="skillsList"></ul>
+												<div class="form-group">
+													<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#skillsList!">ADD NEW skill</a>
+												</div><!--end .form-group -->
+											</div>
+
+
+
 								<div class="form-group">
 												<textarea name="motivo" id="motivo" class="form-control" rows="2" required></textarea>
 												<label for="motivo">Motivo por el cual es necesario tener acceso al sistema</label>
@@ -112,8 +128,40 @@
 				</section>
 				<!-- END LOGIN SECTION -->
 
-				<!-- BEGIN JAVASCRIPT -->
-				      
+				<script type="text/html" id="skillTmpl">
+			<li class="clearfix">
+				
+						<div class="form-group">
+							<input type="text" class="form-control" id="skill-<%=index%>" name="skill-<%=index%>">
+							<label for="skill-<%=index%>">Skill <%=index%></label>
+						</div>
+				
+					<div class="col-xs-4">
+						<div class="form-group">
+							<select name="skill-rating-<%=index%>" class="form-control">
+								<option value=""></option>
+								<option value="100">100</option>
+								<option value="90">90</option>
+								<option value="80">80</option>
+								<option value="70">70</option>
+								<option value="60">60</option>
+								<option value="50">50</option>
+								<option value="40">40</option>
+								<option value="30">30</option>
+								<option value="20">20</option>
+								<option value="10">10</option>
+							</select>
+							<label for="skill-rating-<%=index%>">Rating</label>
+						</div>
+					</div>
+				
+			</li>
+		</script>
+
+
+
+
+				<!-- BEGIN JAVASCRIPT -->      
 				
 				<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-1.11.2.min.js"></script>
 				<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
@@ -130,7 +178,8 @@
 				<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppVendor.js"></script>
 				<script src="<?php echo $this->basePath() ?>/public/js/core/demo/Demo.js"></script>	
 				<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-validation/dist/jquery.validate.min.js"></script>
-			   		
+				<script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
+				<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoFormComponents.js"></script>						   		
 				<!-- END JAVASCRIPT -->
 
 			</body>
