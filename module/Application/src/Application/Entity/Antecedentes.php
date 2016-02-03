@@ -43,6 +43,8 @@ class Antecedentes {
    /** @ORM\Column(type="string",nullable=true) */
    protected $ARTRITIS;
    /** @ORM\Column(type="string",nullable=true) */
+   protected $HIPERTENSION;
+   /** @ORM\Column(type="string",nullable=true) */
    protected $ANTECEDENTES_NP;
      /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
    protected $PACIENTE;
@@ -499,6 +501,30 @@ class Antecedentes {
     public function setCANCER($CANCER)
     {
         $this->CANCER = $CANCER;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of HIPERTENSION.
+     *
+     * @return mixed
+     */
+    public function getHIPERTENSION()
+    {
+        return $this->HIPERTENSION;
+    }
+
+    /**
+     * Sets the value of HIPERTENSION.
+     *
+     * @param mixed $HIPERTENSION the 
+     *
+     * @return self
+     */
+    public function setHIPERTENSION($HIPERTENSION)
+    {
+        $this->HIPERTENSION = $HIPERTENSION;
 
         return $this;
     }

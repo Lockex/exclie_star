@@ -83,6 +83,9 @@ return array(
                     'all'   => 'Admin',
                     
                 ),
+				 'Application\Controller\Consultas' => array(
+                    'all'   => 'Admin',  
+                ),
 				 'Application\Controller\Notas' => array(
 					'all' => 'Admin',					
 				),

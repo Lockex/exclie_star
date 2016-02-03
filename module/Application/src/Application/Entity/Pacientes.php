@@ -60,9 +60,9 @@ class Pacientes {
     protected $TELEFONO_2;
     /** @ORM\Column(type="string",nullable=true) */
     protected $EMAIL;
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string",nullable=true) */
     protected $RFC;
-    /** @ORM\Column(type="date") */
+    /** @ORM\Column(type="datetime") */
     protected $FECHA_REGISTRO;
     /** @ORM\ManyToOne(targetEntity="Usuarios") @ORM\JoinColumn(referencedColumnName="id") */
     protected $USUARIO;

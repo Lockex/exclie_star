@@ -1,0 +1,233 @@
+<form class="form form-validate" id="formConsul" novalidate="novalidate">
+  <div class="card">
+    <input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+    <div class="card-body ">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="motivo" name="motivo">
+            <label for="Firstname2">Motivo Consulta</label>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="fechahoy" name="fechahoy">
+            <label for="fechahoy">Fecha</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="edad" name="edad">
+            <label for="edad">Edad</label>
+          </div>
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="ciclo" name="ciclo">
+            <label for="ciclo">Ciclo</label>
+          </div>
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="fum" name="fum">
+            <label for="fum">FUM</label>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="gestas" name="gestas" data-rule-number="true">
+                <label for="gestas">G</label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="partos" name="partos">
+                <label for="partos">P</label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="cesarea" name="cesarea">
+                <label for="cesarea">C</label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="abortos" name="bortos">
+                <label for="abortos">A</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-3">
+          
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
+            <label for="tiroidestxt">Tiroides</label>
+          </div>
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="peso" name="peso">
+            <label for="peso">Peso</label>
+          </div>
+          <div class="form-group floating-label">
+            <input type="text" class="form-control" id="presion" name="presion">
+            <label for="presion">Presión</label>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Tiroides</header>
+            </div>
+            <div class="card-body height-8" id="TiroidesImagen"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Datos Tiroides</header>
+            </div>
+            <div class="card-body height-8">
+              <div class="form-group floating-label">
+                <textarea name="notasts" id="notasts" class="form-control" rows="3" placeholder=""></textarea>
+                <label for="notasts">Notas</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Senos</header>
+            </div>
+            <div class="card-body height-8" id="SenosImagen"></div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Datos Senos</header>
+            </div>
+            <div class="card-body height-8">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="tamanoq" name="tamanoq">
+                <label for="tamanoq">Tamaño</label>
+              </div>
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="numeroq" name="numeroq">
+                <label for="numeroq">Numero</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Cervix</header>
+            </div>
+            <div class="card-body height-8" id="CervixImagen">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Datos Cervix</header>
+            </div>
+            <div class="card-body height-8">
+              <div class="form-group floating-label">
+                <textarea name="notascx" id="notascx" class="form-control" rows="3" placeholder=""></textarea>
+                <label for="notascx">Notas</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Ovarios</header>
+            </div>
+            <div class="card-body height-8" id="OvariosImagen">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Datos Ovarios</header>
+            </div>
+            <div class="card-body height-8">
+              <div class="form-group floating-label">
+                <input type="text" class="form-control" id="medidao" name="medidao">
+                <label for="medidao">Medida</label>
+              </div>
+              <div class="form-group floating-label">
+                <label class="col-sm-9 control-label">Cápsula</label>
+                <div class="col-sm-9">
+                  <label class="radio-inline radio-styled">
+                    <input type="radio" name="capsula" value="1"><span>Sí</span>
+                  </label>
+                  <label class="radio-inline radio-styled">
+                    <input type="radio" name="capsula" value="0"><span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Cuello</header>
+            </div>
+            <div class="card-body height-8">
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-head style-primary-dark">
+              <header>Datos Cuello</header>
+            </div>
+            <div class="card-body height-8">
+              <div class="form-group floating-label">
+                <textarea name="notascllo" id="notascllo" class="form-control" rows="3" placeholder=""></textarea>
+                <label for="notascllo">Notas</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group floating-label">
+            <textarea name="plan" id="plan" class="form-control" rows="3" placeholder=""></textarea>
+            <label for="plan">Plan</label>
+          </div>
+        </div>
+      </div>
+    </div><!--end .card-body -->
+    <div class="card-actionbar">
+      <div class="card-actionbar-row">
+        <button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()">Guardar</button>
+      </div>
+    </div>
+  </div><!--end .card -->
+  
+</form>

@@ -8,24 +8,24 @@
 					</div>
 					<div class="card-body ">
 						<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
-							<form class="form form-validate floating-label" novalidate="novalidate">
+							<form id="form" class="form form-validate floating-label" action="<?php echo $this->basePath() ?>/pacientes/guardarpaciente" method="POST" novalidate="novalidate">
 								<div class="form-wizard-nav">
 									<div class="progress"><div class="progress-bar progress-bar-primary"></div></div>
 									<ul class="nav nav-justified">
 										<li class="active"><a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title">GENERAL</span></a></li>
 										<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span></a></li>
 										<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ANTECEDENTES 2</span></a></li>
-										<li><a href="#tab4" data-toggle="tab"><span class="step">3</span> <span class="title">AVISO DE PRIVACIDAD</span></a></li>
+										<li><a href="#tab4" data-toggle="tab"><span class="step">4</span> <span class="title">AVISO DE PRIVACIDAD</span></a></li>
 									</ul>
 								</div><!--end .form-wizard-nav -->
 								<div class="tab-content clearfix">
 									<div class="tab-pane active" id="tab1">
 										<div>
 											<label class="radio-inline radio-styled">
-												<input type="radio" name="gendre"><span>MASCULINO</span>
+												<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
 											</label>
 											<label class="radio-inline radio-styled">
-												<input type="radio" name="gendre" checked><span>FEMENINO</span>
+												<input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
 											</label>
 										</div>
 										<br/>
@@ -168,7 +168,7 @@
 												</div>		
 											</div>
 											<div class="form-group col-sm-4 hidden" id="divFuma">
-												<input type="text" id="verClase" class="form-control" name="FUMA">
+												<input type="text" id="verClase" class="form-control" name="TABAQUISMO">
 												<label>QUE TANTO FUMAS?</label>
 											</div>
 											<div class="form-group col-sm-2">
@@ -180,7 +180,7 @@
 												</div>		
 											</div>
 											<div class="form-group col-sm-4 hidden" id="divBebe" >
-												<input type="text" class="form-control" name="BEBE">
+												<input type="text" class="form-control" name="ALCOHOLISMO">
 												<label>QUE TANTO BEBES ALCOHOL?</label>
 											</div>											
 										</div>
@@ -194,7 +194,7 @@
 												</div>		
 											</div>
 											<div class="form-group col-sm-4 hidden" id="divDroga" >
-												<input type="text" class="form-control" name="DROGAS">
+												<input type="text" class="form-control" name="TOXICOMANIAS">
 												<label>CUAL(es) DROGA(s) USAS?</label>
 											</div>
 											<div class="form-group col-sm-2">
@@ -459,7 +459,7 @@
 													</div>
 													<div class="card-actionbar">
 														<div class="card-actionbar-row">															
-															<a href="javascript:void(0);" class="btn btn-default btn-accent ink-reaction">Aceptar</a>
+															<a href="javascript:void(0);" id="bAceptar" class="btn btn-default btn-accent ink-reaction">Aceptar</a>
 														</div>
 													</div><!--end .card-actionbar -->
 												</div>
@@ -472,12 +472,38 @@
 									<li class="previous"><a class="btn-raised" href="javascript:void(0);">Atrás</a></li>									
 									<li class="next"><a class="btn-raised" href="javascript:void(0);">Siguiente</a></li>
 								</ul>
+								<div class="modal fade" id="modalCodigo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">		  
+								    <div class="modal-dialog modal-sm">
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+								          <h4 class="modal-title" id="modalLabel">Confirmar Registro</h4>
+								          <h5>Por favor introduzca el código de registro de pacientes.</h5>
+								          
+								        </div>
+								        <div class="modal-body" id="modalCodigoBody" style="min-height:150px">
+								          <div class="col-sm-12">
+								          	<div style="margin:0 auto">
+								          		<input id="ver" type="password" class="input-lg" maxlength="4">		
+								          	</div>								          	
+								          </div>
+								          
+								        </div>
+								        <div class="modal-footer" id="modalCodigoFooter">
+								          <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Cerrar</button>
+								          <button type="button" onclick="mandar()" class="btn btn-primary">Enviar</button>
+								        </div>
+								      </div>
+								    </div>
+								  
+								</div>
 							</form>
 						</div><!--end #rootwizard -->
 					</div><!--end .card-body -->
 				</div><!--end .card -->				
 			</div><!--end .col -->
 		</div><!--end .row -->
+		
 </div><!--end .section-body -->
 
 
@@ -489,3 +515,21 @@
 	<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 	<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
+
+
+	<script>
+	function mandar () {
+		$.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/pacientes/guardarpaciente",
+		    dataType: "json",
+		    data: $('#form').serialize(),
+		    success: function(data) {
+		       console.log(data);
+		    },
+		    error: function(){
+		          alert('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});  
+	}
+	</script>

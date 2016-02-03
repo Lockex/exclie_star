@@ -1,0 +1,350 @@
+<div class="card">
+
+	<!-- BEGIN CONTACT DETAILS HEADER -->
+	<div class="card-head style-primary-dark">
+		<div class="tools pull-left">
+			<form class="navbar-search" role="search">
+                <div class="form-group">
+                    <input type="text" id="buscadorpacientes" class="form-control" name="buscadorpacientes" placeholder="Buscar Paciente">
+                    <input type="hidden" class="form-control" id="idpaciente">
+                </div>
+                <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+            </form>
+		</div><!--end .tools -->
+		<div class="tools">
+			<?php if(isset($paciente))  {  ?>
+				<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
+	                <i class="fa fa-plus"></i>
+	            </a>
+            <?php } ?>
+			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
+                <i class="fa fa-user"></i>
+            </a>
+        </div><!--end .tools -->
+	</div><!--end .card-head -->
+	<!-- END CONTACT DETAILS HEADER -->
+
+	<!-- BEGIN CONTACT DETAILS -->
+	<div class="card-tiles">
+		<div class="hbox-md col-md-12">
+			<div class="hbox-column col-md-9">
+				<div class="row">					
+					<!-- BEGIN CONTACTS NAV -->
+					<div class="col-sm-5 col-md-4 col-lg-3">
+						<ul class="nav nav-pills nav-stacked">
+							<li><small class="text-primary">CATEGORIAS</small></li>
+							<li class="active"><a href="#" onclick="listaConsultas();">Consultas <span class="pull-right badge style-accent"><?php if(isset($consultas)){echo count($consultas);} ?></span></a></li>
+							<li><a href="#">Estudios <span class="pull-right badge style-accent">52</span></a></li>
+							<li><a href="#">Laboratorios <span class="pull-right badge style-accent">71</span></a></li>
+						</ul>
+						<hr>
+						<ul class="list divider-full-bleed">
+							<li><small class="text-primary">LISTADO</small></li>
+							<?php if(isset($consultas)){ ?>
+							<?php foreach ($consultas as $con) { ?>
+								<li class="tile">
+								<a class="tile-content ink-reaction lista-consultas" idcons="<?php echo $con['ID'] ?>" espec="<?php echo $con['ESPEC']; ?>">
+									<div class="tile-text">
+										<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
+										<small>
+											<?php echo $con['MOTIVO']; ?>
+										</small>
+									</div>
+									<div class="tile-icon">
+										<span class="fa fa-stethoscope fa-2x"></span>
+									</div>
+								</a>
+							</li>
+							<?php } ?>
+							<?php } ?>
+						</ul>
+					</div><!--end .col -->
+					<!-- END CONTACTS NAV -->
+
+					<!-- BEGIN CONTACTS MAIN CONTENT -->
+					<div class="col-sm-7 col-md-8 col-lg-9">
+						<div class="margin-bottom-xxl">
+							<div class="pull-left width-3 clearfix hidden-xs">
+								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
+									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
+								<?php } else  {?>
+									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
+                          		<?php } ?> 
+							</div>
+							<?php if(!isset($paciente)){ ?>
+								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
+							<?php }else{ ?>
+							<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+							<?php } ?>
+							&nbsp;&nbsp;
+						</div><!--end .margin-bottom-xxl -->
+						<ul class="nav nav-tabs" data-toggle="tabs">
+							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
+							<li><a href="#notes">NOTAS</a></li>
+							<li><a href="#activity">ACTIVIDAD</a></li>
+						</ul>
+						<div class="tab-content">
+
+							<!-- BEGIN CONTACTS NOTES -->
+							<div class="tab-pane" id="notes">
+								<br/>
+								<?php if(!isset($notas) || $notas == ''){ echo 'No hay Notas'; } else{ ?>
+									<?php foreach($notas as $n) { ?>
+									<div class="list-results list-results-underlined">
+											<div class="col-xs-12">
+												<p class="clearfix">
+													<span class="fa fa-fw fa-file fa-2x pull-left text-accent-dark"></span>
+													<span class="pull-left">
+														<span class="text-bold"><?php echo date_format($n['FECHA'],'Y-m-d'); ?></span><br/>
+													</span>
+												</p>
+												<div>
+													<em><?php echo $n['NOTAS']; ?></em>
+												</div>
+											</div><!--end .col -->
+									</div><!--end .list-results -->
+									<?php } ?>
+								<?php } ?>
+							</div><!--end #notes -->
+							<!-- END CONTACTS NOTES -->
+
+							<!-- BEGIN CONTACTS ACTIVITY -->
+							<div class="tab-pane" id="activity">
+								<form class="form" id="formFilter" accept-charset="utf-8" method="post">
+									<br/>
+									<div class="text-center">
+										<label class="checkbox-inline checkbox-styled checkbox-default">
+											<input type="checkbox" value="option1" checked><span>System alerts</span>
+										</label>
+										<label class="checkbox-inline checkbox-styled checkbox-primary">
+											<input type="checkbox" value="option2" checked><span>Social activity</span>
+										</label>
+										<label class="checkbox-inline checkbox-styled checkbox-default-dark">
+											<input type="checkbox" value="option3" checked><span>Event</span>
+										</label>
+									</div>
+									<br/>
+								</form>
+								<hr class="no-margin"/>
+								<ul class="timeline collapse-md">
+									<li class="timeline-inverted">
+										<div class="timeline-circ"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg" alt="" />
+													<span class="text-medium">Received a <a class="text-primary" href="../../../html/mail/inbox.html">message</a> from <span class="text-primary">Ann Lauren</span></span><br/>
+													<span class="opacity-50">
+														Saturday, Oktober 18, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="timeline-circ"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">User login at <span class="text-primary">8:15 pm</span></span><br/>
+													<span class="opacity-50">
+														Saturday, August 2, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="timeline-inverted">
+										<div class="timeline-circ style-default-dark"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-dark">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">Meeting in the <span class="text-primary">conference room</span></span><br/>
+													<span class="opacity-50">
+														Saturday, Juli 29, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="timeline-circ circ-xl style-accent"><span class="glyphicon glyphicon-upload"></span></div>
+										<div class="timeline-entry">
+											<div class="card style-primary">
+												<div class="card-body small-padding">
+													<p><img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar5.jpg" alt="" />
+													<span class="text-medium">Contacted <a class="text-primary-dark" href="../../../html/mail/inbox.html">Mabel Logan</a></span><br/>
+													<span class="opacity-50">
+														Saturday, Juli 23, 2014
+													</span>
+												</p>
+												<em>
+													Can you send me the latest updates? Then I can see the new colors for the themes.
+												</em>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="timeline-inverted">
+										<div class="timeline-circ circ-lg"><span class="glyphicon glyphicon-plus-sign"></span></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
+													<span class="text-medium">User registered on website</span><br/>
+													<span class="opacity-50">
+														Saturday, March 2, 2014
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul><!--end .timeline -->
+							</div><!--end #activity -->
+							<!-- END CONTACTS ACTIVITY -->
+
+							<!-- BEGIN VERCONSULTA DETAILS -->
+							<div class="tab-pane active" id="verconsulta">
+								<br>
+								<div class="row">
+									<div class="col-md-12">
+										<?php if(!isset($paciente)){ ?>
+										<h3>Busque paciente</h3>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<h1></h1>
+										<div class="card">
+											
+											
+										</div>
+									</div>
+								</div>
+							</div><!--end #details -->
+							<!-- END VERCONSULTA DETAILS -->
+						</div><!--end .tab-content -->
+					</div><!--end .col -->
+					<!-- END CONTACTS MAIN CONTENT -->
+				</div><!--end .row -->
+			</div><!--end .hbox-column -->
+		</div><!--end .hbox-md -->
+	</div><!--end .card-tiles -->
+	<!-- END CONTACTS DETAILS -->
+	<div class="offcanvas backdrop">
+		<!-- BEGIN CONTACTS COMMON DETAILS -->
+		<div id="datosgenerales" class="offcanvas-pane width-8">
+			<div class="offcanvas-head">
+                <header class="text-primary">Información del Paciente</header>
+                <div class="offcanvas-tools">
+                    <a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
+                        <i class="md md-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="offcanvas-body no-padding">
+				<div class="hbox-column col-md-12 style-default-light">
+					<div class="row">
+						<div class="col-xs-12">
+							<h4>Datos Personales</h4>
+							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
+							<dl class="dl-horizontal dl-icon">
+								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Años</span><br/>
+									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Dirección</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;<?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
+									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
+									<span class="text-medium"><span class="opacity-50">C.P. </span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Tipo Sanguíneo</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?></span>
+								</dd>
+							</dl><!--end .dl-horizontal -->
+							<?php } ?>
+							<br/>
+							<h4>Antecedentes</h4>
+							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
+							<dl class="dl-horizontal dl-icon">
+								<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Tabaquismo</span><br/>
+									<span class="text-medium">233-332-342</span> &nbsp;<span class="opacity-50">work</span><br/>
+									<span class="text-medium">766-766-4532</span> &nbsp;<span class="opacity-50">mobile</span>
+								</dd>
+								<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Toxicomanias</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Alcoholismo</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Aumento/Perdida de Peso</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Alergias</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Cirugias</span><br/>
+									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+								</dd>
+							</dl><!--end .dl-horizontal -->
+							<?php } ?>
+						</div><!--end .col -->
+					</div><!--end .row -->
+				</div><!--end .hbox-column -->
+			</div>
+		</div>
+		<!-- END CONTACTS COMMON DETAILS -->	
+	</div>
+</div>
+<form action='<?php echo $this->basePath()?>/consultas' method="post" name="fPac" id="fPac">
+	<input type="hidden" value="" id="pac" name="pac"/>
+</form>
+
+<form action='<?php echo $this->basePath()?>/consultas/nuevaconsulta' method="post" name="fCon" id="fCon">
+	<input type="hidden" value="" id="pacienteid" name="pacienteid"/>
+</form>
+
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/consultas.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script>
+	var _ruta = '<?php echo $this->basePath(); ?>';	
+
+	function nuevaConsulta(pac)
+	{
+       	document.getElementById('pacienteid').value = pac;
+        document.fCon.submit();
+    }
+
+    function listaConsultas()
+    {
+
+    }
+	
+</script>

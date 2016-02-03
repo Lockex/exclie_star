@@ -20,6 +20,7 @@
 		//this._iniciarAutocomplete();	
 		this._checkboxesInit();	
 		this._masksInit();	
+		this._modalCodigoInit();
 	};
 
 	// =========================================================================
@@ -110,6 +111,21 @@
 			return;
 		}
 		$(":input").inputmask();		
+	};
+
+	// =========================================================================
+	// FUNCION PARA MASCARAS DE LOS INPUT
+	// =========================================================================
+
+	p._modalCodigoInit = function () {
+		if (!$.isFunction($.fn.modal)) {
+			return;
+		}
+		
+		$('#bAceptar').on("click",function(){
+			$('#modalCodigo').modal('show');
+		});
+		
 	};
 
 	// =========================================================================
