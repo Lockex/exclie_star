@@ -20,336 +20,10 @@
 			<div class="hbox-column col-md-9">
 				<div class="row">
 
-					<!-- COMIENZA LISTADO CASOS -->
-					<div class="col-sm-5 col-md-4 col-lg-3" >
-						<div class="card tabs-left style-default-light scroll height-18">
-							<ul data-toggle="tabs" class="card-head nav nav-tabs">
-								<li class="active"><a href="#listaTiroides">Tiroides</a></li>
-								<li class=""><a href="#listaSenos">Senos</a></li>
-								<li class=""><a href="#listaOvarios">Ovarios</a></li>
-								<li class=""><a href="#listaEndometriosis">Endometriosis</a></li>
-								<li class=""><a href="#listaLiquido">Liquido Libre</a></li>
-								<li class=""><a href="#listaMioma">Miomas</a></li>
-								<li class=""><a href="#listaPolipos">Polipos</a></li>
-								<li class=""><a href="#listaHematometria">Hematometria</a></li>
-								<li class=""><a href="#listaHiperplasia">Hiperplasia</a></li>
-							</ul>
-							<div class="card-body tab-content style-default-bright">
-								<div id="listaTiroides" class="tab-pane active">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipotiroides('normal');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="" >
-											<p>Tiroides Normal</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipotiroides('ganglio');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Tiroides Ganglio</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipotiroides('dolor');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Tiroides Dolor</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipotiroides('nodulo');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Tiroides Nodulo</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipotiroides('quiste');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Tiroides Quiste</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaSenos" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoSenos('normal');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Senos Normal</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('quiste');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Quiste</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('zona-dura');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Zona Dura</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('dolor');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Dolor</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('ganglio');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Ganglio</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('multiples-quistes');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Multiples Quistes</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('izq-operado');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Seno Izq. Operado Cancer</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('der-operado');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Seno Der. Operado Cancer</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('protesis');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Prótesis</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('ambos-operados');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos operados Cancer (Ambos)</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('der-secrecion');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Seno Der. Salida Secrecíon/Leche </p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('izq-secrecion');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Seno Izq. Salida Secreción/Leche </p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoSenos('ambos-secrecion');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Senos Secreción/Leche (Ambos)</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaOvarios" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoOvary('normal');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Ovario Normal con Ovulación</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('sin-ovulacion');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario sin ovulación</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('menopausica');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Mujer Menopausica</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('solo-der');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Derecho (Solo)</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('solo-izq');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izquierdo (Solo)</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('no-ovarios');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>No Ovarios</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('poliq-tipo1');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sindrome Ovario Poliquístico Tipo I</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('poliq-tipo2');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sindrome Ovario Poliquístico Tipo II</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('poliq-tratamiento');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sindrome Ovario Poliquístico con tratamiento (mejoría)</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('quiste-simple');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Quiste simple</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-quistesimple');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Quiste simple</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-quistesimple');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Quiste simple</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-quistepapilas');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Quiste con papilas/increcencias</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-quistepapilas');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Quiste con papilas/increcencias</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-quistesolido');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Quiste Sólido</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-quisteliquido');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Quiste Sólido y líquido libre</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-quistesolido');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Quiste Sólido</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-quisteliquido');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Quiste Sólido y líquido libre</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-endometrioma');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Endometrioma</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-endometrioma');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Endometrioma</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('der-teratoma');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Der. Teratoma</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('izq-teratoma');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Izq. Teratoma</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('quiste-simplebilateral');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Quistes simple bilateral</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('quiste-papilasbilateral');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Quistes con papilas e increcencias bilateral</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('teratoma-bilateral');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Teratoma Bilateral</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('endometrioma-bilateral');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Endometrioma Bilateral</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('solo-der');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sólo Ovario Derecho</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('solo-izq');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sólo Ovario Izquierdo</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('no-ovarios');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>No Ovarios</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('liquido-libre');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Ovario Líquido libre</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoOvary('hiperestimulacion');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Sindrome Ovarica de Hiperestimulación</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaEndometriosis" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoCervix('grado1');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Endometriosis Grado I</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('grado2');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Endometriosis Grado II</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('grado3');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Endometriosis Grado III</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('grado4');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Endometriosis Grado IV</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('adenomiosis');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Adenomiosis</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('adeno-endo1');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Adenomiosis y Endometriosis Grado I</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('adeno-endo2');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Adenomiosis y Endometriosis Grado II</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('adeno-endo3');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Adenomiosis y Endometriosis Grado III</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoCervix('adeno-endo4');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
-											<p>Adenomiosis y Endometriosis Grado IV</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaLiquido" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoLiquido('libre');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Líquido libre</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaMioma" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoMioma('subseroso');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Mioma Subseroso</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoMioma('intramural');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Mioma Intramural</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoMioma('intra-subseroso');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Mioma Intracavitario Subseroso</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoMioma('multiples-elem');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Mioma de Múltiples elementos</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaPolipos" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoPolipo('unico');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Pólipo Único</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoPolipo('multiple');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Pólipo Múltiple</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaHematometria" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoHematometria('hema');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Hematometría</p>
-										</div><!--end .col -->
-										<div class="col-xs-12" onclick="tipoHematometria('diu');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>DIU IN SITU</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-								<div id="listaHiperplasia" class="tab-pane">
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12" onclick="tipoHiperplasia('hiper');">
-											<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
-											<p>Hiperplasia</p>
-										</div><!--end .col -->
-									</div>
-								</div>
-							</div><!--end .card-body -->
-						</div>
-					</div><!--end .col -->
-					<!-- TERMINA LISTADO CASOS -->
+					
 
 					<!-- BEGIN CONTACTS MAIN CONTENT -->
-					<div class="col-sm-7 col-md-8 col-lg-9">
+					<div class="col-sm-7 col-md-8 col-lg-9 col-sm-offset-4 col-md-offset-3">
 						<div class="margin-bottom-xxl">
 							
 							<?php if(!isset($paciente)){ ?>
@@ -363,6 +37,7 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#addconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
+							<li><a href="#recetas">RECETAS</a></li>
 						</ul>
 						<div class="tab-content">
 							<!-- COMIENZA NOTAS PACIENTE -->
@@ -376,21 +51,9 @@
 										<button type="button" class="btn btn-raised btn-primary pull-right" onclick="guardarNota()">Agregar</button>
 									</div>
 								</form>
-									<?php foreach($notas as $n) { ?>
-									<div class="list-results list-results-underlined">
-										<div class="col-xs-12">
-											<p class="clearfix">
-												<span class="fa fa-fw fa-file fa-2x pull-left text-accent-dark"></span>
-												<span class="pull-left">
-													<span class="text-bold text-accent"><?php echo date_format($n['FECHA'],'Y-m-d'); ?></span><br/>
-												</span>
-											</p>
-											<div>
-												<em><?php echo $n['NOTAS']; ?></em>
-											</div>
-										</div><!--end .col -->
-									</div><!--end .list-results -->
-									<?php } ?>
+									<div id="resultaNotas">
+									
+									</div>
 							</div><!--end #notes -->
 							<!-- TERMINA NOTAS PACIENTE -->
 
@@ -419,8 +82,13 @@
 											<div class="row">
 												<div class="col-sm-4">
 													<div class="form-group">
-														<input type="text" class="form-control" id="edad" name="edad">
-														<label for="edad">Edad</label>
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="edad" name="edad">
+																<label for="edad">Edad</label>
+															</div>
+															<span class="input-group-addon">años</span>
+														</div>
 													</div>
 													<div class="form-group">
 														<input type="text" class="form-control" id="ciclo" name="ciclo">
@@ -461,25 +129,45 @@
 												<div class="col-sm-3">
 													
 													<div class="form-group">
-														<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
-														<label for="tiroidestxt">Tiroides</label>
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
+																<label for="tiroidestxt">Tiroides</label>
+															</div>
+															<span class="input-group-addon">ml U/L</span>
+														</div>
 													</div>
 													<div class="form-group">
-														<input type="text" class="form-control" id="peso" name="peso">
-														<label for="peso">Peso</label>
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="peso" name="peso">
+																<label for="peso">Peso</label>
+																</div>
+															<span class="input-group-addon">Kg</span>
+														</div>
 													</div>
 													<div class="form-group">
-														<input type="text" class="form-control" id="presion" name="presion">
-														<label for="presion">Presión</label>
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="presion" name="presion">
+																<label for="presion">Presión</label>
+																</div>
+															<span class="input-group-addon">mmHg</span>
+														</div>
 													</div>
 												</div>
 											</div>
 											<hr>
 											<div class="row">
 												<div class="col-md-9">
-													<div class="card">
+													<div class="card" id="cardTiroides">
 														<div class="card-head style-primary-dark">
 															<header>Tiroides</header>
+															<div class="tools">
+																<div class="btn-group">
+																	<a class="btn btn-icon-toggle btn-refresh" onclick="quitarfotoT();"><i class="md md-refresh"></i></a>
+																</div>
+															</div>
 														</div>
 														<div class="card-body height-8" id="TiroidesImagen"></div>
 													</div>
@@ -497,14 +185,17 @@
 														</div>
 													</div>
 												</div>
-												
-												
 											</div>
 											<div class="row">
 												<div class="col-md-9">
-													<div class="card">
+													<div class="card" id="cardSenos">
 														<div class="card-head style-primary-dark">
 															<header>Senos</header>
+															<div class="tools">
+																<div class="btn-group">
+																	<a class="btn btn-icon-toggle btn-refresh" onclick="quitarfotoS();"><i class="md md-refresh"></i></a>
+																</div>
+															</div>
 														</div>
 														<div class="card-body height-8" id="SenosImagen"></div>
 													</div>
@@ -529,9 +220,14 @@
 											</div>
 											<div class="row">
 												<div class="col-md-9">
-													<div class="card">
+													<div class="card" id="cardCx">
 														<div class="card-head style-primary-dark">
 															<header>Cervix</header>
+															<div class="tools">
+																<div class="btn-group">
+																	<a class="btn btn-icon-toggle btn-refresh" onclick="quitarfotoCx();"><i class="md md-refresh"></i></a>
+																</div>
+															</div>
 														</div>
 														<div class="card-body height-8" id="CervixImagen">
 															
@@ -554,9 +250,14 @@
 											</div>
 											<div class="row">
 												<div class="col-md-9">
-													<div class="card">
+													<div class="card" id="cardO">
 														<div class="card-head style-primary-dark">
 															<header>Ovarios</header>
+															<div class="tools">
+																<div class="btn-group">
+																	<a class="btn btn-icon-toggle btn-refresh" onclick="quitarfotoO();"><i class="md md-refresh"></i></a>
+																</div>
+															</div>
 														</div>
 														<div class="card-body height-8" id="OvariosImagen">
 															
@@ -590,9 +291,14 @@
 											</div>
 											<div class="row">
 												<div class="col-md-9">
-													<div class="card">
+													<div class="card" id="cardCo">
 														<div class="card-head style-primary-dark">
 															<header>Cuello</header>
+															<div class="tools">
+																<div class="btn-group">
+																	<a class="btn btn-icon-toggle btn-refresh" onclick="quitarfotoCo();"><i class="md md-refresh"></i></a>
+																</div>
+															</div>
 														</div>
 														<div class="card-body height-8">
 															
@@ -630,10 +336,15 @@
 									</div><!--end .card -->
 									
 								</form>
-								
-								</div>
-							</div><!--end #details -->
+							</div><!--end #addconsulta -->
 							<!-- END ADDCONSULTA DETAILS -->
+
+							<!-- COMIENZA RECETAS -->
+							<div class="tab-pane" id="recetas">
+								<br>
+								<h1>Recetas</h1>
+							</div><!-- end #recetas -->
+							<!-- TERMINA RECETAS -->
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
@@ -654,7 +365,7 @@
                 </div>
             </div>
             <div class="offcanvas-body no-padding">
-				<div class="hbox-column col-md-12 style-default-light">
+				<div class="hbox-column col-md-12 style-default-bright">
 					<div class="row">
 						<div class="col-xs-12">
 							<h4>Datos Personales</h4>
@@ -739,13 +450,324 @@
 	</div>
 </div>
 
+<!-- COMIENZA LISTADO CASOS -->
+<div class="col-sm-5 col-md-3 col-lg-3" id="listaMeds">
+	<div class="card tabs-left style-default-light scroll height-18">
+		<ul data-toggle="tabs" class="card-head nav nav-tabs">
+			<li class="active"><a href="#listaTiroides">Tiroides</a></li>
+			<li class=""><a href="#listaSenos">Senos</a></li>
+			<li class=""><a href="#listaOvarios">Ovarios</a></li>
+			<li class=""><a href="#listaEndometriosis">Endometriosis</a></li>
+			<li class=""><a href="#listaLiquido">Liquido Libre</a></li>
+			<li class=""><a href="#listaMioma">Miomas</a></li>
+			<li class=""><a href="#listaPolipos">Polipos</a></li>
+			<li class=""><a href="#listaHematometria">Hematometria</a></li>
+			<li class=""><a href="#listaHiperplasia">Hiperplasia</a></li>
+		</ul>
+		<div class="card-body tab-content style-default-bright">
+			<div id="listaTiroides" class="tab-pane active">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipotiroides('normal');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/TiroidesNormal.png" alt="" >
+						<p>Tiroides Normal</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipotiroides('ganglio');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/TiroidesGanglio.png" alt="">
+						<p>Tiroides Ganglio</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipotiroides('dolor');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/TiroidesDolor.png" alt="">
+						<p>Tiroides Dolor</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipotiroides('nodulo');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/TiroidesNodulo.png" alt="">
+						<p>Tiroides Nodulo</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipotiroides('quiste');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/TiroidesQuiste.png" alt="">
+						<p>Tiroides Quiste</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaSenos" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoSenos('normal');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosNormal.png" alt="">
+						<p>Senos Normal</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('quiste');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosQuiste.png" alt="">
+						<p>Senos Quiste</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('zona-dura');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosZonaDura.png" alt="">
+						<p>Senos Zona Dura</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('dolor');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosDolor.png" alt="">
+						<p>Senos Dolor</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('ganglio');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosGanglio.png" alt="">
+						<p>Senos Ganglio</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('multiples-quistes');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosMultiplesQuistes.png" alt="">
+						<p>Senos Multiples Quistes</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('izq-operado');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senoIzqCancer.png" alt="">
+						<p>Seno Izq. Operado Cancer</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('der-operado');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senoDerCancer.png" alt="">
+						<p>Seno Der. Operado Cancer</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('protesis');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosProtesis.png" alt="">
+						<p>Senos Prótesis</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('ambos-operados');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosCancer2.png" alt="">
+						<p>Senos operados Cancer (Ambos)</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('der-secrecion');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosSecrecionDer.png" alt="">
+						<p>Seno Der. Salida Secrecíon/Leche </p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('izq-secrecion');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosSecrecionIzq.png" alt="">
+						<p>Seno Izq. Salida Secreción/Leche </p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoSenos('ambos-secrecion');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/senosSecrecion2.png" alt="">
+						<p>Senos Secreción/Leche (Ambos)</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaOvarios" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoOvary('normal');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosNormalConOvulacion.png" alt="">
+						<p>Ovario Normal con Ovulación</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('sin-ovulacion');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosSinOvulacion.png" alt="">
+						<p>Ovario sin ovulación</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('menopausica');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosMujerMenopausica.png" alt="">
+						<p>Ovario Mujer Menopausica</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('solo-der');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosSoloDer.png" alt="">
+						<p>Ovario Derecho (Solo)</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('solo-izq');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosSoloIzq.png" alt="">
+						<p>Ovario Izquierdo (Solo)</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('no-ovarios');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosNo.png" alt="">
+						<p>No Ovarios</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('poliq-tipo1');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosPoliq1.png" alt="">
+						<p>Sindrome Ovario Poliquístico Tipo I</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('poliq-tipo2');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosPoliq2.png" alt="">
+						<p>Sindrome Ovario Poliquístico Tipo II</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('poliq-tratamiento');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosPoliquisticoTratamiento.png" alt="">
+						<p>Sindrome Ovario Poliquístico con tratamiento (mejoría)</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-quistesimple');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteSimpleDer.png" alt="">
+						<p>Ovario Der. Quiste simple</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-quistesimple');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteSimpleIzq.png" alt="">
+						<p>Ovario Izq. Quiste simple</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-quistepapilas');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQiustePapilas.png" alt="">
+						<p>Ovario Der. Quiste con papilas/increcencias</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-quistepapilas');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQiustePapilasIzq.png" alt="">
+						<p>Ovario Izq. Quiste con papilas/increcencias</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-quistesolido');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteDerSolido.png" alt="">
+						<p>Ovario Der. Quiste Sólido</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-quisteliquido');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteDerSolidoLiquido.png" alt="">
+						<p>Ovario Der. Quiste Sólido y líquido libre</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-quistesolido');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteIzqSolido.png" alt="">
+						<p>Ovario Izq. Quiste Sólido</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-quisteliquido');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteIzqSolidoLiquido.png" alt="">
+						<p>Ovario Izq. Quiste Sólido y líquido libre</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-endometrioma');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosEndometriomaDer.png" alt="">
+						<p>Ovario Der. Endometrioma</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-endometrioma');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosEndometriomaIzq.png" alt="">
+						<p>Ovario Izq. Endometrioma</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('der-teratoma');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosTeratomaDer.png" alt="">
+						<p>Ovario Der. Teratoma</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('izq-teratoma');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosTeratomaIzq.png" alt="">
+						<p>Ovario Izq. Teratoma</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('quiste-simplebilateral');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosQuisteSimpleBilateral.png" alt="">
+						<p>Quistes simple bilateral</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('quiste-papilasbilateral');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosPapilasBilateral.png" alt="">
+						<p>Quistes con papilas e increcencias bilateral</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('teratoma-bilateral');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosTeratomaBilateral.png" alt="">
+						<p>Teratoma Bilateral</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('endometrioma-bilateral');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosEndometriomaBilateral.png" alt="">
+						<p>Endometrioma Bilateral</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('liquido-libre');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosLiquidolibre.png" alt="">
+						<p>Ovario Líquido libre</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoOvary('hiperestimulacion');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/ovariosHiperovulacion.png" alt="">
+						<p>Sindrome Ovarica de Hiperestimulación</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaEndometriosis" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoCervix('grado1');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Endometriosis Grado I</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('grado2');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Endometriosis Grado II</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('grado3');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Endometriosis Grado III</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('grado4');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Endometriosis Grado IV</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('adenomiosis');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Adenomiosis</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('adeno-endo1');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Adenomiosis y Endometriosis Grado I</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('adeno-endo2');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Adenomiosis y Endometriosis Grado II</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('adeno-endo3');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Adenomiosis y Endometriosis Grado III</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoCervix('adeno-endo4');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<p>Adenomiosis y Endometriosis Grado IV</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaLiquido" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoLiquido('libre');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Líquido libre</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaMioma" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoMioma('subseroso');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Mioma Subseroso</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoMioma('intramural');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Mioma Intramural</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoMioma('intra-subseroso');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Mioma Intracavitario Subseroso</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoMioma('multiples-elem');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Mioma de Múltiples elementos</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaPolipos" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoPolipo('unico');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Pólipo Único</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoPolipo('multiple');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Pólipo Múltiple</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaHematometria" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoHematometria('hema');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Hematometría</p>
+					</div><!--end .col -->
+					<div class="col-xs-12" onclick="tipoHematometria('diu');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>DIU IN SITU</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+			<div id="listaHiperplasia" class="tab-pane">
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12" onclick="tipoHiperplasia('hiper');">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<p>Hiperplasia</p>
+					</div><!--end .col -->
+				</div>
+			</div>
+		</div><!--end .card-body -->
+	</div>
+</div><!--end .col -->
+<!-- TERMINA LISTADO CASOS -->
   
 
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-validation/dist/additional-methods.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/libs/toastr/toastr.min.js"></script>
+
 
 <script>
 
@@ -754,19 +776,20 @@
 		$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
     	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
     	fechaActual();
-    	
+    	mostrarNotas();
     
    	});
 	$('#fum').datepicker();
-	
 
-	function tipotiroides(tipo){
+
+	function tipotiroides(tipo)
+	{
 
 		document.getElementById("TiroidesImagen").innerHTML="";
 
 		if(tipo == 'normal'){
-			var imagen = 'img2.jpg';
-			$('#TiroidesImagen').append("<img src='<?php echo $this->basePath(); ?>/public/img/"+imagen+"' />");
+			var imagen = 'TN.jpg';
+			$('#TiroidesImagen').append("<img src='<?php echo $this->basePath(); ?>/public/imagenes/casos/"+imagen+"' />");
 			$('#TiroidesImagen').append('<input type="hidden" name="imgtiroides" value="'+imagen+'">');
 		}
 		if(tipo == 'ganglio'){
@@ -791,7 +814,8 @@
 		}
 	}
 
-	function tipoSenos(tipo){
+	function tipoSenos(tipo)
+	{
 
 		document.getElementById("SenosImagen").innerHTML="";
 
@@ -862,7 +886,8 @@
 		}
 	}
 
-	function tipoOvary(tipo){
+	function tipoOvary(tipo)
+	{
 
 		document.getElementById("OvariosImagen").innerHTML="";
 
@@ -907,11 +932,6 @@
 			$('#OvariosImagen').append('<input type="hidden" name="imgovarios" value="'+imagen+'">');
 		}
 		if(tipo == 'poliq-tratamiento'){
-			var imagen = 'img6.jpg';
-			$('#OvariosImagen').append("<img src='<?php echo $this->basePath(); ?>/public/img/"+imagen+"' />");
-			$('#OvariosImagen').append('<input type="hidden" name="imgovarios" value="'+imagen+'">');
-		}
-		if(tipo == 'quiste-simple'){
 			var imagen = 'img6.jpg';
 			$('#OvariosImagen').append("<img src='<?php echo $this->basePath(); ?>/public/img/"+imagen+"' />");
 			$('#OvariosImagen').append('<input type="hidden" name="imgovarios" value="'+imagen+'">');
@@ -1023,7 +1043,8 @@
 		}
 	}
 
-	function tipoLiquido(tipo){
+	function tipoLiquido(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'libre'){
@@ -1033,7 +1054,8 @@
 		}
 	}
 
-	function tipoCervix(tipo){
+	function tipoCervix(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'grado1'){
@@ -1083,7 +1105,8 @@
 		}
 	}
 
-	function tipoMioma(tipo){
+	function tipoMioma(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'subseroso'){
@@ -1108,7 +1131,8 @@
 		}
 	}
 
-	function tipoPolipo(tipo){
+	function tipoPolipo(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'unico'){
@@ -1123,7 +1147,8 @@
 		}
 	}
 
-	function tipoHematometria(tipo){
+	function tipoHematometria(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'hema'){
@@ -1138,7 +1163,8 @@
 		}
 	}
 
-	function tipoHiperplasia(tipo){
+	function tipoHiperplasia(tipo)
+	{
 		document.getElementById("CervixImagen").innerHTML="";
 
 		if(tipo == 'hiper'){
@@ -1147,11 +1173,10 @@
 			$('#CervixImagen').append("<img src='<?php echo $this->basePath(); ?>/public/img/"+imagen+"'/>");
 			$('#CervixImagen').append('<input type="hidden" name="imgcervix" value="'+imagen+'">');
 		}	
-		
-		
 	}
 
-	function getEdad(fechanac){
+	function getEdad(fechanac)
+	{
 		var hoy = new Date();
     	var fechaNacimiento = new Date(fechanac);
     	var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
@@ -1162,7 +1187,8 @@
     	return edad;
 	}
 
-	function fechaActual(){
+	function fechaActual()
+	{
 		var today = new Date();
 	    var dd = today.getDate();
 	    var mm = today.getMonth()+1; 
@@ -1179,7 +1205,8 @@
 	    $('#fechahoy').val(today);
 	}
 
-	function guardarconsulta(){
+	function guardarconsulta()
+	{
 		var formulario = $('#formConsul').serialize();
 		console.log(formulario);
 		$.ajax({
@@ -1197,7 +1224,8 @@
        });
 	}
 
-	function guardarNota(){
+	function guardarNota()
+	{
 		var nota = $('#recordar').val();
 		var data ={pac: <?php echo $paciente[0]['ID']; ?>,nota: nota};
 		
@@ -1207,8 +1235,9 @@
            data: data,
            dataType: "JSON",
            
-           success: function(data) {
-               $("#respuesta").fadeIn(5000);
+           success: function(response) {
+           		$('#recordar').val('');
+           		mostrarNotas();
            },
            error: function(){
                  alert('Inténtalo más tarde.');
@@ -1216,6 +1245,73 @@
        });
 	}
 
-	
+	function quitarfotoT()
+	{
+		var card = $('#cardTiroides');
+		materialadmin.AppCard.addCardLoader(card);
+		$("#TiroidesImagen img").remove();
+		setTimeout(function () {
+			materialadmin.AppCard.removeCardLoader(card);
+		}, 1500);
+	}
+
+	function quitarfotoS()
+	{
+		var card = $('#cardSenos');
+		materialadmin.AppCard.addCardLoader(card);
+		$("#SenosImagen img").remove();
+		setTimeout(function () {
+			materialadmin.AppCard.removeCardLoader(card);
+		}, 1500);
+	}
+
+	function quitarfotoO()
+	{
+		var card = $('#cardO');
+		materialadmin.AppCard.addCardLoader(card);
+		$("#OvariosImagen img").remove();
+		setTimeout(function () {
+			materialadmin.AppCard.removeCardLoader(card);
+		}, 1500);
+	}
+
+	function quitarfotoCx()
+	{
+		var card = $('#cardCx');
+		materialadmin.AppCard.addCardLoader(card);
+		$("#CervixImagen img").remove();
+		setTimeout(function () {
+			materialadmin.AppCard.removeCardLoader(card);
+		}, 1500);
+	}
+
+	function quitarfotoCo()
+	{
+		var card = $('#cardCo');
+		materialadmin.AppCard.addCardLoader(card);
+		$("#CuelloImagen img").remove();
+		setTimeout(function () {
+			materialadmin.AppCard.removeCardLoader(card);
+		}, 1500);
+	}
+
+	function mostrarNotas()
+	{
+		var data ={paciente: <?php echo $paciente[0]['ID']; ?>};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/listanotas",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#resultaNotas').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+	}
   
 </script>

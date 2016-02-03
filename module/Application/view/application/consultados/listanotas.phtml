@@ -1,0 +1,17 @@
+<?php if(!isset($notas)){echo 'No hay notas';}else{ ?>
+	<?php foreach($notas as $n) { ?>
+	<div class="list-results list-results-underlined">
+		<div class="col-xs-12">
+			<p class="clearfix">
+				<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
+				<span class="pull-left">
+					<span class="text-bold text-primary"><?php echo date_format($n['FECHA'],'Y-m-d'); ?></span><br/>
+				</span>
+			</p>
+			<div>
+				<em><?php echo $n['NOTAS']; ?></em>
+			</div>
+		</div><!--end .col -->
+	</div><!--end .list-results -->
+	<?php } ?>
+<?php } ?>

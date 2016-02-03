@@ -1,28 +1,35 @@
 
-#TiroidesImagen img{
+#TiroidesImagen img
+{
 	display: block;
 	width: 100%;
 	height: 100%;
-
 }
 
-#SenosImagen img{
+#SenosImagen img
+{
 	display: block;
 	width: 100%;
 	height: 100%;
-
 }
 
-#OvariosImagen img{
+#OvariosImagen img
+{
 	display: block;
 	width: 100%;
 	height: 100%;
-
 }
 
-#CervixImagen img{
+#CervixImagen img
+{
 	display: block;
 	width: 100%;
 	height: 100%;
+}
 
+#listaMeds
+{
+	position: fixed;
+	top: 10em;
+	left: 6em;
 }

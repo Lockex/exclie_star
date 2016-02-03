@@ -1,0 +1,20 @@
+<ul class="list divider-full-bleed">
+	<li><small class="text-primary">LISTADO</small></li>
+	<?php if(isset($consultas)){ ?>
+	<?php foreach ($consultas as $con) { ?>
+		<li class="tile">
+		<a class="tile-content ink-reaction">
+			<div class="tile-text">
+				<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
+				<small>
+					<?php echo $con['MOTIVO_CONS']; ?>
+				</small>
+			</div>
+			<div class="tile-icon">
+				<span class="fa fa-stethoscope fa-2x text-primary"></span>
+			</div>
+		</a>
+	</li>
+	<?php } ?>
+	<?php } ?>
+</ul>

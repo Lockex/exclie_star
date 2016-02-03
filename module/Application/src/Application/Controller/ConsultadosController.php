@@ -8,7 +8,7 @@ use Zend\View\Model\JsonModel;
 use DoctrineModule\StdLib\Hydrator\DoctrineObject;
 
 use Application\Entity\Pacientes;
-use Application\Entity\Consultas;
+use Application\Entity\Cgineco;
 use Application\Entity\Notaspaciente;
 
 class ConsultadosController extends AbstractActionController
@@ -22,13 +22,14 @@ class ConsultadosController extends AbstractActionController
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid");
-            $notas = $query2->getArrayResult();
+			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Cgineco c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+			$consultas = $query2->getArrayResult();
 
-            $query3 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
-            $consultas = $query3->getArrayResult();
+			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
+            $notas = $query3->getArrayResult();
 
-			$data = array('paciente'=>$paciente,'notas'=>$notas,'consultas'=>$consultas);
+			$data = array('paciente'=>$paciente,'consultas'=>$consultas,'notas'=>$notas);
+						
 		}else{
 
 			$data = array();
@@ -43,7 +44,7 @@ class ConsultadosController extends AbstractActionController
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $pacienteid");
+			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
             $notas = $query2->getArrayResult();
 
 			$data = array('paciente'=>$paciente,'notas'=>$notas);
@@ -127,6 +128,30 @@ class ConsultadosController extends AbstractActionController
 
         	return new JsonModel();
 		}
+	}
+
+	public function listanotasAction()
+	{
+		$this->layout('layout/vacio');
+		$objectManager = $this->getObjectManager();
+
+		$paciente = $this->request->getPost('paciente');
+		$query = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $paciente ORDER BY a.ID DESC");
+		$notas = $query->getArrayResult();
+
+		return new ViewModel(array('notas' => $notas));
+	}
+
+	public function verconsulta()
+	{
+		$this->layout('layout/vacio');
+		$objectManager = $this->getObjectManager();
+
+		$consulta = $this->request->getPost('id_consulta');
+		$query = $this->getObjectManager()->createQuery("");
+		consultas = $query->getArrayResult();
+
+		return new ViewModel();
 	}
 
 	

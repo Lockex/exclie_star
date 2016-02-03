@@ -44,7 +44,7 @@
 							<?php if(isset($consultas)){ ?>
 							<?php foreach ($consultas as $con) { ?>
 								<li class="tile">
-								<a class="tile-content ink-reaction">
+								<a class="tile-content ink-reaction" onclick="detalleConsulta(<?php echo $con['ID'];?>);">
 									<div class="tile-text">
 										<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
 										<small>
@@ -52,7 +52,7 @@
 										</small>
 									</div>
 									<div class="tile-icon">
-										<span class="fa fa-stethoscope fa-2x"></span>
+										<span class="fa fa-stethoscope fa-2x text-primary"></span>
 									</div>
 								</a>
 							</li>
@@ -94,7 +94,7 @@
 									<div class="list-results list-results-underlined">
 											<div class="col-xs-12">
 												<p class="clearfix">
-													<span class="fa fa-fw fa-file fa-2x pull-left text-accent-dark"></span>
+													<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
 													<span class="pull-left">
 														<span class="text-bold"><?php echo date_format($n['FECHA'],'Y-m-d'); ?></span><br/>
 													</span>
@@ -207,22 +207,18 @@
 							<!-- END CONTACTS ACTIVITY -->
 
 							<!-- BEGIN VERCONSULTA DETAILS -->
-							<div class="tab-pane active" id="verconsulta">
+							<div class="tab-pane active">
 								<br>
 								<div class="row">
 									<div class="col-md-12">
 										<?php if(!isset($paciente)){ ?>
-										<h3>Busque paciente</h3>
-										<?php } ?>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<h1></h1>
-										<div class="card">
-											
+										
+										<?php }else{ ?>
+
+										<div class="consultita">
 											
 										</div>
+										<?php } ?>
 									</div>
 								</div>
 							</div><!--end #details -->
@@ -264,7 +260,7 @@
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
 									<span class="opacity-50">Dirección</span><br/>
-									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;<?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;No. <?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
 									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
 									<span class="text-medium"><span class="opacity-50">C.P. </span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
 								</dd>
@@ -323,7 +319,7 @@
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
 </div>
-<form action='<?php echo $this->basePath()?>/consultados/consulta' method="post" name="fPac" id="fPac">
+<form action='<?php echo $this->basePath()?>/consultados' method="post" name="fPac" id="fPac">
 	<input type="hidden" value="" id="pac" name="pac"/>
 </form>
 
@@ -335,6 +331,7 @@
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
+
 	var ruta = '<?php echo $this->basePath(); ?>';	
 
 	function nuevaConsulta(pac)
@@ -343,9 +340,25 @@
         document.fCon.submit();
     }
 
-    function listaConsultas()
+    function detalleConsulta(id)
     {
+    	var id_consulta = id;
+
+    	$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/verconsulta",
+           data: id_consulta,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#consultita').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
 
     }
+    
 	
 </script>

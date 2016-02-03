@@ -33,17 +33,12 @@ class NotasController extends AbstractActionController
 
 			$objectManager->persist($recordatorio);
 			$objectManager->flush();
-
-			$query = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $pc");
-            $notas = $query->getArrayResult();
-          	
-          	
-		    $resultado = new JsonModel($notas);
-      		return $resultado;
-
-		}
-
+          	          	
+		    return new JsonModel();
+      	}
 	}
+
+	
 
 	/**
      * get entityManager

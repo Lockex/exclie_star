@@ -4,6 +4,7 @@
 	// Page Loaded...
 	$(document).ready(function () {
 
+		
 			
 		/*====== Buscador Pacientes =======*/
 		function split( val ) {
