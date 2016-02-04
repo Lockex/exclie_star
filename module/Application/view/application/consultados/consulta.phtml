@@ -41,14 +41,16 @@
 						<hr>
 						<ul class="list divider-full-bleed">
 							<li><small class="text-primary">LISTADO</small></li>
-							<?php if(isset($consultas)){ ?>
+							<?php if(!isset($consultas)){ ?>
+							<p>No hay consultas </p>
+							<?php } else{?>
 							<?php foreach ($consultas as $con) { ?>
 								<li class="tile">
 								<a class="tile-content ink-reaction" onclick="detalleConsulta(<?php echo $con['ID'];?>);">
 									<div class="tile-text">
 										<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
 										<small>
-											<?php echo $con['MOTIVO_CONS']; ?>
+											<?php echo $con['MOTIVO']; ?>
 										</small>
 									</div>
 									<div class="tile-icon">
@@ -82,7 +84,7 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#activity">ACTIVIDAD</a></li>
+							<li><a href="#historia">Historial</a></li>
 						</ul>
 						<div class="tab-content">
 
@@ -110,22 +112,8 @@
 							<!-- END CONTACTS NOTES -->
 
 							<!-- BEGIN CONTACTS ACTIVITY -->
-							<div class="tab-pane" id="activity">
-								<form class="form" id="formFilter" accept-charset="utf-8" method="post">
-									<br/>
-									<div class="text-center">
-										<label class="checkbox-inline checkbox-styled checkbox-default">
-											<input type="checkbox" value="option1" checked><span>System alerts</span>
-										</label>
-										<label class="checkbox-inline checkbox-styled checkbox-primary">
-											<input type="checkbox" value="option2" checked><span>Social activity</span>
-										</label>
-										<label class="checkbox-inline checkbox-styled checkbox-default-dark">
-											<input type="checkbox" value="option3" checked><span>Event</span>
-										</label>
-									</div>
-									<br/>
-								</form>
+							<div class="tab-pane" id="historia">
+								<br>
 								<hr class="no-margin"/>
 								<ul class="timeline collapse-md">
 									<li class="timeline-inverted">
@@ -207,7 +195,7 @@
 							<!-- END CONTACTS ACTIVITY -->
 
 							<!-- BEGIN VERCONSULTA DETAILS -->
-							<div class="tab-pane active">
+							<div class="tab-pane active" id="verconsulta">
 								<br>
 								<div class="row">
 									<div class="col-md-12">
@@ -215,10 +203,11 @@
 										
 										<?php }else{ ?>
 
-										<div class="consultita">
+										
+										<?php } ?>
+										<div id="consultita">
 											
 										</div>
-										<?php } ?>
 									</div>
 								</div>
 							</div><!--end #details -->
@@ -342,12 +331,11 @@
 
     function detalleConsulta(id)
     {
-    	var id_consulta = id;
-
+    	
     	$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/verconsulta",
-           data: id_consulta,
+           data: {id_consulta:id},
            dataType: "HTML",
            
            success: function(response) {

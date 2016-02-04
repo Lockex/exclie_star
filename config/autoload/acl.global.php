@@ -89,7 +89,10 @@ return array(
 				 'Application\Controller\Notas' => array(
 					'all' => 'Admin',					
 				),
-
+				 'Application\Controller\Captura' => array(
+                    'all'   => 'Invitado',
+                    
+                ),
 				'CsnUser\Controller\Index' => array(
 					'login' => 'Invitado',
 					'logout' => 'Recepción',

@@ -37,7 +37,7 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#addconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#recetas">RECETAS</a></li>
+							<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
 						</ul>
 						<div class="tab-content">
 							<!-- COMIENZA NOTAS PACIENTE -->
@@ -320,17 +320,23 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-md-6">
 													<div class="form-group">
 														<textarea name="plan" id="plan" class="form-control" rows="3" placeholder=""></textarea>
 														<label for="plan">Plan</label>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<textarea name="imgx" id="imgx" class="form-control" rows="3" placeholder=""></textarea>
+														<label for="plan">IMX</label>
 													</div>
 												</div>
 											</div>
 										</div><!--end .card-body -->
 										<div class="card-actionbar">
 											<div class="card-actionbar-row">
-												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()">Guardar</button>
+												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()" id="saveCons">Guardar</button>
 											</div>
 										</div>
 									</div><!--end .card -->
@@ -342,7 +348,9 @@
 							<!-- COMIENZA RECETAS -->
 							<div class="tab-pane" id="recetas">
 								<br>
-								<h1>Recetas</h1>
+								<div id="resultarecetas">
+									
+								</div>
 							</div><!-- end #recetas -->
 							<!-- TERMINA RECETAS -->
 						</div><!--end .tab-content -->
@@ -660,15 +668,15 @@
 			<div id="listaEndometriosis" class="tab-pane">
 				<div class="list-results list-results-underlined">
 					<div class="col-xs-12" onclick="tipoCervix('grado1');">
-						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img11.jpg" alt="">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/endometriosis1.png" alt="">
 						<p>Endometriosis Grado I</p>
 					</div><!--end .col -->
 					<div class="col-xs-12" onclick="tipoCervix('grado2');">
-						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/endometriosis2.png" alt="">
 						<p>Endometriosis Grado II</p>
 					</div><!--end .col -->
 					<div class="col-xs-12" onclick="tipoCervix('grado3');">
-						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/img/img12.jpg" alt="">
+						<img class="pull-left width-2" src="<?php echo $this->basePath() ?>/public/imagenes/casos/endometriosis3.png" alt="">
 						<p>Endometriosis Grado III</p>
 					</div><!--end .col -->
 					<div class="col-xs-12" onclick="tipoCervix('grado4');">
@@ -777,6 +785,8 @@
     	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
     	fechaActual();
     	mostrarNotas();
+    	$('#lirecetas').hide();
+    	
     
    	});
 	$('#fum').datepicker();
@@ -1215,8 +1225,11 @@
            data: formulario,
            dataType: "JSON",
            
-           success: function(data) {
-               toastr.success('Consulta Guardada')
+           success: function(response) {
+           		$('#saveCons').attr('disabled','disabled');
+           		$('#lirecetas').show();
+           		mostrarReceta(response.id);
+
            },
            error: function(){
                  alert('Inténtalo más tarde.');
@@ -1307,6 +1320,25 @@
            
            success: function(response) {
            		$('#resultaNotas').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+	}
+
+	function mostrarReceta(id)
+	{
+		var data ={consulta: id};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/receta",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#resultarecetas').html(response);
            },
            error: function(){
                  alert('Inténtalo más tarde.');

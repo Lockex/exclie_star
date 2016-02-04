@@ -10,6 +10,7 @@ use DoctrineModule\StdLib\Hydrator\DoctrineObject;
 use Application\Entity\Pacientes;
 use Application\Entity\Cgineco;
 use Application\Entity\Notaspaciente;
+use Application\Entity\Consultas;
 
 class ConsultadosController extends AbstractActionController
 {
@@ -22,8 +23,8 @@ class ConsultadosController extends AbstractActionController
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Cgineco c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
-			$consultas = $query2->getArrayResult();
+			 $query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+			 $consultas = $query2->getArrayResult();
 
 			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
             $notas = $query3->getArrayResult();
@@ -88,6 +89,7 @@ class ConsultadosController extends AbstractActionController
 			$imagen_ovarios  = $this->request->getPost('imgovarios');
 			$imagen_cuello 	 = $this->request->getPost('imgcuello');
 			$plan 	 		 = $this->request->getPost('plan');
+			$imgx 			 = $this->request->getPost('imgx');
 
 
 			/******* ---- Tratamiento de las Fechas ----  ******/
@@ -95,46 +97,58 @@ class ConsultadosController extends AbstractActionController
 			$fum2 = new \DateTime(date('Y-m-d',strtotime($fum)));
 			/******* ---- Tratamiento de las Fechas ----  ******/
 
-	        $consulta = new Consultas;
+	        $gine = new Cgineco;
 
-	       	$consulta->setMOTIVOCONS($motivo_consulta);
-	       	$consulta->setFECHACONS($fecha_hoy);
-	       	$consulta->setCICLO($ciclo);
-	       	$consulta->setFUM($fum2);
-	       	$consulta->setGESTAS($gestas);
-	       	$consulta->setPARTOS($partos);
-	       	$consulta->setABORTOS($abortos);
-	       	$consulta->setCESAREAS($cesarea);
-	       	$consulta->setTIROIDESNUM($tiroides_txt);
-	       	$consulta->setPESO($peso);
-	       	$consulta->setPRESION($presion);
-	       	$consulta->setTIROIDESDATOS($notas_tiroides);
-	       	$consulta->setSENOSTAMANO($tamanoq);
-	       	$consulta->setSENOSNUMERO($numeroq);
-	       	$consulta->setCERVIXDATOS($notas_cervix);
-	       	$consulta->setOVARIOSMEDIDA($medida_ovario);
-	       	$consulta->setOVARIOSCAPSULA($capsula_ovario);
-	       	$consulta->setCUELLODATOS($notas_cuello);
-	       	$consulta->setTIROIDESIMAGEN($imagen_tiroides);
-	       	$consulta->setSENOSIMAGEN($imagen_senos);
-	       	$consulta->setCERVIXIMAGEN($imagen_cervix);
-	       	$consulta->setOVARIOSIMAGEN($imagen_ovarios);
-	       	$consulta->setCUELLOIMAGEN($imagen_cuello);
-	       	$consulta->setPACIENTE($paciente);
-	       	$consulta->setPLAN($plan);
+	       	$gine->setMOTIVOCONS($motivo_consulta);
+	       	$gine->setFECHACONS($fecha_hoy);
+	       	$gine->setEDAD($edad);
+	       	$gine->setCICLO($ciclo);
+	       	$gine->setFUM($fum2);
+	       	$gine->setGESTAS($gestas);
+	       	$gine->setPARTOS($partos);
+	       	$gine->setABORTOS($abortos);
+	       	$gine->setCESAREAS($cesarea);
+	       	$gine->setTIROIDESNUM($tiroides_txt);
+	       	$gine->setPESO($peso);
+	       	$gine->setPRESION($presion);
+	       	$gine->setTIROIDESDATOS($notas_tiroides);
+	       	$gine->setSENOSTAMANO($tamanoq);
+	       	$gine->setSENOSNUMERO($numeroq);
+	       	$gine->setCERVIXDATOS($notas_cervix);
+	       	$gine->setOVARIOSMEDIDA($medida_ovario);
+	       	$gine->setOVARIOSCAPSULA($capsula_ovario);
+	       	$gine->setCUELLODATOS($notas_cuello);
+	       	$gine->setTIROIDESIMAGEN($imagen_tiroides);
+	       	$gine->setSENOSIMAGEN($imagen_senos);
+	       	$gine->setCERVIXIMAGEN($imagen_cervix);
+	       	$gine->setOVARIOSIMAGEN($imagen_ovarios);
+	       	$gine->setCUELLOIMAGEN($imagen_cuello);
+	       	$gine->setIMX($imgx);
+	       	$gine->setPLAN($plan);
 
-	       	$objectManager->persist($consulta);            
+	       	$objectManager->persist($gine);            
         	$objectManager->flush();
 
-        	return new JsonModel();
+        	$consulta = new Consultas;
+
+        	$consulta->setFECHACONS($fecha_hoy);
+        	$consulta->setPACIENTE($paciente);
+        	$consulta->setMEDICO($this->identity());
+        	$consulta->setCONSULTA($gine->getID());
+        	$consulta->setESPEC('Cgineco');
+        	$consulta->setMOTIVO($motivo_consulta);
+
+        	$objectManager->persist($consulta);            
+        	$objectManager->flush();
+
+        	return new JsonModel(array('id'=>$gine->getID()));
 		}
 	}
 
 	public function listanotasAction()
 	{
 		$this->layout('layout/vacio');
-		$objectManager = $this->getObjectManager();
-
+		
 		$paciente = $this->request->getPost('paciente');
 		$query = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $paciente ORDER BY a.ID DESC");
 		$notas = $query->getArrayResult();
@@ -142,16 +156,32 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel(array('notas' => $notas));
 	}
 
-	public function verconsulta()
+	public function verconsultaAction()
 	{
 		$this->layout('layout/vacio');
 		$objectManager = $this->getObjectManager();
 
-		$consulta = $this->request->getPost('id_consulta');
-		$query = $this->getObjectManager()->createQuery("");
-		consultas = $query->getArrayResult();
+		$idconsul = $this->request->getPost('id_consulta');
+		$query = $objectManager->createQuery("SELECT c FROM Application\Entity\Cgineco c WHERE c.ID = $idconsul");
+		$consultas = $query->getArrayResult();
 
-		return new ViewModel();
+		return new ViewModel(array('consulta'=>$consultas));
+	}
+
+	public function recetaAction()
+	{
+		$this->layout('layout/vacio');
+		$om = $this->getObjectManager();
+
+		if($this->request->isPost()){
+			$consulta = $this->request->getPost('consulta');
+			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $consulta");
+			$recetas = $query->getArrayResult();
+		}
+		
+		$data = array('recetas'=>$recetas);
+
+		return new ViewModel($data);
 	}
 
 	

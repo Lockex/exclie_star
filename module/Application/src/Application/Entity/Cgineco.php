@@ -12,6 +12,8 @@ class Cgineco {
     protected $FECHA_CONS;
     /** @ORM\Column(type="string") */
     protected $MOTIVO_CONS; 
+    /** @ORM\Column(type="string") */
+    protected $EDAD; 
     /** @ORM\Column(type="date",nullable=true) */
     protected $FUM;
     /** @ORM\Column(type="string",nullable=true) */
@@ -131,6 +133,30 @@ class Cgineco {
     public function setMOTIVOCONS($MOTIVO_CONS)
     {
         $this->MOTIVO_CONS = $MOTIVO_CONS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of EDAD.
+     *
+     * @return mixed
+     */
+    public function getEDAD()
+    {
+        return $this->EDAD;
+    }
+
+    /**
+     * Sets the value of EDAD.
+     *
+     * @param mixed $EDAD the 
+     *
+     * @return self
+     */
+    public function setEDAD($EDAD)
+    {
+        $this->EDAD = $EDAD;
 
         return $this;
     }
@@ -781,5 +807,5 @@ class Cgineco {
         $this->SENOSTAMANO = $SENOSTAMANO;
 
         return $this;
-    }
+    } 
 }

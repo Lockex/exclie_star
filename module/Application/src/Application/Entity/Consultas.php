@@ -164,4 +164,28 @@ class Consultas {
 
         return $this;
     }
+
+    /**
+     * Gets the value of FECHA_CONS.
+     *
+     * @return mixed
+     */
+    public function getFECHACONS()
+    {
+        return $this->FECHA_CONS;
+    }
+
+    /**
+     * Sets the value of FECHA_CONS.
+     *
+     * @param mixed $FECHA_CONS the 
+     *
+     * @return self
+     */
+    public function setFECHACONS($FECHA_CONS)
+    {
+        $this->FECHA_CONS = $FECHA_CONS;
+
+        return $this;
+    }
 }
