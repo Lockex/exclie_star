@@ -1,0 +1,59 @@
+<form class="form form-validate" id="formConsul" novalidate="novalidate">
+  <div class="card">
+    <input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+    <div class="card-body ">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" id="motivo" name="motivo">
+            <label for="Firstname2">Motivo Consulta</label>
+          </div>
+        </div>        
+      </div>
+      <div class="row">
+        <div id="inlineContent1" class="col-md-6" >
+          <h2 class="text-light">Subjetivo</h2>
+          <div id="subjetivo" class="editable" contenteditable="true" style="min-height:100px">
+            <p class="lead">
+            
+          </p>  
+          </div>          
+        </div><!--end .col -->
+        <div id="inlineContent1" class="col-md-6" >
+          <h2 class="text-light">Objetivo</h2>
+          <div id="objetivo" class="editable" contenteditable="true" style="min-height:100px">
+            <p class="lead">
+            
+          </p>  
+          </div>          
+        </div><!--end .col -->        
+      </div><!--end .row -->
+      <hr>
+      <div class="row">
+        <div id="inlineContent1" class="col-md-6" >
+          <h2 class="text-light">Análisis</h2>
+          <div id="analisis" class="editable" contenteditable="true" style="min-height:100px">
+            <p class="lead">
+            
+          </p>  
+          </div>          
+        </div><!--end .col -->
+        <div id="inlineContent1" class="col-md-6" >
+          <h2 class="text-light">Plan</h2>
+          <div id="plan" class="editable" contenteditable="true" style="min-height:100px">
+            <p class="lead">
+            
+          </p>  
+          </div>          
+        </div><!--end .col -->        
+      </div><!--end .row -->
+    <div class="card-actionbar">
+      <div class="card-actionbar-row">
+        <button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()">Guardar</button>
+      </div>
+    </div>
+    
+  </div><!--end .card -->
+  
+</form>
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/cbasica.js"></script>

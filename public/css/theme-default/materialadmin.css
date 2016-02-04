@@ -2271,12 +2271,11 @@ section.full-bleed {
 }
 .full-content .section-action {
   position: fixed;
-  z-index: 1001;
+  z-index: -1;
   bottom: 0;
   left: 64px;
   right: 0;
-  -webkit-box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.33);
-  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.33);
+  background: none !important;
 }
 .section-action-row {
   padding: 6px 16px;
@@ -2290,7 +2289,7 @@ section.full-bleed {
   top: -20px;
 }
 .section-floating-action-row .btn-lg {
-  top: -28px;
+  top: -28px;  
 }
 .section-floating-action-row .btn-sm {
   top: -18px;
@@ -2586,12 +2585,12 @@ select[multiple].input-group-sm > .input-group-addon {
 }
 .input-group-addon .btn-floating-action.btn-lg,
 .input-group-btn .btn-floating-action.btn-lg {
-  margin-top: -19px;
+  margin-top: -19px;  
 }
 .input-group-content {
   position: relative;
   display: table-cell;
-  vertical-align: bottom;
+  vertical-align: bottom;  
 }
 .input-group .form-control-static {
   display: table-cell;

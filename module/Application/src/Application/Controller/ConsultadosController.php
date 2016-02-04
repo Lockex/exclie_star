@@ -149,7 +149,7 @@ class ConsultadosController extends AbstractActionController
 
 		$consulta = $this->request->getPost('id_consulta');
 		$query = $this->getObjectManager()->createQuery("");
-		consultas = $query->getArrayResult();
+		$consultas = $query->getArrayResult();
 
 		return new ViewModel();
 	}

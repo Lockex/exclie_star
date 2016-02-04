@@ -567,9 +567,9 @@ class Pacientes {
 
         return $this;
     }
-    public function addANTECEDENTE(\Application\Entity\CIE10 $CIE10)
+    public function addANTECEDENTE(\Application\Entity\Antecedentes $ANTECEDENTE)
     {
-        $this->ANTECEDENTES[] = $CIE10;
+        $this->ANTECEDENTES[] = $ANTECEDENTE;
 
         return $this;
     }
