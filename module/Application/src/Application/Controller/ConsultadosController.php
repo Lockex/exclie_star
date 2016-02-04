@@ -161,12 +161,14 @@ class ConsultadosController extends AbstractActionController
 		$this->layout('layout/vacio');
 		$objectManager = $this->getObjectManager();
 
+
 		$idconsul = $this->request->getPost('id_consulta');
 		$query = $objectManager->createQuery("SELECT c FROM Application\Entity\Cgineco c WHERE c.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
 		return new ViewModel(array('consulta'=>$consultas));
 	}
+
 
 	public function recetaAction()
 	{

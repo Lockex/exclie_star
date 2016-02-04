@@ -109,8 +109,7 @@
 	// FUNCION PARA IR AL LAYOUT DE LA CONSULTA
 	// =========================================================================
 
-	p._verconsulta = function (espec,idcons) {
-		alert(idcons);
+	p._verconsulta = function (espec,idcons) {		
 		$.ajax({
 		    type: "GET",
 		    url: _ruta+"/consultas/verconsulta",
