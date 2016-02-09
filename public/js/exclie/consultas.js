@@ -20,6 +20,7 @@
 		//this._iniciarAutocomplete();	
 		this._buscadorInit();	
 		this._linksInit();
+		this._agregarconsultaInit();
 	};
 
 
@@ -94,6 +95,27 @@
 	};
 
 	// =========================================================================
+	// INICIALIZANDO FUNCION PARA AGREGAR UNA CONSULTA BASICA
+	// =========================================================================
+
+	p._agregarconsultaInit = function () {
+		$('#agregarConsulta').on('click',function() {
+			$.ajax({
+			    type: "GET",
+			    url: _ruta+"/consultas/nuevaconsulta",
+			    dataType: "html",
+			    success: function(data) {
+			        $('#verconsulta').html(data);
+			    },
+			    error: function(){
+			        alert('Ocurrió un error, inténtelo más tarde.');
+			    }
+			}); 
+
+		});
+	};
+
+	// =========================================================================
 	// FUNCION PARA ACTIVAR LOS LINKS DE LAS CONSULTAS
 	// =========================================================================
 
@@ -104,6 +126,7 @@
 			p._verconsulta(espec,idcons);
 		});
 	};
+
 
 	// =========================================================================
 	// FUNCION PARA IR AL LAYOUT DE LA CONSULTA

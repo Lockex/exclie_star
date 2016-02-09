@@ -50,6 +50,15 @@ class ConsultasController extends AbstractActionController
 		return $view;		
 	}
 
+	public function nuevaconsultaAction()
+	{
+		$om = $this->getObjectManager();
+		$this->layout('layout/vacio');
+		$view = new ViewModel();	
+		$view->setTemplate('layout/Cbasica.phtml');
+		return $view;	
+	}
+
 	/**
      * get entityManager
      *

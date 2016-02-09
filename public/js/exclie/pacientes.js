@@ -111,6 +111,7 @@
 			return;
 		}
 		$(":input").inputmask();		
+		$('#FECHA_NACIMIENTO').datepicker({autoclose: true, todayHighlight: true, format: "dd/mm/yyyy"});
 	};
 
 	// =========================================================================
