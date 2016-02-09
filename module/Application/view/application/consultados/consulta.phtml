@@ -267,37 +267,50 @@
 								<span class="text-medium style-warning">No hay usuario seleccionado</span>
 							<?php }else{ ?>
 							<dl class="dl-horizontal dl-icon">
-								<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
+								<?php if(isset($antecedentes[0]['TABAQUISMO'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/cigarrete.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Tabaquismo</span><br/>
-									<span class="text-medium">233-332-342</span> &nbsp;<span class="opacity-50">work</span><br/>
-									<span class="text-medium">766-766-4532</span> &nbsp;<span class="opacity-50">mobile</span>
+									<span class="text-medium"><?php echo $antecedentes[0]['TABAQUISMO']; ?></span><br/>
 								</dd>
-								<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['TOXICOMANIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/syringe.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Toxicomanias</span><br/>
-									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+									<span class="text-medium"><?php echo $antecedentes[0]['TOXICOMANIAS']; ?></span><br/>
 								</dd>
-								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['ALCOHOLISMO'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/wine.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Alcoholismo</span><br/>
-									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+									<span class="text-medium"><?php echo $antecedentes[0]['ALCOHOLISMO']; ?></span><br/>
 								</dd>
-								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['AUMENTO_PERDIDA'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/gainlossweight.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Aumento/Perdida de Peso</span><br/>
-									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+									<span class="text-medium"><?php if($antecedentes[0]['AUMENTO_PERDIDA'] == "1"){ echo 'Sí'; }else{?>
+									<?php echo 'No'; }?>
+									</span><br/>
 								</dd>
-								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['ALERGIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/allergies.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Alergias</span><br/>
-									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+									<span class="text-medium"><?php echo $antecedentes[0]['ALERGIAS']; ?></span><br/>
 								</dd>
-								<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['CIRUGIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/surgery.png" alt="" width="18px" height="18px"></span></dt>
 								<dd>
 									<span class="opacity-50">Cirugias</span><br/>
-									<a class="text-medium" href="../../../html/mail/compose.html">philip@Ericsson.com</a>
+									<span class="text-medium"><?php echo $antecedentes[0]['CIRUGIAS']; ?></span><br/>
 								</dd>
+								<?php } ?>
 							</dl><!--end .dl-horizontal -->
 							<?php } ?>
 						</div><!--end .col -->

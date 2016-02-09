@@ -1,3 +1,128 @@
 <div class="card">
-  receta
+<div class="card-head style-primary"></div>
+<div class="card-body">
+	<form class="form form-validate" id="formReceta" novalidate="novalidate">
+		<div class="row">
+			<div class="col-md-9"></div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<input type="text" class="form-control" id="fechahoy" name="fechahoy">
+					<label for="fechahoy">Fecha</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="text" class="form-control" id="medicamento" name="medicamento">
+					<label for="medicamento">Medicamento</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="text" class="form-control" id="presc" name="presc">
+					<label for="presc">Preinscripción</label>
+				</div>
+			</div>
+		</div>
+		<div style="float:right;margin-top:10px;">
+            <button type="button" class="btn btn-floating-action btn-primary" onclick="agregar();"><i class="fa fa-plus"></i></button>
+         </div>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped" id="table-med-receta"   method="post">
+	              <thead>
+	                <tr id="tr" name="tabla">
+	                  <th>Nombre/Sal</th>
+	                  <th>Preinscripción</th>
+	                </tr>
+	              </thead>
+	              <tbody class="medicam">
+	              </tbody>
+	            </table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="text" class="form-control" id="indicaciones" name="indicaciones">
+					<label for="indicaciones">Indicaciones Generales</label>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="card-actionbar">
+		<div class="card-actionbar-row">
+			<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarreceta()" id="saveReceta">Guardar</button>
+		</div>
+	</div>
 </div>
+	
+
+
+<script>
+	var contador = 0;
+	$(document).ready(function() {
+		fechaActual();
+    });
+
+	function fechaActual()
+	{
+		var today = new Date();
+	    var dd = today.getDate();
+	    var mm = today.getMonth()+1; 
+	    var yyyy = today.getFullYear();
+
+	    if(dd<10){
+	        dd='0'+dd
+	    } 
+	    if(mm<10){
+	        mm='0'+mm
+	    } 
+	    var today = dd+'-'+mm+'-'+yyyy;
+
+	    $('#fechahoy').val(today);
+	}
+
+	function agregar(){
+	  var med = document.getElementById("medicamento").value;
+	  var presc = document.getElementById("presc").value;
+	  contador++;
+
+	  if(med != "" ){
+	    
+	    var trparaborrar = contador;  
+	    $(".table tbody.medicam").append("<tr id='"+contador+"' class='trmedicamento'  >"+
+	           "<td id='tdMed'>"+med+"</td>"+
+	           "<td id='tdFrec'>"+presc+"</td>"+"<td><span class='glyphicon glyphicon-remove' onclick = 'myDeleteFunction(\""+trparaborrar+"\");' style='float:right;color:crimson'></span>"+"</td>"+
+	           "</tr>");
+	    var med = document.getElementById("medicamento").value = "";
+	    var presc = document.getElementById("presc").value = "";
+	  }
+	  else{ 
+	  	alert("Faltan campos de agregar");
+	  }
+	}
+
+	function myDeleteFunction(trborrar){
+	  $('#'+trborrar).remove();
+	}
+
+	function guardarreceta(){
+		  var medicamentos = {};
+		  var tractual = '';
+		  for(i=1; i<= document.getElementById("table-med-receta").rows.length-1; i++){
+		    tractual = cadena[1];
+		    medicamentos[i] = {};
+		    medicamentos[i]['FRECUENCIA'] = $(' #tdFrec').text();
+		    medicamentos[i]['MEDICAMENTO'] = '';
+		    if (tractual == 0){
+		      medicamentos[i]['MEDICAMENTO'] = $('#tdMed').text(); 
+		    }
+		  }
+		    medicamentos= JSON.stringify(medicamentos);
+		    var formReceta = $('#formReceta').serialize();
+			console.log("meds "+medicamnetos);
+			console.log("form "+formReceta);
+	}
+</script>

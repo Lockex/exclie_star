@@ -45,10 +45,19 @@
 		
 		wizard.find('.progress-bar').css({width: percent + '%'});
 		$('.form-wizard-horizontal').find('.progress').css({'width': percentWidth});
+
+		if(current >= total-1) {
+				$('.form-wizard-horizontal').find('.pager .next').hide();
+				$('.form-wizard-horizontal').find('.pager .finish').show();
+				$('.form-wizard-horizontal').find('.pager .finish').removeClass('disabled');
+		} else {
+				$('.form-wizard-horizontal').find('.pager .next').show();
+				$('.form-wizard-horizontal').find('.pager .finish').hide();
+		}
 	};
 	
 	// =========================================================================
-	// WIZARD 1
+	// WIZARD 2
 	// =========================================================================
 
 	p._initWizard2 = function() {
@@ -65,6 +74,7 @@
 	  				return false;
 	  			}
 	  		}
+	  		
 		});
 	};
 
@@ -79,6 +89,15 @@
 		
 		wizard.find('.progress-bar').css({width: percent + '%'});
 		$('.form-wizard-horizontal').find('.progress').css({'width': percentWidth});
+
+		if(current >= total-1) {
+				$('.form-wizard-horizontal').find('.pager .next').hide();
+				$('.form-wizard-horizontal').find('.pager .finish').show();
+				$('.form-wizard-horizontal').find('.pager .finish').removeClass('disabled');
+		} else {
+				$('.form-wizard-horizontal').find('.pager .next').show();
+				$('.form-wizard-horizontal').find('.pager .finish').hide();
+		}
 	};
 	
 	// =========================================================================

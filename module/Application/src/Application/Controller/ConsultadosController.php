@@ -23,13 +23,16 @@ class ConsultadosController extends AbstractActionController
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
-			 $query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
-			 $consultas = $query2->getArrayResult();
+			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+			$consultas = $query2->getArrayResult();
 
 			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
             $notas = $query3->getArrayResult();
 
-			$data = array('paciente'=>$paciente,'consultas'=>$consultas,'notas'=>$notas);
+            $query4 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
+            $antecedentes = $query4->getArrayResult();
+
+            $data = array('paciente'=>$paciente,'consultas'=>$consultas,'notas'=>$notas,'antecedentes'=>$antecedentes);
 						
 		}else{
 
@@ -48,7 +51,10 @@ class ConsultadosController extends AbstractActionController
 			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
             $notas = $query2->getArrayResult();
 
-			$data = array('paciente'=>$paciente,'notas'=>$notas);
+            $query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
+            $antecedentes = $query3->getArrayResult();
+
+			$data = array('paciente'=>$paciente,'notas'=>$notas,'antecedentes'=>$antecedentes);
 			
 		}else{
 
@@ -176,12 +182,12 @@ class ConsultadosController extends AbstractActionController
 		$om = $this->getObjectManager();
 
 		if($this->request->isPost()){
-			$consulta = $this->request->getPost('consulta');
-			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $consulta");
+			$id_consulta = $this->request->getPost('consulta');
+			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
 			$recetas = $query->getArrayResult();
 		}
 		
-		$data = array('recetas'=>$recetas);
+		$data = array('recetas'=>$recetas,'consulta'=>$id_consulta);
 
 		return new ViewModel($data);
 	}

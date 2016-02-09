@@ -9,6 +9,7 @@ use DoctrineModule\StdLib\Hydrator\DoctrineObject;
 
 use Application\Entity\Pacientes;
 use Application\Entity\Notaspaciente;
+use Application\Entity\Antecedentes;
 
 class ConsultasController extends AbstractActionController
 {
@@ -24,7 +25,8 @@ class ConsultasController extends AbstractActionController
 			$paciente = $om->createQuery('SELECT p FROM Application\Entity\Pacientes p WHERE p.ID =' . $idPaciente)->getArrayResult();
 			$consultas = $om->createQuery('SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE =' . $idPaciente)->getArrayResult();
 			$notas = $om->createQuery('SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE =' . $idPaciente)->getArrayResult();
-			$data = array('paciente' => $paciente, 'consultas' => $consultas, 'notas' => $notas);
+			$antecedentes = $om->createQuery('SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE =' . $idPaciente)->getArrayResult();
+			$data = array('paciente' => $paciente, 'consultas' => $consultas, 'notas' => $notas,'antecedentes',$antecedentes);
 		} else {
 			$data = array();
 		}
