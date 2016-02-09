@@ -92,7 +92,6 @@ class IndexController extends AbstractActionController {
 					$message = 'The username or email is not valid!';
 					return new ViewModel(array(
 						'error' => $this->getTranslatorHelper()->translate('Your authentication credentials are not valid'),
-						'form' => $form,
 						'messages' => $messages,
 						'navMenu' => $this->getOptions()->getNavMenu(),
 					));
@@ -141,7 +140,6 @@ class IndexController extends AbstractActionController {
 
 		return new ViewModel(array(
 			'error' => $this->getTranslatorHelper()->translate('Your authentication credentials are not valid'),
-			'form' => $form,
 			'messages' => $messages,
 			'navMenu' => $this->getOptions()->getNavMenu(),
 		));
