@@ -6,6 +6,7 @@
 		var o = this;
 		// Initialize app when document is ready
 		$(document).ready(function () {
+			$('#motivo').focus();
 			o.initialize();
 		});
 

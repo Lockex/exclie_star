@@ -20,7 +20,7 @@ var defaults = {
 	titleRangeSeparator: ' \u2014 ', // emphasized dash
 	monthYearFormat: 'MMMM YYYY', // required for en. other languages rely on datepicker computable option
 
-	defaultTimedEventDuration: '02:00:00',
+	defaultTimedEventDuration: '00:30:00',
 	defaultAllDayEventDuration: { days: 1 },
 	forceEventDuration: false,
 	nextDayThreshold: '09:00:00', // 9am
@@ -3622,6 +3622,7 @@ Grid.mixin({
 
 			if (dropLocation) { // element was dropped on a valid date/time cell
 				_this.view.reportExternalDrop(meta, dropLocation, el, ev, ui);
+				console.log(meta);
 			}
 		});
 
@@ -4063,7 +4064,7 @@ function getDraggedElMeta(el) {
 		else { // something like 1 or true. still signal event creation
 			eventProps = {};
 		}
-
+		console.log(eventProps);
 		// pluck special-cased date/time properties
 		startTime = eventProps.start;
 		if (startTime == null) { startTime = eventProps.time; } // accept 'time' as well
@@ -7084,7 +7085,7 @@ function Calendar(element, instanceOptions) {
 			end.stripTime().add(t.defaultAllDayEventDuration);
 		}
 		else {
-			end.add(t.defaultTimedEventDuration);
+			end.add(t.defaultTimedEventDuration);			
 		}
 
 		if (t.getIsAmbigTimezone()) {

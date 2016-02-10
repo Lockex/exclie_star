@@ -12,6 +12,14 @@ class Cbasica {
     protected $FECHA_CONS;
     /** @ORM\Column(type="string") */
     protected $MOTIVO_CONS; 
+    /** @ORM\Column(type="string",length=60000) */
+    protected $SUBJETIVO; 
+    /** @ORM\Column(type="string",length=60000) */
+    protected $OBJETIVO; 
+    /** @ORM\Column(type="string",length=60000) */
+    protected $ANALISIS;
+    /** @ORM\Column(type="string",length=60000) */
+    protected $PLAN;  
 
     /**
      * Gets the value of ID.
@@ -81,6 +89,102 @@ class Cbasica {
     public function setMOTIVOCONS($MOTIVO_CONS)
     {
         $this->MOTIVO_CONS = $MOTIVO_CONS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of SUBJETIVO.
+     *
+     * @return mixed
+     */
+    public function getSUBJETIVO()
+    {
+        return $this->SUBJETIVO;
+    }
+
+    /**
+     * Sets the value of SUBJETIVO.
+     *
+     * @param mixed $SUBJETIVO the 
+     *
+     * @return self
+     */
+    public function setSUBJETIVO($SUBJETIVO)
+    {
+        $this->SUBJETIVO = $SUBJETIVO;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of OBJETIVO.
+     *
+     * @return mixed
+     */
+    public function getOBJETIVO()
+    {
+        return $this->OBJETIVO;
+    }
+
+    /**
+     * Sets the value of OBJETIVO.
+     *
+     * @param mixed $OBJETIVO the 
+     *
+     * @return self
+     */
+    public function setOBJETIVO($OBJETIVO)
+    {
+        $this->OBJETIVO = $OBJETIVO;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of ANALISIS.
+     *
+     * @return mixed
+     */
+    public function getANALISIS()
+    {
+        return $this->ANALISIS;
+    }
+
+    /**
+     * Sets the value of ANALISIS.
+     *
+     * @param mixed $ANALISIS the 
+     *
+     * @return self
+     */
+    public function setANALISIS($ANALISIS)
+    {
+        $this->ANALISIS = $ANALISIS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of PLAN.
+     *
+     * @return mixed
+     */
+    public function getPLAN()
+    {
+        return $this->PLAN;
+    }
+
+    /**
+     * Sets the value of PLAN.
+     *
+     * @param mixed $PLAN the 
+     *
+     * @return self
+     */
+    public function setPLAN($PLAN)
+    {
+        $this->PLAN = $PLAN;
 
         return $this;
     }

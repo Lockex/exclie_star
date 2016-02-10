@@ -93,6 +93,10 @@ return array(
                     'all'   => 'Invitado',
                     
                 ),
+				 'Application\Controller\Agenda' => array(
+                    'all'   => 'Recepción',
+                    
+                ),
 				'CsnUser\Controller\Index' => array(
 					'login' => 'Invitado',
 					'logout' => 'Recepción',

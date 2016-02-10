@@ -88,6 +88,21 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'agenda' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/agenda[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Agenda',
+                        'action' => 'agenda',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'notas' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -178,6 +193,7 @@ return array(
             'Application\Controller\Consultas' => 'Application\Controller\ConsultasController',
             'Application\Controller\Notas' => 'Application\Controller\NotasController',
             'Application\Controller\Captura' => 'Application\Controller\CapturaController',
+            'Application\Controller\Agenda' => 'Application\Controller\AgendaController',
         ),
     ),
     'view_manager' => array(
