@@ -12,19 +12,33 @@
 						<div class="progress"><div class="progress-bar progress-bar-primary"></div></div>
 						<ul class="nav nav-justified">
 							<li class="active"><a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title">GENERAL</span></a></li>
-							<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span></a></li>
+							<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span>
 							<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ANTECEDENTES 2</span></a></li>
+							<li><a href="#tab4" data-toggle="tab"><span class="step">4</span> <span class="title">ANTECEDENTES 3</span>
+							</a></li>
 						</ul>
 					</div><!--end .form-wizard-nav -->
 					<div class="tab-content clearfix">
 						<div class="tab-pane active" id="tab1">
-							<div>
-								<label class="radio-inline radio-styled">
-									<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
-								</label>
-								<label class="radio-inline radio-styled">
-									<input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
-								</label>
+							<div class="row">
+								<div class="col-sm-6">
+									<label class="radio-inline radio-styled">
+										<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
+									</label>
+									<label class="radio-inline radio-styled">
+										<input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
+									</label>
+								</div>
+								<div class="col-sm-3"></div>
+								<div class="col-sm-3">
+									<div class="input-group date" id="demo-date-format">
+										<div class="input-group-content">
+											<input type="text" class="form-control" id="fecha-histo" name="fecha-histo">
+											<label>Fecha</label>
+										</div>
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									</div>
+								</div>
 							</div>
 							<br/>
 							<div class="row">						
@@ -49,16 +63,12 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-4">
-									<div class="form-group floating-label">
-										<div class="input-group">
-											<div class="input-group-content" id="demo-date-format">
-												<input type="text" class="form-control" id="fecha_nacimiento" name="FECHA_NACIMIENTO">
-												<label for="fecha_nacimiento">FECHA NACIMIENTO</label>
-											</div>
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<div class="form-group floating-label">
+											<input type="text" class="form-control input-lg" id="EDAD" name="EDAD">
+											<label for="edad">EDAD</label>
 										</div>
-									</div>
-								</div>						
+								</div>
+														
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
 										<select class="form-control input-lg" class="form-control input-lg" name="ESTADO" id="sEstados">
@@ -87,24 +97,25 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<div class="form-group floating-label">
 										<input type="text" class="form-control input-lg" name="CALLE" id="Lastname1">
 										<label for="Lastname1">CALLE</label>
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 									<div class="form-group floating-label">
 										<input type="text" class="form-control input-lg" name="NUM_EXT" id="Lastname1">
 										<label for="Lastname1">NUM EXT.</label>
 									</div>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-4">
 									<div class="form-group floating-label">
 										<input type="text" class="form-control input-lg" name="NUM_INT" id="Lastname1">
 										<label for="Lastname1">NUM INT.</label>
 									</div>
 								</div>
+
 							</div>
 							<div class="row">
 								<div class="col-sm-4">
@@ -129,22 +140,18 @@
 							<div class="row">						
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="OCUPACION" id="Lastname1">
-										<label for="Lastname1">OCUPACIÓN</label>
+										<input type="text" class="form-control input-lg" name="EMAIL" id="EMAIL">
+										<label for="EMAIL">CORREO ELECTRÓNICO</label>
 									</div>
 								</div>
-
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
-										<select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil">
-											<option value="1">Soltero(a)</option>
-											<option value="2">Casado(a)</option>
-											<option value="3">Viudo(a)</option>
-										</select class="form-control input-lg">
-										<label for="ESTADO_CIVIL">ESTADO CIVIL</label>
+										<input type="text" class="form-control input-lg" name="referido" id="referido">
+										<label for="EMAIL">RECOMENDADO POR</label>
 									</div>
 								</div>
-								
+							</div>
+							<div class="row">
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
 										<select class="form-control input-lg" class="form-control input-lg" name="TIPO_SANGUINEO" id="sTipoSanguineo">
@@ -160,37 +167,63 @@
 										</select class="form-control input-lg">
 										<label for="TIPO_SANGUINEO">TIPO DE SANGRE</label>
 									</div>
-								</div>						
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group floating-label">
+										<select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil" onchange="ocultarCoyuge();">
+											<option value="1">Soltero(a)</option>
+											<option value="2">Casado(a)</option>
+											<option value="3">Viudo(a)</option>
+										</select class="form-control input-lg">
+										<label for="ESTADO_CIVIL">ESTADO CIVIL</label>
+									</div>
+								</div>
+
+							</div>
+							<div class="row" id="conyuge">
+								<h3 class="text-primary">Datos del Conyuge</h3>
+								<div class="col-sm-4">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="NombreC" id="NombreC">
+										<label for="NombreC">Nombre</label>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="EdadC" id="EdadC">
+										<label for="EdadC">Edad</label>
+									</div>
+								</div>
+								<div class="col-sm-4"></div>
 							</div>																				
 						</div><!--end #tab1 -->
-
 						<!-- EMPIEZAN ANTECEDENTES -->
-						<div class="tab-pane" id="tab2">
+						<div class="tab-pane" id="tab3">
 							<h3>Por favor contesta lo siguiente:</h3>
 							<div class="row">
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divFuma">
-											<span style="font-size:18px">FUMAS?</span>
+											<span style="font-size:18px">FUMA?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divFuma">
 									<input type="text" id="verClase" class="form-control" name="TABAQUISMO">
-									<label>QUE TANTO FUMAS?</label>
+									<label>QUE TANTO FUMA?</label>
 								</div>
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divBebe">
-											<span style="font-size:18px">BEBES ALCOHOL?</span>
+											<span style="font-size:18px">BEBE ALCOHOL?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divBebe" >
 									<input type="text" class="form-control" name="ALCOHOLISMO">
-									<label>QUE TANTO BEBES ALCOHOL?</label>
+									<label>QUE TANTO ALCOHOL?</label>
 								</div>											
 							</div>
 							<div class="row">
@@ -198,19 +231,19 @@
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divDroga">
-											<span style="font-size:18px">USAS ALGUNA DROGA?</span>
+											<span style="font-size:18px">USA ALGUNA DROGA?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divDroga" >
 									<input type="text" class="form-control" name="TOXICOMANIAS">
-									<label>CUAL(es) DROGA(s) USAS?</label>
+									<label>CUAL(es) DROGA(s) USA?</label>
 								</div>
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divCirugia">
-											<span style="font-size:18px">HAS TENIDO CIRUGIAS?</span>
+											<span style="font-size:18px">HA TENIDO CIRUGIAS?</span>
 										</label>												
 									</div>		
 								</div>
@@ -224,19 +257,29 @@
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divAlergia">
-											<span style="font-size:18px">TIENES ALERGIAS?</span>
+											<span style="font-size:18px">TIENE ALERGIAS?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divAlergia" >
 									<input type="text" class="form-control" name="ALERGIAS">
 									<label>A QUÉ ERES ALÉRGICO?</label>
-								</div>											
+								</div>	
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="divtsangre">
+											<span style="font-size:18px">TRANSFUCIONES DE SANGRE?</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-4 hidden" id="divtsangre" >
+									<input type="text" class="form-control" name="divtsangre">
+									<label>CUÁNDO?</label>
+								</div>										
 							</div>	
-							
-			
 						</div><!--end #tab2 -->
-						<div class="tab-pane" id="tab3">
+						<!-- <div class="tab-pane" id="tab3">
 							<h3>Alguno de tus parientes ha padecido de:</h3>
 							<div class="row">
 								<div class="form-group col-sm-2">
@@ -381,8 +424,328 @@
 									<label>QUIEN PACEDE CARDIACAS?</label>
 								</div>											
 							</div>	
+						</div> --><!--end #tab3 -->			
+						<div class="tab-pane" id="tab4">
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="adisme">
+											<span style="font-size:18px">DISMENORREA</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="adisme">
+									<input type="text" class="form-control input-lg" name="DISMENORREA" id="DISMENORREA">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="aflu">
+											<span style="font-size:18px">FLUJO</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="aflu" >
+									<input type="text" class="form-control input-lg" name="FLUJO" id="FLUJO">
+								</div>											
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="asistU">
+											<span style="font-size:18px">SISTEMA URINARIO</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="asistU">
+									<input type="text" class="form-control input-lg" name="sistUri" id="sistUri">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="sistDige">
+											<span style="font-size:18px">SISTEMA DIGESTIVO</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="sistDige">
+									<input type="text" class="form-control input-lg" name="sistDige" id="sistDige">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="aAntico">
+											<span style="font-size:18px">ANTICONCEPTIVO</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="aAntico">
+									<input type="text" class="form-control input-lg" name="aAntico" id="aAntico">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="apapani">
+											<span style="font-size:18px">PAP</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="apapani">
+									<input type="text" class="form-control input-lg" name="apapani" id="apapani">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="agalacto">
+											<span style="font-size:18px">GALACTORREA</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="agalacto">
+									<input type="text" class="form-control input-lg" name="agalacto" id="agalacto">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="ahirsu">
+											<span style="font-size:18px">HIRSUTISMO</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="ahirsu">
+									<input type="text" class="form-control input-lg" name="ahirsu" id="ahirsu">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="acohham">
+											<span style="font-size:18px">COH-HAM</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="acohham">
+									<select name="acohham" id="acohham" class="form-control">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6+">6 ó más</option>
+									</select>
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="ahsg">
+											<span style="font-size:18px">HSG</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="ahsg">
+									<div>
+										<label for="acavidad">Cavidad</label>
+										<input type="text" class="form-control input-lg" name="acavidad" id="acavidad"><br>
+									</div>
+									<div>
+										<label for="aD">+D</label>
+										<input type="text" class="form-control input-lg" name="aD" id="aD"><br>
+									</div>
+									<div>
+										<label for="aI">+I</label>
+										<input type="text" class="form-control input-lg" name="aI" id="aI">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="aespermo">
+											<span style="font-size:18px">ESPERMOGRAMA</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-10 hidden" id="aespermo">
+									<div class="form-group col-sm-3">
+										<div>
+											<label for="efecha">Fecha</label>
+											<input type="text" class="form-control input-lg" name="efecha" id="efecha"><br>
+										</div>
+										<div>
+											<label for="ecuenta">Motivilidad</label>
+											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+										</div>
+									</div>
+									<div class="form-group col-sm-3">
+										<div>
+											<label for="ecuenta">Cuenta</label>
+											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+										</div>
+										<div>
+											<label for="ecuenta">FN</label>
+											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+										</div>
+									</div>
+									<div class="form-group col-sm-3">
+										<div>
+											<label for="evolu">Volumen</label>
+											<input type="text" class="form-control input-lg" name="evolu" id="evolu"><br>
+										</div>
+										<div>
+											<label for="ecuenta">Cultivo</label>
+											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="alab">
+											<span style="font-size:18px">LABORATORIO</span>
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-sm-3 hidden" id="alab">
+									<input type="text" class="form-control input-lg" name="alab" id="alab">
+								</div>
+							</div>
+						</div><!--end #tab3 -->	
+						<div class="tab-pane" id="tab2">
+							<div class="row">
+								<div class="form-group col-md-12">
+									<input type="text" class="form-control input-lg" name="motivo">
+									<label for="motivo">PADECIMIENTO ACTUAL</label>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="amenarca">
+											<span style="font-size:18px">MENARCA</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="amenarca">
+									<input type="text" class="form-control input-lg" name="amenarca" id="amenarca">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="aivsa">
+											<span style="font-size:18px">IVSA</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="aivsa">
+									<input type="text" class="form-control input-lg" name="aivsa" id="aivsa">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<select id="ciclos" name="ciclos" class="form-control">
+											<option value="1">REGULAR</option>
+											<option value="2">IRREGULAR</option>
+										</select>
+										<label for="Lastname1">CICLOS</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="DURACION" id="DURACION">
+										<label for="Lastname1">DURACIÓN</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">FUM</label>
+									</div>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">G</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">P</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">A</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">C</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group floating-label">
+										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<label for="Lastname1">E</label>
+									</div>
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="hijoUno">
+											<span style="font-size:18px">PRIMER HIJO</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="hijoUno">
+									<input type="text" class="form-control input-lg" name="hijoUno" id="hijoUno">
+								</div>
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="hijoDos">
+											<span style="font-size:18px">SEGUNDO HIJO</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="hijoDos">
+									<input type="text" class="form-control input-lg" name="hijoDos" id="hijoDos">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-2">
+									<div>
+										<label class="checkbox checkbox-styled">
+											<input type="checkbox" divref="hijoTres">
+											<span style="font-size:18px">TERCER HIJO</span>
+										</label>												
+									</div>		
+								</div>
+								<div class="form-group col-sm-3 hidden" id="hijoTres">
+									<input type="text" class="form-control input-lg" name="hijoTres" id="hijoTres">
+								</div>
+							</div>
 						</div><!--end #tab3 -->			
-											
 					</div><!--end .tab-content -->
 
 					<ul class="pager wizard">									
@@ -472,6 +835,8 @@
 	<script>
 	$(document).ready(function() {
 		$('#capturando').hide();
+		$('#conyuge').hide();
+
 
 
 		$("#fecha_consulta").keyup(function () {
@@ -509,6 +874,13 @@
 
 	function nuevoExpediente(){
 		window.location.href = _ruta+'/captura';
+	}
+
+	function ocultarCoyuge () {
+		if($("#sEstadocivil").val() == 1)
+		$("#conyuge").hide();
+		else
+		$("#conyuge").show();	
 	}
 
 	</script>

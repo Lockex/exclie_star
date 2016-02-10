@@ -50,7 +50,7 @@
 		}
 
 		
-		$('#fecha_nacimiento').datepicker({autoclose: true, todayHighlight: false, format: "dd-mm-yyyy"});
+		$('#fecha-histo').datepicker({format: "dd-mm-yyyy", locale: 'es'});
 		
 	};
 	// =========================================================================

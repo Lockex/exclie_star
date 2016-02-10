@@ -6,7 +6,7 @@
 			<div class="col-md-9"></div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<input type="text" class="form-control" id="fechahoy" name="fechahoy">
+					<input type="text" class="form-control" id="fechahoy2" name="fechahoy2">
 					<label for="fechahoy">Fecha</label>
 				</div>
 			</div>
@@ -63,10 +63,10 @@
 <script>
 	var contador = 0;
 	$(document).ready(function() {
-		fechaActual();
+		fechaActual2();
     });
 
-	function fechaActual()
+	function fechaActual2()
 	{
 		var today = new Date();
 	    var dd = today.getDate();
@@ -81,7 +81,7 @@
 	    } 
 	    var today = dd+'-'+mm+'-'+yyyy;
 
-	    $('#fechahoy').val(today);
+	    $('#fechahoy2').val(today);
 	}
 
 	function agregar(){
