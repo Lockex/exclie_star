@@ -8479,7 +8479,7 @@ function EventManager(options) { // assumed to be a calendar
 	// Accepts an Event object, or a plain object with event-ish properties.
 	// NOTE: Will modify the given object.
 	function normalizeEventDateProps(props) {
-
+		console.log(props);
 		if (props.allDay == null) {
 			props.allDay = !(props.start.hasTime() || (props.end && props.end.hasTime()));
 		}

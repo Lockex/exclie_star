@@ -59,6 +59,24 @@ class ConsultasController extends AbstractActionController
 		return $view;	
 	}
 
+	public function guardarconsultaAction()
+	{
+		if($this->request->isPost()) {
+			$idPaciente = $this->request->getPost('idPaciente');
+			$paciente = $om->find('Application\Entity\Pacientes', $idPaciente);
+
+			$consultabasica = new Cbasica;
+			$consultabasica->setSubjetivo();
+			$consultabasica->setObjetivo();
+			$consultabasica->setAnalisis();
+			$consultabasica->setPlan();
+			$om->persist($consultabasica);	
+			$om->flush();
+		}
+		
+
+	}
+
 	/**
      * get entityManager
      *

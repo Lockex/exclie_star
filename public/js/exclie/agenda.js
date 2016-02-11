@@ -22,6 +22,7 @@
 		this._initEventslist();
 		this._initCalendar();
 		this._displayDate();
+		this._initBotones();
 	};
 
 	// =========================================================================
@@ -105,52 +106,116 @@
 			return;
 		}
 
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
+		var hoy = new Date();
+		var d = hoy.getDate();
+		var m = hoy.getMonth();
+		var y = hoy.getFullYear();
 
 		$('#calendar').fullCalendar({
 			height: 700,
 			header: false,
 			editable: true,
 			droppable: true,
-			drop: function (date, allDay) { // this function is called when something is dropped
-				// retrieve the dropped element's stored Event Object				
+			drop: function (date, allDay,view) { // this function is called when something is dropped
+				var fin = date;
+				if(view.intervalUnit == 'month') {
+					date.add(8,'h');
+				}
+				document.getElementById('agendaConsulta').reset();
+				var arreglo_fecha = date.format().split("T");
+				$('#cFecha').val(arreglo_fecha[0]);				
+				$("#start").val(date.format());
+				$("#end").val(fin.toISOString());
+				$("#desde").val(date.format("HH:mm"));
+				fin.add(30,'m');
+				$("#hasta").val(fin.format("HH:mm"));				
+				$('#modAgendarcon').modal('show');
+				$('#title').focus();				
+				// // retrieve the dropped element's stored Event Object				
 				var originalEventObject = $(this).data('eventObject');
 
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
+				// // we need to copy it, so that multiple events don't have a reference to the same object
+				$('#className').val(originalEventObject.className);
 
-				// assign it the date that was reported
-				copiedEventObject.start = date;
+				// // assign it the date that was reported
+				// copiedEventObject.start = date;
 							
-				//copiedEventObject.allDay = allDay;
-				copiedEventObject.className = originalEventObject.className;
-				//console.log(copiedEventObject);
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
+				// //copiedEventObject.allDay = allDay;
+				// copiedEventObject.className = originalEventObject.className;
+				// //console.log(copiedEventObject);
+				// // render the event on the calendar
+				// // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+				// $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 			},
-			events: [
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d + 1, 19, 0),
-					end: new Date(y, m, d + 1, 22, 30),
-					allDay: false
+			dayClick: function(date,jsEvent,view) {
+				var fin = date;
+				if(view.intervalUnit == 'month') {
+					date.add(8,'h');
 				}
-			],
+				document.getElementById('agendaConsulta').reset();
+				var arreglo_fecha = date.format().split("T");
+				$('#cFecha').val(arreglo_fecha[0]);
+				$('#modAgendarcon').modal('show');
+				$("#cInicio").val(date.format());
+				$("#cFin").val(fin.toISOString());
+				$("#desde").val(date.format("HH:mm"));
+				fin.add(30,'m');
+				$("#hasta").val(fin.format("HH:mm"));
+				$('#title').focus();
+			},
 			eventRender: function (event, element) {
 				element.find('#date-title').html(element.find('span.fc-event-title').text());
 			}
 		});
 	};
+
+	p.guardarCita = function(evento) {
+
+		var form = document.getElementById('agendaConsulta');
+
+		$.ajax({
+            type: "POST",
+            url: ruta+"/agenda/guardarcita",
+            data: $(form).serialize(),
+            dataType: "json",
+            success: function(data) {
+            	toastr.success('Evento guardado');
+               	$('#modAgendarcon').modal('hide');
+                $('#calendar').fullCalendar('renderEvent', data.evento, true);
+            },
+            error: function(){
+              	toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+            }
+	    });
+
+	}
+
+	p._initBotones = function() {
+		$('#btnGuardarcita').on('click', function() {
+			var evento = $('#cFecha').val();
+			var hInicio = $('#desde').val();
+			var hFin = $('#hasta').val();	
+			var fin = '';
+			var inicio = '';
+			if((hInicio > '06:59' && hInicio < '18:46') && (hFin > '07:14' && hFin < '19:01') && hInicio < hFin) {
+				fin = evento+"T"+hFin+':00';
+				inicio = evento+"T"+hInicio+':00';				
+				if(inicio < fin) {
+					$('#end').val(fin);
+					$('#start').val(inicio);
+					var pacientenr = $('#title').val();
+					$('#cPacientenr').val(pacientenr);					
+					var edad = $('#edad').val();					
+					p.guardarCita();					
+				} else {
+					toastr.error('La hora de inicio es mayor que la del final del evento. Es necesario tener una hora de inicio menor que la hora de finalización del evento.');
+				}
+			} else {
+				toastr.error('Fuera de Horario de labores. ' + hInicio + ' ' + hFin);	
+			}
+			
+		});
+	}
 
 	// =========================================================================
 	namespace.agenda = new agenda;
