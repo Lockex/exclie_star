@@ -135,7 +135,7 @@
       acceptedMimeTypes: null,
       autoProcessQueue: true,
       autoQueue: true,
-      addRemoveLinks: false,
+      addRemoveLinks: true,
       previewsContainer: null,
       capture: null,
       dictDefaultMessage: "Drop files here to upload",
@@ -263,7 +263,7 @@
             node.innerHTML = this.filesize(file.size);
           }
           if (this.options.addRemoveLinks) {
-            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"borrarImagen();\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
             file.previewElement.appendChild(file._removeLink);
           }
           removeFileEvent = (function(_this) {

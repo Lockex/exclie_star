@@ -55,6 +55,9 @@ class IndexController extends AbstractActionController {
 		if (!$user = $this->identity()) {
 			return $this->redirect()->toUrl('login');
 		}
+		if($user->getRole()->getId()==7){
+			return $this->redirect()->toRoute('captura');
+		}
 
 		return new ViewModel(array('navMenu' => $this->getOptions()->getNavMenu()));
 	}

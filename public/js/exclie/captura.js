@@ -51,6 +51,9 @@
 
 		
 		$('#fecha-histo').datepicker({format: "dd-mm-yyyy", locale: 'es'});
+		$('#FUM').datepicker({format: "dd-mm-yyyy"});
+		$('#efecha').datepicker({format: "dd-mm-yyyy"});
+		$('#fecha_consulta').datepicker({format: "dd-mm-yyyy"});
 		
 	};
 	// =========================================================================

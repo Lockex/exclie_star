@@ -10,6 +10,7 @@ use Application\Entity\Pacientes;
 use Application\Entity\Consultas;
 use Application\Entity\Antecedentes;
 use Application\Entity\Imagenesconsultas;
+use Application\Entity\Expescar;
 
 class CapturaController extends AbstractActionController
 {
@@ -17,7 +18,7 @@ class CapturaController extends AbstractActionController
 
 	public function indexAction()
   {
-		$this->layout('layout/invitado');
+		$this->layout('layout/captura');
     $om = $this->getObjectManager();
     $estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
     $municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
@@ -46,8 +47,9 @@ class CapturaController extends AbstractActionController
       $paciente->setTELEFONO2($this->request->getPost('TELEFONO2'));
       $paciente->setOCUPACION($this->request->getPost('OCUPACION'));
       $paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
+      $paciente->setEMAIL($this->request->getPost('EMAIL'));
+      $paciente->setREFERIDO($this->request->getPost('REFERIDO'));
       $paciente->setFECHAREGISTRO(new \DateTime());
-      $paciente->setFECHA_NACIMIENTO(new \DateTime(date('Y-m-d',strtotime($this->request->getPost('FECHA_NACIMIENTO')))));
       $paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos',$this->request->getPost('TIPO_SANGUINEO')));
 
        $om->persist($paciente);
@@ -70,15 +72,57 @@ class CapturaController extends AbstractActionController
 
        $om->persist($antecedentes);
        $om->flush();
-     
-       
+      
+      $historia = new Expescar();
+      $historia->setPADECIMIENTO($this->request->getPost('MOTIVO'));
+      $historia->setPRIMERHIJONOMBRE($this->request->getPost('hijoUnoNombre'));
+      $historia->setPRIMERHIJOEDAD($this->request->getPost('hijoUnoEdad'));
+      $historia->setSEGUNDOHIJONOMBRE($this->request->getPost('hijoDosNombre'));
+      $historia->setSEGUNDOHIJOEDAD($this->request->getPost('hijoDosEdad'));
+      $historia->setTERCERHIJONOMBRE($this->request->getPost('hijoTresNombre'));
+      $historia->setTERCERHIJOEDAD($this->request->getPost('hijoTresEdad'));
+      $historia->setMENARCA($this->request->getPost('amenarca'));
+      $historia->setIVSA($this->request->getPost('aivsa'));
+      $historia->setCICLOS($this->request->getPost('ciclos'));
+      $historia->setDURACION($this->request->getPost('DURACION'));
+      $historia->setFUM($this->request->getPost('FUM'));
+      $historia->setGESTAS($this->request->getPost('GESTAS'));
+      $historia->setPARTOS($this->request->getPost('PARTOS'));
+      $historia->setABOTOS($this->request->getPost('ABORTOS'));
+      $historia->setCESAREAS($this->request->getPost('CESAREAS'));
+      $historia->setECTOPICOS($this->request->getPost('ECTOPICOS'));
+      $historia->setDISMENORREA($this->request->getPost('DISMENORREA'));
+      $historia->setFLUJO($this->request->getPost('FLUJO'));
+      $historia->setSISTURINARIO($this->request->getPost('sistUri'));
+      $historia->setSISTDIGESTIVO($this->request->getPost('sistDige'));
+      $historia->setANTICONCEPTIVOS($this->request->getPost('aAntico'));
+      $historia->setPAP($this->request->getPost('apapani'));
+      $historia->setCOH($this->request->getPost('acohham'));
+      $historia->setGALACTORREA($this->request->getPost('agalacto'));
+      $historia->setHIRSUTISM($this->request->getPost('ahirsu'));
+      $historia->setHSGCAVIDAD($this->request->getPost('acavidad'));
+      $historia->setHSGD($this->request->getPost('aD'));
+      $historia->setHSGI($this->request->getPost('aI'));
+      $historia->setLABORATORIONOTAS($this->request->getPost('alab'));
+      $historia->setESPERMOFECHA($this->request->getPost('efecha'));
+      $historia->setESPERMOCUENTA($this->request->getPost('ecuenta'));
+      $historia->setESPERMOVOLUMEN($this->request->getPost('evolumen'));
+      $historia->setESPERMOMOTIVIDAD($this->request->getPost('emoti'));
+      $historia->setESPERMOFN($this->request->getPost('efn'));
+      $historia->setESPERMODNA($this->request->getPost('efragm'));
+      $historia->setESPERMOCULTIVO($this->request->getPost('ecultiv'));
+      $historia->setESPERMOAPP($this->request->getPost('eapp'));
+      $historia->setPACIENTE($paciente);
+      
+      $om->persist($historia);
+      $om->flush();
      
        $id = $paciente->getID();
        
 
       
     }
-    return new JsonModel(array('id'=>$id,'nombre'=>$paciente->getNOMBRE()));
+    return new JsonModel(array('id'=>$id,'nombre'=>$paciente->getNOMBRE(),'apellido'=>$paciente->getAPELLIDO_PATERNO()));
   }
 
   public function guardarimagenesconsAction()
@@ -97,7 +141,6 @@ class CapturaController extends AbstractActionController
 
        $imagenes->setIMAGEN($data['file']['name']);
        $imagenes->setPACIENTE($objectManager->find('Application\Entity\Pacientes',$data['idPaciente']));
-       //$imagenes->setFECHACONSULTA(new \DateTime(date(strtotime($data['fecha_consulta']),'Y-m-d'));
        $imagenes->setFECHACONSULTA(new \DateTime(date('Y-m-d',strtotime($fecha_consulta))));
 
        $ruta = getcwd().'/public/imagenes/consultas/'.$data['idPaciente'];
@@ -116,6 +159,9 @@ class CapturaController extends AbstractActionController
     return new JsonModel();
   }
 
+  public function eliminarFoto(){
+
+  }
    
 
 

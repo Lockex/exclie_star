@@ -80,6 +80,11 @@ class Pacientes {
     protected $AFILIACION;
     /** @ORM\Column(type="string", nullable=true) */
     protected $CLINICA;
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $NOMBRE_CONYUGE;
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $EDAD_CONYUGE;
+
 
     public function __construct()
     {        
@@ -1986,6 +1991,54 @@ class Pacientes {
     public function setSECUENCIAL($SECUENCIAL)
     {
         $this->SECUENCIAL = $SECUENCIAL;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of NOMBRE_CONYUGE.
+     *
+     * @return mixed
+     */
+    public function getNOMBRECONYUGE()
+    {
+        return $this->NOMBRE_CONYUGE;
+    }
+
+    /**
+     * Sets the value of NOMBRE_CONYUGE.
+     *
+     * @param mixed $NOMBRE_CONYUGE the 
+     *
+     * @return self
+     */
+    public function setNOMBRECONYUGE($NOMBRE_CONYUGE)
+    {
+        $this->NOMBRE_CONYUGE = $NOMBRE_CONYUGE;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of EDAD_CONYUGE.
+     *
+     * @return mixed
+     */
+    public function getEDADCONYUGE()
+    {
+        return $this->EDAD_CONYUGE;
+    }
+
+    /**
+     * Sets the value of EDAD_CONYUGE.
+     *
+     * @param mixed $EDAD_CONYUGE the 
+     *
+     * @return self
+     */
+    public function setEDADCONYUGE($EDAD_CONYUGE)
+    {
+        $this->EDAD_CONYUGE = $EDAD_CONYUGE;
 
         return $this;
     }

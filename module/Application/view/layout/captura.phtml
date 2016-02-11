@@ -51,7 +51,7 @@
 
 
     <!-- END JAVASCRIPT -->
-    <body class="menubar-hoverable header-fixed">
+    <body class="menubar-hoverable header-fixed full-content">
 
         <!-- BEGIN HEADER-->
         <header id="header" >
@@ -94,7 +94,7 @@
         <!-- END HEADER-->
 
         <!-- BEGIN BASE-->
-        <div id="base">
+        <div id="base" style="padding-left:0px">
 
             <!-- BEGIN OFFCANVAS LEFT -->
             <div class="offcanvas">
@@ -109,54 +109,7 @@
             </div><!--end #content-->
             <!-- END CONTENT -->
 
-            <!-- BEGIN MENUBAR-->
-            <div id="menubar" class="menubar-inverse">
-                <div class="menubar-fixed-panel">
-                    <div>
-                        <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="<?php echo $this->basePath() ?>">
-                            <span class="text-lg text-bold text-primary ">MATERIAL&nbsp;ADMIN</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="menubar-scroll-panel">
-
-                    <!-- BEGIN MAIN MENU -->
-                    <ul id="main-menu" class="gui-controls">
-
-                                              
-                        <!-- BEGIN CONSULTA -->
-                        <li>
-                            <a href="<?php echo $this->basePath() ?>/pacientes" >
-                                <span class="title">Paciente</span>
-                                <div class="gui-icon"><i class="fa fa-medkit"></i></div>
-                            </a>
-                        </li>
-                        <!-- END CONSULTA -->
-                        <!-- BEGIN PACIENTE -->
-                        <li>
-                            <a href="<?php echo $this->basePath() ?>/captura" >
-                                <span class="title">Captura</span>
-                                <div class="gui-icon"><i class="fa fa-user"></i></div>
-                            </a>
-                        </li>
-                        <!-- END PACIENTE -->
-                    </ul><!--end .main-menu -->
-                    <!-- END MAIN MENU -->
-
-                    <div class="menubar-foot-panel">
-                        <small class="no-linebreak hidden-folded">
-                            <span class="opacity-75">Copyright &copy; 2014</span> <strong>CodeCovers</strong>
-                        </small>
-                    </div>
-                </div><!--end .menubar-scroll-panel-->
-            </div><!--end #menubar-->
-            <!-- END MENUBAR -->
-
+           
             
 
         </div><!--end #base-->

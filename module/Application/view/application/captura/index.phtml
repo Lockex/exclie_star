@@ -33,7 +33,7 @@
 								<div class="col-sm-3">
 									<div class="input-group date" id="demo-date-format">
 										<div class="input-group-content">
-											<input type="text" class="form-control" id="fecha-histo" name="fecha-histo">
+											<input type="text" class="form-control" id="fecha-histo" name="fecha-histo" required>
 											<label>Fecha</label>
 										</div>
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -44,20 +44,20 @@
 							<div class="row">						
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="Lastname1" required data-rule-minlength="2">
-										<label for="Lastname1">APELLIDO PATERNO</label>
+										<input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="APELLIDO_PATERNO" required data-rule-minlength="3">
+										<label for="APELLIDO_PATERNO">APELLIDO PATERNO</label>
 									</div>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="Lastname1">
-										<label for="Lastname1">APELLIDO MATERNO</label>
+										<input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="APELLIDO_MATERNO">
+										<label for="APELLIDO_MATERNO">APELLIDO MATERNO</label>
 									</div>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" id="Firstname1" name="NOMBRE" required data-rule-minlength="2">
-										<label for="Firstname1">NOMBRE(s)</label>
+										<input type="text" class="form-control input-lg" id="NOMBRE" name="NOMBRE" required data-rule-minlength="3">
+										<label for="NOMBRE">NOMBRE(s)</label>
 									</div>
 								</div>
 							</div>
@@ -205,25 +205,25 @@
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divFuma">
-											<span style="font-size:18px">FUMA?</span>
+											<span style="font-size:18px">¿FUMA?</span>
 										</label>												
-									</div>		
+									</div>	
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divFuma">
 									<input type="text" id="verClase" class="form-control" name="TABAQUISMO">
-									<label>QUE TANTO FUMA?</label>
+									<label>¿QUÉ TANTO FUMA?</label>
 								</div>
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divBebe">
-											<span style="font-size:18px">BEBE ALCOHOL?</span>
+											<span style="font-size:18px">¿BEBE ALCOHOL?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divBebe" >
 									<input type="text" class="form-control" name="ALCOHOLISMO">
-									<label>QUE TANTO ALCOHOL?</label>
+									<label>¿QUÉ TANTO ALCOHOL?</label>
 								</div>											
 							</div>
 							<div class="row">
@@ -231,25 +231,25 @@
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divDroga">
-											<span style="font-size:18px">USA ALGUNA DROGA?</span>
+											<span style="font-size:18px">¿USA ALGUNA DROGA?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divDroga" >
 									<input type="text" class="form-control" name="TOXICOMANIAS">
-									<label>CUAL(es) DROGA(s) USA?</label>
+									<label>¿QUÉ DROGA(S) USA?</label>
 								</div>
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divCirugia">
-											<span style="font-size:18px">HA TENIDO CIRUGIAS?</span>
+											<span style="font-size:18px">¿HA TENIDO CIRUGÍAS?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divCirugia" >
 									<input type="text" class="form-control" name="CIRUGIAS">
-									<label>QUE CIRUGIAS?</label>
+									<label>¿QUÉ CIRUGIAS?</label>
 								</div>
 							</div>
 							<div class="row">
@@ -257,25 +257,25 @@
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divAlergia">
-											<span style="font-size:18px">TIENE ALERGIAS?</span>
+											<span style="font-size:18px">¿TIENE ALERGÍAS?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divAlergia" >
 									<input type="text" class="form-control" name="ALERGIAS">
-									<label>A QUÉ ERES ALÉRGICO?</label>
+									<label>¿A QUÉ ERES ALÉRGICO?</label>
 								</div>	
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
 											<input type="checkbox" divref="divtsangre">
-											<span style="font-size:18px">TRANSFUCIONES DE SANGRE?</span>
+											<span style="font-size:18px">¿TRANSFUCIONES DE SANGRE?</span>
 										</label>												
 									</div>		
 								</div>
 								<div class="form-group col-sm-4 hidden" id="divtsangre" >
 									<input type="text" class="form-control" name="divtsangre">
-									<label>CUÁNDO?</label>
+									<label>¿CUÁNDO?</label>
 								</div>										
 							</div>	
 						</div><!--end #tab2 -->
@@ -565,23 +565,28 @@
 								</div>
 							</div>
 							<div class="row">
+
 								<div class="form-group col-sm-2">
 									<div>
 										<label class="checkbox checkbox-styled">
-											<input type="checkbox" divref="aespermo">
+											<input type="checkbox" divref="divaespermo">
 											<span style="font-size:18px">ESPERMOGRAMA</span>
 										</label>
 									</div>
 								</div>
-								<div class="form-group col-sm-10 hidden" id="aespermo">
+								<div class="form-group col-sm-10 hidden" id="divaespermo">
 									<div class="form-group col-sm-3">
 										<div>
 											<label for="efecha">Fecha</label>
 											<input type="text" class="form-control input-lg" name="efecha" id="efecha"><br>
 										</div>
 										<div>
-											<label for="ecuenta">Motivilidad</label>
-											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+											<label for="emoti">Motivilidad</label>
+											<input type="text" class="form-control input-lg" name="emoti" id="emoti"><br>
+										</div>
+										<div>
+											<label for="ecultiv">Cultivo</label>
+											<input type="text" class="form-control input-lg" name="ecultiv" id="ecultiv"><br>
 										</div>
 									</div>
 									<div class="form-group col-sm-3">
@@ -590,18 +595,30 @@
 											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
 										</div>
 										<div>
-											<label for="ecuenta">FN</label>
-											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+											<label for="efn">FN</label>
+											<input type="text" class="form-control input-lg" name="efn" id="efn"><br>
+										</div>
+										<div>
+											<label for="eapp">APP</label>
+											<input type="text" class="form-control input-lg" name="eapp" id="eapp"><br>
 										</div>
 									</div>
 									<div class="form-group col-sm-3">
 										<div>
-											<label for="evolu">Volumen</label>
-											<input type="text" class="form-control input-lg" name="evolu" id="evolu"><br>
+											<br>
+											<select id="evolumen" name="evolumen" class="form-control">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<label for="evolumen">VOLUMEN</label>
 										</div>
 										<div>
-											<label for="ecuenta">Cultivo</label>
-											<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
+										<br>
+											<label for="efragm">Fragmentación DNA</label>
+											<input type="text" class="form-control input-lg" name="efragm" id="efragm"> 
 										</div>
 									</div>
 								</div>
@@ -623,8 +640,8 @@
 						<div class="tab-pane" id="tab2">
 							<div class="row">
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control input-lg" name="motivo">
-									<label for="motivo">PADECIMIENTO ACTUAL</label>
+									<input type="text" class="form-control input-lg" name="MOTIVO">
+									<label for="MOTIVO">PADECIMIENTO ACTUAL</label>
 								</div>	
 							</div>
 							<div class="row">
@@ -671,38 +688,38 @@
 									<div class="form-group floating-label">
 										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
 										<label for="Lastname1">FUM</label>
-									</div>
+									</div>	
 								</div>
 								<div class="col-md-2"></div>
 							</div>
 							<div class="row">
 								<div class="col-md-2">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<input type="text" class="form-control input-lg" name="GESTAS" id="GESTAS">
 										<label for="Lastname1">G</label>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<input type="text" class="form-control input-lg" name="PARTOS" id="PARTOS">
 										<label for="Lastname1">P</label>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<input type="text" class="form-control input-lg" name="ABORTOS" id="ABORTOS">
 										<label for="Lastname1">A</label>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<input type="text" class="form-control input-lg" name="CESAREAS" id="CESAREAS">
 										<label for="Lastname1">C</label>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group floating-label">
-										<input type="text" class="form-control input-lg" name="FUM" id="FUM">
+										<input type="text" class="form-control input-lg" name="ECTOPICOS" id="ECTOPICOS">
 										<label for="Lastname1">E</label>
 									</div>
 								</div>
@@ -718,7 +735,16 @@
 									</div>		
 								</div>
 								<div class="form-group col-sm-3 hidden" id="hijoUno">
-									<input type="text" class="form-control input-lg" name="hijoUno" id="hijoUno">
+									<div>
+										<div>
+											<label for="hijoUnoNombre">NOMBRE</label>
+											<input type="text" class="form-control input-lg" name="hijoUnoNombre" id="hijoUnoNombre"><br>
+										</div>	
+										<div>
+											<label for="hijoUnoEdad">EDAD</label>
+											<input type="text" class="form-control input-lg" name="hijoUnoEdad" id="hijoUnoEdad"><br>
+										</div>											
+									</div>
 								</div>
 								<div class="form-group col-sm-2">
 									<div>
@@ -729,7 +755,16 @@
 									</div>		
 								</div>
 								<div class="form-group col-sm-3 hidden" id="hijoDos">
-									<input type="text" class="form-control input-lg" name="hijoDos" id="hijoDos">
+									<div>
+										<div>
+											<label for="hijoDosNombre">NOMBRE</label>
+											<input type="text" class="form-control input-lg" name="hijoDosNombre" id="hijoDosNombre"><br>
+										</div>	
+										<div>
+											<label for="hijoDosEdad">EDAD</label>
+											<input type="text" class="form-control input-lg" name="hijoDosEdad" id="hijoDosEdad"><br>
+										</div>											
+									</div>
 								</div>
 							</div>
 							<div class="row">
@@ -742,7 +777,16 @@
 									</div>		
 								</div>
 								<div class="form-group col-sm-3 hidden" id="hijoTres">
-									<input type="text" class="form-control input-lg" name="hijoTres" id="hijoTres">
+									<div>
+										<div>
+											<label for="hijoTresNombre">NOMBRE</label>
+											<input type="text" class="form-control input-lg" name="hijoTresNombre" id="hijoTresNombre"><br>
+										</div>	
+										<div>
+											<label for="hijoTresEdad">EDAD</label>
+											<input type="text" class="form-control input-lg" name="hijoTresEdad" id="hijoTresEdad"><br>
+										</div>											
+									</div>
 								</div>
 							</div>
 						</div><!--end #tab3 -->			
@@ -771,7 +815,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="nombrePaciente" disabled="true">
+									    <p class="form-control-static" id="nombrePaciente"></p>
 										<label for="">Nombre del Paciente</label>
 									</div>
 								</div>
@@ -798,6 +842,7 @@
 									<div class="dz-message">
 										<h3>Agrega aquí las imagenes</h3>
 									</div>
+									
 								</form>
 							</div><!--end .card-body -->
 						</div><!--end .card -->
@@ -808,6 +853,24 @@
 						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="nuevoExpediente()" id="nuevoExp">Terminar</button>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="confirma" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Terminar con Expediente</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Estás Seguro, que ya terminaste con el expediente?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary btn-ok" id="eliminapacient">Aceptar</button>
 			</div>
 		</div>
 	</div>
@@ -836,6 +899,7 @@
 	$(document).ready(function() {
 		$('#capturando').hide();
 		$('#conyuge').hide();
+		
 
 
 
@@ -851,29 +915,37 @@
 	$('#rootwizard1 .finish').click(function() {
 			
 		var formulario = $('#formPac').serialize();
-		$.ajax({
-		    type: "POST",
-		    url: "<?php echo $this->basePath() ?>/captura/guardarpaciente",
-		    dataType: "json",
-		    data: formulario,
-		    success: function(respuesta) {
-		       $("#verpacientes").hide();
-		       $('#capturando').show();
-		       idPaciente = respuesta.id;
-		       nombrepac = respuesta.nombre;		       
-			   $('#idPaciente').val(idPaciente);
-			   $('#nombrePaciente').val(nombrepac);
-		    },
-		    error: function(){
-		          alert('Ocurrió un error, inténtelo más tarde.');
-		    }
-		});
+		
+			$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/captura/guardarpaciente",
+			    dataType: "json",
+			    data: formulario,
+			    success: function(respuesta) {
+			       $("#verpacientes").hide();
+			       $('#capturando').show();
+			       idPaciente = respuesta.id;
+			       nombrepac = respuesta.nombre+' '+respuesta.apellido;		       
+				   $('#idPaciente').val(idPaciente);
+				   $('#nombrePaciente').text(nombrepac);
+
+			    },
+			    error: function(){
+			          alert('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+		
 		
 		
 	});
 
 	function nuevoExpediente(){
-		window.location.href = _ruta+'/captura';
+		 $("#confirma").modal('show');
+		 $('#confirma').modal({ backdrop: 'static', keyboard: false })
+		 .one('click', '#nuevoExp', function (e) {
+		 	$("#confirma").modal('hide');
+		 	window.location.href = _ruta+'/captura';
+		});
 	}
 
 	function ocultarCoyuge () {

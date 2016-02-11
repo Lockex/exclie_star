@@ -46,8 +46,9 @@ return array(
 		 * -------------------
 		 */
 		'roles' => array(
-			'Invitado' => null,
+			'Invitado' => null,			
 			'Recepción' => 'Invitado',
+			'Capturista' => 'Recepción',
 			'Técnico' => 'Recepción',
 			'Médico' => 'Técnico',
 			'Administrativo' => 'Médico',
@@ -74,7 +75,9 @@ return array(
 					'registrationSuccess' => 'Invitado',
 					'registro' => 'Invitado',
 				),
-
+				'Application\Controller\Index' => array(
+					'all' => 'Invitado'
+				),
 				'Application\Controller\Pacientes' => array(
 					'all' => 'Invitado',					
 				),
@@ -137,10 +140,7 @@ return array(
 				'Zend' => array(
 					'uri' => 'Recepción',
 				),
-				'Application\Controller\Index' => array(
-					'index' => 'Invitado',
-					'login' => 'Invitado',
-				),
+				
 				// for CMS articles
 				'all' => array(
 					'view' => 'Invitado',
