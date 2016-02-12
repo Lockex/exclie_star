@@ -829,7 +829,7 @@
 						</form>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row">	
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-head style-primary">
@@ -903,7 +903,7 @@
 
 
 
-		$("#fecha_consulta").keyup(function () {
+		$("#fecha_consulta").on('change',function () {
 	        var valorfec = $('#fecha_consulta').val();
 	        $("#fecha_consulta2").val(valorfec);
     	

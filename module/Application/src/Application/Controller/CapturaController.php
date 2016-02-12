@@ -166,10 +166,10 @@ class CapturaController extends AbstractActionController
       $imagen = $this->request->getPost('archivo');
       $idPaciente = $this->request->getPost('id');
 
-      $query = $om->createQuery("SELECT ID FROM Application\Entity\Imagenesconsultas i WHERE i.IMAGEN = $imagen AND i.PACIENTE_id= $idPaciente");
+      $query = $om->createQuery("SELECT i.ID FROM Application\Entity\Imagenesconsultas i WHERE i.IMAGEN = '$imagen' AND i.PACIENTE = $idPaciente");
       $foto = $query->getArrayResult();
 
-      $quitar = $om->find('Application\Entity\Imagenesconsultas',$foto);
+      $quitar = $om->find('Application\Entity\Imagenesconsultas',$foto[0]['ID']);
 
         $om->remove($quitar);
         $om->flush();
