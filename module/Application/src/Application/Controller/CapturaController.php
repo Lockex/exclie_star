@@ -159,8 +159,27 @@ class CapturaController extends AbstractActionController
     return new JsonModel();
   }
 
-  public function eliminarFoto(){
+  public function eliminarFotoAction()
+  {
+    if($this->request->getPost()){
+      $om = $this->getObjectManager();
+      $imagen = $this->request->getPost('archivo');
+      $idPaciente = $this->request->getPost('id');
 
+      $query = $om->createQuery("SELECT ID FROM Application\Entity\Imagenesconsultas i WHERE i.IMAGEN = $imagen AND i.PACIENTE_id= $idPaciente");
+      $foto = $query->getArrayResult();
+
+      $quitar = $om->find('Application\Entity\Imagenesconsultas',$foto);
+
+        $om->remove($quitar);
+        $om->flush();
+
+        $ruta = getcwd().'/public/imagenes/consultas/'.$idPaciente.'/'.$imagen;
+      
+        unlink($ruta);
+
+      return new JsonModel();
+    }
   }
    
 
