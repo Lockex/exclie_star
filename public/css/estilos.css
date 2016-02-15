@@ -61,7 +61,16 @@
 	border-style: solid;
 	border-color: #0AA89E;
 	height: 80%;
-	width: 100%;
+
+	width: 98%;
 	cursor: crosshair;
+
 	
+	padding-top: 1px;
+
+	
+}
+#colores
+{
+	padding: 3px;
 }
