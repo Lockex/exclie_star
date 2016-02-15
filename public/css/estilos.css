@@ -60,5 +60,12 @@
 #test{
 	border-style: solid;
 	border-color: #0AA89E;
+	height: 80%;
+	width: 98%;
+	padding-top: 1px;
 	
+}
+#colores
+{
+	padding: 3px;
 }
