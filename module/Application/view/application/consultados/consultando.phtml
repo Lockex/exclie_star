@@ -24,13 +24,10 @@
 				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)"});'>Azul</a>
 			</div>
 		</div>
-		<canvas id="test" style="border: 1px solid red;" ></canvas>
-		<div class="links" style="margin-top: 5px;">
-			<strong>OPTIONES:</strong>
-			
-			<a href="#" onclick='$("#test").data("jqScribble").clear();'>Limpiar</a>
-			<!-- <a href="#" onclick='$("#test").data("jqScribble").save();'>Guardar</a> -->
-			<a href="#" onclick='save();'>Custom Save</a>
+		<canvas id="test"  ></canvas>
+		<div>	
+		<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
+		<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
 		</div>
 	</div><!--end .card-tiles -->
 	<!-- END CONTACTS DETAILS -->

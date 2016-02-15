@@ -34,10 +34,7 @@
 	left: 6em;
 }
 
-/*#esconsulta
-{
-	height: 600px;
-}*/
+
 
 .links a {
 				padding-left: 10px;
@@ -61,6 +58,7 @@
 				float: right;
 			}
 #test{
-	border-style: 1px;
+	border-style: solid;
 	border-color: #0AA89E;
+	
 }
