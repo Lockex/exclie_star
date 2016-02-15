@@ -146,14 +146,14 @@ class CapturaController extends AbstractActionController
        $ruta = getcwd().'/public/imagenes/consultas/'.$data['idPaciente'];
        if (!file_exists($ruta)) 
        {
-        mkdir($ruta);
+          mkdir($ruta);
        }
        $adapter = new \Zend\File\Transfer\Adapter\Http();
        $adapter->setDestination($ruta);
        if($adapter->receive($data['file']['name']))
        {
-        $objectManager->persist($imagenes);
-        $objectManager->flush();
+          $objectManager->persist($imagenes);
+          $objectManager->flush(); 
        }
     }
     return new JsonModel();

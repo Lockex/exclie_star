@@ -1,0 +1,183 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+<div class="card">
+
+	<!-- COMIENZA CABECERA  -->
+	<div class="card-head style-primary-dark">
+		<div class="tools">
+			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
+                <i class="fa fa-user"></i>
+            </a>
+		</div><!--end .tools -->
+	</div><!--end .card-head -->
+	<!-- TERMINA CABECERA -->
+	
+		<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+	
+	<!-- BEGIN CONTACT DETAILS -->
+	<div class="card-tiles">
+		<div style="overflow: hidden; margin-bottom: 5px;">
+			<div class="column-right links">
+				<strong>COLORES:</strong>
+				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,0)"});'>Negro</a>
+				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,0,0)"});'>Rojo</a>
+				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,255,0)"});'>Verde</a>
+				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)"});'>Azul</a>
+			</div>
+		</div>
+		<canvas id="test" style="border: 1px solid red;" ></canvas>
+		<div class="links" style="margin-top: 5px;">
+			<strong>OPTIONES:</strong>
+			
+			<a href="#" onclick='$("#test").data("jqScribble").clear();'>Limpiar</a>
+			<!-- <a href="#" onclick='$("#test").data("jqScribble").save();'>Guardar</a> -->
+			<a href="#" onclick='save();'>Custom Save</a>
+		</div>
+	</div><!--end .card-tiles -->
+	<!-- END CONTACTS DETAILS -->
+	<div id="responde"></div>
+	<div class="offcanvas backdrop">
+		<!-- BEGIN CONTACTS COMMON DETAILS -->
+		<div id="datosgenerales" class="offcanvas-pane width-8">
+			<div class="offcanvas-head">
+                <header class="text-primary">Información del Paciente</header>
+                <div class="offcanvas-tools">
+                    <a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
+                        <i class="md md-close"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="offcanvas-body no-padding">
+				<div class="hbox-column col-md-12 style-default-light">
+					<div class="row">
+						<div class="col-xs-12">
+							<h4>Datos Personales</h4>
+							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
+							<dl class="dl-horizontal dl-icon">
+								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Años</span><br/>
+									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Dirección</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;No. <?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
+									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
+									<span class="text-medium"><span class="opacity-50">C.P. </span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
+								</dd>
+								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
+								<dd>
+									<span class="opacity-50">Tipo Sanguíneo</span><br/>
+									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?></span>
+								</dd>
+							</dl><!--end .dl-horizontal -->
+							<?php } ?>
+							<br/>
+							<h4>Antecedentes</h4>
+							<br/>
+							<?php if(!isset($paciente)){ ?>
+								<span class="text-medium style-warning">No hay usuario seleccionado</span>
+							<?php }else{ ?>
+							<dl class="dl-horizontal dl-icon">
+								<?php if(isset($antecedentes[0]['TABAQUISMO'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/cigarrete.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Tabaquismo</span><br/>
+									<span class="text-medium"><?php echo $antecedentes[0]['TABAQUISMO']; ?></span><br/>
+								</dd>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['TOXICOMANIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/syringe.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Toxicomanias</span><br/>
+									<span class="text-medium"><?php echo $antecedentes[0]['TOXICOMANIAS']; ?></span><br/>
+								</dd>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['ALCOHOLISMO'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/wine.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Alcoholismo</span><br/>
+									<span class="text-medium"><?php echo $antecedentes[0]['ALCOHOLISMO']; ?></span><br/>
+								</dd>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['AUMENTO_PERDIDA'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/gainlossweight.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Aumento/Perdida de Peso</span><br/>
+									<span class="text-medium"><?php if($antecedentes[0]['AUMENTO_PERDIDA'] == "1"){ echo 'Sí'; }else{?>
+									<?php echo 'No'; }?>
+									</span><br/>
+								</dd>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['ALERGIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/allergies.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Alergias</span><br/>
+									<span class="text-medium"><?php echo $antecedentes[0]['ALERGIAS']; ?></span><br/>
+								</dd>
+								<?php } ?>
+								<?php if(isset($antecedentes[0]['CIRUGIAS'])){ ?>
+								<dt><span><img src="<?php echo $this->basePath();?>/public/img/surgery.png" alt="" width="18px" height="18px"></span></dt>
+								<dd>
+									<span class="opacity-50">Cirugias</span><br/>
+									<span class="text-medium"><?php echo $antecedentes[0]['CIRUGIAS']; ?></span><br/>
+								</dd>
+								<?php } ?>
+							</dl><!--end .dl-horizontal -->
+							<?php } ?>
+						</div><!--end .col -->
+					</div><!--end .row -->
+				</div><!--end .hbox-column -->
+			</div>
+		</div>
+		<!-- END CONTACTS COMMON DETAILS -->	
+	</div>
+</div>
+<script src="<?php echo $this->basePath() ?>/public/js/jquery-1.5.2.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/jquery.jqscribble.js" type="text/javascript"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/jqscribble.extrabrushes.js" type="text/javascript"></script>
+
+
+
+
+<script>
+
+	function save()
+		{
+			$("#test").data("jqScribble").save(function(imageData)
+			{
+			
+				// $.post('image_save.php', {imagedata: imageData}, function(response)
+				// {
+				// 	$('body').append(response);
+				// });	
+				var datos = {imagedata: imageData,idpaciente:<?php echo $paciente[0]['ID']; ?>};
+
+				$.ajax({
+				    type: "POST",
+				    url: "<?php echo $this->basePath() ?>/consultados/imagenconsulta",
+				    dataType: "json",
+				    data: datos,
+				    success: function(respuesta) {
+				       $('#responde').html(respuesta);
+
+				    },
+				    error: function(){
+				          alert('Ocurrió un error, inténtelo más tarde.');
+				    }
+				});
+		
+			});
+		}
+		
+		$(document).ready(function()
+		{
+			$("#test").jqScribble();
+		});
+
+	
+  
+</script>

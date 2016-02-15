@@ -63,6 +63,25 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel($data);
 	}
 
+	public function consultandoAction()
+	{
+		if($this->request->isPost()){
+			$pacienteid = $this->request->getPost('pacienteid');
+			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
+			$paciente = $query->getArrayResult();
+
+			$query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
+            $antecedentes = $query3->getArrayResult();
+
+			$data = array('paciente'=>$paciente,'antecedentes'=>$antecedentes);
+			
+		}else{
+
+			$data = array();
+		}
+		return new ViewModel($data);
+	}
+
 	public function guardarconsultaAction()
 	{
 		$objectManager = $this->getObjectManager();
@@ -192,6 +211,49 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel($data);
 	}
 
+	public function imagenconsultaAction()
+	{
+		$objectManager = $this->getObjectManager();
+
+		if($this->request->getPost()){
+			$data 	= $this->request->getPost('imagedata');
+			$paciente 	= $objectManager->find('Application\Entity\Pacientes',$this->request->getPost('idpaciente'));
+			$fecha_hoy  = new \DateTime();
+			$fecha = date_format($fecha_hoy,"Y-m-d");
+
+			$filename = $this->request->getPost('idpaciente').'-'.$fecha.'.png';
+			//Need to remove the stuff at the beginning of the string
+			$data = substr($data, strpos($data, ",")+1);
+			$data = base64_decode($data);
+			$imgRes = imagecreatefromstring($data);
+			
+
+			$gine = new Cgineco;
+			$gine->setFECHACONS($fecha_hoy);
+	       	$gine->setIMAGEN($filename);
+
+			$ruta = getcwd().'/public/imagenes/consultas/'.$this->request->getPost('idpaciente');
+			
+			if($imgRes !== false && imagepng($imgRes, $filename) === true){
+			    echo "<img src='{$filename}' alt='jqScribble Created Image'/>";
+			}
+
+			if (!file_exists($ruta)) 
+			{
+				mkdir($ruta);
+			}
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setDestination($ruta);
+			
+			if($adapter->receive($filename))
+			{
+				$objectManager->persist($gine);
+				$objectManager->flush(); 
+			}
+			
+			return new JsonModel(array('id'=>$gine->getID()));
+		}
+	}
 	
 	/**
      * get entityManager

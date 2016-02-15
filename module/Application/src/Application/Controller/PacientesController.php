@@ -23,10 +23,7 @@ class PacientesController extends AbstractActionController
 
     public function indexAction()
     {
-        // Si el usuario es invitado va a utilizar la plantilla de invitado
-        //if($this->identity()->getRole()->getId() == 6) {
-          $this->layout('layout/invitado');
-        //}
+               
         $om = $this->getObjectManager();
         $estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
         $municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
@@ -81,6 +78,7 @@ REGISTRANDO PACIENTE
         $paciente->setTELEFONO2($this->request->getPost('TELEFONO2'));
         $paciente->setOCUPACION($this->request->getPost('OCUPACION'));
         $paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
+        $paciente->setFECHA_NACIMIENTO($this->request->getPost('FECHA_NACIMIENTO'));
         $paciente->setFECHAREGISTRO(new \DateTime());
         $paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos',$this->request->getPost('TIPO_SANGUINEO')));
 
