@@ -60,5 +60,8 @@
 #test{
 	border-style: solid;
 	border-color: #0AA89E;
+	height: 80%;
+	width: 100%;
+	cursor: crosshair;
 	
 }
