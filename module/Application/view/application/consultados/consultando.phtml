@@ -150,10 +150,7 @@
 			$("#test").data("jqScribble").save(function(imageData)
 			{
 			
-				// $.post('image_save.php', {imagedata: imageData}, function(response)
-				// {
-				// 	$('body').append(response);
-				// });	
+				
 				var datos = {imagedata: imageData,idpaciente:<?php echo $paciente[0]['ID']; ?>};
 
 				$.ajax({
@@ -162,7 +159,7 @@
 				    dataType: "json",
 				    data: datos,
 				    success: function(respuesta) {
-				       $('#responde').html(respuesta);
+				       
 
 				    },
 				    error: function(){

@@ -8,11 +8,11 @@ class Cgineco {
      * @ORM\Column(type="integer")
      */
     protected $ID;
-    /** @ORM\Column(type="date") */
+    /** @ORM\Column(type="date",nullable=true) */
     protected $FECHA_CONS;
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string",nullable=true) */
     protected $MOTIVO_CONS; 
-    /** @ORM\Column(type="string") */
+    /** @ORM\Column(type="string",nullable=true) */
     protected $EDAD; 
     /** @ORM\Column(type="date",nullable=true) */
     protected $FUM;

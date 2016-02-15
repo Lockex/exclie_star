@@ -232,12 +232,26 @@ class ConsultadosController extends AbstractActionController
 			$gine->setFECHACONS($fecha_hoy);
 	       	$gine->setIMAGEN($filename);
 
-			$ruta = getcwd().'/public/imagenes/consultas/'.$this->request->getPost('idpaciente');
-			
-			if($imgRes !== false && imagepng($imgRes, $filename) === true){
-			    echo "<img src='{$filename}' alt='jqScribble Created Image'/>";
-			}
+	       	$objectManager->persist($gine);
+			$objectManager->flush();
 
+			$consulta = new Consultas;
+
+        	$consulta->setFECHACONS($fecha_hoy);
+        	$consulta->setPACIENTE($paciente);
+        	$consulta->setMEDICO($this->identity());
+        	$consulta->setCONSULTA($gine->getID());
+        	$consulta->setESPEC('Cgineco');
+        	
+
+        	$objectManager->persist($consulta);            
+        	$objectManager->flush();
+	       
+	       	$ruta = getcwd().'/public/imagenes/consultas/'.$this->request->getPost('idpaciente');
+
+	       	imagepng($imgRes, $ruta.'/'.$filename);
+			
+			
 			if (!file_exists($ruta)) 
 			{
 				mkdir($ruta);
@@ -247,8 +261,8 @@ class ConsultadosController extends AbstractActionController
 			
 			if($adapter->receive($filename))
 			{
-				$objectManager->persist($gine);
-				$objectManager->flush(); 
+				
+
 			}
 			
 			return new JsonModel(array('id'=>$gine->getID()));
