@@ -12,7 +12,101 @@
 	<!-- TERMINA CABECERA -->
 	
 		<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
-	
+	<div class="card-body">
+		<div class="row">
+												<div class="col-md-7">
+													<div class="form-group">
+														<input type="text" class="form-control" id="motivo" name="motivo">
+														<label for="Firstname2">Motivo Consulta</label>
+													</div>
+												</div>
+												<div class="col-md-2"></div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<input type="text" class="form-control" id="fechahoy" name="fechahoy">
+														<label for="fechahoy">Fecha</label>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-4">
+													<div class="form-group">
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="edad" name="edad">
+																<label for="edad">Edad</label>
+															</div>
+															<span class="input-group-addon">años</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" id="ciclo" name="ciclo">
+														<label for="ciclo">Ciclo</label>
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" id="fum" name="fum">
+														<label for="fum">FUM</label>
+													</div>
+													<div class="row">
+														<div class="col-sm-3">
+															<div class="form-group">
+																<input type="text" class="form-control" id="gestas" name="gestas" data-rule-number="true">
+																<label for="gestas">G</label>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="form-group">
+																<input type="text" class="form-control" id="partos" name="partos">
+																<label for="partos">P</label>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="form-group">
+																<input type="text" class="form-control" id="cesarea" name="cesarea">
+																<label for="cesarea">C</label>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="form-group">
+																<input type="text" class="form-control" id="abortos" name="bortos">
+																<label for="abortos">A</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-5"></div>
+												<div class="col-sm-3">
+													
+													<div class="form-group">
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
+																<label for="tiroidestxt">Tiroides</label>
+															</div>
+															<span class="input-group-addon">ml U/L</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="peso" name="peso">
+																<label for="peso">Peso</label>
+																</div>
+															<span class="input-group-addon">Kg</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="input-group">
+															<div class="input-group-content">
+																<input type="text" class="form-control" id="presion" name="presion">
+																<label for="presion">Presión</label>
+																</div>
+															<span class="input-group-addon">mmHg</span>
+														</div>
+													</div>
+												</div>
+											</div>
+	</div>
 	<!-- BEGIN CONTACT DETAILS -->
 	<div class="card-tiles">
 		<div style="overflow: hidden; margin-bottom: 5px;">

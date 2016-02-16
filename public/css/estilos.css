@@ -37,26 +37,26 @@
 
 
 .links a {
-				padding-left: 10px;
-				margin-left: 10px;
-				border-left: 1px solid #000;
-				text-decoration: none;
-				color: #999;
-			}
-			.links a:first-child {
-				padding-left: 0;
-				margin-left: 0;
-				border-left: none;
-			}
-			.links a:hover {text-decoration: underline;}
-			.column-left {
-				display: inline; 
-				float: left;
-			}
-			.column-right {
-				display: inline; 
-				float: right;
-			}
+	padding-left: 10px;
+	margin-left: 10px;
+	border-left: 1px solid #000;
+	text-decoration: none;
+	color: #999;
+}
+.links a:first-child {
+	padding-left: 0;
+	margin-left: 0;
+	border-left: none;
+}
+.links a:hover {text-decoration: underline;}
+.column-left {
+	display: inline; 
+	float: left;
+}
+.column-right {
+	display: inline; 
+	float: right;
+}
 #test{
 	border-style: solid;
 	border-color: #0AA89E;
