@@ -82,94 +82,7 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel($data);
 	}
 
-	public function guardarconsultaAction()
-	{
-		$objectManager = $this->getObjectManager();
-
-		if($this->request->getPost()){
-
-			$paciente 		 = $objectManager->find('Application\Entity\Pacientes',$this->request->getPost('idpac'));
-			$motivo_consulta = $this->request->getPost('motivo');
-			$fecha 			 = $this->request->getPost('fechahoy');
-			$edad 			 = $this->request->getPost('edad');
-			$ciclo 			 = $this->request->getPost('ciclo');
-			$fum 			 = $this->request->getPost('fum');
-			$gestas 		 = $this->request->getPost('gestas');
-			$partos 		 = $this->request->getPost('partos');
-			$abortos		 = $this->request->getPost('bortos');
-			$cesarea		 = $this->request->getPost('cesarea');
-			$tiroides_txt	 = $this->request->getPost('tiroidestxt');
-			$peso 			 = $this->request->getPost('peso');
-			$presion 		 = $this->request->getPost('presion');
-			$notas_tiroides  = $this->request->getPost('notasts');
-			$tamanoq	     = $this->request->getPost('tamanoq');
-			$numeroq         = $this->request->getPost('numeroq');
-			$notas_cervix    = $this->request->getPost('notascx');
-			$medida_ovario   = $this->request->getPost('medidao');
-			$capsula_ovario  = $this->request->getPost('capsula');
-			$notas_cuello	 = $this->request->getPost('notascllo');
-			$imagen_tiroides = $this->request->getPost('imgtiroides');
-			$imagen_senos 	 = $this->request->getPost('imgsenos');
-			$imagen_cervix	 = $this->request->getPost('imgcervix');
-			$imagen_ovarios  = $this->request->getPost('imgovarios');
-			$imagen_cuello 	 = $this->request->getPost('imgcuello');
-			$plan 	 		 = $this->request->getPost('plan');
-			$imgx 			 = $this->request->getPost('imgx');
-
-
-			/******* ---- Tratamiento de las Fechas ----  ******/
-			$fecha_hoy = new \DateTime(date('Y-m-d',strtotime($fecha)));
-			$fum2 = new \DateTime(date('Y-m-d',strtotime($fum)));
-			/******* ---- Tratamiento de las Fechas ----  ******/
-
-	        $gine = new Cgineco;
-
-	       	$gine->setMOTIVOCONS($motivo_consulta);
-	       	$gine->setFECHACONS($fecha_hoy);
-	       	$gine->setEDAD($edad);
-	       	$gine->setCICLO($ciclo);
-	       	$gine->setFUM($fum2);
-	       	$gine->setGESTAS($gestas);
-	       	$gine->setPARTOS($partos);
-	       	$gine->setABORTOS($abortos);
-	       	$gine->setCESAREAS($cesarea);
-	       	$gine->setTIROIDESNUM($tiroides_txt);
-	       	$gine->setPESO($peso);
-	       	$gine->setPRESION($presion);
-	       	$gine->setTIROIDESDATOS($notas_tiroides);
-	       	$gine->setSENOSTAMANO($tamanoq);
-	       	$gine->setSENOSNUMERO($numeroq);
-	       	$gine->setCERVIXDATOS($notas_cervix);
-	       	$gine->setOVARIOSMEDIDA($medida_ovario);
-	       	$gine->setOVARIOSCAPSULA($capsula_ovario);
-	       	$gine->setCUELLODATOS($notas_cuello);
-	       	$gine->setTIROIDESIMAGEN($imagen_tiroides);
-	       	$gine->setSENOSIMAGEN($imagen_senos);
-	       	$gine->setCERVIXIMAGEN($imagen_cervix);
-	       	$gine->setOVARIOSIMAGEN($imagen_ovarios);
-	       	$gine->setCUELLOIMAGEN($imagen_cuello);
-	       	$gine->setIMX($imgx);
-	       	$gine->setPLAN($plan);
-
-	       	$objectManager->persist($gine);            
-        	$objectManager->flush();
-
-        	$consulta = new Consultas;
-
-        	$consulta->setFECHACONS($fecha_hoy);
-        	$consulta->setPACIENTE($paciente);
-        	$consulta->setMEDICO($this->identity());
-        	$consulta->setCONSULTA($gine->getID());
-        	$consulta->setESPEC('Cgineco');
-        	$consulta->setMOTIVO($motivo_consulta);
-
-        	$objectManager->persist($consulta);            
-        	$objectManager->flush();
-
-        	return new JsonModel(array('id'=>$gine->getID()));
-		}
-	}
-
+	
 	public function listanotasAction()
 	{
 		$this->layout('layout/vacio');
@@ -188,10 +101,13 @@ class ConsultadosController extends AbstractActionController
 
 
 		$idconsul = $this->request->getPost('id_consulta');
-		$query = $objectManager->createQuery("SELECT c FROM Application\Entity\Cgineco c WHERE c.ID = $idconsul");
+		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
-		return new ViewModel(array('consulta'=>$consultas));
+		$str = $consultas[0]['IMAGEN'];
+		$pac = explode('-', $str, 2);
+
+		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
 	}
 
 
@@ -199,9 +115,10 @@ class ConsultadosController extends AbstractActionController
 	{
 		$this->layout('layout/vacio');
 		$om = $this->getObjectManager();
+		$id_consulta = $this->request->getPost('consulta');
 
 		if($this->request->isPost()){
-			$id_consulta = $this->request->getPost('consulta');
+			
 			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
 			$recetas = $query->getArrayResult();
 		}
@@ -211,26 +128,69 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel($data);
 	}
 
-	public function imagenconsultaAction()
+	public function guardarconsultaAction()
 	{
 		$objectManager = $this->getObjectManager();
 
 		if($this->request->getPost()){
 			$data 	= $this->request->getPost('imagedata');
-			$paciente 	= $objectManager->find('Application\Entity\Pacientes',$this->request->getPost('idpaciente'));
+			/* MANEJO DEL ARREGLO DE DATOS*/
+			$datos  = $this->request->getPost('datos');
+
+			$datos = explode("&", $datos);
+
+	        foreach($datos as $dato) 
+	        {
+	            $var = explode('=', $dato);
+	            $arr[$var[0]] = $var[1];
+	        }
+	        /* TERMINA MANEJO DEL ARREGLO DE DATOS*/
+			$paciente 	         = $objectManager->find('Application\Entity\Pacientes',$arr['idpac']);
+			$motivo_consulta 	 = rawurldecode($arr['motivo']);
+			$fecha_hoy 	 		 = $arr['fechahoy'];
+			$edad 		 		 = $arr['edad'];
+			$ciclo 		 		 = rawurldecode($arr['ciclo']);
+			$fum 		 		 = $arr['fum'];
+			$gestas 	 		 = $arr['gestas'];
+			$partos 			 = $arr['partos'];
+			$abortos 			 = $arr['bortos'];
+			$cesarea 			 = $arr['cesarea'];
+			$tiroides_txt 		 = $arr['tiroidestxt'];
+			$peso 		 		 = $arr['peso'];
+			$presion 	 		 = rawurldecode($arr['presion']);
+			$plan 	 		     = rawurldecode($arr['plan']);
+			$imx 	 		     = rawurldecode($arr['imx']);
+
+						
+			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy  = new \DateTime();
 			$fecha = date_format($fecha_hoy,"Y-m-d");
-
-			$filename = $this->request->getPost('idpaciente').'-'.$fecha.'.png';
+			$fum2 = new \DateTime(date('Y-m-d',strtotime($fum)));
+			/* TERMINA TRATAMIENTO DE FECHAS*/
+			/* INICIA GUARDAR IMAGEN*/
+			$filename = $arr['idpac'].'-'.$fecha.'.png';
 			//Need to remove the stuff at the beginning of the string
 			$data = substr($data, strpos($data, ",")+1);
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
 			
-
 			$gine = new Cgineco;
 			$gine->setFECHACONS($fecha_hoy);
 	       	$gine->setIMAGEN($filename);
+			$gine->setMOTIVOCONS($motivo_consulta);
+	       	$gine->setFECHACONS($fecha_hoy);
+	       	$gine->setEDAD($edad);
+	       	$gine->setCICLO($ciclo);
+	       	$gine->setFUM($fum2);
+	       	$gine->setGESTAS($gestas);
+	       	$gine->setPARTOS($partos);
+	       	$gine->setABORTOS($abortos);
+	       	$gine->setCESAREAS($cesarea);
+	       	$gine->setTIROIDESNUM($tiroides_txt);
+	       	$gine->setPESO($peso);
+	       	$gine->setPRESION($presion);
+	       	$gine->setIMX($imx);
+	       	$gine->setPLAN($plan);
 
 	       	$objectManager->persist($gine);
 			$objectManager->flush();
@@ -242,12 +202,12 @@ class ConsultadosController extends AbstractActionController
         	$consulta->setMEDICO($this->identity());
         	$consulta->setCONSULTA($gine->getID());
         	$consulta->setESPEC('Cgineco');
+        	$consulta->setMOTIVO($motivo_consulta);
         	
-
         	$objectManager->persist($consulta);            
         	$objectManager->flush();
 	       
-	       	$ruta = getcwd().'/public/imagenes/consultas/'.$this->request->getPost('idpaciente');
+	       	$ruta = getcwd().'/public/imagenes/consultas/'.$arr['idpac'];
 
 	       	imagepng($imgRes, $ruta.'/'.$filename);
 			
@@ -267,6 +227,11 @@ class ConsultadosController extends AbstractActionController
 			
 			return new JsonModel(array('id'=>$gine->getID()));
 		}
+	}
+
+	public function guardarecetaAction()
+	{
+		
 	}
 	
 	/**

@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/bootstrap-datepicker/datepicker3.css" />
 <div class="card">
 
 	<!-- COMIENZA CABECERA  -->
@@ -14,6 +15,49 @@
 		<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
 	<div class="card-body">
 		<div class="row">
+					<!-- BEGIN CONTACTS MAIN CONTENT -->
+					<div class="col-md-12">
+						<div class="margin-bottom-xxl">
+							
+							<?php if(!isset($paciente)){ ?>
+								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
+							<?php }else{ ?>
+							<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+
+							<?php } ?>
+							&nbsp;&nbsp;
+						</div><!--end .margin-bottom-xxl -->
+						<ul class="nav nav-tabs" data-toggle="tabs">
+							<li class="active"><a href="#addconsulta">CONSULTA</a></li>
+							<li><a href="#notes">NOTAS</a></li>
+							<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
+						</ul>
+						<div class="tab-content">
+							<!-- COMIENZA NOTAS PACIENTE -->
+							<div class="tab-pane" id="notes">
+								<br/>
+								<form class="form" id="formNotes" accept-charset="utf-8" method="post">
+									<div class="form-group">
+										<textarea id="recordar" name="recordar" class="form-control control-3-rows" placeholder="Agregar una nota ..." spellcheck="false"></textarea>
+									</div>
+									<div class="form-group clearfix">
+										<button type="button" class="btn btn-raised btn-primary pull-right" onclick="guardarNota()">Agregar</button>
+									</div>
+								</form>
+									<div id="resultaNotas">
+									
+									</div>
+							</div><!--end #notes -->
+							<!-- TERMINA NOTAS PACIENTE -->
+
+							<!-- BEGIN ADDCONSULTA DETAILS -->
+							<div class="tab-pane active" id="addconsulta">
+								<br>
+								<form class="form form-validate" id="formConsul" novalidate="novalidate">
+									<div class="card">
+										<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+										<div class="card-body ">
+											<div class="row">
 												<div class="col-md-7">
 													<div class="form-group">
 														<input type="text" class="form-control" id="motivo" name="motivo">
@@ -106,35 +150,79 @@
 													</div>
 												</div>
 											</div>
+											<hr>
+											<div class="row">
+												<!-- BEGIN CANVAS -->
+												<div class="card-tiles">
+													<div style="overflow: hidden; margin-bottom: 5px;">
+														<div class="column-right links" id="colores">
+															<strong>COLORES:</strong>
+
+															
+
+															<!-- <a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,0)",brushSize:"2"});'>Negro</a>
+															<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,0,0)",brushSize:"2"});'>Rojo</a>
+															<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,255,0)",brushSize:"2"});'>Verde</a>
+															<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)",brushSize:"2"});'>Azul</a> -->
+															<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0s,0,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-default-dark"></button>
+															<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,0,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-danger"></button>
+															<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,255,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-success"></button>
+															<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-info"></button>
+															<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"40"});' class="btn ink-reaction btn-floating-action btn-sm btn-primary"></button>
+
+														</div>
+													</div>
+													<canvas id="test"></canvas>
+													<div class="pull-right">	
+													<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
+													<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
+													</div>
+												</div><!--end .card-tiles -->
+												<!-- END CANVAS  -->
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<input type="text" class="form-control" id="imx" name="imx">
+														<label for="imx">Iny</label>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<input type="text" class="form-control" id="plan" name="plan">
+														<label for="plan">Plan</label>
+													</div>
+												</div>
+												
+											</div>
+											
+										</div><!--end .card-body -->
+										<div class="card-actionbar">
+											<div class="card-actionbar-row">
+												<!-- <button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()" id="saveCons">Guardar</button> -->
+											</div>
+										</div>
+									</div><!--end .card -->
+									
+								</form>
+							</div><!--end #addconsulta -->
+							<!-- END ADDCONSULTA DETAILS -->
+
+							<!-- COMIENZA RECETAS -->
+							<div class="tab-pane" id="recetas">
+								<br>
+								<div id="resultarecetas">
+									
+								</div>
+							</div><!-- end #recetas -->
+							<!-- TERMINA RECETAS -->
+						</div><!--end .tab-content -->
+					</div><!--end .col -->
+					<!-- END CONTACTS MAIN CONTENT -->
+				</div><!--end .row -->
 	</div>
-	<!-- BEGIN CONTACT DETAILS -->
-	<div class="card-tiles">
-		<div style="overflow: hidden; margin-bottom: 5px;">
-			<div class="column-right links" id="colores">
-				<strong>COLORES:</strong>
-
-				
-
-				<!-- <a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,0)",brushSize:"2"});'>Negro</a>
-				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,0,0)",brushSize:"2"});'>Rojo</a>
-				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,255,0)",brushSize:"2"});'>Verde</a>
-				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)",brushSize:"2"});'>Azul</a> -->
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0s,0,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-default-dark"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,0,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-danger"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,255,0)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-success"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)",brushSize:"2"});' class="btn ink-reaction btn-floating-action btn-sm btn-info"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"40"});' class="btn ink-reaction btn-floating-action btn-sm btn-primary"></button>
-
-			</div>
-		</div>
-		<canvas id="test"></canvas>
-		<div>	
-		<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
-		<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
-		</div>
-	</div><!--end .card-tiles -->
-	<!-- END CONTACTS DETAILS -->
-	<div id="responde"></div>
+	
+	<!-- BEGIN OFFCANVAS -->
 	<div class="offcanvas backdrop">
 		<!-- BEGIN CONTACTS COMMON DETAILS -->
 		<div id="datosgenerales" class="offcanvas-pane width-8">
@@ -235,7 +323,11 @@
 		</div>
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
+	<!-- END OFFCANVAS -->
 </div>
+
+<script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jquery-1.5.2.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jquery.jqscribble.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jqscribble.extrabrushes.js" type="text/javascript"></script>
@@ -244,37 +336,139 @@
 
 
 <script>
+	$(document).ready(function()
+	{
+		$("#test").jqScribble();
+		$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
+    	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
+    	fechaActual();
+    	mostrarNotas();
+    	//$('#lirecetas').hide();
+    	
+	});
+
+	//$('#fum').datepicker();
+
+
+	function getEdad(fechanac)
+	{
+		var hoy = new Date();
+    	var fechaNacimiento = new Date(fechanac);
+    	var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    	var m = hoy.getMonth() - fechaNacimiento.getMonth();
+    	if (m < 0 || (m === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        	edad--;
+    	}
+    	return edad;
+	}
+
+	function fechaActual()
+	{
+		var today = new Date();
+	    var dd = today.getDate();
+	    var mm = today.getMonth()+1; 
+	    var yyyy = today.getFullYear();
+
+	    if(dd<10){
+	        dd='0'+dd
+	    } 
+	    if(mm<10){
+	        mm='0'+mm
+	    } 
+	    var today = dd+'-'+mm+'-'+yyyy;
+
+	    $('#fechahoy').val(today);
+	}
 
 	function save()
+	{
+
+		$("#test").data("jqScribble").save(function(imageData)
 		{
-			$("#test").data("jqScribble").save(function(imageData)
-			{
-			
-				
-				var datos = {imagedata: imageData,idpaciente:<?php echo $paciente[0]['ID']; ?>};
-
-				$.ajax({
-				    type: "POST",
-				    url: "<?php echo $this->basePath() ?>/consultados/imagenconsulta",
-				    dataType: "json",
-				    data: datos,
-				    success: function(respuesta) {
-				       
-
-				    },
-				    error: function(){
-				          alert('Ocurrió un error, inténtelo más tarde.');
-				    }
-				});
 		
+			var formulario = $('#formConsul').serialize();
+			var datos = {imagedata: imageData,datos:formulario};
+			console.log(datos);
+			$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardarconsulta",
+			    dataType: "json",
+			    data: datos,
+			    success: function(respuesta) {
+			       console.log(respuesta);
+			       $('#saveCons').attr('disabled','disabled');
+	           		idConsulta = respuesta.id;
+	           		$('#consultaid').val(idConsulta);
+	           		console.log(idConsulta);
+	           		$('#lirecetas').show();
+	           		mostrarReceta(idConsulta);
+			    },
+			    error: function(){
+			          alert('Ocurrió un error, inténtelo más tarde.');
+			    }
 			});
-		}
-		
-		$(document).ready(function()
-		{
-			$("#test").jqScribble();
+	
 		});
+	}
+	
+	function guardarNota()
+	{
+		var nota = $('#recordar').val();
+		var data ={pac: <?php echo $paciente[0]['ID']; ?>,nota: nota};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/notas/guardarnota",
+           data: data,
+           dataType: "JSON",
+           
+           success: function(response) {
+           		$('#recordar').val('');
+           		mostrarNotas();
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+	}
 
+	function mostrarNotas()
+	{
+		var data ={paciente: <?php echo $paciente[0]['ID']; ?>};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/listanotas",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#resultaNotas').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+	}
+
+	function mostrarReceta(id)
+	{
+		var data ={consulta: id};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/receta",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#resultarecetas').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+	}
 	
   
 </script>

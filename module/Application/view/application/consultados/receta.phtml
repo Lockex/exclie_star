@@ -2,6 +2,7 @@
 <div class="card-head style-primary"></div>
 <div class="card-body">
 	<form class="form form-validate" id="formReceta" novalidate="novalidate">
+		<input type="hidden" name="consultaid" value="<?php echo $consulta; ?>">
 		<div class="row">
 			<div class="col-md-9"></div>
 			<div class="col-md-3">
@@ -112,17 +113,19 @@
 		  var medicamentos = {};
 		  var tractual = '';
 		  for(i=1; i<= document.getElementById("table-med-receta").rows.length-1; i++){
+		  	cadena = document.getElementById("table-med-receta").rows[i].id;
+
+    		//cadena = cadena.split("-");
+    		console.log('cadena '+cadena);
 		    tractual = cadena[1];
 		    medicamentos[i] = {};
-		    medicamentos[i]['FRECUENCIA'] = $(' #tdFrec').text();
-		    medicamentos[i]['MEDICAMENTO'] = '';
-		    if (tractual == 0){
-		      medicamentos[i]['MEDICAMENTO'] = $('#tdMed').text(); 
-		    }
+		    medicamentos[i]['FRECUENCIA'] = $('#tdFrec').text();
+		    medicamentos[i]['MEDICAMENTO'] = $('#tdMed').text();
+		   
 		  }
 		    medicamentos= JSON.stringify(medicamentos);
 		    var formReceta = $('#formReceta').serialize();
-			console.log("meds "+medicamnetos);
+			console.log("meds "+medicamentos);
 			console.log("form "+formReceta);
 	}
 </script>
