@@ -111,21 +111,33 @@
 
 	function guardarreceta(){
 		  var medicamentos = {};
-		  var tractual = '';
+		  
 		  for(i=1; i<= document.getElementById("table-med-receta").rows.length-1; i++){
-		  	cadena = document.getElementById("table-med-receta").rows[i].id;
-
-    		//cadena = cadena.split("-");
-    		console.log('cadena '+cadena);
-		    tractual = cadena[1];
-		    medicamentos[i] = {};
-		    medicamentos[i]['FRECUENCIA'] = $('#tdFrec').text();
-		    medicamentos[i]['MEDICAMENTO'] = $('#tdMed').text();
-		   
+			cadena = document.getElementById("table-med-receta").rows[i].id;
+			tractual = cadena;
+			medicamentos[i] = {};
+			medicamentos[i]['MEDICAMENTO'] = $('#'+tractual+' #tdMed').text();
+			medicamentos[i]['PRESC'] = $('#'+tractual+' #tdFrec').text();
+			 
+			
 		  }
-		    medicamentos= JSON.stringify(medicamentos);
+		  	medicamentos= JSON.stringify(medicamentos);
 		    var formReceta = $('#formReceta').serialize();
 			console.log("meds "+medicamentos);
 			console.log("form "+formReceta);
+			datos = {medicamentos:medicamentos,receta:formReceta};
+			$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardareceta",
+			    dataType: "json",
+			    data: datos,
+			    success: function(respuesta) {
+			       console.log(respuesta);
+			      
+			    },
+			    error: function(){
+			          alert('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
 	}
 </script>

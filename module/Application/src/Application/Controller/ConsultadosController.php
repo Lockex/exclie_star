@@ -11,6 +11,7 @@ use Application\Entity\Pacientes;
 use Application\Entity\Cgineco;
 use Application\Entity\Notaspaciente;
 use Application\Entity\Consultas;
+use Application\Entity\Medicamentoreceta;
 
 class ConsultadosController extends AbstractActionController
 {
@@ -110,24 +111,6 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
 	}
 
-
-	public function recetaAction()
-	{
-		$this->layout('layout/vacio');
-		$om = $this->getObjectManager();
-		$id_consulta = $this->request->getPost('consulta');
-
-		if($this->request->isPost()){
-			
-			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
-			$recetas = $query->getArrayResult();
-		}
-		
-		$data = array('recetas'=>$recetas,'consulta'=>$id_consulta);
-
-		return new ViewModel($data);
-	}
-
 	public function guardarconsultaAction()
 	{
 		$objectManager = $this->getObjectManager();
@@ -146,10 +129,10 @@ class ConsultadosController extends AbstractActionController
 	        }
 	        /* TERMINA MANEJO DEL ARREGLO DE DATOS*/
 			$paciente 	         = $objectManager->find('Application\Entity\Pacientes',$arr['idpac']);
-			$motivo_consulta 	 = rawurldecode($arr['motivo']);
+			$motivo_consulta 	 = urldecode($arr['motivo']);
 			$fecha_hoy 	 		 = $arr['fechahoy'];
 			$edad 		 		 = $arr['edad'];
-			$ciclo 		 		 = rawurldecode($arr['ciclo']);
+			$ciclo 		 		 = $arr['ciclo'];
 			$fum 		 		 = $arr['fum'];
 			$gestas 	 		 = $arr['gestas'];
 			$partos 			 = $arr['partos'];
@@ -157,9 +140,9 @@ class ConsultadosController extends AbstractActionController
 			$cesarea 			 = $arr['cesarea'];
 			$tiroides_txt 		 = $arr['tiroidestxt'];
 			$peso 		 		 = $arr['peso'];
-			$presion 	 		 = rawurldecode($arr['presion']);
-			$plan 	 		     = rawurldecode($arr['plan']);
-			$imx 	 		     = rawurldecode($arr['imx']);
+			$presion 	 		 = $arr['presion'];
+			$plan 	 		     = urldecode($arr['plan']);
+			$imx 	 		     = urldecode($arr['imx']);
 
 						
 			/* INICIA TRATAMIENTO DE FECHAS*/
@@ -229,9 +212,33 @@ class ConsultadosController extends AbstractActionController
 		}
 	}
 
+	public function recetaAction()
+	{
+		$this->layout('layout/vacio');
+		$om = $this->getObjectManager();
+		$id_consulta = $this->request->getPost('consulta');
+
+		if($this->request->isPost()){
+			
+			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
+			$recetas = $query->getArrayResult();
+		}
+		
+		$data = array('recetas'=>$recetas,'consulta'=>$id_consulta);
+
+		return new ViewModel($data);
+	}
+
 	public function guardarecetaAction()
 	{
-		
+		if($this->request->getPost()){
+			$this->request->getPost('');
+		}
+	}
+
+	public function monitoreoAction()
+	{
+		return new ViewModel();
 	}
 	
 	/**

@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/bootstrap-datepicker/datepicker3.css" />
 <div class="card">
 
@@ -84,7 +85,7 @@
 														</div>
 													</div>
 													<div class="form-group">
-														<input type="text" class="form-control" id="ciclo" name="ciclo">
+														<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
 														<label for="ciclo">Ciclo</label>
 													</div>
 													<div class="form-group">
@@ -157,16 +158,11 @@
 													<div style="overflow: hidden; margin-bottom: 5px;">
 														<div class="column-right links" id="colores">
 															<strong>COLORES:</strong>
-
-															
-
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
-				<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
-
-
+																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
+																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
+																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
+																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
 														</div>
 													</div>
 													<canvas id="test"></canvas>
@@ -194,11 +190,6 @@
 											</div>
 											
 										</div><!--end .card-body -->
-										<div class="card-actionbar">
-											<div class="card-actionbar-row">
-												<!-- <button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarconsulta()" id="saveCons">Guardar</button> -->
-											</div>
-										</div>
 									</div><!--end .card -->
 									
 								</form>
@@ -323,13 +314,15 @@
 	<!-- END OFFCANVAS -->
 </div>
 
-<script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/jquery-1.5.2.min.js"></script>
+
+<!--<script src="<?php echo $this->basePath() ?>/public/js/jquery-1.5.2.min.js"></script>-->
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jquery.jqscribble.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jqscribble.extrabrushes.js" type="text/javascript"></script>
 
-
+<script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 
 
 <script>
@@ -340,11 +333,12 @@
     	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
     	fechaActual();
     	mostrarNotas();
+    	
     	//$('#lirecetas').hide();
     	
 	});
 
-	//$('#fum').datepicker();
+	$('#fum').datepicker({format: "dd-mm-yyyy"});
 
 
 	function getEdad(fechanac)
