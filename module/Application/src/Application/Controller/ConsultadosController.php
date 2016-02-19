@@ -7,11 +7,15 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use DoctrineModule\StdLib\Hydrator\DoctrineObject;
 
+use DOMPDFModule\View\Model\PdfModel;
+
 use Application\Entity\Pacientes;
 use Application\Entity\Cgineco;
 use Application\Entity\Notaspaciente;
 use Application\Entity\Consultas;
 use Application\Entity\Medicamentoreceta;
+use Application\Entity\Recetas;
+
 
 class ConsultadosController extends AbstractActionController
 {
@@ -100,7 +104,6 @@ class ConsultadosController extends AbstractActionController
 		$this->layout('layout/vacio');
 		$objectManager = $this->getObjectManager();
 
-
 		$idconsul = $this->request->getPost('id_consulta');
 		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
 		$consultas = $query->getArrayResult();
@@ -117,9 +120,8 @@ class ConsultadosController extends AbstractActionController
 
 		if($this->request->getPost()){
 			$data 	= $this->request->getPost('imagedata');
-			/* MANEJO DEL ARREGLO DE DATOS*/
+			/* ARREGLO DE DATOS*/
 			$datos  = $this->request->getPost('datos');
-
 			$datos = explode("&", $datos);
 
 	        foreach($datos as $dato) 
@@ -127,7 +129,7 @@ class ConsultadosController extends AbstractActionController
 	            $var = explode('=', $dato);
 	            $arr[$var[0]] = $var[1];
 	        }
-	        /* TERMINA MANEJO DEL ARREGLO DE DATOS*/
+	        /* ARREGLO DE DATOS*/
 			$paciente 	         = $objectManager->find('Application\Entity\Pacientes',$arr['idpac']);
 			$motivo_consulta 	 = urldecode($arr['motivo']);
 			$fecha_hoy 	 		 = $arr['fechahoy'];
@@ -140,11 +142,9 @@ class ConsultadosController extends AbstractActionController
 			$cesarea 			 = $arr['cesarea'];
 			$tiroides_txt 		 = $arr['tiroidestxt'];
 			$peso 		 		 = $arr['peso'];
-			$presion 	 		 = $arr['presion'];
+			$presion 	 		 = rawurldecode($arr['presion']);
 			$plan 	 		     = urldecode($arr['plan']);
 			$imx 	 		     = urldecode($arr['imx']);
-
-						
 			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy  = new \DateTime();
 			$fecha = date_format($fecha_hoy,"Y-m-d");
@@ -152,7 +152,7 @@ class ConsultadosController extends AbstractActionController
 			/* TERMINA TRATAMIENTO DE FECHAS*/
 			/* INICIA GUARDAR IMAGEN*/
 			$filename = $arr['idpac'].'-'.$fecha.'.png';
-			//Need to remove the stuff at the beginning of the string
+			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
 			$data = substr($data, strpos($data, ",")+1);
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
@@ -202,12 +202,6 @@ class ConsultadosController extends AbstractActionController
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			$adapter->setDestination($ruta);
 			
-			if($adapter->receive($filename))
-			{
-				
-
-			}
-			
 			return new JsonModel(array('id'=>$gine->getID()));
 		}
 	}
@@ -219,21 +213,104 @@ class ConsultadosController extends AbstractActionController
 		$id_consulta = $this->request->getPost('consulta');
 
 		if($this->request->isPost()){
-			
 			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
 			$recetas = $query->getArrayResult();
 		}
-		
 		$data = array('recetas'=>$recetas,'consulta'=>$id_consulta);
-
 		return new ViewModel($data);
 	}
 
 	public function guardarecetaAction()
 	{
+		$oM = $this->getObjectManager();
+
 		if($this->request->getPost()){
-			$this->request->getPost('');
+			$consulta 	  = $this->request->getPost('consultaid');
+			$consulta_id  = $oM->find('Application\Entity\Cgineco',$consulta);
+			$fecha 		  = new \DateTime(date('Y-m-d',strtotime($this->request->getPost('fechahoy2'))));
+			$indicaciones = $this->request->getPost('indicaciones');
+			$meds 		  = $this->request->getPost('array-med');
+			$arr 		  = json_decode($meds);
+			
+			$receta = new Recetas;
+
+			$receta->setFECHAINICIO($fecha);
+			$receta->setINDICACIONESADICIONALES($indicaciones);
+			$receta->setCONSULTAS($consulta_id);
+
+			$oM->persist($receta);
+			$oM->flush();
+
+			foreach ($arr as $medi) {
+			    $frec   = $medi->MEDICAMENTO;
+			    $presc  = $medi->PRESC;
+			  	
+			  	$medicamento = new Medicamentoreceta;
+
+				$medicamento->setFRECUENCIA($frec);
+				$medicamento->setMEDICAMENTO($presc);
+				$medicamento->setRECETA($receta);
+
+				$oM->persist($medicamento);
+				$oM->flush();
+			} 
 		}
+		return new JsonModel(array('recetaid'=>$receta->getID(),'consulta'=>$consulta));
+	}
+
+	public function generarecetaAction(){
+
+		$this->layout('layout/vacio');
+
+  		$oM = $this->getObjectManager();
+
+  		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = ".$this->identity()->getId());
+		$usuario = $query->getArrayResult();
+
+		$id = $this->params()->fromRoute('id');
+
+		$query2 = $oM->createQuery("SELECT m,r FROM Application\Entity\Medicamentoreceta m LEFT JOIN m.RECETA r WHERE r.ID = $id");
+		$meds = $query2->getArrayResult(); 
+
+		$receta = $oM->find('Application\Entity\Recetas', $id);
+
+		$consulta_id = $receta->getCONSULTAS()->getID();
+
+		$consulta = $oM->find('Application\Entity\Consultas',$consulta_id);
+
+		$paciente_id = $consulta->getPaciente()->getID();
+		
+		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
+		$paciente = $query3->getArrayResult();
+		print_r($usuario);
+		
+		// $pdf = new PdfModel();
+
+		// $pdf->setVariables(array(
+
+		//     'user' => $usuario,
+
+		//     'enfermo' => $paciente->getNombre(),
+
+		//     'enfermop' => $paciente->getApellido_Paterno(),
+
+		//     'enfermom' => $paciente->getApellido_Materno(),
+
+		//     'sexo' => $paciente->getSexo(),
+
+		//     'edad' => $paciente->getFecha_Nacimiento(),
+
+		//     'prueba' => $medicamentos,
+
+		//     'idp' => $idPaciente, 
+		// ));
+
+
+
+  		//return $pdf;
+
+   		return new ViewModel(array('doctor' => $usuario, 'paciente' => $paciente,'medicinas' => $meds));
+
 	}
 
 	public function monitoreoAction()

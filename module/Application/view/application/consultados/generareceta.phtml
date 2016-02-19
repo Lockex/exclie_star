@@ -1,0 +1,42 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/exclie_star/public/css/receta.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/exclie_star/public/css/bootstrap.css"  />
+<div class="card">
+  <div class="card-head"></div>
+  <div class="card-body">
+    <!-- COMIENZA LOGO Y DATOS DEL DOCTOR -->
+    <div class="row">
+      <div class="col-md-4" id="logo">
+        <img src="" alt="">
+      </div>
+      <div class="col-md-8" id="datosdoc">
+        <h3><?php echo $doctor[0]['NOMBRE']; ?></h3><br>
+        <p></p>
+      </div>
+    </div>
+    <!-- TERMINA LOGO Y DATOS DEL DOCTOR -->
+    <!-- COMIENZA CEDULAS -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+        <p class="pull-right">REG. FED. PROF. 1363699</p>
+        <p class="pull-left">REG. EST. ESP. 9426903</p>
+      </div>
+    </div>
+    <!-- TERMIINA CEDULAS -->
+    <!-- COMIENZA DATOS PACIENTE -->
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Nombre: </h4>
+        <p><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></p>
+      </div>
+      <div class="col-md-4">
+        <h4>Fecha: </h4>
+        <p><?php echo date_format($medicinas[0]['RECETA']['FECHA_INICIO'],'d-m-Y'); ?></p>
+      </div>
+    </div>
+    <!-- TERMINA DATOS PACIENTE -->
+  </div>
+</div>
+
+
+ 

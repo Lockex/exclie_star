@@ -1,0 +1,17 @@
+
+#img{
+  position: relative;
+}
+.page {
+page-break-after:always;
+position: relative;
+}
+#star{position: fixed; bottom:60px; top:-50px; right:-60px; left: -50px;}
+@page{
+  margin: 240px 60px 30px 30px 90px;
+}
+
+body{
+   background-color:#CC10;
+   font:14px Georgia, serif, calibri;
+}

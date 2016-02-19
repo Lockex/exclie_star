@@ -3,6 +3,7 @@
 <div class="card-body">
 	<form class="form form-validate" id="formReceta" novalidate="novalidate">
 		<input type="hidden" name="consultaid" value="<?php echo $consulta; ?>">
+		<input type="hidden" id="array-med" name="array-med">
 		<div class="row">
 			<div class="col-md-9"></div>
 			<div class="col-md-3">
@@ -15,13 +16,13 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" id="medicamento" name="medicamento">
+					<input type="text" class="form-control" id="medicamento" >
 					<label for="medicamento">Medicamento</label>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
-					<input type="text" class="form-control" id="presc" name="presc">
+					<input type="text" class="form-control" id="presc" >
 					<label for="presc">Preinscripción</label>
 				</div>
 			</div>
@@ -58,8 +59,8 @@
 		</div>
 	</div>
 </div>
-	
-
+<input type="hidden" id="id_receta">	
+<input type="hidden" id="id_consul">
 
 <script>
 	var contador = 0;
@@ -122,22 +123,27 @@
 			
 		  }
 		  	medicamentos= JSON.stringify(medicamentos);
-		    var formReceta = $('#formReceta').serialize();
-			console.log("meds "+medicamentos);
-			console.log("form "+formReceta);
-			datos = {medicamentos:medicamentos,receta:formReceta};
+		  	$('#array-med').val(medicamentos);
+		    var datastring = $('#formReceta').serialize();
+
 			$.ajax({
 			    type: "POST",
 			    url: "<?php echo $this->basePath() ?>/consultados/guardareceta",
 			    dataType: "json",
-			    data: datos,
+			    data: datastring,
 			    success: function(respuesta) {
 			       console.log(respuesta);
-			      
+			       $('#id_receta').val(respuesta['recetaid']);
+			       $('#id_consul').val(respuesta['consulta']);
+			       verReceta();
 			    },
 			    error: function(){
 			          alert('Ocurrió un error, inténtelo más tarde.');
 			    }
 			});
+	}
+
+	function verReceta(){
+		window.open('generareceta/'+$('#id_receta').val());
 	}
 </script>
