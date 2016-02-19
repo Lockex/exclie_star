@@ -334,7 +334,7 @@
     	fechaActual();
     	mostrarNotas();
     	
-    	//$('#lirecetas').hide();
+    	$('#lirecetas').hide();
     	
 	});
 
@@ -388,10 +388,11 @@
 			    success: function(respuesta) {
 			       console.log(respuesta);
 			       $('#saveCons').attr('disabled','disabled');
+	           		$('#lirecetas').show();
 	           		idConsulta = respuesta.id;
 	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
-	           		$('#lirecetas').show();
+	           		
 	           		mostrarReceta(idConsulta);
 			    },
 			    error: function(){
