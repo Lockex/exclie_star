@@ -109,13 +109,19 @@ class ConsultadosController extends AbstractActionController
 		$objectManager = $this->getObjectManager();
 
 		$idconsul = $this->request->getPost('id_consulta');
-		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
+
+		$query2 = $objectManager->createQuery("SELECT c.CONSULTA FROM Application\Entity\Consultas c WHERE c.ID = $idconsul");
+		$gineid = $query2->getArrayResult();
+
+		$id_gine = $gineid[0]['CONSULTA'];
+
+		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $id_gine");
 		$consultas = $query->getArrayResult();
 
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
+		return new ViewModel(array('consultag'=>$consultas,'pac'=>$pac));
 	}
 
 	public function guardarconsultaAction()

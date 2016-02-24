@@ -86,14 +86,17 @@
 							<div class="pull-left width-3 clearfix ">
 								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
 									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
-									<form action="<?php echo $this->basePath() ?>/consultados/guardarfotopac" class="dropzone dz-clickable" id="drops">
-									<input type="hidden" id="idPaciente" name="idPaciente">
-									<input accept="image/*"  type="file" capture/>
 									
-
-								</form>
 								<?php } else  {?>
+								
 									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
+									 <?php } ?>
+										 <form action="<?php echo $this->basePath() ?>/consultados/guardarfotopac" class="dropzone dz-clickable" id="drops">
+											<input type="hidden" id="idPaciente" name="idPaciente">
+											<input accept="image/*"  type="file" capture/>
+											nnn
+										</form>
+									
                           		<?php } ?> 
 							</div>
 							<?php if(!isset($paciente)){ ?>

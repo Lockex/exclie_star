@@ -208,7 +208,6 @@ class CapturaController extends AbstractActionController
 
         $ruta = getcwd().'/public/imagenes/consultas/'.$idPaciente.'/'.$imagen;
         
-      
         unlink($ruta);
 
       return new JsonModel();
