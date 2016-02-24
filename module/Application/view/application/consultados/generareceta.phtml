@@ -1,42 +1,121 @@
-<link type="text/css" rel="stylesheet" href="<?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/exclie_star/public/css/receta.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $_SERVER["DOCUMENT_ROOT"]; ?>/exclie_star/public/css/bootstrap.css"  />
-<div class="card">
-  <div class="card-head"></div>
-  <div class="card-body">
-    <!-- COMIENZA LOGO Y DATOS DEL DOCTOR -->
-    <div class="row">
-      <div class="col-md-4" id="logo">
-        <img src="" alt="">
-      </div>
-      <div class="col-md-8" id="datosdoc">
-        <h3><?php echo $doctor[0]['NOMBRE']; ?></h3><br>
-        <p></p>
-      </div>
-    </div>
-    <!-- TERMINA LOGO Y DATOS DEL DOCTOR -->
-    <!-- COMIENZA CEDULAS -->
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-8">
-        <p class="pull-right">REG. FED. PROF. 1363699</p>
-        <p class="pull-left">REG. EST. ESP. 9426903</p>
-      </div>
-    </div>
-    <!-- TERMIINA CEDULAS -->
-    <!-- COMIENZA DATOS PACIENTE -->
-    <div class="row">
-      <div class="col-md-8">
-        <h4>Nombre: </h4>
-        <p><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></p>
-      </div>
-      <div class="col-md-4">
-        <h4>Fecha: </h4>
-        <p><?php echo date_format($medicinas[0]['RECETA']['FECHA_INICIO'],'d-m-Y'); ?></p>
-      </div>
-    </div>
-    <!-- TERMINA DATOS PACIENTE -->
+<style> 
+
+#img{
+  position: relative;
+}
+.page {
+page-break-after:always;
+position: relative;
+}
+p {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+#gestare{position: fixed; bottom:60px; top:-50px; right:-60px; left: -50px;}
+@page{
+  margin: 240px 60px 30px 30px 90px;
+}
+<?php $con = 0; ?>
+
+</style>
+ 
+ <div id="gestare"><img src="<?php echo getcwd().'/public/img/recetaStar.png';?>" height="100%" width="100%"></div>
+
+  
+   <div style="position: fixed; float:right; width: 90%; margin-left:270px; margin-top: 30px;">
+       <!-- <p style=" margin-top:35px; text-align:center;" > <b>Cédula Profesional No. <?php echo $doctor[0]['cedula_profesional'] ?>  <br> <?php echo $doctor[0]['especialidad'] ?> <br> <br></b></p> -->
+      
+   </div>
+   
+   <div style="position: fixed; bottom:910px; left: 30px; ">
+      <h4>Receta Médica</h4>
+      <input type="hidden" name="id" value="<?php echo $idp ?>" />
+   </div>
+  <div style="position: fixed; bottom:870px; left:30px; ">
+    <p><b>Nombre: </b>   <?php  echo $pacienten.' '.$pacientep.' '.$pacientem; ?> </p>   
   </div>
-</div>
+   
+   
+   <div style="position: fixed; bottom:870px; right:30px; ">
+       <p  align="right"><b>Fecha: </b>  <?php
+                  date_default_timezone_set('America/Chihuahua');
+                  $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+                  $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                   
+                  echo $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+                  ?>
+       </p>  
+   </div>
+    <div style="position: fixed;bottom:630px; left: 40px; ">
+           <?php if ($medicinas[0]['RECETA']['INDICACIONES_ADICIONALES'] ) { ?>
+              <p align="justify"><b>Indicaciones Adicionales: </b><br> <?php echo $medicinas[0]['RECETA']['INDICACIONES_ADICIONALES']; ?></p>
+            <?php } ?>
+            
+    </div>
+  
+  <div style="position: fixed;bottom:555px; left:20px; ">
+      <p style=" text-align:left; font-size:12px;" >Teléfono: 433-4833<!-- <?php echo $doctor[0]['telefono'] ?> --> </p>
+  </div>
+  <div style="position: fixed;bottom:535px; right:600px; ">
+      <p style=" text-align:right; font-size:12px;">Celular: 6143458251<!--  <?php echo $doctor[0]['celular'] ?> -->  </p>
+  </div>
+  <div style="position: fixed;bottom:555px; right:300px; ">
+      <p style=" text-align:right; font-size:14px;"><?php echo $doctor[0]['EMAIL'] ?></p>
+  </div>
+  <div style="position: fixed;bottom:535px; left:270px; ">
+      <p style=" text-align:left; font-size:14px;">www.starmedica.com</p>
+  </div>
+  <div style="position: fixed;bottom:555px; left:510px; ">
+      <p style=" text-align:left; font-size:14px;">Periférico de la Juventud No.6103</p>
+  </div>
+  <div style="position: fixed;bottom:535px; left:570px; "><!--565px bottom-->
+      <p style=" text-align:left; font-size:14px;">Col. El Saucito</p>
+  </div>   
+  <div class="page">
+   
+       
+       <div style="position: fixed;bottom:810px;  ">
+                  <?php 
+                  
+                  foreach($medicinas as $s) {
+                    $con++;
+                    if ($con < 4) { ?>
+                       <p style="text-align:center;"><b><?php echo $s['MEDICAMENTO']; ?></b>
+                       <br>
+                      (<?php echo $s['FRECUENCIA']; ?> 
+                       )</p>
+                       
+                  <?php 
+                      }
+                      else
+                      {  
+                        $con = 0;
+                        ?>  
+                       <div class="page">
+                           <p style="text-align:center;"><b><?php echo $s['MEDICAMENTO']; ?></b>
+                           <br>
+                          (<?php echo $s['FRECUENCIA']; ?> 
+                           )</p>
+                       </div>
+                    <?php    
+                      }
+                     } 
+                   ?>                
+       </div> 
+      <div style="margin-top:20px;">
+      <!-- <img src="<?php echo $_SERVER["DOCUMENT_ROOT"].'/consultas/dibujarcodigo?code='.$s['ID_RECETA'] ?>"> -->
+      
+    </div> 
+    </div>
+
+   
+
+
+
 
 
  

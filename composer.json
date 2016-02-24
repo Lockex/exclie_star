@@ -11,6 +11,7 @@
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
         "coolcsn/csn-user": "dev-master",
-        "coolcsn/csn-authorization": "dev-master"
+        "coolcsn/csn-authorization": "dev-master",
+        "dino/dompdf-module": "dev-master"
     }
 }

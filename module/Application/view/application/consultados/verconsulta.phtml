@@ -1,147 +1,149 @@
-<div class="tab-pane active" id="addconsulta">
-	<br>
-	<form class="form form-validate" id="formConsul" novalidate="novalidate">
-		<div class="card">
-			<div class="card-body ">
-				<div class="row">
-					<div class="col-md-7">
-						<div class="form-group">
-							<h4 class="text-primary">Motivo Consulta</h4>
-							<p class="form-control-static"><?php echo $consulta[0]['MOTIVO_CONS'];?></p>
+<div class="card">
+	<div class="card-body ">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="form-group">
+					<h4 class="text-primary">Motivo Consulta</h4>
+					<p class="form-control-static"><?php echo $consulta[0]['MOTIVO_CONS'];?></p>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Fecha</h4>
+					<p class="form-control-static"><?php echo date_format($consulta[0]['FECHA_CONS'],'Y-m-d');?></p>	
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Edad</h4>
+							<p class="form-control-static"><?php echo $consulta[0]['EDAD'];?></p>
 						</div>
+						<span class="input-group-addon">años</span>
 					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<h4 class="text-primary">Fecha</h4>
-							<p class="form-control-static"><?php echo date_format($consulta[0]['FECHA_CONS'],'Y-m-d');?></p>	
-						</div>
-					</div>
+				</div>
+				<div class="form-group">
+					<h4 class="text-primary">Ciclo</h4>
+					<?php if(isset($consulta[0]['CICLO'])){ ?>
+					<p class="form-control-static"><?php echo $consulta[0]['CICLO'];?></p>
+					<?php } ?>
+				</div>
+				<div class="form-group">
+					<h4 class="text-primary">FUM</h4>
+					<?php if(isset($consulta[0]['FUM'])){ ?>
+					<p class="form-control-static"><?php echo date_format($consulta[0]['FUM'],'Y-m-d');?></p>
+					<?php }  ?>
 				</div>
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-content">
-									<h4 class="text-primary">Edad</h4>
-									<p class="form-control-static"><?php echo $consulta[0]['EDAD'];?></p>
-								</div>
-								<span class="input-group-addon">años</span>
-							</div>
-						</div>
-						<div class="form-group">
-							<h4 class="text-primary">Ciclo</h4>
-							<?php if(isset($consulta[0]['CICLO'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['CICLO'];?></p>
+							<h4 class="text-primary">G</h4>
+							<?php if(isset($consulta[0]['GESTAS'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['GESTAS'];?></p>
 							<?php } ?>
 						</div>
+					</div>
+					<div class="col-sm-2">
 						<div class="form-group">
-							<h4 class="text-primary">FUM</h4>
-							<?php if(isset($consulta[0]['FUM'])){ ?>
-							<p class="form-control-static"><?php echo date_format($consulta[0]['FUM'],'Y-m-d');?></p>
-							<?php }  ?>
-						</div>
-						<div class="row">
-							<div class="col-sm-3">
-								<div class="form-group">
-									<h4 class="text-primary">G</h4>
-									<?php if(isset($consulta[0]['GESTAS'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['GESTAS'];?></p>
-									<?php } ?>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<h4 class="text-primary">P</h4>
-									<?php if(isset($consulta[0]['PARTOS'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['PARTOS'];?></p>
-									<?php } ?>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<h4 class="text-primary">C</h4>
-									<?php if(isset($consulta[0]['CESAREAS'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['CESAREAS'];?></p>
-									<?php } ?>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<h4 class="text-primary">A</h4>
-									<?php if(isset($consulta[0]['ABORTOS'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['ABORTOS'];?></p>
-									<?php } ?>
-								</div>
-							</div>
+							<h4 class="text-primary">P</h4>
+							<?php if(isset($consulta[0]['PARTOS'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['PARTOS'];?></p>
+							<?php } ?>
 						</div>
 					</div>
-					<div class="col-sm-2"></div>
-					<div class="col-sm-5"></div>
-					<div class="col-sm-3">
-						
+					<div class="col-sm-2">
 						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-content">
-									<h4 class="text-primary">Tiroides</h4>
-									<?php if(isset($consulta[0]['TIROIDESNUM'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['TIROIDESNUM'];?></p>
-									<?php } ?>
-								</div>
-								<span class="input-group-addon">ml U/L</span>
-							</div>
+							<h4 class="text-primary">C</h4>
+							<?php if(isset($consulta[0]['CESAREAS'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['CESAREAS'];?></p>
+							<?php } ?>
 						</div>
+					</div>
+					<div class="col-sm-2">
 						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-content">
-									<h4 class="text-primary">Peso</h4>
-									<?php if(isset($consulta[0]['PESO'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['PESO'];?></p>
-									<?php } ?>
-									</div>
-								<span class="input-group-addon">Kg</span>
-							</div>
+							<h4 class="text-primary">A</h4>
+							<?php if(isset($consulta[0]['ABORTOS'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['ABORTOS'];?></p>
+							<?php } ?>
 						</div>
+					</div>
+					<div class="col-sm-2">
 						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-content">
-									<h4 class="text-primary">Presión</h4>
-									<?php if(isset($consulta[0]['PRESION'])){ ?>
-									<p class="form-control-static"><?php echo $consulta[0]['PRESION'];?></p>
-									<?php } ?>
-									</div>
-								<span class="input-group-addon">mmHg</span>
-							</div>
+							<h4 class="text-primary">E</h4>
+							<?php if(isset($consulta[0]['ECTOPICOS'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['ECTOPICOS'];?></p>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
-				<hr>
-				<div class="row">
-					<?php if(isset($consulta[0]['IMAGEN'])){ ?>
-					<img src="<?php echo $this->basePath(); ?>/public/imagenes/consultas/<?php echo $pac[0];?>/<?php echo $consulta[0]['IMAGEN'];?>" alt="" style="max-width: 100%;,max-height: 100%;">
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-5"></div>
+			<div class="col-sm-3">
+				
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Tiroides</h4>
+							<?php if(isset($consulta[0]['TIROIDESNUM'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['TIROIDESNUM'];?></p>
+							<?php } ?>
+						</div>
+						<span class="input-group-addon">ml U/L</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Peso</h4>
+							<?php if(isset($consulta[0]['PESO'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['PESO'];?></p>
+							<?php } ?>
+							</div>
+						<span class="input-group-addon">Kg</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Presión</h4>
+							<?php if(isset($consulta[0]['PRESION'])){ ?>
+							<p class="form-control-static"><?php echo $consulta[0]['PRESION'];?></p>
+							<?php } ?>
+							</div>
+						<span class="input-group-addon">mmHg</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<?php if(isset($consulta[0]['IMAGEN'])){ ?>
+			<img src="<?php echo $this->basePath(); ?>/public/imagenes/consultas/<?php echo $pac[0];?>/<?php echo $consulta[0]['IMAGEN'];?>" alt="" style="max-width: 100%;,max-height: 100%;">
+			<?php } ?>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">Plan</h4>
+					<?php if(isset($consulta[0]['PLAN'])){ ?>
+					<p class="form-control-static"><?php echo $consulta[0]['PLAN'];?></p>
 					<?php } ?>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<h4 class="text-primary">Plan</h4>
-							<?php if(isset($consulta[0]['PLAN'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['PLAN'];?></p>
-							<?php } ?>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<h4 class="text-primary">IMX</h4>
-							<?php if(isset($consulta[0]['IMX'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['IMX'];?></p>
-							<?php } ?>
-						</div>
-					</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">IMX</h4>
+					<?php if(isset($consulta[0]['IMX'])){ ?>
+					<p class="form-control-static"><?php echo $consulta[0]['IMX'];?></p>
+					<?php } ?>
 				</div>
-			</div><!--end .card-body -->
-			
-		</div><!--end .card -->
-		
-	</form>
-</div>
+			</div>
+		</div>
+	</div><!--end .card-body -->
+	
+</div><!--end .card -->

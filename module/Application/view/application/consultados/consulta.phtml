@@ -36,7 +36,7 @@
 							<li><small class="text-primary">CATEGORIAS</small></li>
 							<li class="active"><a href="#" onclick="listaConsultas();">Consultas <span class="pull-right badge style-accent"><?php if(isset($consultas)){echo count($consultas);} ?></span></a></li>
 							<!-- <li><a href="#">Estudios <span class="pull-right badge style-accent">52</span></a></li>
-							<li><a href="#">Laboratorios <span class="pull-right badge style-accent">71</span></a></li> -->
+							<li><a href="#"> <span class="pull-right badge style-accent">71</span></a></li> -->
 						</ul>
 						<hr>
 						<ul class="list divider-full-bleed">
@@ -46,18 +46,34 @@
 							<?php } else{?>
 							<?php foreach ($consultas as $con) { ?>
 								<li class="tile">
-								<a class="tile-content ink-reaction" onclick="detalleConsulta(<?php echo $con['ID'];?>);">
-									<div class="tile-text">
-										<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
-										<small>
-											<?php echo $con['MOTIVO']; ?>
-										</small>
-									</div>
-									<div class="tile-icon">
-										<span class="fa fa-stethoscope fa-2x text-primary"></span>
-									</div>
-								</a>
-							</li>
+									<?php if($con['ESPEC'] == 'Cgineco'){ ?>
+									<a class="tile-content ink-reaction" onclick="detalleConsulta(<?php echo $con['ID'];?>);">
+										<div class="tile-text">
+											<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
+											<small>
+												<?php echo $con['MOTIVO']; ?>
+											</small>
+										</div>
+										
+										<div class="tile-icon">
+											<span class="fa fa-stethoscope fa-2x text-primary"></span>
+										</div>
+									</a>
+									<?php }else if($con['ESPEC'] == 'Expescar'){?>
+									<a class="tile-content ink-reaction">
+										<div class="tile-text">
+											<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
+											<small>
+												<?php echo $con['MOTIVO']; ?>
+											</small>
+										</div>
+										
+										<div class="tile-icon">
+											<span class="fa fa-stethoscope fa-2x text-accent"></span>
+										</div>
+									</a>
+									<?php } ?>
+								</li>
 							<?php } ?>
 							<?php } ?>
 						</ul>
@@ -67,9 +83,15 @@
 					<!-- BEGIN CONTACTS MAIN CONTENT -->
 					<div class="col-sm-7 col-md-8 col-lg-9">
 						<div class="margin-bottom-xxl">
-							<div class="pull-left width-3 clearfix hidden-xs">
+							<div class="pull-left width-3 clearfix ">
 								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
 									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
+									<form action="<?php echo $this->basePath() ?>/consultados/guardarfotopac" class="dropzone dz-clickable" id="drops">
+									<input type="hidden" id="idPaciente" name="idPaciente">
+									<input accept="image/*"  type="file" capture/>
+									
+
+								</form>
 								<?php } else  {?>
 									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
                           		<?php } ?> 
@@ -84,7 +106,7 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#historia">Historial</a></li>
+							<li><a href="#historia" onclick="detalleHisto(<?php echo $con['CONSULTA'];?>);">Historia Clinica</a></li>
 						</ul>
 						<div class="tab-content">
 
@@ -108,93 +130,17 @@
 									</div><!--end .list-results -->
 									<?php } ?>
 								<?php } ?>
-							</div><!--end #notes -->
+							</div>
 							<!-- END CONTACTS NOTES -->
 
-							<!-- BEGIN CONTACTS ACTIVITY -->
+							<!-- BEGIN CONTACTS HISTORIA CLINICA -->
 							<div class="tab-pane" id="historia">
 								<br>
-								<hr class="no-margin"/>
-								<ul class="timeline collapse-md">
-									<li class="timeline-inverted">
-										<div class="timeline-circ"></div>
-										<div class="timeline-entry">
-											<div class="card style-default-light">
-												<div class="card-body small-padding">
-													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar9.jpg" alt="" />
-													<span class="text-medium">Received a <a class="text-primary" href="../../../html/mail/inbox.html">message</a> from <span class="text-primary">Ann Lauren</span></span><br/>
-													<span class="opacity-50">
-														Saturday, Oktober 18, 2014
-													</span>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="timeline-circ"></div>
-										<div class="timeline-entry">
-											<div class="card style-default-light">
-												<div class="card-body small-padding">
-													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
-													<span class="text-medium">User login at <span class="text-primary">8:15 pm</span></span><br/>
-													<span class="opacity-50">
-														Saturday, August 2, 2014
-													</span>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="timeline-inverted">
-										<div class="timeline-circ style-default-dark"></div>
-										<div class="timeline-entry">
-											<div class="card style-default-dark">
-												<div class="card-body small-padding">
-													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
-													<span class="text-medium">Meeting in the <span class="text-primary">conference room</span></span><br/>
-													<span class="opacity-50">
-														Saturday, Juli 29, 2014
-													</span>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="timeline-circ circ-xl style-accent"><span class="glyphicon glyphicon-upload"></span></div>
-										<div class="timeline-entry">
-											<div class="card style-primary">
-												<div class="card-body small-padding">
-													<p><img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar5.jpg" alt="" />
-													<span class="text-medium">Contacted <a class="text-primary-dark" href="../../../html/mail/inbox.html">Mabel Logan</a></span><br/>
-													<span class="opacity-50">
-														Saturday, Juli 23, 2014
-													</span>
-												</p>
-												<em>
-													Can you send me the latest updates? Then I can see the new colors for the themes.
-												</em>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="timeline-inverted">
-										<div class="timeline-circ circ-lg"><span class="glyphicon glyphicon-plus-sign"></span></div>
-										<div class="timeline-entry">
-											<div class="card style-default-light">
-												<div class="card-body small-padding">
-													<img class="img-circle img-responsive pull-left width-1" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" alt="" />
-													<span class="text-medium">User registered on website</span><br/>
-													<span class="opacity-50">
-														Saturday, March 2, 2014
-													</span>
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul><!--end .timeline -->
-							</div><!--end #activity -->
-							<!-- END CONTACTS ACTIVITY -->
+								<div id="verhistoriac"></div>
+							</div>
+							<!-- END CONTACTS HISTORIA CLINICA -->
 
-							<!-- BEGIN VERCONSULTA DETAILS -->
+							<!-- BEGIN VERCONSULTA  -->
 							<div class="tab-pane active" id="verconsulta">
 								<br>
 								<div class="row">
@@ -210,8 +156,8 @@
 										</div>
 									</div>
 								</div>
-							</div><!--end #details -->
-							<!-- END VERCONSULTA DETAILS -->
+							</div>
+							<!-- END VERCONSULTA  -->
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
@@ -359,6 +305,24 @@
            }
        });
 
+    }
+
+    function detalleHisto(id)
+    {
+    	console.log(id);
+    	$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/verhistoclinica",
+           data: {id_consulta:id},
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#verhistoriac').html(response);
+           },
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
     }
     
 	

@@ -10,6 +10,10 @@ class Expescar {
     protected $ID;
     /** @ORM\Column(type="string") */
     protected $PADECIMIENTO;
+     /** @ORM\Column(type="date",nullable=true) */
+    protected $FECHA_CONS;
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $EDAD;
     /** @ORM\Column(type="string", nullable=true) */
     protected $PRIMERHIJO_NOMBRE;
     /** @ORM\Column(type="string", nullable=true) */
@@ -86,8 +90,22 @@ class Expescar {
     protected $ESPERMO_CULTIVO;
     /** @ORM\Column(type="string", nullable=true) */
     protected $ESPERMO_APP;
+     /** @ORM\Column(type="string", nullable=true) */
+    protected $CIRUGIAS_PREVIAS;
     /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
     protected $PACIENTE;
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $IMAGEN;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $TIROIDESNUM;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $PESO;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $PLAN;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $IMX;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $PRESION;
 
 
     /**
@@ -1070,6 +1088,222 @@ class Expescar {
     public function setPACIENTE($PACIENTE)
     {
         $this->PACIENTE = $PACIENTE;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of CIRUGIAS_PREVIAS.
+     *
+     * @return mixed
+     */
+    public function getCIRUGIASPREVIAS()
+    {
+        return $this->CIRUGIAS_PREVIAS;
+    }
+
+    /**
+     * Sets the value of CIRUGIAS_PREVIAS.
+     *
+     * @param mixed $CIRUGIAS_PREVIAS the 
+     *
+     * @return self
+     */
+    public function setCIRUGIASPREVIAS($CIRUGIAS_PREVIAS)
+    {
+        $this->CIRUGIAS_PREVIAS = $CIRUGIAS_PREVIAS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of IMAGEN.
+     *
+     * @return mixed
+     */
+    public function getIMAGEN()
+    {
+        return $this->IMAGEN;
+    }
+
+    /**
+     * Sets the value of IMAGEN.
+     *
+     * @param mixed $IMAGEN the 
+     *
+     * @return self
+     */
+    public function setIMAGEN($IMAGEN)
+    {
+        $this->IMAGEN = $IMAGEN;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of FECHA_CONS.
+     *
+     * @return mixed
+     */
+    public function getFECHACONS()
+    {
+        return $this->FECHA_CONS;
+    }
+
+    /**
+     * Sets the value of FECHA_CONS.
+     *
+     * @param mixed $FECHA_CONS the 
+     *
+     * @return self
+     */
+    public function setFECHACONS($FECHA_CONS)
+    {
+        $this->FECHA_CONS = $FECHA_CONS;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of EDAD.
+     *
+     * @return mixed
+     */
+    public function getEDAD()
+    {
+        return $this->EDAD;
+    }
+
+    /**
+     * Sets the value of EDAD.
+     *
+     * @param mixed $EDAD the 
+     *
+     * @return self
+     */
+    public function setEDAD($EDAD)
+    {
+        $this->EDAD = $EDAD;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of TIROIDESNUM.
+     *
+     * @return mixed
+     */
+    public function getTIROIDESNUM()
+    {
+        return $this->TIROIDESNUM;
+    }
+
+    /**
+     * Sets the value of TIROIDESNUM.
+     *
+     * @param mixed $TIROIDESNUM the 
+     *
+     * @return self
+     */
+    public function setTIROIDESNUM($TIROIDESNUM)
+    {
+        $this->TIROIDESNUM = $TIROIDESNUM;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of PESO.
+     *
+     * @return mixed
+     */
+    public function getPESO()
+    {
+        return $this->PESO;
+    }
+
+    /**
+     * Sets the value of PESO.
+     *
+     * @param mixed $PESO the 
+     *
+     * @return self
+     */
+    public function setPESO($PESO)
+    {
+        $this->PESO = $PESO;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of PLAN.
+     *
+     * @return mixed
+     */
+    public function getPLAN()
+    {
+        return $this->PLAN;
+    }
+
+    /**
+     * Sets the value of PLAN.
+     *
+     * @param mixed $PLAN the 
+     *
+     * @return self
+     */
+    public function setPLAN($PLAN)
+    {
+        $this->PLAN = $PLAN;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of IMX.
+     *
+     * @return mixed
+     */
+    public function getIMX()
+    {
+        return $this->IMX;
+    }
+
+    /**
+     * Sets the value of IMX.
+     *
+     * @param mixed $IMX the 
+     *
+     * @return self
+     */
+    public function setIMX($IMX)
+    {
+        $this->IMX = $IMX;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of PRESION.
+     *
+     * @return mixed
+     */
+    public function getPRESION()
+    {
+        return $this->PRESION;
+    }
+
+    /**
+     * Sets the value of PRESION.
+     *
+     * @param mixed $PRESION the 
+     *
+     * @return self
+     */
+    public function setPRESION($PRESION)
+    {
+        $this->PRESION = $PRESION;
 
         return $this;
     }

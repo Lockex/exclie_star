@@ -13,202 +13,685 @@
 	</div><!--end .card-head -->
 	<!-- TERMINA CABECERA -->
 	
-		<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+	<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
 	<div class="card-body">
 		<div class="row">
-					<!-- BEGIN CONTACTS MAIN CONTENT -->
-					<div class="col-md-12">
-						<div class="margin-bottom-xxl">
+			<!-- BEGIN CONTACTS MAIN CONTENT -->
+			<div class="col-md-12">
+				<!-- COMIENZA DATOS PACIENTE -->
+				<div class="margin-bottom-xxl">
+					<?php if(!isset($paciente)){ ?>
+						<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
+					<?php }else{ ?>
+					<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+
+					<?php } ?>
+					&nbsp;&nbsp;
+				</div>
+				<!-- TERMINA DATOS PACIENTE -->
+				<ul class="nav nav-tabs" data-toggle="tabs">
+					<li class="active"><a href="#addconsulta">CONSULTA</a></li>
+					<li><a href="#notes">NOTAS</a></li>
+					<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
+				</ul>
+				<div class="tab-content">
+					<!-- COMIENZA NOTAS PACIENTE -->
+					<div class="tab-pane" id="notes">
+						<br/>
+						<form class="form" id="formNotes" accept-charset="utf-8" method="post">
+							<div class="form-group">
+								<textarea id="recordar" name="recordar" class="form-control control-3-rows" placeholder="Agregar una nota ..." spellcheck="false"></textarea>
+							</div>
+							<div class="form-group clearfix">
+								<button type="button" class="btn btn-raised btn-primary pull-right" onclick="guardarNota()">Agregar</button>
+							</div>
+						</form>
+							<div id="resultaNotas">
 							
-							<?php if(!isset($paciente)){ ?>
-								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
-							<?php }else{ ?>
-							<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+							</div>
+					</div><!--end #notes -->
+					<!-- TERMINA NOTAS PACIENTE -->
 
-							<?php } ?>
-							&nbsp;&nbsp;
-						</div><!--end .margin-bottom-xxl -->
-						<ul class="nav nav-tabs" data-toggle="tabs">
-							<li class="active"><a href="#addconsulta">CONSULTA</a></li>
-							<li><a href="#notes">NOTAS</a></li>
-							<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
-						</ul>
-						<div class="tab-content">
-							<!-- COMIENZA NOTAS PACIENTE -->
-							<div class="tab-pane" id="notes">
-								<br/>
-								<form class="form" id="formNotes" accept-charset="utf-8" method="post">
-									<div class="form-group">
-										<textarea id="recordar" name="recordar" class="form-control control-3-rows" placeholder="Agregar una nota ..." spellcheck="false"></textarea>
+					<!-- BEGIN ADDCONSULTA DETAILS -->
+					<div class="tab-pane active" id="addconsulta">
+						<br>
+						<form class="form form-validate" id="formConsul" novalidate="novalidate">
+						<?php if(isset($consultas)){ $numero_consul = count($consultas);} ?>
+							<?php if($numero_consul >= '1'){ ?>
+							<div class="card">
+								<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+								<input type="hidden" name="tipocons" value="1">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-md-7">
+											<div class="form-group">
+												<input type="text" class="form-control" id="motivo" name="motivo">
+												<label for="Firstname2">Motivo Consulta</label>
+											</div>
+										</div>
+										<div class="col-md-2"></div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" id="fechahoy" name="fechahoy">
+												<label for="fechahoy">Fecha</label>
+											</div>
+										</div>
 									</div>
-									<div class="form-group clearfix">
-										<button type="button" class="btn btn-raised btn-primary pull-right" onclick="guardarNota()">Agregar</button>
-									</div>
-								</form>
-									<div id="resultaNotas">
-									
-									</div>
-							</div><!--end #notes -->
-							<!-- TERMINA NOTAS PACIENTE -->
-
-							<!-- BEGIN ADDCONSULTA DETAILS -->
-							<div class="tab-pane active" id="addconsulta">
-								<br>
-								<form class="form form-validate" id="formConsul" novalidate="novalidate">
-									<div class="card">
-										<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
-										<div class="card-body ">
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="edad" name="edad">
+														<label for="edad">Edad</label>
+													</div>
+													<span class="input-group-addon">años</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
+												<label for="ciclo">Ciclo</label>
+											</div>
+											<div class="form-group">
+												<input type="text" class="form-control" id="fum" name="fum">
+												<label for="fum">FUM</label>
+											</div>
 											<div class="row">
-												<div class="col-md-7">
+												<div class="col-sm-2">
 													<div class="form-group">
-														<input type="text" class="form-control" id="motivo" name="motivo">
-														<label for="Firstname2">Motivo Consulta</label>
+														<input type="text" class="form-control" id="gestas" name="gestas" data-rule-number="true">
+														<label for="gestas">G</label>
 													</div>
 												</div>
-												<div class="col-md-2"></div>
-												<div class="col-md-3">
+												<div class="col-sm-2">
 													<div class="form-group">
-														<input type="text" class="form-control" id="fechahoy" name="fechahoy">
-														<label for="fechahoy">Fecha</label>
+														<input type="text" class="form-control" id="partos" name="partos">
+														<label for="partos">P</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="cesarea" name="cesarea">
+														<label for="cesarea">C</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="abortos" name="bortos">
+														<label for="abortos">A</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="ectopicos" name="ectopicos">
+														<label for="ectopicos">E</label>
 													</div>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-sm-4">
-													<div class="form-group">
-														<div class="input-group">
-															<div class="input-group-content">
-																<input type="text" class="form-control" id="edad" name="edad">
-																<label for="edad">Edad</label>
-															</div>
-															<span class="input-group-addon">años</span>
+										</div>
+										<div class="col-sm-5"></div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
+														<label for="tiroidestxt">Tiroides</label>
+													</div>
+													<span class="input-group-addon">ml U/L</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="peso" name="peso">
+														<label for="peso">Peso</label>
 														</div>
-													</div>
+													<span class="input-group-addon">Kg</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="presion" name="presion">
+														<label for="presion">Presión</label>
+														</div>
+													<span class="input-group-addon">mmHg</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<!-- BEGIN CANVAS -->
+										<div class="card-tiles">
+											<div style="overflow: hidden; margin-bottom: 5px;">
+												<div class="column-right links" id="colores">
+													<strong>COLORES:</strong>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
+												</div>
+											</div>
+											<div class="row">
+												<canvas id="test"></canvas>
+											</div>
+											
+											<!-- END CANVAS  -->
+											<div class="row">
+												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
-														<label for="ciclo">Ciclo</label>
+														<input type="text" class="form-control" id="imx" name="imx">
+														<label for="imx">Iny</label>
 													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<input type="text" class="form-control" id="plan" name="plan">
+														<label for="plan">Plan</label>
+													</div>
+												</div>
+												
+											</div>
+											<!-- COMIENZA REPRODUCCION ASISTIDA -->
+											<!-- <div class="row">
+												
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divMonitoreo">
+															<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
+														</label>												
+													</div>		
+												
+											</div>
+											<div class="row">
+												<div class="col-md-12 hidden" id="divMonitoreo">
+													<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+													<canvas id="monitoreo"> </canvas>
+												</div>
+											</div> -->
+											<!-- TERMINA REPRODUCCION ASISTIDA -->
+											<div class="pull-right">	
+												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
+												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
+											</div>
+										</div><!--end .card-tiles -->
+										
+									</div>
+									
+									
+								</div><!--end .card-body -->
+							</div><!--end .card -->
+							<?php }else if($numero_consul == '0'){ ?>
+							<div class="card">
+								<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+								<input type="hidden" name="tipocons" value="0">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="motivo" name="motivo">
+												<label for="Firstname2">Motivo Consulta</label>
+											</div>
+										</div>
+										<div class="col-md-3"></div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<input type="text" class="form-control" id="fechahoy" name="fechahoy">
+												<label for="fechahoy">Fecha</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-sm-6">
 													<div class="form-group">
 														<input type="text" class="form-control" id="fum" name="fum">
 														<label for="fum">FUM</label>
 													</div>
-													<div class="row">
-														<div class="col-sm-3">
-															<div class="form-group">
-																<input type="text" class="form-control" id="gestas" name="gestas" data-rule-number="true">
-																<label for="gestas">G</label>
-															</div>
-														</div>
-														<div class="col-sm-3">
-															<div class="form-group">
-																<input type="text" class="form-control" id="partos" name="partos">
-																<label for="partos">P</label>
-															</div>
-														</div>
-														<div class="col-sm-3">
-															<div class="form-group">
-																<input type="text" class="form-control" id="cesarea" name="cesarea">
-																<label for="cesarea">C</label>
-															</div>
-														</div>
-														<div class="col-sm-3">
-															<div class="form-group">
-																<input type="text" class="form-control" id="abortos" name="bortos">
-																<label for="abortos">A</label>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-sm-5"></div>
-												<div class="col-sm-3">
-													
-													<div class="form-group">
-														<div class="input-group">
-															<div class="input-group-content">
-																<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
-																<label for="tiroidestxt">Tiroides</label>
-															</div>
-															<span class="input-group-addon">ml U/L</span>
-														</div>
-													</div>
-													<div class="form-group">
-														<div class="input-group">
-															<div class="input-group-content">
-																<input type="text" class="form-control" id="peso" name="peso">
-																<label for="peso">Peso</label>
-																</div>
-															<span class="input-group-addon">Kg</span>
-														</div>
-													</div>
-													<div class="form-group">
-														<div class="input-group">
-															<div class="input-group-content">
-																<input type="text" class="form-control" id="presion" name="presion">
-																<label for="presion">Presión</label>
-																</div>
-															<span class="input-group-addon">mmHg</span>
-														</div>
-													</div>
 												</div>
 											</div>
-											<hr>
 											<div class="row">
-												<!-- BEGIN CANVAS -->
-												<div class="card-tiles">
-													<div style="overflow: hidden; margin-bottom: 5px;">
-														<div class="column-right links" id="colores">
-															<strong>COLORES:</strong>
-																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
-																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
-																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
-																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
-																<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
+												<div class="col-sm-3">
+													<div class="form-group">
+														<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
+														<label for="ciclo">Ciclos</label>
+													</div>
+												</div>
+												<div class="col-sm-3">
+													<div class="form-group">
+														<input type="text" class="form-control" id="menarca" name="menarca">
+														<label for="menarca">Menarca</label>
+													</div>
+												</div>
+												<div class="col-sm-3">
+													<div class="form-group">
+														<input type="text" class="form-control" id="ivsa" name="ivsa">
+														<label for="ivsa">IVSA</label>
+													</div>
+												</div>
+												<div class="col-sm-3">
+													<div class="form-group">
+														<input type="text" class="form-control" id="duracion" name="duracion">
+														<label for="duracion">Duración</label>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="gestas" name="gestas" data-rule-number="true">
+														<label for="gestas">G</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="partos" name="partos">
+														<label for="partos">P</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="cesarea" name="cesarea">
+														<label for="cesarea">C</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="abortos" name="bortos">
+														<label for="abortos">A</label>
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div class="form-group">
+														<input type="text" class="form-control" id="ectopicos" name="ectopicos">
+														<label for="ectopicos">E</label>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="hijoUno">
+															<span style="font-size:12px">PRIMER HIJO</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="hijoUno">
+													<div>
+														<div>
+															<label for="hijoUnoNombre">NOMBRE</label>
+															<input type="text" class="form-control input-lg" name="hijoUnoNombre" id="hijoUnoNombre"><br>
+														</div>	
+														<div>
+															<label for="hijoUnoEdad">EDAD</label>
+															<input type="text" class="form-control input-lg" name="hijoUnoEdad" id="hijoUnoEdad"><br>
+														</div>											
+													</div>
+												</div>
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="hijoDos">
+															<span style="font-size:12px">SEGUNDO HIJO</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="hijoDos">
+													<div>
+														<div>
+															<label for="hijoDosNombre">NOMBRE</label>
+															<input type="text" class="form-control input-lg" name="hijoDosNombre" id="hijoDosNombre"><br>
+														</div>	
+														<div>
+															<label for="hijoDosEdad">EDAD</label>
+															<input type="text" class="form-control input-lg" name="hijoDosEdad" id="hijoDosEdad"><br>
+														</div>											
+													</div>
+												</div>
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="hijoTres">
+															<span style="font-size:12px">TERCER HIJO</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="hijoTres">
+													<div>
+														<div>
+															<label for="hijoTresNombre">NOMBRE</label>
+															<input type="text" class="form-control input-lg" name="hijoTresNombre" id="hijoTresNombre"><br>
+														</div>	
+														<div>
+															<label for="hijoTresEdad">EDAD</label>
+															<input type="text" class="form-control input-lg" name="hijoTresEdad" id="hijoTresEdad"><br>
+														</div>											
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="adisme">
+															<span style="font-size:12px">DISMENORREA</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="adisme">
+													<!-- <input type="text" class="form-control input-lg" name="DISMENORREA" id="DISMENORREA"> -->
+													<textarea name="DISMENORREA" id="DISMENORREA" class="form-control" rows="3"></textarea>
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="aflu">
+															<span style="font-size:12px">FLUJO</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="aflu" >
+													<textarea name="FLUJO" id="FLUJO" class="form-control" rows="3"></textarea>
+												</div>											
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="asistU">
+															<span style="font-size:12px">SISTEMA URINARIO</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="asistU">
+													<textarea name="sistUri" id="sistUri"  class="form-control" rows="3"></textarea>
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="sistDige">
+															<span style="font-size:12px">SISTEMA DIGESTIVO</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="sistDige">
+													<textarea name="sistDige" id="sistDige" class="form-control" rows="3"></textarea>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="aAntico">
+															<span style="font-size:12px">ANTICONCEPTIVO</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="aAntico">
+													<input type="text" class="form-control input-lg" name="aAntico" id="aAntico">
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="apapani">
+															<span style="font-size:12px">PAP</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="apapani">
+													<input type="text" class="form-control input-lg" name="apapani" id="apapani">
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="agalacto">
+															<span style="font-size:12px">GALACTORREA</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="agalacto">
+													<input type="text" class="form-control input-lg" name="agalacto" id="agalacto">
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="ahirsu">
+															<span style="font-size:12px">HIRSUTISMO</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="ahirsu">
+													<input type="text" class="form-control input-lg" name="ahirsu" id="ahirsu">
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="acohham">
+															<span style="font-size:12px">COH-HAM</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="acohham">
+													<select name="acohham" id="acohham" class="form-control">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6+">6 ó más</option>
+													</select>
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="ahsg">
+															<span style="font-size:12px">HSG</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="ahsg">
+													<div>
+														<label for="acavidad">Cavidad</label>
+														<input type="text" class="form-control input-lg" name="acavidad" id="acavidad"><br>
+													</div>
+													<div>
+														<label for="aD">+D</label>
+														<input type="text" class="form-control input-lg" name="aD" id="aD"><br>
+													</div>
+													<div>
+														<label for="aI">+I</label>
+														<input type="text" class="form-control input-lg" name="aI" id="aI">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="acirug">
+															<span style="font-size:12px">CIRUGIAS PREVIAS</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-4 hidden" id="acirug">
+													<input type="text" class="form-control input-lg" name="cirugias" id="cirugias">
+												</div>
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divaespermo">
+															<span style="font-size:12px">ESPERMOGRAMA</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-10 hidden" id="divaespermo">
+													<div class="form-group col-sm-3">
+														<div>
+															<label for="efecha">Fecha</label>
+															<input type="text" class="form-control input-lg" name="efecha" id="efecha"><br>
+														</div>
+														<div>
+															<label for="emoti">Motivilidad</label>
+															<input type="text" class="form-control input-lg" name="emoti" id="emoti"><br>
+														</div>
+														<div>
+															<label for="ecultiv">Cultivo</label>
+															<input type="text" class="form-control input-lg" name="ecultiv" id="ecultiv"><br>
 														</div>
 													</div>
-													<canvas id="test"></canvas>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<input type="text" class="form-control" id="imx" name="imx">
-																<label for="imx">Iny</label>
-															</div>
+													<div class="form-group col-sm-3">
+														<div>
+															<label for="ecuenta">Cuenta</label>
+															<input type="text" class="form-control input-lg" name="ecuenta" id="ecuenta"><br>
 														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<input type="text" class="form-control" id="plan" name="plan">
-																<label for="plan">Plan</label>
-															</div>
+														<div>
+															<label for="efn">FN</label>
+															<input type="text" class="form-control input-lg" name="efn" id="efn"><br>
 														</div>
-														
+														<div>
+															<label for="eapp">APP</label>
+															<input type="text" class="form-control input-lg" name="eapp" id="eapp"><br>
+														</div>
 													</div>
-													<div class="pull-right">	
-													<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
-													<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
+													<div class="form-group col-sm-3">
+														<div>
+															<br>
+															<select id="evolumen" name="evolumen" class="form-control">
+																<option value="1">1</option>
+																<option value="2">2</option>
+																<option value="3">3</option>
+																<option value="4">4</option>
+																<option value="5">5</option>
+															</select>
+															<label for="evolumen">VOLUMEN</label>
+														</div>
+														<div>
+														<br>
+															<label for="efragm">Fragmentación DNA</label>
+															<input type="text" class="form-control input-lg" name="efragm" id="efragm"> 
+														</div>
 													</div>
-												</div><!--end .card-tiles -->
-												<!-- END CANVAS  -->
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-sm-4">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="alab">
+															<span style="font-size:12px">LABORATORIO</span>
+														</label>
+													</div>
+												</div>
+												<div class="form-group col-sm-3 hidden" id="alab">
+													<input type="text" class="form-control input-lg" name="alab" id="alab">
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3"></div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="edad" name="edad">
+														<label for="edad">Edad</label>
+													</div>
+													<span class="input-group-addon">años</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="tiroidestxt" name="tiroidestxt">
+														<label for="tiroidestxt">Tiroides</label>
+													</div>
+													<span class="input-group-addon">ml U/L</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="peso" name="peso">
+														<label for="peso">Peso</label>
+														</div>
+													<span class="input-group-addon">Kg</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-content">
+														<input type="text" class="form-control" id="presion" name="presion">
+														<label for="presion">Presión</label>
+														</div>
+													<span class="input-group-addon">mmHg</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<textarea name="imx" id="imx" class="form-control" rows="3"></textarea>
+												<label for="imx">Iny</label>
+											</div>
+											<div class="form-group">
+												<textarea name="plan" id="plan" class="form-control" rows="3"></textarea>
+												<label for="plan">Plan</label>
+											</div>
+										</div>
+										
+									</div>
+									<hr>
+									<div class="row">
+										<!-- BEGIN CANVAS -->
+										<div class="card-tiles">
+											<div style="overflow: hidden; margin-bottom: 5px;">
+												<div class="column-right links" id="colores">
+													<strong>COLORES:</strong>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
+														<button type="button" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
+												</div>
+											</div>
+											<div class="row">
+												<canvas id="test"></canvas>
 											</div>
 											
+											<!-- END CANVAS  -->
 											
-										</div><!--end .card-body -->
-									</div><!--end .card -->
+											<div class="pull-right">	
+												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
+												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
+											</div>
+										</div><!--end .card-tiles -->
+										
+									</div>
 									
-								</form>
-							</div><!--end #addconsulta -->
-							<!-- END ADDCONSULTA DETAILS -->
+									
+								</div><!--end .card-body -->
+							</div><!--end .card -->
+							<?php }?>
+						</form>
+					</div><!--end #addconsulta -->
+					<!-- END ADDCONSULTA DETAILS -->
 
-							<!-- COMIENZA RECETAS -->
-							<div class="tab-pane" id="recetas">
-								<br>
-								<div id="resultarecetas">
-									
-								</div>
-							</div><!-- end #recetas -->
-							<!-- TERMINA RECETAS -->
-						</div><!--end .tab-content -->
-					</div><!--end .col -->
-					<!-- END CONTACTS MAIN CONTENT -->
-				</div><!--end .row -->
+					<!-- COMIENZA RECETAS -->
+					<div class="tab-pane" id="recetas">
+						<br>
+						<div id="resultarecetas">
+							
+						</div>
+					</div><!-- end #recetas -->
+					<!-- TERMINA RECETAS -->
+				</div><!--end .tab-content -->
+			</div><!--end .col -->
+			<!-- END CONTACTS MAIN CONTENT -->
+		</div><!--end .row -->
 	</div>
 	
 	<!-- BEGIN OFFCANVAS -->
@@ -315,12 +798,10 @@
 	<!-- END OFFCANVAS -->
 </div>
 
-
-<!--<script src="<?php echo $this->basePath() ?>/public/js/jquery-1.5.2.min.js"></script>-->
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jquery.jqscribble.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jqscribble.extrabrushes.js" type="text/javascript"></script>
-
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/consultando.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
@@ -330,14 +811,14 @@
 	$(document).ready(function()
 	{
 		$("#test").jqScribble();
+		// $("#monitoreo").jqScribble();
+		// $("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
 		$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
     	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
     	fechaActual();
     	mostrarNotas();
-    	
     	$('#lirecetas').hide();
-    	
-	});
+    });
 
 	$('#fum').datepicker({format: "dd-mm-yyyy"});
 
@@ -376,8 +857,8 @@
 	{
 
 		$("#test").data("jqScribble").save(function(imageData)
-		{
-		
+		{	
+			
 			var formulario = $('#formConsul').serialize();
 			var datos = {imagedata: imageData,datos:formulario};
 			console.log(datos);

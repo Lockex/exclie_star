@@ -48,7 +48,9 @@ class CapturaController extends AbstractActionController
       $paciente->setOCUPACION($this->request->getPost('OCUPACION'));
       $paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
       $paciente->setEMAIL($this->request->getPost('EMAIL'));
-      $paciente->setREFERIDO($this->request->getPost('REFERIDO'));
+      $paciente->setREFERIDO($this->request->getPost('referido'));
+      $paciente->setNOMBRECONYUGE($this->request->getPost('NombreC'));
+      $paciente->setEDADCONYUGE($this->request->getPost('EdadC'));
       $paciente->setFECHAREGISTRO(new \DateTime());
       $paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos',$this->request->getPost('TIPO_SANGUINEO')));
 
@@ -116,6 +118,20 @@ class CapturaController extends AbstractActionController
       
       $om->persist($historia);
       $om->flush();
+
+      $fecha_reg      = new \DateTime(date('Y-m-d',strtotime($this->request->getPost('fecha-histo'))));
+
+      $consulta = new Consultas;
+
+      $consulta->setFECHACONS($fecha_reg);
+      $consulta->setPACIENTE($paciente);
+      $consulta->setMEDICO($this->identity());
+      $consulta->setCONSULTA($historia->getID());
+      $consulta->setESPEC('Expescar');
+      $consulta->setMOTIVO($this->request->getPost('MOTIVO'));
+      
+      $om->persist($consulta);            
+      $om->flush();
      
        $id = $paciente->getID();
        
@@ -129,32 +145,48 @@ class CapturaController extends AbstractActionController
   {
     if($this->request->isPost()){
 
-        $objectManager = $this->getObjectManager();
+        $om = $this->getObjectManager();
 
         $data = array_merge_recursive(
-                  $this->getRequest()->getPost()->toArray(),           
-                  $this->getRequest()->getFiles()->toArray()
+            $this->getRequest()->getPost()->toArray(),           
+            $this->getRequest()->getFiles()->toArray()
         );
 
        $fecha_consulta = $data['fecha_consulta'];
+       $nombre_imagen = $data['file']['name'];
        $imagenes = new Imagenesconsultas();
 
-       $imagenes->setIMAGEN($data['file']['name']);
-       $imagenes->setPACIENTE($objectManager->find('Application\Entity\Pacientes',$data['idPaciente']));
+       $imagenes->setIMAGEN($nombre_imagen);
+       $imagenes->setPACIENTE($om->find('Application\Entity\Pacientes',$data['idPaciente']));
        $imagenes->setFECHACONSULTA(new \DateTime(date('Y-m-d',strtotime($fecha_consulta))));
-
-       $ruta = getcwd().'/public/imagenes/consultas/'.$data['idPaciente'];
-       if (!file_exists($ruta)) 
-       {
+        
+       
+        
+        $ruta = getcwd().'/public/imagenes/consultas/'.$data['idPaciente'];
+        if (!file_exists($ruta)) 
+        {
           mkdir($ruta);
-       }
-       $adapter = new \Zend\File\Transfer\Adapter\Http();
-       $adapter->setDestination($ruta);
-       if($adapter->receive($data['file']['name']))
-       {
-          $objectManager->persist($imagenes);
-          $objectManager->flush(); 
-       }
+        }
+        
+         $adapter = new \Zend\File\Transfer\Adapter\Http();
+         $adapter->setDestination($ruta);
+         
+         if($adapter->receive())
+         {
+             $om->persist($imagenes);
+             $om->flush();
+         }
+
+         $consulta = new Consultas;
+
+        $consulta->setFECHACONS(new \DateTime(date('Y-m-d',strtotime($fecha_consulta))));
+        $consulta->setPACIENTE($om->find('Application\Entity\Pacientes',$data['idPaciente']));
+        $consulta->setMEDICO($this->identity());
+        $consulta->setCONSULTA($imagenes->getID());
+        $consulta->setESPEC('Captura');
+              
+        $om->persist($consulta);            
+        $om->flush();
     }
     return new JsonModel();
   }
@@ -175,6 +207,7 @@ class CapturaController extends AbstractActionController
         $om->flush();
 
         $ruta = getcwd().'/public/imagenes/consultas/'.$idPaciente.'/'.$imagen;
+        
       
         unlink($ruta);
 
