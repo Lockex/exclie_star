@@ -85,6 +85,7 @@
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
 							<li><a href="#historia">Historial</a></li>
+							<li><a href="#videos">Videos</a></li>
 						</ul>
 						<div class="tab-content">
 
@@ -193,6 +194,44 @@
 								</ul><!--end .timeline -->
 							</div><!--end #activity -->
 							<!-- END CONTACTS ACTIVITY -->
+
+							<!--Inicio mostrar videos -->
+							<div class="tab-pane" id="videos">
+								<br/>
+								<!-- BEGIN FILE UPLOAD -->
+						<div class="row">
+
+							
+							<?php if(isset($paciente))  {  ?>
+							<div class=" col-md-12">
+								<div class="card">
+									<div class="card-head style-primary">
+									
+										<header>Subir Videos</header>
+									</div>
+									<div class="card-body no-padding">
+								<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+								
+								<input type="hidden" id="pacienteid" name="pacienteid" value= <?php echo $paciente[0]['ID'];?> >
+								
+								
+										<div class="dz-message">
+
+										<h3 >Agrega aquí los videos  <br/><br/></h3>
+									</div>
+
+								</form>
+							</div><!--end .card-body -->
+
+								</div><!--end .card -->
+								
+							</div><!--end .col -->
+							<?php } ?>
+						</div><!--end .row -->
+						<!-- END FILE UPLOAD -->
+								
+								
+							</div><!--Fin mostrar videos -->
 
 							<!-- BEGIN VERCONSULTA DETAILS -->
 							<div class="tab-pane active" id="verconsulta">
@@ -330,8 +369,10 @@
 </form>
 
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
 <script>
 
 	var ruta = '<?php echo $this->basePath(); ?>';	
@@ -360,6 +401,8 @@
        });
 
     }
+
+    
     
 	
 </script>
