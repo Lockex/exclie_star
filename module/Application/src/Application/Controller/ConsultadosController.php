@@ -4,16 +4,13 @@ namespace Application\Controller;
 
 use Application\Entity\Cgineco;
 use Application\Entity\Consultas;
+use Application\Entity\Expescar;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
-use Application\Entity\Expescar;
 use Application\Entity\Videoconsulta;
-
 use Zend\Mvc\Controller\AbstractActionController;
-
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-
 
 class ConsultadosController extends AbstractActionController {
 	protected $_objectManager;
@@ -74,13 +71,12 @@ class ConsultadosController extends AbstractActionController {
 
 			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes);
 
-
-            $query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
 			$consultas = $query2->getArrayResult();
 
-			$data = array('paciente'=>$paciente,'antecedentes'=>$antecedentes,'consultas'=>$consultas);
-			
-		}else{
+			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas);
+
+		} else {
 
 			$data = array();
 		}
@@ -102,19 +98,13 @@ class ConsultadosController extends AbstractActionController {
 		$objectManager = $this->getObjectManager();
 
 		$idconsul = $this->request->getPost('id_consulta');
-
-		$query2 = $objectManager->createQuery("SELECT c.CONSULTA FROM Application\Entity\Consultas c WHERE c.ID = $idconsul");
-		$gineid = $query2->getArrayResult();
-
-		$id_gine = $gineid[0]['CONSULTA'];
-
-		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $id_gine");
+		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consultag'=>$consultas,'pac'=>$pac));
+		return new ViewModel(array('consultag' => $consultas, 'pac' => $pac));
 
 	}
 
@@ -127,29 +117,27 @@ class ConsultadosController extends AbstractActionController {
 			$datos = $this->request->getPost('datos');
 			$datos = explode("&", $datos);
 
-
-	        foreach($datos as $dato) 
-	        {
-	            $var = explode('=', $dato);
-	            $arr[$var[0]] = $var[1];
-	        }
-	        $caractraros = array('_','+');
-	        $paciente 	         = $objectManager->find('Application\Entity\Pacientes',$arr['idpac']);
-			$motivo_consulta 	 = urldecode($arr['motivo']);
-			$fecha_hoy 	 		 = $arr['fechahoy'];
-			$edad 		 		 = $arr['edad'];
-			$ciclo 		 		 = str_replace($caractraros,'',$arr['ciclo']);
-			$fum 		 		 = $arr['fum'];
-			$gestas 	 		 = $arr['gestas'];
-			$partos 			 = $arr['partos'];
-			$abortos 			 = $arr['bortos'];
-			$cesarea 			 = $arr['cesarea'];
-			$ectopicos 			 = $arr['ectopicos'];
-			$tiroides_txt 		 = $arr['tiroidestxt'];
-			$peso 		 		 = $arr['peso'];
-			$presion 	 		 = str_replace($caractraros,'',$arr['presion']);
-			$plan 	 		     = urldecode($arr['plan']);
-			$imx 	 		     = urldecode($arr['imx']);
+			foreach ($datos as $dato) {
+				$var = explode('=', $dato);
+				$arr[$var[0]] = $var[1];
+			}
+			$caractraros = array('_', '+');
+			$paciente = $objectManager->find('Application\Entity\Pacientes', $arr['idpac']);
+			$motivo_consulta = urldecode($arr['motivo']);
+			$fecha_hoy = $arr['fechahoy'];
+			$edad = $arr['edad'];
+			$ciclo = str_replace($caractraros, '', $arr['ciclo']);
+			$fum = $arr['fum'];
+			$gestas = $arr['gestas'];
+			$partos = $arr['partos'];
+			$abortos = $arr['bortos'];
+			$cesarea = $arr['cesarea'];
+			$ectopicos = $arr['ectopicos'];
+			$tiroides_txt = $arr['tiroidestxt'];
+			$peso = $arr['peso'];
+			$presion = str_replace($caractraros, '', $arr['presion']);
+			$plan = urldecode($arr['plan']);
+			$imx = urldecode($arr['imx']);
 
 			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy = new \DateTime();
@@ -165,96 +153,93 @@ class ConsultadosController extends AbstractActionController {
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
 
-			
-	        if($arr['tipocons']=='1'){
-		        /* SI ES UNA CONSULTA DE SEGUIMIENTO*/
-								
+			if ($arr['tipocons'] == '1') {
+				/* SI ES UNA CONSULTA DE SEGUIMIENTO*/
+
 				$gine = new Cgineco;
 				$gine->setFECHACONS($fecha_hoy);
-		       	$gine->setIMAGEN($filename);
+				$gine->setIMAGEN($filename);
 				$gine->setMOTIVOCONS($motivo_consulta);
-		       	$gine->setFECHACONS($fecha_hoy);
-		       	$gine->setEDAD($edad);
-		       	$gine->setCICLO($ciclo);
-		       	$gine->setFUM($fum2);
-		       	$gine->setGESTAS($gestas);
-		       	$gine->setPARTOS($partos);
-		       	$gine->setABORTOS($abortos);
-		       	$gine->setCESAREAS($cesarea);
-		       	$gine->setECTOPICOS($ectopicos);
-		       	$gine->setTIROIDESNUM($tiroides_txt);
-		       	$gine->setPESO($peso);
-		       	$gine->setPRESION($presion);
-		       	$gine->setIMX($imx);
-		       	$gine->setPLAN($plan);
+				$gine->setFECHACONS($fecha_hoy);
+				$gine->setEDAD($edad);
+				$gine->setCICLO($ciclo);
+				$gine->setFUM($fum2);
+				$gine->setGESTAS($gestas);
+				$gine->setPARTOS($partos);
+				$gine->setABORTOS($abortos);
+				$gine->setCESAREAS($cesarea);
+				$gine->setECTOPICOS($ectopicos);
+				$gine->setTIROIDESNUM($tiroides_txt);
+				$gine->setPESO($peso);
+				$gine->setPRESION($presion);
+				$gine->setIMX($imx);
+				$gine->setPLAN($plan);
 
-		       	$objectManager->persist($gine);
+				$objectManager->persist($gine);
 				$objectManager->flush();
 
 				$consulta = new Consultas;
 
-	        	$consulta->setFECHACONS($fecha_hoy);
-	        	$consulta->setPACIENTE($paciente);
-	        	$consulta->setMEDICO($this->identity());
-	        	$consulta->setCONSULTA($gine->getID());
-	        	$consulta->setESPEC('Cgineco');
-	        	$consulta->setMOTIVO($motivo_consulta);
-	        	
-	        	$objectManager->persist($consulta);            
-	        	$objectManager->flush();
-		       
-		       	$ruta = getcwd().'/public/imagenes/consultas/'.$arr['idpac'];
+				$consulta->setFECHACONS($fecha_hoy);
+				$consulta->setPACIENTE($paciente);
+				$consulta->setMEDICO($this->identity());
+				$consulta->setCONSULTA($gine->getID());
+				$consulta->setESPEC('Cgineco');
+				$consulta->setMOTIVO($motivo_consulta);
 
-		       	if (!file_exists($ruta)) 
-				{
+				$objectManager->persist($consulta);
+				$objectManager->flush();
+
+				$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+
+				if (!file_exists($ruta)) {
 					mkdir($ruta);
 				}
-				
-				imagepng($imgRes, $ruta.'/'.$filename);
+
+				imagepng($imgRes, $ruta . '/' . $filename);
 
 				$adapter = new \Zend\File\Transfer\Adapter\Http();
 				$adapter->setDestination($ruta);
-				
-				return new JsonModel(array('id'=>$gine->getID()));
-			}else if($arr['tipocons']=='0'){
-				/* SI ES UNA CONSULTA DE PRIMERA VEZ*/
-				$menarca 		 = $arr['menarca'];
-				$ivsa 	 		 = $arr['ivsa'];
-				$duracion 	 	 = $arr['duracion'];
-				$h1n 	 		 = urldecode($arr['hijoUnoNombre']);
-				$h1e 	 		 = $arr['hijoUnoEdad'];
-				$h2n 	 		 = urldecode($arr['hijoDosNombre']);
-				$h2e 	 		 = $arr['hijoDosEdad'];
-				$h3n 	 		 = urldecode($arr['hijoTresNombre']);
-				$h3e 	 		 = $arr['hijoTresEdad'];
-				$dismenorrea	 = urldecode($arr['DISMENORREA']);
-				$flujo 	 		 = urldecode($arr['FLUJO']);
-				$sistU 	 		 = urldecode($arr['sistUri']);
-				$sistD 	 		 = urldecode($arr['sistDige']);
-				$anticon		 = $arr['aAntico'];
-				$papani		  	 = $arr['apapani'];
-				$galacto		 = $arr['agalacto'];
-				$hirsu			 = $arr['ahirsu'];
-				$cohham			 = $arr['acohham'];
-				$cavidad		 = $arr['acavidad'];
-				$aD				 = $arr['aD'];
-				$aI				 = $arr['aI'];
-				$efecha 		 = $arr['efecha'];
-				$emotivo		 = $arr['emoti'];
-				$ecultivo		 = $arr['ecultiv'];
-				$ecuenta		 = $arr['ecuenta'];
-				$efn 			 = $arr['efn'];
-				$eapp			 = $arr['eapp'];
-				$evolumen		 = $arr['evolumen'];
-				$efragmenta		 = $arr['efragm'];
-				$lab		 	 = urldecode($arr['alab']);
-				$cirugias 		 = urldecode($arr['cirugias']);
 
-				
+				return new JsonModel(array('id' => $gine->getID()));
+			} else if ($arr['tipocons'] == '0') {
+				/* SI ES UNA CONSULTA DE PRIMERA VEZ*/
+				$menarca = $arr['menarca'];
+				$ivsa = $arr['ivsa'];
+				$duracion = $arr['duracion'];
+				$h1n = urldecode($arr['hijoUnoNombre']);
+				$h1e = $arr['hijoUnoEdad'];
+				$h2n = urldecode($arr['hijoDosNombre']);
+				$h2e = $arr['hijoDosEdad'];
+				$h3n = urldecode($arr['hijoTresNombre']);
+				$h3e = $arr['hijoTresEdad'];
+				$dismenorrea = urldecode($arr['DISMENORREA']);
+				$flujo = urldecode($arr['FLUJO']);
+				$sistU = urldecode($arr['sistUri']);
+				$sistD = urldecode($arr['sistDige']);
+				$anticon = $arr['aAntico'];
+				$papani = $arr['apapani'];
+				$galacto = $arr['agalacto'];
+				$hirsu = $arr['ahirsu'];
+				$cohham = $arr['acohham'];
+				$cavidad = $arr['acavidad'];
+				$aD = $arr['aD'];
+				$aI = $arr['aI'];
+				$efecha = $arr['efecha'];
+				$emotivo = $arr['emoti'];
+				$ecultivo = $arr['ecultiv'];
+				$ecuenta = $arr['ecuenta'];
+				$efn = $arr['efn'];
+				$eapp = $arr['eapp'];
+				$evolumen = $arr['evolumen'];
+				$efragmenta = $arr['efragm'];
+				$lab = urldecode($arr['alab']);
+				$cirugias = urldecode($arr['cirugias']);
+
 				$hc = new Expescar;
 				$hc->setPADECIMIENTO($motivo_consulta);
 				$hc->setFECHACONS($fecha_hoy);
-		       	$hc->setPRIMERHIJONOMBRE($h1n);
+				$hc->setPRIMERHIJONOMBRE($h1n);
 				$hc->setPRIMERHIJOEDAD($h1e);
 				$hc->setSEGUNDOHIJONOMBRE($h2n);
 				$hc->setSEGUNDOHIJOEDAD($h2e);
@@ -295,40 +280,38 @@ class ConsultadosController extends AbstractActionController {
 				$hc->setCIRUGIASPREVIAS($cirugias);
 				$hc->setIMAGEN($filename);
 				$hc->setTIROIDESNUM($tiroides_txt);
-		       	$hc->setPESO($peso);
-		       	$hc->setPRESION($presion);
-		       	$hc->setIMX($imx);
-		       	$hc->setPLAN($plan);
+				$hc->setPESO($peso);
+				$hc->setPRESION($presion);
+				$hc->setIMX($imx);
+				$hc->setPLAN($plan);
 
-		       	$objectManager->persist($hc);
+				$objectManager->persist($hc);
 				$objectManager->flush();
 
 				$consulta = new Consultas;
 
-	        	$consulta->setFECHACONS($fecha_hoy);
-	        	$consulta->setPACIENTE($paciente);
-	        	$consulta->setMEDICO($this->identity());
-	        	$consulta->setCONSULTA($hc->getID());
-	        	$consulta->setESPEC('Expescar');
-	        	$consulta->setMOTIVO($motivo_consulta);
-	        	
-	        	$objectManager->persist($consulta);            
-	        	$objectManager->flush();
-		       
-		       	$ruta = getcwd().'/public/imagenes/consultas/'.$arr['idpac'];
-				if (!file_exists($ruta)) 
-				{
+				$consulta->setFECHACONS($fecha_hoy);
+				$consulta->setPACIENTE($paciente);
+				$consulta->setMEDICO($this->identity());
+				$consulta->setCONSULTA($hc->getID());
+				$consulta->setESPEC('Expescar');
+				$consulta->setMOTIVO($motivo_consulta);
+
+				$objectManager->persist($consulta);
+				$objectManager->flush();
+
+				$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+				if (!file_exists($ruta)) {
 					mkdir($ruta);
 				}
 
-				imagepng($imgRes, $ruta.'/'.$filename);
+				imagepng($imgRes, $ruta . '/' . $filename);
 
 				$adapter = new \Zend\File\Transfer\Adapter\Http();
 				$adapter->setDestination($ruta);
-				
-				return new JsonModel(array('id'=>$hc->getID()));
-			}
 
+				return new JsonModel(array('id' => $hc->getID()));
+			}
 
 			$gine = new Cgineco;
 			$gine->setFECHACONS($fecha_hoy);
@@ -454,38 +437,35 @@ class ConsultadosController extends AbstractActionController {
 		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
 		$paciente = $query3->getArrayResult();
 
-
 		$pdf = new PdfModel();
 
 		$pdf->setVariables(array(
 
-		    'doctor' => $usuario,
+			'doctor' => $usuario,
 
-		     'pacienten' => $paciente[0]['NOMBRE'],
+			'pacienten' => $paciente[0]['NOMBRE'],
 
-		     'pacientep' => $paciente[0]['APELLIDO_PATERNO'],
+			'pacientep' => $paciente[0]['APELLIDO_PATERNO'],
 
-		     'pacientem' => $paciente[0]['APELLIDO_MATERNO'],
+			'pacientem' => $paciente[0]['APELLIDO_MATERNO'],
 
-		     'sexo' => [0]['SEXO'],
+			'sexo' => [0]['SEXO'],
 
-		     'edad' => [0]['FECHA_NACIMIENTO'],
+			'edad' => [0]['FECHA_NACIMIENTO'],
 
-		     'medicinas' => $meds,
+			'medicinas' => $meds,
 
-		    'idp' => $paciente_id, 
+			'idp' => $paciente_id,
 		));
 
 		return $pdf;
 	}
 
-	public function monitoreoAction()
-	{
+	public function monitoreoAction() {
 		return new ViewModel();
 	}
 
-	public function verhistoclinicaAction()
-	{
+	public function verhistoclinicaAction() {
 		$this->layout('layout/vacio');
 		$oM = $this->getObjectManager();
 
@@ -493,32 +473,27 @@ class ConsultadosController extends AbstractActionController {
 		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
-
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
+		return new ViewModel(array('consulta' => $consultas, 'pac' => $pac));
 	}
 
-
-	public function guardarfotopacAction()
-	{
-		if($this->request->isPost()){
+	public function guardarfotopacAction() {
+		if ($this->request->isPost()) {
 
 			$om = $this->getObjectManager();
 
-	        $data = array_merge_recursive(
-	            $this->getRequest()->getPost()->toArray(),           
-	            $this->getRequest()->getFiles()->toArray()
-	        );
+			$data = array_merge_recursive(
+				$this->getRequest()->getPost()->toArray(),
+				$this->getRequest()->getFiles()->toArray()
+			);
 
-	       $pacienteid = $data['idPaciente'];
-	       $foto = $data['file']['name'];
-   		}
+			$pacienteid = $data['idPaciente'];
+			$foto = $data['file']['name'];
+		}
 	}
 
-	
-	
 	/**
 	 * get entityManager
 	 *
