@@ -104,7 +104,7 @@ class ConsultadosController extends AbstractActionController {
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consultag' => $consultas, 'pac' => $pac));
+		return new ViewModel(array('consulta' => $consultas, 'pac' => $pac));
 
 	}
 
