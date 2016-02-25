@@ -6,14 +6,14 @@ use Application\Entity\Cgineco;
 use Application\Entity\Consultas;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
-<<<<<<< HEAD
 use Application\Entity\Expescar;
-=======
 use Application\Entity\Videoconsulta;
+
 use Zend\Mvc\Controller\AbstractActionController;
+
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
->>>>>>> origin/master
+
 
 class ConsultadosController extends AbstractActionController {
 	protected $_objectManager;
@@ -74,16 +74,13 @@ class ConsultadosController extends AbstractActionController {
 
 			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes);
 
-<<<<<<< HEAD
+
             $query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
 			$consultas = $query2->getArrayResult();
 
 			$data = array('paciente'=>$paciente,'antecedentes'=>$antecedentes,'consultas'=>$consultas);
 			
 		}else{
-=======
-		} else {
->>>>>>> origin/master
 
 			$data = array();
 		}
@@ -117,11 +114,8 @@ class ConsultadosController extends AbstractActionController {
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-<<<<<<< HEAD
 		return new ViewModel(array('consultag'=>$consultas,'pac'=>$pac));
-=======
-		return new ViewModel(array('consulta' => $consultas, 'pac' => $pac));
->>>>>>> origin/master
+
 	}
 
 	public function guardarconsultaAction() {
@@ -133,7 +127,7 @@ class ConsultadosController extends AbstractActionController {
 			$datos = $this->request->getPost('datos');
 			$datos = explode("&", $datos);
 
-<<<<<<< HEAD
+
 	        foreach($datos as $dato) 
 	        {
 	            $var = explode('=', $dato);
@@ -157,28 +151,6 @@ class ConsultadosController extends AbstractActionController {
 			$plan 	 		     = urldecode($arr['plan']);
 			$imx 	 		     = urldecode($arr['imx']);
 
-=======
-			foreach ($datos as $dato) {
-				$var = explode('=', $dato);
-				$arr[$var[0]] = $var[1];
-			}
-			/* ARREGLO DE DATOS*/
-			$paciente = $objectManager->find('Application\Entity\Pacientes', $arr['idpac']);
-			$motivo_consulta = urldecode($arr['motivo']);
-			$fecha_hoy = $arr['fechahoy'];
-			$edad = $arr['edad'];
-			$ciclo = $arr['ciclo'];
-			$fum = $arr['fum'];
-			$gestas = $arr['gestas'];
-			$partos = $arr['partos'];
-			$abortos = $arr['bortos'];
-			$cesarea = $arr['cesarea'];
-			$tiroides_txt = $arr['tiroidestxt'];
-			$peso = $arr['peso'];
-			$presion = rawurldecode($arr['presion']);
-			$plan = urldecode($arr['plan']);
-			$imx = urldecode($arr['imx']);
->>>>>>> origin/master
 			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy = new \DateTime();
 			$fecha = date_format($fecha_hoy, "Y-m-d");
@@ -192,7 +164,7 @@ class ConsultadosController extends AbstractActionController {
 			$data = substr($data, strpos($data, ",") + 1);
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
-<<<<<<< HEAD
+
 			
 	        if($arr['tipocons']=='1'){
 		        /* SI ES UNA CONSULTA DE SEGUIMIENTO*/
@@ -356,7 +328,7 @@ class ConsultadosController extends AbstractActionController {
 				
 				return new JsonModel(array('id'=>$hc->getID()));
 			}
-=======
+
 
 			$gine = new Cgineco;
 			$gine->setFECHACONS($fecha_hoy);
@@ -402,7 +374,7 @@ class ConsultadosController extends AbstractActionController {
 			$adapter->setDestination($ruta);
 
 			return new JsonModel(array('id' => $gine->getID()));
->>>>>>> origin/master
+
 		}
 	}
 
@@ -440,17 +412,11 @@ class ConsultadosController extends AbstractActionController {
 			$oM->flush();
 
 			foreach ($arr as $medi) {
-<<<<<<< HEAD
-			    $presc   = $medi->MEDICAMENTO;
-			    $frec  = $medi->PRESC;
-			  	
-			  	$medicamento = new Medicamentoreceta;
-=======
+
 				$frec = $medi->MEDICAMENTO;
 				$presc = $medi->PRESC;
 
 				$medicamento = new Medicamentoreceta;
->>>>>>> origin/master
 
 				$medicamento->setFRECUENCIA($frec);
 				$medicamento->setMEDICAMENTO($presc);
@@ -487,12 +453,7 @@ class ConsultadosController extends AbstractActionController {
 
 		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
 		$paciente = $query3->getArrayResult();
-<<<<<<< HEAD
-=======
-		print_r($usuario);
 
-		// $pdf = new PdfModel();
->>>>>>> origin/master
 
 		$pdf = new PdfModel();
 
@@ -510,7 +471,6 @@ class ConsultadosController extends AbstractActionController {
 
 		     'edad' => [0]['FECHA_NACIMIENTO'],
 
-<<<<<<< HEAD
 		     'medicinas' => $meds,
 
 		    'idp' => $paciente_id, 
@@ -532,14 +492,7 @@ class ConsultadosController extends AbstractActionController {
 		$idconsul = $this->request->getPost('id_consulta');
 		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsul");
 		$consultas = $query->getArrayResult();
-=======
-		//     'idp' => $idPaciente,
-		// ));
 
-		//return $pdf;
-
-		return new ViewModel(array('doctor' => $usuario, 'paciente' => $paciente, 'medicinas' => $meds));
->>>>>>> origin/master
 
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
@@ -547,7 +500,7 @@ class ConsultadosController extends AbstractActionController {
 		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
 	}
 
-<<<<<<< HEAD
+
 	public function guardarfotopacAction()
 	{
 		if($this->request->isPost()){
@@ -566,12 +519,6 @@ class ConsultadosController extends AbstractActionController {
 
 	
 	
-=======
-	public function monitoreoAction() {
-		return new ViewModel();
-	}
-
->>>>>>> origin/master
 	/**
 	 * get entityManager
 	 *
