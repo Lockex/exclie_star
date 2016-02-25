@@ -91,13 +91,13 @@
 								
 									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
 									 <?php } ?>
-										 <form action="<?php echo $this->basePath() ?>/consultados/guardarfotopac" class="dropzone dz-clickable" id="drops">
+										 <!-- <form action="<?php echo $this->basePath() ?>/consultados/guardarfotopac" class="dropzone dz-clickable" id="drops">
 											<input type="hidden" id="idPaciente" name="idPaciente">
 											<input accept="image/*"  type="file" capture/>
 											nnn
-										</form>
+										</form> -->
 									
-                          		<?php } ?> 
+                          		
 							</div>
 							<?php if(!isset($paciente)){ ?>
 								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
