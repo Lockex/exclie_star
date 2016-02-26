@@ -10,53 +10,55 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Application\Entity\Antecedentes;
-use Application\Entity\Pacientes;
-
-use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
-class PacientesController extends AbstractActionController {
+use Application\Entity\Pacientes;
+use Application\Entity\Antecedentes;
 
-	protected $_objectManager;
+class PacientesController extends AbstractActionController
+{
 
-	public function indexAction() {
+    protected $_objectManager;
 
-		$om = $this->getObjectManager();
-		$estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
-		$municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
-		$data = array('estados' => $estados, 'municipios' => $municipios);
-		return new ViewModel($data);
-	}
+    public function indexAction()
+    {
+               
+        $om = $this->getObjectManager();
+        $estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
+        $municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
+        $data = array('estados' => $estados, 'municipios' => $municipios);
+        return new ViewModel($data);
+    }
 
-	public function pacientesjsonAction() {
-		$dato = $this->getRequest()->getQuery('term');
-		$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p
-        WHERE CONCAT(p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO,' ',p.NOMBRE,' ',p.ID) like '%$dato%'
+    public function pacientesjsonAction() 
+    {
+      $dato = $this->getRequest()->getQuery('term');
+      $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p 
+        WHERE CONCAT(p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO,' ',p.NOMBRE,' ',p.ID) like '%$dato%' 
         OR CONCAT(p.NOMBRE,' ',p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO,' ',p.ID) like '%$dato%'");
-		$pacientes = $query->getArrayResult();
-		$json = array();
-		foreach ($pacientes as $pac) {
-			if (!$pac['FECHA_NACIMIENTO']) {
-				$fechanac = '';
-			} else {
-				$fechanac = date_format($pac['FECHA_NACIMIENTO'], 'd/M/Y');
-			}
-			$json[] = array('id' => $pac['ID'], 'label' => 'ID: ' . $pac['ID'] . ' ' . $pac['NOMBRE'] . ' ' . $pac['APELLIDO_PATERNO'] . ' ' . $pac['APELLIDO_MATERNO'] . ' [' . $fechanac . ']',
-				'value' => $pac['APELLIDO_PATERNO'] . ' ' . $pac['APELLIDO_MATERNO'] . ' ' . $pac['NOMBRE'],
-				'name' => 'pac' . $pac['ID'],
-				'fecha' => $fechanac,
-				'idPac' => $pac['ID'],
-			);
-		}
-		$resultado = new JsonModel($json);
-		return $resultado;
-	}
+      $pacientes = $query->getArrayResult();
+      $json = array();
+      foreach($pacientes as $pac) {
+        if(!$pac['FECHA_NACIMIENTO']) {     
+          $fechanac = '';
+        } else {
+          $fechanac = date_format($pac['FECHA_NACIMIENTO'],'d/M/Y');
+        }
+        $json[] = array('id' => $pac['ID'],'label' => 'ID: '.$pac['ID'].' '.$pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' ['.$fechanac.']',
+        'value' => $pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' '.$pac['NOMBRE'],
+        'name' => 'pac'.$pac['ID'],
+        'fecha' => $fechanac,
+        'idPac' => $pac['ID'],
+        );
+      }
+      $resultado = new JsonModel($json);
+      return $resultado;
+    }
 
 /******************************************************************
 REGISTRANDO PACIENTE
- ******************************************************************/
-
+******************************************************************/
 
     public function guardarpacienteAction()
     {
@@ -80,40 +82,41 @@ REGISTRANDO PACIENTE
         $paciente->setFECHAREGISTRO(new \DateTime());
         $paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos',$this->request->getPost('TIPO_SANGUINEO')));
 
-		$om->persist($paciente);
-		$om->flush();
+        $om->persist($paciente);
+        $om->flush();
 
-		$antecedentes = new Antecedentes();
-		$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
-		$antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
-		$antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
-		$antecedentes->setALERGIAS($this->request->getPost('ALERGIAS'));
-		$antecedentes->setTOXICOMANIAS($this->request->getPost('TOXICOMANIAS'));
-		$antecedentes->setCIRUGIAS($this->request->getPost('CIRUGIAS'));
-		$antecedentes->setDIABETES($this->request->getPost('DIABETES'));
-		$antecedentes->setARTRITIS($this->request->getPost('ARTRITIS'));
-		$antecedentes->setCANCER($this->request->getPost('CANCER'));
-		$antecedentes->setLUPUS($this->request->getPost('LUPUS'));
-		$antecedentes->setCARDIOPATIAS($this->request->getPost('CARDIACAS'));
-		$antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
-		$antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
+        $antecedentes = new Antecedentes();
+        $antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
+        $antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
+        $antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
+        $antecedentes->setALERGIAS($this->request->getPost('ALERGIAS'));
+        $antecedentes->setTOXICOMANIAS($this->request->getPost('TOXICOMANIAS'));
+        $antecedentes->setCIRUGIAS($this->request->getPost('CIRUGIAS'));
+        $antecedentes->setDIABETES($this->request->getPost('DIABETES'));
+        $antecedentes->setARTRITIS($this->request->getPost('ARTRITIS'));
+        $antecedentes->setCANCER($this->request->getPost('CANCER'));
+        $antecedentes->setLUPUS($this->request->getPost('LUPUS'));
+        $antecedentes->setCARDIOPATIAS($this->request->getPost('CARDIACAS'));
+        $antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
+        $antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
 
-		$om->persist($antecedentes);
-		$om->flush();
-		}
-		return new JsonModel();
-	}
+        $om->persist($antecedentes);
+        $om->flush();
+      }
+      return new JsonModel();
+    }
 
-	/**
-	 * get entityManager
-	 *
-	 * @return EntityManager
-	 */
-	private function getObjectManager() {
-		if (null === $this->_objectManager) {
-			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		}
 
-		return $this->_objectManager;
-	}
+    /**
+     * get entityManager
+     *
+     * @return EntityManager
+     */
+    private function getObjectManager() {
+        if (null === $this->_objectManager) {
+            $this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        }
+
+        return $this->_objectManager;
+    }
 }
