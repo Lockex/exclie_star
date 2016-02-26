@@ -12,10 +12,10 @@
 						<div class="progress"><div class="progress-bar progress-bar-primary"></div></div>
 						<ul class="nav nav-justified">
 							<li class="active"><a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title">GENERAL</span></a></li>
-							<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span>
+							<!--<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">ANTECEDENTES</span>
 							<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ANTECEDENTES 2</span></a></li>
 							<li><a href="#tab4" data-toggle="tab"><span class="step">4</span> <span class="title">ANTECEDENTES 3</span>
-							</a></li>
+							</a></li>-->
 						</ul>
 					</div><!--end .form-wizard-nav -->
 					<div class="tab-content clearfix">
@@ -870,7 +870,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-primary btn-ok" id="eliminapacient">Aceptar</button>
+				<button type="button" class="btn btn-primary btn-ok" id="Acepta">Aceptar</button>
 			</div>
 		</div>
 	</div>
@@ -939,13 +939,8 @@
 		
 	});
 
-	function nuevoExpediente(){
+	function nuevoExpediente() {
 		 $("#confirma").modal('show');
-		 $('#confirma').modal({ backdrop: 'static', keyboard: false })
-		 .one('click', '#nuevoExp', function (e) {
-		 	$("#confirma").modal('hide');
-		 	window.location.href = _ruta+'/captura';
-		});
 	}
 
 	function ocultarCoyuge () {

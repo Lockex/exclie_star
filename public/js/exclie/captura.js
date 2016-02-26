@@ -7,6 +7,10 @@
 		// Initialize app when document is ready
 		$(document).ready(function () {
 			o.initialize();
+			$('#Acepta').on('click', function (e) {
+		 		$("#confirma").modal('hide');
+		 		window.location.href = _ruta+'/captura';
+		 	});
 		});
 
 	};

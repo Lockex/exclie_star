@@ -78,7 +78,7 @@ REGISTRANDO PACIENTE
         $paciente->setTELEFONO2($this->request->getPost('TELEFONO2'));
         $paciente->setOCUPACION($this->request->getPost('OCUPACION'));
         $paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
-        $paciente->setFECHA_NACIMIENTO($this->request->getPost('FECHA_NACIMIENTO'));
+        $paciente->setFECHA_NACIMIENTO(new \DateTime(date('Y-m-d',strtotime($this->request->getPost('FECHA_NACIMIENTO')))));
         $paciente->setFECHAREGISTRO(new \DateTime());
         $paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos',$this->request->getPost('TIPO_SANGUINEO')));
 

@@ -27,6 +27,8 @@ class Cgineco {
     /** @ORM\Column(type="string",nullable=true) */
     protected $ABORTOS;
     /** @ORM\Column(type="string",nullable=true) */
+    protected $ECTOPICOS;
+    /** @ORM\Column(type="string",nullable=true) */
     protected $TIROIDESNUM;
     /** @ORM\Column(type="string",nullable=true) */
     protected $PESO;
@@ -422,6 +424,30 @@ class Cgineco {
     public function setIMAGEN($IMAGEN)
     {
         $this->IMAGEN = $IMAGEN;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of ECTOPICOS.
+     *
+     * @return mixed
+     */
+    public function getECTOPICOS()
+    {
+        return $this->ECTOPICOS;
+    }
+
+    /**
+     * Sets the value of ECTOPICOS.
+     *
+     * @param mixed $ECTOPICOS the 
+     *
+     * @return self
+     */
+    public function setECTOPICOS($ECTOPICOS)
+    {
+        $this->ECTOPICOS = $ECTOPICOS;
 
         return $this;
     }

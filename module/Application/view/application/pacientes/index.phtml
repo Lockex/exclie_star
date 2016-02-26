@@ -390,32 +390,9 @@
 								<ul class="pager wizard">									
 									<li class="previous"><a class="btn-raised" href="javascript:void(0);">Atrás</a></li>									
 									<li class="next"><a class="btn-raised" href="javascript:void(0);">Siguiente</a></li>
+									<li class="next finish" style="display:none;" onclick="mandar()"><a href="javascript:;">Guardar</a></li>
 								</ul>
-								<div class="modal fade" id="modalCodigo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">		  
-								    <div class="modal-dialog modal-sm">
-								      <div class="modal-content">
-								        <div class="modal-header">
-								          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-								          <h4 class="modal-title" id="modalLabel">Confirmar Registro</h4>
-								          <h5>Por favor introduzca el código de registro de pacientes.</h5>
-								          
-								        </div>
-								        <div class="modal-body" id="modalCodigoBody" style="min-height:150px">
-								          <div class="col-sm-12">
-								          	<div style="margin:0 auto">
-								          		<input id="ver" type="password" class="input-lg" maxlength="4">		
-								          	</div>								          	
-								          </div>
-								          
-								        </div>
-								        <div class="modal-footer" id="modalCodigoFooter">
-								          <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Cerrar</button>
-								          <button type="button" onclick="mandar()" class="btn btn-primary">Enviar</button>
-								        </div>
-								      </div>
-								    </div>
-								  
-								</div>
+								
 							</form>
 						</div><!--end #rootwizard -->
 					</div><!--end .card-body -->
