@@ -9,6 +9,7 @@
 
 namespace Application\Controller;
 
+
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -119,4 +120,19 @@ REGISTRANDO PACIENTE
 
         return $this->_objectManager;
     }
+
+
+	/**
+	 * get entityManager
+	 *
+	 * @return EntityManager
+	 */
+	private function getObjectManager() {
+		if (null === $this->_objectManager) {
+			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		}
+
+		return $this->_objectManager;
+	}
+
 }
