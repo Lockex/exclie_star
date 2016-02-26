@@ -474,10 +474,10 @@ class ConsultadosController extends AbstractActionController {
 			$videos = new Videoconsulta();
 
 			$videos->setVIDEO($data['file']['name']);
-			$videos->setPACIENTE($objectManager->find('Application\Entity\Pacientes', $data['pacienteid']));
+			$videos->setPACIENTE($objectManager->find('Application\Entity\Pacientes', $data['pacid']));
 			$videos->setFECHA(new \DateTime());
 
-			$ruta = getcwd() . '/public/imagenes/videos/' . $data['pacienteid'];
+			$ruta = getcwd() . '/public/imagenes/videos/' . $data['pacid'];
 			if (!file_exists($ruta)) {
 				mkdir($ruta);
 			}
