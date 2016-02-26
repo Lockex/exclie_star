@@ -12,7 +12,7 @@ use Application\Entity\Consultas;
 use Application\Entity\Expescar;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
-use Application\Entity\Expescar;
+
 use Application\Entity\Videoconsulta;
 
 
