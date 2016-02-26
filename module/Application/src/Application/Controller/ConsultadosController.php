@@ -5,26 +5,24 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use DoctrineModule\StdLib\Hydrator\DoctrineObject;
-
 use DOMPDFModule\View\Model\PdfModel;
 
-use Application\Entity\Pacientes;
 use Application\Entity\Cgineco;
-use Application\Entity\Notaspaciente;
 use Application\Entity\Consultas;
+use Application\Entity\Expescar;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
 use Application\Entity\Expescar;
+use Application\Entity\Videoconsulta;
 
 
-class ConsultadosController extends AbstractActionController
-{
+
+
+class ConsultadosController extends AbstractActionController {
 	protected $_objectManager;
 
-	public function consultaAction()
-	{
-		if($this->request->isPost()){
+	public function consultaAction() {
+		if ($this->request->isPost()) {
 			$pacienteid = $this->request->getPost('pac');
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
@@ -33,51 +31,49 @@ class ConsultadosController extends AbstractActionController
 			$consultas = $query2->getArrayResult();
 
 			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
-            $notas = $query3->getArrayResult();
+			$notas = $query3->getArrayResult();
 
-            $query4 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-            $antecedentes = $query4->getArrayResult();
+			$query4 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
+			$antecedentes = $query4->getArrayResult();
 
-            $data = array('paciente'=>$paciente,'consultas'=>$consultas,'notas'=>$notas,'antecedentes'=>$antecedentes);
-						
-		}else{
+			$data = array('paciente' => $paciente, 'consultas' => $consultas, 'notas' => $notas, 'antecedentes' => $antecedentes);
+
+		} else {
 
 			$data = array();
 		}
 		return new ViewModel($data);
 	}
 
-	public function consultanewAction()
-	{
-		if($this->request->isPost()){
+	public function consultanewAction() {
+		if ($this->request->isPost()) {
 			$pacienteid = $this->request->getPost('pacienteid');
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
 			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
-            $notas = $query2->getArrayResult();
+			$notas = $query2->getArrayResult();
 
-            $query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-            $antecedentes = $query3->getArrayResult();
+			$query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
+			$antecedentes = $query3->getArrayResult();
 
-			$data = array('paciente'=>$paciente,'notas'=>$notas,'antecedentes'=>$antecedentes);
-			
-		}else{
+			$data = array('paciente' => $paciente, 'notas' => $notas, 'antecedentes' => $antecedentes);
+
+		} else {
 
 			$data = array();
 		}
 		return new ViewModel($data);
 	}
 
-	public function consultandoAction()
-	{
-		if($this->request->isPost()){
+	public function consultandoAction() {
+		if ($this->request->isPost()) {
 			$pacienteid = $this->request->getPost('pacienteid');
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
 			$query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-            $antecedentes = $query3->getArrayResult();
+			$antecedentes = $query3->getArrayResult();
 
             $query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
 			$consultas = $query2->getArrayResult();
@@ -91,11 +87,9 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel($data);
 	}
 
-	
-	public function listanotasAction()
-	{
+	public function listanotasAction() {
 		$this->layout('layout/vacio');
-		
+
 		$paciente = $this->request->getPost('paciente');
 		$query = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $paciente ORDER BY a.ID DESC");
 		$notas = $query->getArrayResult();
@@ -103,8 +97,7 @@ class ConsultadosController extends AbstractActionController
 		return new ViewModel(array('notas' => $notas));
 	}
 
-	public function verconsultaAction()
-	{
+	public function verconsultaAction() {
 		$this->layout('layout/vacio');
 		$objectManager = $this->getObjectManager();
 
@@ -119,17 +112,18 @@ class ConsultadosController extends AbstractActionController
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
+
 		return new ViewModel(array('consultag'=>$consultas,'pac'=>$pac));
+
 	}
 
-	public function guardarconsultaAction()
-	{
+	public function guardarconsultaAction() {
 		$objectManager = $this->getObjectManager();
 
-		if($this->request->getPost()){
-			$data 	= $this->request->getPost('imagedata');
+		if ($this->request->getPost()) {
+			$data = $this->request->getPost('imagedata');
 			/* ARREGLO DE DATOS*/
-			$datos  = $this->request->getPost('datos');
+			$datos = $this->request->getPost('datos');
 			$datos = explode("&", $datos);
 
 	        foreach($datos as $dato) 
@@ -156,16 +150,16 @@ class ConsultadosController extends AbstractActionController
 			$imx 	 		     = urldecode($arr['imx']);
 
 			/* INICIA TRATAMIENTO DE FECHAS*/
-			$fecha_hoy  = new \DateTime();
-			$fecha = date_format($fecha_hoy,"Y-m-d");
-			$fum2 = new \DateTime(date('Y-m-d',strtotime($fum)));
+			$fecha_hoy = new \DateTime();
+			$fecha = date_format($fecha_hoy, "Y-m-d");
+			$fum2 = new \DateTime(date('Y-m-d', strtotime($fum)));
 			/* TERMINA TRATAMIENTO DE FECHAS*/
 
 			str_replace("%body%", "black", "<body text='%body%'>");
 			/* INICIA GUARDAR IMAGEN*/
-			$filename = $arr['idpac'].'-'.$fecha.'.png';
+			$filename = $arr['idpac'] . '-' . $fecha . '.png';
 			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
-			$data = substr($data, strpos($data, ",")+1);
+			$data = substr($data, strpos($data, ",") + 1);
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
 			
@@ -334,32 +328,30 @@ class ConsultadosController extends AbstractActionController
 		}
 	}
 
-	public function recetaAction()
-	{
+	public function recetaAction() {
 		$this->layout('layout/vacio');
 		$om = $this->getObjectManager();
 		$id_consulta = $this->request->getPost('consulta');
 
-		if($this->request->isPost()){
+		if ($this->request->isPost()) {
 			$query = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $id_consulta");
 			$recetas = $query->getArrayResult();
 		}
-		$data = array('recetas'=>$recetas,'consulta'=>$id_consulta);
+		$data = array('recetas' => $recetas, 'consulta' => $id_consulta);
 		return new ViewModel($data);
 	}
 
-	public function guardarecetaAction()
-	{
+	public function guardarecetaAction() {
 		$oM = $this->getObjectManager();
 
-		if($this->request->getPost()){
-			$consulta 	  = $this->request->getPost('consultaid');
-			$consulta_id  = $oM->find('Application\Entity\Cgineco',$consulta);
-			$fecha 		  = new \DateTime(date('Y-m-d',strtotime($this->request->getPost('fechahoy2'))));
+		if ($this->request->getPost()) {
+			$consulta = $this->request->getPost('consultaid');
+			$consulta_id = $oM->find('Application\Entity\Cgineco', $consulta);
+			$fecha = new \DateTime(date('Y-m-d', strtotime($this->request->getPost('fechahoy2'))));
 			$indicaciones = $this->request->getPost('indicaciones');
-			$meds 		  = $this->request->getPost('array-med');
-			$arr 		  = json_decode($meds);
-			
+			$meds = $this->request->getPost('array-med');
+			$arr = json_decode($meds);
+
 			$receta = new Recetas;
 
 			$receta->setFECHAINICIO($fecha);
@@ -370,6 +362,7 @@ class ConsultadosController extends AbstractActionController
 			$oM->flush();
 
 			foreach ($arr as $medi) {
+
 			    $presc   = $medi->MEDICAMENTO;
 			    $frec  = $medi->PRESC;
 			  	
@@ -381,33 +374,33 @@ class ConsultadosController extends AbstractActionController
 
 				$oM->persist($medicamento);
 				$oM->flush();
-			} 
+			}
 		}
-		return new JsonModel(array('recetaid'=>$receta->getID(),'consulta'=>$consulta));
+		return new JsonModel(array('recetaid' => $receta->getID(), 'consulta' => $consulta));
 	}
 
-	public function generarecetaAction(){
+	public function generarecetaAction() {
 
 		$this->layout('layout/vacio');
 
-  		$oM = $this->getObjectManager();
+		$oM = $this->getObjectManager();
 
-  		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = ".$this->identity()->getId());
+		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = " . $this->identity()->getId());
 		$usuario = $query->getArrayResult();
 
 		$id = $this->params()->fromRoute('id');
 
 		$query2 = $oM->createQuery("SELECT m,r FROM Application\Entity\Medicamentoreceta m LEFT JOIN m.RECETA r WHERE r.ID = $id");
-		$meds = $query2->getArrayResult(); 
+		$meds = $query2->getArrayResult();
 
 		$receta = $oM->find('Application\Entity\Recetas', $id);
 
 		$consulta_id = $receta->getCONSULTAS()->getID();
 
-		$consulta = $oM->find('Application\Entity\Consultas',$consulta_id);
+		$consulta = $oM->find('Application\Entity\Consultas', $consulta_id);
 
 		$paciente_id = $consulta->getPaciente()->getID();
-		
+
 		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
 		$paciente = $query3->getArrayResult();
 
@@ -435,13 +428,11 @@ class ConsultadosController extends AbstractActionController
 		return $pdf;
 	}
 
-	public function monitoreoAction()
-	{
+	public function monitoreoAction() {
 		return new ViewModel();
 	}
 
-	public function verhistoclinicaAction()
-	{
+	public function verhistoclinicaAction() {
 		$this->layout('layout/vacio');
 		$oM = $this->getObjectManager();
 
@@ -452,22 +443,52 @@ class ConsultadosController extends AbstractActionController
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consulta'=>$consultas,'pac'=>$pac));
+		return new ViewModel(array('consulta' => $consultas, 'pac' => $pac));
+
 	}
 
-	
-	
 	/**
-     * get entityManager
-     *
-     * @return EntityManager
-     */
-    private function getObjectManager() {
-        if (null === $this->_objectManager) {
-            $this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        }
+	 * get entityManager
+	 *
+	 * @return EntityManager
+	 */
+	private function getObjectManager() {
+		if (null === $this->_objectManager) {
+			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		}
 
-        return $this->_objectManager;
-    }
-	
+		return $this->_objectManager;
+	}
+
+	public function guardarvideoAction() {
+		if ($this->request->isPost()) {
+
+			$objectManager = $this->getObjectManager();
+
+			$data = array_merge_recursive(
+				$this->getRequest()->getPost()->toArray(),
+				$this->getRequest()->getFiles()->toArray()
+			);
+
+			//$fecha_consulta = $data['fecha_consulta'];
+			$videos = new Videoconsulta();
+
+			$videos->setVIDEO($data['file']['name']);
+			$videos->setPACIENTE($objectManager->find('Application\Entity\Pacientes', $data['pacienteid']));
+			$videos->setFECHA(new \DateTime());
+
+			$ruta = getcwd() . '/public/imagenes/videos/' . $data['pacienteid'];
+			if (!file_exists($ruta)) {
+				mkdir($ruta);
+			}
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setDestination($ruta);
+			if ($adapter->receive($data['file']['name'])) {
+				$objectManager->persist($videos);
+				$objectManager->flush();
+			}
+		}
+		return new JsonModel();
+	}
+
 }

@@ -83,11 +83,12 @@
 					<!-- BEGIN CONTACTS MAIN CONTENT -->
 					<div class="col-sm-7 col-md-8 col-lg-9">
 						<div class="margin-bottom-xxl">
-							<div class="pull-left width-3 clearfix hidden-xs">
+							<div class="pull-left width-3 clearfix ">
 								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
 									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
 								<?php } else  {?>
 									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
+
                           		<?php } ?> 
 							</div>
 							<?php if(!isset($paciente)){ ?>
@@ -101,6 +102,7 @@
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
 							<li><a href="#historia" onclick="detalleHisto(<?php echo $con['CONSULTA'];?>);">Historia Clinica</a></li>
+							<li><a href="#videos">Videos</a></li>
 						</ul>
 						<div class="tab-content">
 
@@ -135,23 +137,47 @@
 							<!-- END CONTACTS HISTORIA CLINICA -->
 
 							<!-- BEGIN VERCONSULTA  -->
-							<div class="tab-pane active" id="verconsulta">
+							<div class="tab-pane-active" id="verconsulta">
 								<br>
 								<div class="row">
 									<div class="col-md-12">
 										<?php if(!isset($paciente)){ ?>
-										
+
 										<?php }else{ ?>
 
-										
 										<?php } ?>
-										<div id="consultita">
-											
-										</div>
+										<div id="consultita"></div>
 									</div>
 								</div>
 							</div>
-							<!-- END VERCONSULTA  -->
+							<!--Inicio mostrar videos -->
+							<div class="tab-pane" id="videos">
+								<br/>
+								<!-- BEGIN FILE UPLOAD -->
+								<div class="row">
+									<?php if(isset($paciente))  {  ?>
+									<div class=" col-md-12">
+										<div class="card">
+											<div class="card-head style-primary">
+											
+												<header>Subir Videos</header>
+											</div>
+											<div class="card-body no-padding">
+												<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+												<input type="hidden" id="pacienteid" name="pacienteid" value= <?php echo $paciente[0]['ID'];?> >
+												<div class="dz-message">
+													<h3 >Agrega aquí los videos  <br/><br/></h3>
+												</div>
+												</form>
+											</div><!--end .card-body -->
+										</div><!--end .card -->
+									</div><!--end .col -->
+									<?php } ?>
+								</div><!--end .row -->
+								<!-- END FILE UPLOAD -->
+							</div><!--Fin mostrar videos -->
+
+							
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
@@ -270,8 +296,10 @@
 </form>
 
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
 <script>
 
 	var ruta = '<?php echo $this->basePath(); ?>';	
@@ -300,6 +328,7 @@
        });
 
     }
+
 
     function detalleHisto(id)
     {
