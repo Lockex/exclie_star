@@ -101,7 +101,7 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#historia" onclick="detalleHisto(<?php echo $con['CONSULTA'];?>);">Historia Clinica</a></li>
+							<li><a href="#historia" onclick="detalleHisto(<?php echo $consultas['CONSULTA'];?>);">Historia Clinica</a></li>
 							<li><a href="#videos">Videos</a></li>
 						</ul>
 						<div class="tab-content">
@@ -164,7 +164,7 @@
 											</div>
 											<div class="card-body no-padding">
 												<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
-												<input type="hidden" id="pacienteid" name="pacienteid" value= <?php echo $paciente[0]['ID'];?> >
+												<input type="hidden" id="pacienteid2" name="pacienteid2" value= <?php echo $paciente[0]['ID'];?> >
 												<div class="dz-message">
 													<h3 >Agrega aquí los videos  <br/><br/></h3>
 												</div>
