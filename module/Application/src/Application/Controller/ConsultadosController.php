@@ -486,6 +486,7 @@ class ConsultadosController extends AbstractActionController {
 			if ($adapter->receive()) {
 				$objectManager->persist($videos);
 				$objectManager->flush();
+			}
 
 		}
 		return new JsonModel();
