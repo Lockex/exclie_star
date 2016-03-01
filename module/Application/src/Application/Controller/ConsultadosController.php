@@ -459,24 +459,30 @@ class ConsultadosController extends AbstractActionController {
 				$this->getRequest()->getPost()->toArray(),
 				$this->getRequest()->getFiles()->toArray()
 			);
-
+			$imagen = $data['file']['name'];
 			//$fecha_consulta = $data['fecha_consulta'];
 			$videos = new Videoconsulta();
 
-			$videos->setVIDEO($data['file']['name']);
+			$videos->setVIDEO($imagen);
 			$videos->setPACIENTE($objectManager->find('Application\Entity\Pacientes', $data['pacid']));
 			$videos->setFECHA(new \DateTime());
-			$objectManager->persist($videos);
-			$objectManager->flush();
+			
 
 			$ruta = getcwd() . '/public/imagenes/videos/' . $data['pacid'];
 			if (!file_exists($ruta)) {
 				mkdir($ruta);
 			}
+			
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			$adapter->setDestination($ruta);
-			if ($adapter->receive()) {
+			$adapter->addfilter('Rename',array(
+				'target'=> $ruta.'/'.$imagen,
+				'overwrite'=> true,
+				));
 
+			if ($adapter->receive()) {
+				$objectManager->persist($videos);
+				$objectManager->flush();
 			}
 		}
 		return new JsonModel();
@@ -488,7 +494,7 @@ class ConsultadosController extends AbstractActionController {
 			$imagen = $this->request->getPost('archivo');
 			$idPaciente = $this->request->getPost('id');
 
-			$query = $om->createQuery("SELECT v.ID FROM Application\Entity\Videoconsulta v WHERE v.VIDEOS = '$imagen' AND v.PACIENTE = $idPaciente");
+			$query = $om->createQuery("SELECT v.ID FROM Application\Entity\Videoconsulta v WHERE v.VIDEO = '$imagen' AND v.PACIENTE = $idPaciente");
 			$foto = $query->getArrayResult();
 
 			$quitar = $om->find('Application\Entity\Videoconsulta', $foto[0]['ID']);
