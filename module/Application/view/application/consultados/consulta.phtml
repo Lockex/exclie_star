@@ -339,6 +339,45 @@
            }
        });
     }
+
+    Dropzone.autoDiscover = false;
+
+	var myDropzone = new Dropzone("#dropa", {
+		paramName: "file", // The name that will be used to transfer the file
+		  accept: function(file, done) {
+		    done();
+		  },
+		  addRemoveLinks: true,
+		  removedfile: function(file){
+		    var datos = {archivo:file.name,id:$('#pacid').val()};
+		    console.log(datos);
+		    $.ajax({
+		          type: "POST",
+		          url: "<?php echo $this->basePath() ?>/consultados/eliminarVideo",
+		          data: datos,
+		          dataType: "json",
+		          success: function(data) {
+		                  var _ref;
+		                     if (file.previewElement) {
+		                       if ((_ref = file.previewElement) != null) {
+		                         _ref.parentNode.removeChild(file.previewElement);
+		                       }
+		                     }
+		                     return this._updateMaxFilesReachedClass();
+		                },
+		          error: function(data){
+		                      var _ref;
+		                        if (file.previewElement) {
+		                          if ((_ref = file.previewElement) != null) {
+		                            _ref.parentNode.removeChild(file.previewElement);
+		                          }
+		                        }
+		                        return this._updateMaxFilesReachedClass();
+
+		          }
+		      });
+		  }
+	});
     
 	
 </script>
