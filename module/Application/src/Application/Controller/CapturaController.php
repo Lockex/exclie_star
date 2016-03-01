@@ -5,6 +5,7 @@ use Application\Entity\Antecedentes;
 use Application\Entity\Expescar;
 use Application\Entity\Imagenesconsultas;
 use Application\Entity\Pacientes;
+use Application\Entity\Consultas;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
