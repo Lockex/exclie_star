@@ -726,7 +726,7 @@
 								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 								<dd>
 									<span class="opacity-50">Años</span><br/>
-									<span class="text-medium" id="Edad"></span>
+									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
 								</dd>
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
@@ -822,14 +822,13 @@
 		fechaActual();
 		$("#monitoreo").jqScribble();
 		$("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
+
 		var born = document.getElementById("nacim");
 		if(born != ''){
 			$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
-			$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
-	    }
-		
-    	
-    	
+	    	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
+		}
+		    	
     	mostrarNotas();
     	$('#lirecetas').hide();
     });
