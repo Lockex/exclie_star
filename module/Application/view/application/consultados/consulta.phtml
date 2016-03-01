@@ -128,6 +128,7 @@
 							</div>
 							<!-- END CONTACTS NOTES -->
 
+							
 							<!-- BEGIN CONTACTS HISTORIA CLINICA -->
 							<div class="tab-pane" id="historia">
 								<br>
@@ -153,6 +154,27 @@
 								<!-- BEGIN FILE UPLOAD -->
 								<div class="row">
 									<?php if(isset($paciente))  {  ?>
+									<div class="tab-pane" id="notes">
+								<br/>
+								<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+								
+									<?php foreach($video as $v) { ?>
+									<div class="list-results list-results-underlined">
+											<div class="col-xs-12">
+												<p class="clearfix">
+													<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
+													<span class="pull-left">
+														<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
+													</span>
+												</p>
+												<div>
+													<em><?php echo $v['VIDEO']; ?></em>
+												</div>
+											</div><!--end .col -->
+									</div><!--end .list-results -->
+									<?php } ?>
+								<?php } ?>
+							</div>
 									<div class=" col-md-12">
 										<div class="card">
 											<div class="card-head style-primary">
@@ -291,6 +313,7 @@
 </form>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
