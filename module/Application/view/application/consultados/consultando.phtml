@@ -811,11 +811,21 @@
 	$(document).ready(function()
 	{
 		$("#test").jqScribble();
+		fechaActual();
+
+		<?php if ($paciente[0]["FECHA_NACIMIENTO"]): ?>
+		$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
+    	//$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
+			
+		<?php else: ?>
+		$("#edad").val();
+			
+		<?php endif ?>
+		
 		// $("#monitoreo").jqScribble();
 		// $("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
-		$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
-    	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
-    	fechaActual();
+		
+    	
     	mostrarNotas();
     	$('#lirecetas').hide();
     });
