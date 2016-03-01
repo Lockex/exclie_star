@@ -2,16 +2,20 @@
 
 namespace Application\Controller;
 
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use DoctrineModule\StdLib\Hydrator\DoctrineObject;
+
+use DOMPDFModule\View\Model\PdfModel;
+
+use Application\Entity\Pacientes;
 use Application\Entity\Cgineco;
+use Application\Entity\Notaspaciente;
 use Application\Entity\Consultas;
-use Application\Entity\Expescar;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
-use Application\Entity\Videoconsulta;
-use DOMPDFModule\View\Model\PdfModel;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Application\Entity\Expescar;
 
 class ConsultadosController extends AbstractActionController {
 	protected $_objectManager;
@@ -138,7 +142,7 @@ class ConsultadosController extends AbstractActionController {
 			$ectopicos = $arr['ectopicos'];
 			$tiroides_txt = $arr['tiroidestxt'];
 			$peso = $arr['peso'];
-			$presion = str_replace($caractraros, '', $arr['presion']);
+			$presion = str_replace($caractraros, '', urldecode($arr['presion']));
 			$plan = urldecode($arr['plan']);
 			$imx = urldecode($arr['imx']);
 
@@ -369,28 +373,28 @@ class ConsultadosController extends AbstractActionController {
 		return new JsonModel(array('recetaid' => $receta->getID(), 'consulta' => $consulta));
 	}
 
-	public function generarecetaAction() {
+	public function generarecetaAction(){
 
 		$this->layout('layout/vacio');
 
-		$oM = $this->getObjectManager();
+  		$oM = $this->getObjectManager();
 
-		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = " . $this->identity()->getId());
+  		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = ".$this->identity()->getId());
 		$usuario = $query->getArrayResult();
 
 		$id = $this->params()->fromRoute('id');
 
 		$query2 = $oM->createQuery("SELECT m,r FROM Application\Entity\Medicamentoreceta m LEFT JOIN m.RECETA r WHERE r.ID = $id");
-		$meds = $query2->getArrayResult();
+		$meds = $query2->getArrayResult(); 
 
 		$receta = $oM->find('Application\Entity\Recetas', $id);
 
 		$consulta_id = $receta->getCONSULTAS()->getID();
 
-		$consulta = $oM->find('Application\Entity\Consultas', $consulta_id);
+		$consulta = $oM->find('Application\Entity\Consultas',$consulta_id);
 
 		$paciente_id = $consulta->getPaciente()->getID();
-
+		
 		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
 		$paciente = $query3->getArrayResult();
 
@@ -398,21 +402,21 @@ class ConsultadosController extends AbstractActionController {
 
 		$pdf->setVariables(array(
 
-			'doctor' => $usuario,
+		    'doctor' => $usuario,
 
-			'pacienten' => $paciente[0]['NOMBRE'],
+		     'pacienten' => $paciente[0]['NOMBRE'],
 
-			'pacientep' => $paciente[0]['APELLIDO_PATERNO'],
+		     'pacientep' => $paciente[0]['APELLIDO_PATERNO'],
 
-			'pacientem' => $paciente[0]['APELLIDO_MATERNO'],
+		     'pacientem' => $paciente[0]['APELLIDO_MATERNO'],
 
-			'sexo' => [0]['SEXO'],
+		     'sexo' => [0]['SEXO'],
 
-			'edad' => [0]['FECHA_NACIMIENTO'],
+		     'edad' => [0]['FECHA_NACIMIENTO'],
 
-			'medicinas' => $meds,
+		     'medicinas' => $meds,
 
-			'idp' => $paciente_id,
+		    'idp' => $paciente_id, 
 		));
 
 		return $pdf;

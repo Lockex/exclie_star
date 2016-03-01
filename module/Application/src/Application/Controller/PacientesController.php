@@ -101,17 +101,6 @@ REGISTRANDO PACIENTE
 		return new JsonModel();
 	}
 
-	/**
-	 * get entityManager
-	 *
-	 * @return EntityManager
-	 */
-	private function getObjectManager() {
-		if (null === $this->_objectManager) {
-			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		}
 
-		return $this->_objectManager;
-	}
 
 }

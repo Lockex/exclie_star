@@ -140,17 +140,14 @@
 								<br>
 								<div class="row">
 									<div class="col-md-12">
-										<?php if(!isset($paciente)){ ?>
-										
-										<?php }else{ ?>
 
-										
-										<?php } ?>
 										<div id="consultita">
 											
 										</div>
-									</div>
+
+											
 								</div>
+							</div>
 							</div>
 							<!-- END VERCONSULTA  -->
 
@@ -313,7 +310,7 @@
 
     function detalleConsulta(id)
     {
-    	
+    	console.log('ID '+id);
     	$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/verconsulta",
@@ -322,6 +319,7 @@
            
            success: function(response) {
            		$('#consultita').html(response);
+           		
            },
            error: function(){
                  alert('Inténtalo más tarde.');
