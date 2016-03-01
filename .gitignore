@@ -11,8 +11,5 @@ vendor
 composer.phar
 public/imagenes/consultas
 public/imagenes/videos
-<<<<<<< HEAD
-=======
 public/imagenes/casos
 
->>>>>>> 40e77a27fe95c21492357f8e80b4ee4aa966b7d0
