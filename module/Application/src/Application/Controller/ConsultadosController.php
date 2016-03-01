@@ -15,7 +15,7 @@ use Application\Entity\Notaspaciente;
 use Application\Entity\Consultas;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
-use Application\Entity\Expescar;
+use Application\Entity\Videoconsulta;
 
 class ConsultadosController extends AbstractActionController {
 	protected $_objectManager;
@@ -291,6 +291,7 @@ class ConsultadosController extends AbstractActionController {
 				$hc->setPRESION($presion);
 				$hc->setIMX($imx);
 				$hc->setPLAN($plan);
+				$hc->setPACIENTE($paciente);
 
 				$objectManager->persist($hc);
 				$objectManager->flush();
@@ -430,14 +431,14 @@ class ConsultadosController extends AbstractActionController {
 		$this->layout('layout/vacio');
 		$oM = $this->getObjectManager();
 
-		$idconsul = $this->request->getPost('id_consulta');
-		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsul");
+		$idconsulta = $this->request->getPost('id_consulta');
+		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsulta");
 		$consultas = $query->getArrayResult();
 
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consulta' => $consultas, 'pac' => $pac));
+		return new ViewModel(array('consultah' => $consultas, 'pac' => $pac));
 
 	}
 

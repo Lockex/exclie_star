@@ -195,22 +195,29 @@
 												
 											</div>
 											<!-- COMIENZA REPRODUCCION ASISTIDA -->
-											<!-- <div class="row">
-												
-													<div>
-														<label class="checkbox checkbox-styled">
-															<input type="checkbox" divref="divMonitoreo">
-															<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
-														</label>												
-													</div>		
-												
-											</div>
 											<div class="row">
-												<div class="col-md-12 hidden" id="divMonitoreo">
-													<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
-													<canvas id="monitoreo"> </canvas>
+												<div>
+													<label class="checkbox checkbox-styled">
+														<input type="checkbox" divref="divMonitoreo">
+														<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
+													</label>												
+												</div>		
+											</div>
+													
+												
+											
+											<div class="reproduccion_asistida hidden" id="divMonitoreo">
+												<div class="card-tiles">
+													<div style="overflow: hidden; margin-bottom: 5px;">
+														<div class="column-right links" id="colores">
+															<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+														</div>
+													</div>
+													<div class="row">
+														<canvas id="monitoreo"></canvas>
+													</div>
 												</div>
-											</div> -->
+											</div>
 											<!-- TERMINA REPRODUCCION ASISTIDA -->
 											<div class="pull-right">	
 												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
@@ -813,8 +820,8 @@
 	{
 		$("#test").jqScribble();
 		fechaActual();
-		// $("#monitoreo").jqScribble();
-		// $("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
+		$("#monitoreo").jqScribble();
+		$("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
 		var born = document.getElementById("nacim");
 		if(born != ''){
 			$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));

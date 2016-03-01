@@ -1,6 +1,6 @@
 <div class="card">
 
-	<!-- BEGIN CONTACT DETAILS HEADER -->
+	<!-- BEGIN BUSCADOR DE PACIENTES -->
 	<div class="card-head style-primary-dark">
 		<div class="tools pull-left">
 			<form class="navbar-search" role="search">
@@ -21,15 +21,14 @@
                 <i class="fa fa-user"></i>
             </a>
         </div><!--end .tools -->
-	</div><!--end .card-head -->
-	<!-- END CONTACT DETAILS HEADER -->
+	</div>
+	<!-- END BUSCADOR DE PACIENTES -->
 
 	<!-- BEGIN CONTACT DETAILS -->
 	<div class="card-tiles">
 		<div class="hbox-md col-md-12">
 			<div class="hbox-column col-md-9">
 				<div class="row">
-
 					<!-- BEGIN CONTACTS NAV -->
 					<div class="col-sm-5 col-md-4 col-lg-3">
 						<ul class="nav nav-pills nav-stacked">
@@ -60,7 +59,7 @@
 										</div>
 									</a>
 									<?php }else if($con['ESPEC'] == 'Expescar'){?>
-									<a class="tile-content ink-reaction">
+									<a class="tile-content ink-reaction" onclick="detalleHisto(<?php echo $con['CONSULTA'];?>);">
 										<div class="tile-text">
 											<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
 											<small>
@@ -94,18 +93,17 @@
 							<?php if(!isset($paciente)){ ?>
 								<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
 							<?php }else{ ?>
-							<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
+								<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
 							<?php } ?>
-							&nbsp;&nbsp;
+								&nbsp;&nbsp;
 						</div><!--end .margin-bottom-xxl -->
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#historia" onclick="detalleHisto(<?php echo $consultas['CONSULTA'];?>);">Historia Clinica</a></li>
+							<li><a href="#historia">Historia Clinica</a></li>
 							<li><a href="#videos">Videos</a></li>
 						</ul>
 						<div class="tab-content">
-
 							<!-- BEGIN CONTACTS NOTES -->
 							<div class="tab-pane" id="notes">
 								<br/>
@@ -141,15 +139,11 @@
 								<br>
 								<div class="row">
 									<div class="col-md-12">
-										<?php if(!isset($paciente)){ ?>
-
-										<?php }else{ ?>
-											<div id="consultita"></div>
-										<?php } ?>
-										
+										<div id="consultita"></div>
 									</div>
 								</div>
 							</div>
+							<!-- END VERCONSULTA -->
 							<!--Inicio mostrar videos -->
 							<div class="tab-pane" id="videos">
 								<br/>
@@ -176,15 +170,13 @@
 								</div><!--end .row -->
 								<!-- END FILE UPLOAD -->
 							</div><!--Fin mostrar videos -->
-
-							
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
 				</div><!--end .row -->
 			</div><!--end .hbox-column -->
-		</div><!--end .hbox-md -->
-	</div><!--end .card-tiles -->
+		</div>
+	</div>
 	<!-- END CONTACTS DETAILS -->
 	<div class="offcanvas backdrop">
 		<!-- BEGIN CONTACTS COMMON DETAILS -->
@@ -312,7 +304,6 @@
 
     function detalleConsulta(id)
     {
-    	console.log('ID '+id);
     	$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/verconsulta",
@@ -321,13 +312,12 @@
            
            success: function(response) {
            		$('#consultita').html(response);
-           		
+
            },
            error: function(){
                  alert('Inténtalo más tarde.');
            }
        });
-
     }
 
 
@@ -342,6 +332,7 @@
            
            success: function(response) {
            		$('#verhistoriac').html(response);
+           		$('#historia').addClass('active');
            },
            error: function(){
                  alert('Inténtalo más tarde.');

@@ -4,14 +4,14 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<h4 class="text-primary">Motivo Consulta</h4>
-					<p class="form-control-static"><?php echo $consulta[0]['PADECIMIENTO'];?></p>
+					<p class="form-control-static"><?php echo $consultah[0]['PADECIMIENTO'];?></p>
 				</div>
 			</div>
 			<div class="col-md-3"></div>
 			<div class="col-md-3">
 				<div class="form-group">
 					<h4 class="text-primary">Fecha</h4>
-					<p class="form-control-static"><?php echo date_format($consulta[0]['FECHA_CONS'],'Y-m-d');?></p>	
+					<p class="form-control-static"><?php echo date_format($consultah[0]['FECHA_CONS'],'Y-m-d');?></p>	
 				</div>
 			</div>
 		</div>
@@ -21,16 +21,16 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<h4 class="text-primary">Ciclo</h4>
-							<?php if(isset($consulta[0]['CICLOS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['CICLOS'];?></p>
+							<?php if(isset($consultah[0]['CICLOS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['CICLOS'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<h4 class="text-primary">FUM</h4>
-							<?php if(isset($consulta[0]['FUM'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['FUM'];?></p>
+							<?php if(isset($consultah[0]['FUM'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['FUM'];?></p>
 							<?php }  ?>
 						</div>
 					</div>
@@ -39,38 +39,38 @@
 					<div class="col-sm-2">
 						<div class="form-group">
 							<h4 class="text-primary">G</h4>
-							<?php if(isset($consulta[0]['GESTAS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['GESTAS'];?></p>
+							<?php if(isset($consultah[0]['GESTAS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['GESTAS'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="form-group">
 							<h4 class="text-primary">P</h4>
-							<?php if(isset($consulta[0]['PARTOS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['PARTOS'];?></p>
+							<?php if(isset($consultah[0]['PARTOS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['PARTOS'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="form-group">
 							<h4 class="text-primary">C</h4>
-							<?php if(isset($consulta[0]['CESAREAS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['CESAREAS'];?></p>
+							<?php if(isset($consultah[0]['CESAREAS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['CESAREAS'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<h4 class="text-primary">A</h4>
-							<?php if(isset($consulta[0]['ABOTOS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['ABOTOS'];?></p>
+							<?php if(isset($consultah[0]['ABOTOS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['ABOTOS'];?></p>
 							<?php } ?>
 					</div>
 					<div class="col-sm-2">
 						<div class="form-group">
 							<h4 class="text-primary">E</h4>
-							<?php if(isset($consulta[0]['ECTOPICOS'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['ECTOPICOS'];?></p>
+							<?php if(isset($consultah[0]['ECTOPICOS'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['ECTOPICOS'];?></p>
 							<?php } ?>
 						</div>
 					</div>
@@ -79,31 +79,31 @@
 					<div class="col-sm-3">
 						<div class="form-group">
 							<h4 class="text-primary">MENARCA</h4>
-							<?php if(isset($consulta[0]['MENARCA'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['MENARCA'];?></p>
+							<?php if(isset($consultah[0]['MENARCA'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['MENARCA'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<h4 class="text-primary">IVSA</h4>
-							<?php if(isset($consulta[0]['IVSA'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['IVSA'];?></p>
+							<?php if(isset($consultah[0]['IVSA'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['IVSA'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<h4 class="text-primary">DURACIÓN</h4>
-							<?php if(isset($consulta[0]['DURACION'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['DURACION'];?></p>
+							<?php if(isset($consultah[0]['DURACION'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['DURACION'];?></p>
 							<?php } ?>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="row">
-						<?php if($consulta[0]['PRIMERHIJO_NOMBRE']){ ?>
+						<?php if($consultah[0]['PRIMERHIJO_NOMBRE']){ ?>
 						<div class="form-group col-sm-3">
 							<div class="checkbox checkbox-styled checkbox-success">
 								<label>
@@ -116,17 +116,17 @@
 							<div>
 								<div>
 									<h5>NOMBRE </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['PRIMERHIJO_NOMBRE'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['PRIMERHIJO_NOMBRE'];?></p>
 									<br>
 								</div>	
 								<div>
 									<h5>EDAD </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['PRIMERHIJO_EDAD'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['PRIMERHIJO_EDAD'];?></p>
 								</div>											
 							</div>
 						</div>
 						<?php } ?>
-						<?php if($consulta[0]['SEGUNDOHIJO_NOMBRE']){ ?>
+						<?php if($consultah[0]['SEGUNDOHIJO_NOMBRE']){ ?>
 						<div class="form-group col-sm-3">
 							<div class="checkbox checkbox-styled checkbox-success">
 								<label>
@@ -139,17 +139,17 @@
 							<div>
 								<div>
 									<h5>NOMBRE </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['SEGUNDOHIJO_NOMBRE'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['SEGUNDOHIJO_NOMBRE'];?></p>
 									<br>
 								</div>	
 								<div>
 									<h5>EDAD </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['SEGUNDOHIJO_EDAD'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['SEGUNDOHIJO_EDAD'];?></p>
 								</div>											
 							</div>
 						</div>
 						<?php } ?>
-						<?php if($consulta[0]['TERCERHIJO_NOMBRE']){ ?>
+						<?php if($consultah[0]['TERCERHIJO_NOMBRE']){ ?>
 						<div class="form-group col-sm-3">
 							<div class="checkbox checkbox-styled checkbox-success">
 								<label>
@@ -162,12 +162,12 @@
 							<div>
 								<div>
 									<h5>NOMBRE </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['TERCERHIJO_NOMBRE'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['TERCERHIJO_NOMBRE'];?></p>
 									<br>
 								</div>	
 								<div>
 									<h5>EDAD </h5>
-									<p class="form-control-static"><?php echo $consulta[0]['TERCERHIJO_EDAD'];?></p>
+									<p class="form-control-static"><?php echo $consultah[0]['TERCERHIJO_EDAD'];?></p>
 								</div>											
 							</div>
 						</div>
@@ -175,7 +175,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['DISMENORREA']){ ?>
+					<?php if($consultah[0]['DISMENORREA']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -185,12 +185,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="adisme">
-						<p class="form-control-static"><?php echo $consulta[0]['DISMENORREA'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['DISMENORREA'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['FLUJO']){ ?>
+					<?php if($consultah[0]['FLUJO']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -200,12 +200,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="aflu" >
-						<p class="form-control-static"><?php echo $consulta[0]['FLUJO'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['FLUJO'];?></p>
 					</div>
 					<?php } ?>											
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['SIST_URINARIO']){ ?>
+					<?php if($consultah[0]['SIST_URINARIO']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -215,12 +215,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['SIST_URINARIO'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['SIST_URINARIO'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['SIST_DIGESTIVO']){ ?>
+					<?php if($consultah[0]['SIST_DIGESTIVO']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -230,12 +230,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['SIST_DIGESTIVO'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['SIST_DIGESTIVO'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['ANTICONCEPTIVOS']){ ?>
+					<?php if($consultah[0]['ANTICONCEPTIVOS']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -245,12 +245,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['ANTICONCEPTIVOS'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['ANTICONCEPTIVOS'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['PAP']){ ?>
+					<?php if($consultah[0]['PAP']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -260,12 +260,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['PAP'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['PAP'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['GALACTORREA']){ ?>
+					<?php if($consultah[0]['GALACTORREA']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -275,12 +275,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['GALACTORREA'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['GALACTORREA'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['HIRSUTISM']){ ?>
+					<?php if($consultah[0]['HIRSUTISM']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -290,12 +290,12 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['HIRSUTISM'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['HIRSUTISM'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['COH']){ ?>
+					<?php if($consultah[0]['COH']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -305,13 +305,13 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['COH'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['COH'];?></p>
 					</div>
 					<?php } ?>
 				</div>
 				
 				<div class="row">
-					<?php if($consulta[0]['ESPERMO_FECHA']){ ?>
+					<?php if($consultah[0]['ESPERMO_FECHA']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -324,47 +324,47 @@
 						<div class="form-group col-sm-3">
 							<div>
 								<h5>Fecha</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_FECHA'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_FECHA'];?></p><br>
 							</div>
 							<div>
 								<h5>Motivilidad</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_MOTIVIDAD'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_MOTIVIDAD'];?></p><br>
 							</div>
 							<div>
 								<h5>Cultivo</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_CULTIVO'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_CULTIVO'];?></p><br>
 							</div>
 						</div>
 						<div class="form-group col-sm-3">
 							<div>
 								<h5>Cuenta</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_CUENTA'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_CUENTA'];?></p><br>
 							</div>
 							<div>
 								<h5>FN</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_FN'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_FN'];?></p><br>
 							</div>
 							<div>
 								<h5>APP</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_APP'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_APP'];?></p><br>
 							</div>
 						</div>
 						<div class="form-group col-sm-3">
 							<div>
 								<h5>VOLUMEN</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_VOLUMEN'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_VOLUMEN'];?></p><br>
 							</div>
 							<div>
 							<br>
 								<h5>Fragmentación DNA</h5>
-								<p class="form-control-static"><?php echo $consulta[0]['ESPERMO_DNA'];?></p><br>
+								<p class="form-control-static"><?php echo $consultah[0]['ESPERMO_DNA'];?></p><br>
 							</div>
 						</div>
 					</div>
 					<?php } ?>
 				</div>
 				<div class="row">
-					<?php if($consulta[0]['LABORATORIO_NOTAS']){ ?>
+					<?php if($consultah[0]['LABORATORIO_NOTAS']){ ?>
 					<div class="form-group col-sm-4">
 						<div class="checkbox checkbox-styled checkbox-success">
 							<label>
@@ -374,7 +374,7 @@
 						</div>		
 					</div>
 					<div class="form-group col-sm-12" id="asistU">
-						<p class="form-control-static"><?php echo $consulta[0]['LABORATORIO_NOTAS'];?></p>
+						<p class="form-control-static"><?php echo $consultah[0]['LABORATORIO_NOTAS'];?></p>
 					</div>
 					<?php } ?>
 				</div>
@@ -385,7 +385,7 @@
 					<div class="input-group">
 						<div class="input-group-content">
 							<h4 class="text-primary">Edad</h4>
-							<p class="form-control-static"><?php echo $consulta[0]['EDAD'];?></p>
+							<p class="form-control-static"><?php echo $consultah[0]['EDAD'];?></p>
 						</div>
 						<span class="input-group-addon">años</span>
 					</div>
@@ -394,8 +394,8 @@
 					<div class="input-group">
 						<div class="input-group-content">
 							<h4 class="text-primary">Tiroides</h4>
-							<?php if(isset($consulta[0]['TIROIDESNUM'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['TIROIDESNUM'];?></p>
+							<?php if(isset($consultah[0]['TIROIDESNUM'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['TIROIDESNUM'];?></p>
 							<?php } ?>
 						</div>
 						<span class="input-group-addon">ml U/L</span>
@@ -405,8 +405,8 @@
 					<div class="input-group">
 						<div class="input-group-content">
 							<h4 class="text-primary">Peso</h4>
-							<?php if(isset($consulta[0]['PESO'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['PESO'];?></p>
+							<?php if(isset($consultah[0]['PESO'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['PESO'];?></p>
 							<?php } ?>
 						</div>
 						<span class="input-group-addon">Kg</span>
@@ -416,8 +416,8 @@
 					<div class="input-group">
 						<div class="input-group-content">
 							<h4 class="text-primary">Presión</h4>
-							<?php if(isset($consulta[0]['PRESION'])){ ?>
-							<p class="form-control-static"><?php echo $consulta[0]['PRESION'];?></p>
+							<?php if(isset($consultah[0]['PRESION'])){ ?>
+							<p class="form-control-static"><?php echo $consultah[0]['PRESION'];?></p>
 							<?php } ?>
 						</div>
 						<span class="input-group-addon">mmHg</span>
@@ -425,14 +425,14 @@
 				</div>
 				<div class="form-group">
 					<h4 class="text-primary">IMX</h4>
-					<?php if(isset($consulta[0]['IMX'])){ ?>
-					<p class="form-control-static"><?php echo $consulta[0]['IMX'];?></p>
+					<?php if(isset($consultah[0]['IMX'])){ ?>
+					<p class="form-control-static"><?php echo $consultah[0]['IMX'];?></p>
 					<?php } ?>
 				</div>
 				<div class="form-group">
 					<h4 class="text-primary">Plan</h4>
-					<?php if(isset($consulta[0]['PLAN'])){ ?>
-					<p class="form-control-static"><?php echo $consulta[0]['PLAN'];?></p>
+					<?php if(isset($consultah[0]['PLAN'])){ ?>
+					<p class="form-control-static"><?php echo $consultah[0]['PLAN'];?></p>
 					<?php } ?>
 				</div>
 			</div>
@@ -440,8 +440,8 @@
 		</div>
 		<hr>
 		<div class="row">
-			<?php if(isset($consulta[0]['IMAGEN'])){ ?>
-			<img src="<?php echo $this->basePath(); ?>/public/imagenes/consultas/<?php echo $pac[0];?>/<?php echo $consulta[0]['IMAGEN'];?>" alt="" style="max-width: 100%;,max-height: 100%;">
+			<?php if(isset($consultah[0]['IMAGEN'])){ ?>
+			<img src="<?php echo $this->basePath(); ?>/public/imagenes/consultas/<?php echo $pac[0];?>/<?php echo $consultah[0]['IMAGEN'];?>" alt="" style="max-width: 100%;,max-height: 100%;">
 			<?php } ?>
 		</div>
 		
