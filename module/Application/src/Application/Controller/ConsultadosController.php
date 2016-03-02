@@ -468,22 +468,21 @@ class ConsultadosController extends AbstractActionController {
 			$videos->setPACIENTE($objectManager->find('Application\Entity\Pacientes', $data['pacid']));
 			$videos->setFECHA(new \DateTime());
 
-
 			$ruta = getcwd() . '/public/imagenes/videos/' . $data['pacid'];
 			if (!file_exists($ruta)) {
 				mkdir($ruta);
 			}
-			
+
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			$adapter->setDestination($ruta);
 
-			$adapter->addfilter('Rename',array(
-				'target'=> $ruta.'/'.$imagen,
-				'overwrite'=> true,
-				));
-
+			$adapter->addfilter('Rename', array(
+				'target' => $ruta . '/' . $imagen,
+				'overwrite' => true,
+			));
 
 			if ($adapter->receive()) {
+				$this->createthumb($ruta . '/' . $imagen, 100, 100);
 				$objectManager->persist($videos);
 				$objectManager->flush();
 			}
@@ -497,7 +496,6 @@ class ConsultadosController extends AbstractActionController {
 			$om = $this->getObjectManager();
 			$nomvideo = $this->request->getPost('archivo');
 			$idPaciente = $this->request->getPost('id');
-
 
 			$query = $om->createQuery("SELECT v.ID FROM Application\Entity\Videoconsulta v WHERE v.VIDEO = '$nomvideo' AND v.PACIENTE = $idPaciente");
 			$vid = $query->getArrayResult();
@@ -515,4 +513,36 @@ class ConsultadosController extends AbstractActionController {
 		}
 	}
 
+	public function createthumb($name, $new_w, $new_h) {
+		$system = explode(".", $name);
+		$extension = end($system);
+		$nom = array_pop($system);
+		$nom = implode(".", $system);
+		if (preg_match("/jpg|jpeg/", $extension)) {$src_img = imagecreatefromjpeg($name);}
+		if (preg_match("/png/", $extension)) {$src_img = imagecreatefrompng($name);}
+
+		$old_x = imageSX($src_img);
+		$old_y = imageSY($src_img);
+		if ($old_x > $old_y) {
+			$thumb_w = $new_w;
+			$thumb_h = $old_y * ($new_h / $old_x);
+		}
+		if ($old_x < $old_y) {
+			$thumb_w = $old_x * ($new_w / $old_y);
+			$thumb_h = $new_h;
+		}
+		if ($old_x == $old_y) {
+			$thumb_w = $new_w;
+			$thumb_h = $new_h;
+		}
+		$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
+		imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+		if (preg_match("/png/", $extension)) {
+			imagepng($dst_img, $nom . '_th.' . $extension);
+		} else {
+			imagejpeg($dst_img, $nom . '_th.' . $extension);
+		}
+		imagedestroy($dst_img);
+		imagedestroy($src_img);
+	}
 }

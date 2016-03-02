@@ -147,54 +147,55 @@
 								</div>
 							</div>
 							<!-- END VERCONSULTA -->
+							
 							<!--Inicio mostrar videos -->
-
 							<div class="tab-pane" id="videos">
 								<br/>
 								<!-- BEGIN FILE UPLOAD -->
 								<div class="row">
 									<?php if(isset($paciente))  {  ?>
-									<div class="tab-pane" id="notes">
-								<br/>
-								<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+									
+										<br/>
+										<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+									
+											<?php foreach($video as $v) { ?>
+												<div class="list-results list-results-underlined">
+														<div class="col-xs-12">
+															<p class="clearfix">
+																<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
+																<span class="pull-left">
+																	<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
+																</span>
+															</p>
+															<div>
+																<em><?php echo $v['VIDEO']; ?></em>
+															</div>
+														</div><!--end .col -->
+												</div><!--end .list-results -->
+											<?php } ?>
+										<?php } ?>
 								
-									<?php foreach($video as $v) { ?>
-									<div class="list-results list-results-underlined">
-											<div class="col-xs-12">
-												<p class="clearfix">
-													<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
-													<span class="pull-left">
-														<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
-													</span>
-												</p>
-												<div>
-													<em><?php echo $v['VIDEO']; ?></em>
+										<div class=" col-md-12">
+											<div class="card">
+												<div class="card-head style-primary">
+												
+													<header>Subir Videos</header>
 												</div>
-											</div><!--end .col -->
-									</div><!--end .list-results -->
-									<?php } ?>
-								<?php } ?>
-							</div>
-									<div class=" col-md-12">
-										<div class="card">
-											<div class="card-head style-primary">
-											
-												<header>Subir Videos</header>
-											</div>
-											<div class="card-body no-padding">
-												<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
-												<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
-												<div class="dz-message">
-													<h3 >Agrega aquí los videos  <br/><br/></h3>
-												</div>
-												</form>
-											</div><!--end .card-body -->
-										</div><!--end .card -->
-									</div><!--end .col -->
+												<div class="card-body no-padding">
+													<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+													<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
+													<div class="dz-message">
+														<h3 >Agrega aquí los videos  <br/><br/></h3>
+													</div>
+													</form>
+												</div><!--end .card-body -->
+											</div><!--end .card -->
+										</div><!--end .col -->
 									<?php } ?>
 								</div><!--end .row -->
 								<!-- END FILE UPLOAD -->
-							</div><!--Fin mostrar videos -->
+							</div>
+							<!--Fin mostrar videos -->
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
