@@ -7,6 +7,7 @@ use Application\Entity\Consultas;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
 use Application\Entity\Videoconsulta;
+use Application\Entity\historianterior;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -544,5 +545,69 @@ class ConsultadosController extends AbstractActionController {
 		}
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
+	}
+
+	public function guardahistoanteriorAction()
+	{
+		if ($this->request->isPost()) {
+
+			$oM = $this->getObjectManager();
+
+			$data = array_merge_recursive(
+				$this->getRequest()->getPost()->toArray(),
+				$this->getRequest()->getFiles()->toArray()
+			);
+			$archivo = $data['file']['name'];
+
+			
+			$expediente = new historianterior();
+
+			$expediente->setARCHIVO($archivo);
+			$expediente->setPACIENTE($oM->find('Application\Entity\Pacientes', $data['patient']));
+			$expediente->setFECHA(new \DateTime());
+
+			$ruta = getcwd() . '/public/imagenes/historianterior/' . $data['patient'];
+			if (!file_exists($ruta)) {
+				mkdir($ruta);
+			}
+
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setDestination($ruta);
+
+			$adapter->addfilter('Rename', array(
+				'target' => $ruta . '/' . $archivo,
+				'overwrite' => true,
+			));
+
+			if ($adapter->receive()) {
+				$this->createthumb($ruta . '/' . $archivo, 100, 100);
+				$oM->persist($expediente);
+				$oM->flush();
+			}
+
+		}
+		return new JsonModel();
+	}
+
+	public function eliminarArchivoAction() {
+		if ($this->request->getPost()) {
+			$om = $this->getObjectManager();
+			$nomfile = $this->request->getPost('archivo');
+			$idPaciente = $this->request->getPost('id');
+
+			$query = $om->createQuery("SELECT v.ID FROM Application\Entity\historianterior v WHERE v.ARCHIVO = '$nomfile' AND v.PACIENTE = $idPaciente");
+			$hist = $query->getArrayResult();
+
+			$quitar = $om->find('Application\Entity\Videoconsulta', $hist[0]['ID']);
+
+			$om->remove($quitar);
+			$om->flush();
+
+			$ruta = getcwd() . '/public/imagenes/historianterior/' . $idPaciente . '/' . $nomfile;
+
+			unlink($ruta);
+
+			return new JsonModel();
+		}
 	}
 }
