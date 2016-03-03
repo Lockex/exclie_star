@@ -100,7 +100,7 @@
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
 							<li><a href="#historia">Historia Clinica</a></li>
-							<li><a href="#videos">Videos</a></li>
+							
 						</ul>
 						<div class="tab-content">
 							<!-- BEGIN CONTACTS NOTES -->
@@ -146,57 +146,7 @@
 							</div>
 							<!-- END VERCONSULTA -->
 							
-							<!--Inicio mostrar videos -->
-							<div class="tab-pane" id="videos">
-								<br/>
-								<!-- BEGIN FILE UPLOAD -->
-								<div class="row">
-									<?php if(isset($paciente))  {  ?>
-									
-										<br/>
-										<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
-									
-											<?php foreach($video as $v) { ?>
-												<div class="list-results list-results-underlined">
-														<div class="col-xs-12">
-															<p class="clearfix">
-																<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
-																<span class="pull-left">
-																	<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
-																</span>
-															</p>
-															<div>
-																<em><?php echo $v['VIDEO']; ?></em>
-															</div>
-														</div><!--end .col -->
-												</div><!--end .list-results -->
-											<?php } ?>
-										<?php } ?>
-								
-										<div class=" col-md-12">
-											<div class="card">
-												<div class="card-head style-primary">
-												
-													<header>Subir Videos</header>
-												</div>
-												<div class="card-body no-padding">
-													<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
-													<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
-													<div class="dz-message">
-														<h3 >Agrega aquí los videos  <br/><br/></h3>
-													</div>
-													</form>
-												</div><!--end .card-body -->
-											</div><!--end .card -->
-										</div><!--end .col -->
-									<?php } ?>
-								</div><!--end .row -->
-								<!-- END FILE UPLOAD -->
-							</div>
-							<!--Fin mostrar videos -->
-
 							
-
 						</div><!--end .tab-content -->
 					</div><!--end .col -->
 					<!-- END CONTACTS MAIN CONTENT -->
@@ -316,16 +266,15 @@
 
 
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 
-<script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
+
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
 <script>
 
 	var ruta = '<?php echo $this->basePath(); ?>';	
-	mostrarArhivos();
+	
 	function nuevaConsulta(pac)
 	{
        	document.getElementById('pacienteid').value = pac;
@@ -369,44 +318,7 @@
        });
     }
 
-    Dropzone.autoDiscover = false;
-
-	var myDropzone = new Dropzone("#dropa", {
-		paramName: "file", // The name that will be used to transfer the file
-		  accept: function(file, done) {
-		    done();
-		  },
-		  addRemoveLinks: true,
-		  removedfile: function(file){
-		    var datos = {archivo:file.name,id:$('#pacid').val()};
-		    console.log(datos);
-		    $.ajax({
-		          type: "POST",
-		          url: "<?php echo $this->basePath() ?>/consultados/eliminarVideo",
-		          data: datos,
-		          dataType: "json",
-		          success: function(data) {
-		                  var _ref;
-		                     if (file.previewElement) {
-		                       if ((_ref = file.previewElement) != null) {
-		                         _ref.parentNode.removeChild(file.previewElement);
-		                       }
-		                     }
-		                     return this._updateMaxFilesReachedClass();
-		                },
-		          error: function(data){
-		                      var _ref;
-		                        if (file.previewElement) {
-		                          if ((_ref = file.previewElement) != null) {
-		                            _ref.parentNode.removeChild(file.previewElement);
-		                          }
-		                        }
-		                        return this._updateMaxFilesReachedClass();
-
-		          }
-		      });
-		  }
-	});
+    
     
 	
 	

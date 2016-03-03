@@ -34,6 +34,7 @@
 					<li><a href="#notes">NOTAS</a></li>
 					<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
 					<li><a href="#histoAntes">Historial Anterior</a></li>
+					<li><a href="#videos">Videos</a></li>
 				</ul>
 				<div class="tab-content">
 					<!-- COMIENZA NOTAS PACIENTE -->
@@ -99,6 +100,55 @@
 						<!-- END FILE UPLOAD -->
 					</div>
 					<!-- END HISTORIAL ANTERIOR -->
+
+					<!--Inicio mostrar videos -->
+							<div class="tab-pane" id="videos">
+								<br/>
+								<!-- BEGIN FILE UPLOAD -->
+								<div class="row">
+									<?php if(isset($paciente))  {  ?>
+									
+										<br/>
+										<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+									
+											<?php foreach($video as $v) { ?>
+												<div class="list-results list-results-underlined">
+														<div class="col-xs-12">
+															<p class="clearfix">
+																<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
+																<span class="pull-left">
+																	<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
+																</span>
+															</p>
+															<div>
+																<em><?php echo $v['VIDEO']; ?></em>
+															</div>
+														</div><!--end .col -->
+												</div><!--end .list-results -->
+											<?php } ?>
+										<?php } ?>
+								
+										<div class=" col-md-12">
+											<div class="card">
+												<div class="card-head style-primary">
+												
+													<header>Subir Videos</header>
+												</div>
+												<div class="card-body no-padding">
+													<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+													<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
+													<div class="dz-message">
+														<h3 >Agrega aquí los videos  <br/><br/></h3>
+													</div>
+													</form>
+												</div><!--end .card-body -->
+											</div><!--end .card -->
+										</div><!--end .col -->
+									<?php } ?>
+								</div><!--end .row -->
+								<!-- END FILE UPLOAD -->
+							</div>
+							<!--Fin mostrar videos -->
 
 					<!-- BEGIN ADDCONSULTA DETAILS -->
 					<div class="tab-pane active" id="addconsulta">
@@ -886,8 +936,10 @@
 
     	$('input[type="checkbox"]').on("change",function() {
 			if($(this).is(":checked")) {
-				//$("#test").data("jqScribble").update({width:"700"});	
-				$("#test").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});								
+				
+				var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
+				$("#test").data("jqScribble").update({backgroundImage: img});
+									       		
 			} else {
 				$("#test").data("jqScribble").clear();
 			}			
@@ -1019,6 +1071,46 @@
        });
 	}
 	
+	Dropzone.autoDiscover = false;
+	/** COMIENZA DROPZONE DE VIDEOS**/
+	var myDropzone = new Dropzone("#dropa", {
+		paramName: "file", // The name that will be used to transfer the file
+		  accept: function(file, done) {
+		    done();
+		  },
+		  addRemoveLinks: true,
+		  removedfile: function(file){
+		    var datos = {archivo:file.name,id:$('#pacid').val()};
+		    console.log(datos);
+		    $.ajax({
+		          type: "POST",
+		          url: "<?php echo $this->basePath() ?>/consultados/eliminarVideo",
+		          data: datos,
+		          dataType: "json",
+		          success: function(data) {
+		                  var _ref;
+		                     if (file.previewElement) {
+		                       if ((_ref = file.previewElement) != null) {
+		                         _ref.parentNode.removeChild(file.previewElement);
+		                       }
+		                     }
+		                     return this._updateMaxFilesReachedClass();
+		                },
+		          error: function(data){
+		                      var _ref;
+		                        if (file.previewElement) {
+		                          if ((_ref = file.previewElement) != null) {
+		                            _ref.parentNode.removeChild(file.previewElement);
+		                          }
+		                        }
+		                        return this._updateMaxFilesReachedClass();
+
+		          }
+		      });
+		  }
+	});
+	/** TERMINA DROPZONE DE VIDEOS **/
+
   	/** EMPIEZA DROP DE LOS EXPEDIENTES DE HISTORIA **/
 	var myDropzone = new Dropzone("#drops", {
 		paramName: "file", // The name that will be used to transfer the file
