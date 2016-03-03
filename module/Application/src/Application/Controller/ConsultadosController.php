@@ -40,27 +40,6 @@ class ConsultadosController extends AbstractActionController {
 		return new ViewModel($data);
 	}
 
-	public function consultanewAction() {
-		if ($this->request->isPost()) {
-			$pacienteid = $this->request->getPost('pacienteid');
-			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
-			$paciente = $query->getArrayResult();
-
-			$query2 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
-			$notas = $query2->getArrayResult();
-
-			$query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-			$antecedentes = $query3->getArrayResult();
-
-			$data = array('paciente' => $paciente, 'notas' => $notas, 'antecedentes' => $antecedentes);
-
-		} else {
-
-			$data = array();
-		}
-		return new ViewModel($data);
-	}
-
 	public function consultandoAction() {
 		if ($this->request->isPost()) {
 			$pacienteid = $this->request->getPost('pacienteid');
@@ -73,7 +52,10 @@ class ConsultadosController extends AbstractActionController {
 			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
 			$consultas = $query2->getArrayResult();
 
-			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas);
+			$query5 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Historianterior a WHERE a.PACIENTE = $pacienteid");
+			$archivos = $query5->getArrayResult();
+
+			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas, 'files' => $archivos);
 
 		} else {
 
@@ -594,20 +576,32 @@ class ConsultadosController extends AbstractActionController {
 			$om = $this->getObjectManager();
 			$nomfile = $this->request->getPost('archivo');
 			$idPaciente = $this->request->getPost('id');
+			
+			$filename = explode(".", $nomfile);
 
-			$query = $om->createQuery("SELECT v.ID FROM Application\Entity\historianterior v WHERE v.ARCHIVO = '$nomfile' AND v.PACIENTE = $idPaciente");
+			$query = $om->createQuery("SELECT a.ID FROM Application\Entity\historianterior a WHERE a.ARCHIVO = '$nomfile' AND a.PACIENTE = $idPaciente");
 			$hist = $query->getArrayResult();
 
-			$quitar = $om->find('Application\Entity\Videoconsulta', $hist[0]['ID']);
-
+			$quitar = $om->find('Application\Entity\Historianterior', $hist[0]['ID']);
 			$om->remove($quitar);
 			$om->flush();
 
 			$ruta = getcwd() . '/public/imagenes/historianterior/' . $idPaciente . '/' . $nomfile;
-
 			unlink($ruta);
-
+			$thumb = getcwd() . '/public/imagenes/historianterior/' . $idPaciente . '/' . $filename[0].'_th.'.$filename[1];
+			unlink($thumb);
+			
 			return new JsonModel();
 		}
+	}
+
+	public function listaarchivosAction() {
+		$this->layout('layout/vacio');
+
+		$paciente = $this->request->getPost('paciente');
+		$query = $this->getObjectManager()->createQuery("SELECT h FROM Application\Entity\Historianterior h WHERE h.PACIENTE = $paciente ORDER BY h.ID DESC");
+		$archivos = $query->getArrayResult();
+		
+		return new ViewModel(array('files' => $archivos,'paciente'=>$paciente));
 	}
 }

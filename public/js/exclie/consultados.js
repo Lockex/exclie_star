@@ -3,7 +3,7 @@
 
 	// Page Loaded...
 	$(document).ready(function () {
-
+		
 		
 			
 		/*====== Buscador Pacientes =======*/
@@ -62,6 +62,6 @@
         document.fPac.submit();
     }
 
-    
+   
 
 })(jQuery);
