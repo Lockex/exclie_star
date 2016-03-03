@@ -209,6 +209,15 @@
 										</div>
 									</div>
 									<hr>
+									<!-- COMIENZA REPRODUCCION ASISTIDA -->
+									<div class="row">
+										<div>
+											<label class="checkbox checkbox-styled">
+												<input type="checkbox" id="monitoreo">
+												<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
+											</label>												
+										</div>		
+									</div>
 									<div class="row">
 										<!-- BEGIN CANVAS -->
 										<div class="card-tiles">
@@ -242,19 +251,8 @@
 												</div>
 												
 											</div>
-											<!-- COMIENZA REPRODUCCION ASISTIDA -->
-											<div class="row">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divMonitoreo">
-														<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
-													</label>												
-												</div>		
-											</div>
-													
-												
 											
-											<div class="reproduccion_asistida hidden" id="divMonitoreo">
+											<!-- <div class="reproduccion_asistida hidden" id="divMonitoreo">
 												<div class="card-tiles">
 													<div style="overflow: hidden; margin-bottom: 5px;">
 														<div class="column-right links" id="colores">
@@ -265,7 +263,7 @@
 														<canvas id="monitoreo"></canvas>
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<!-- TERMINA REPRODUCCION ASISTIDA -->
 											<div class="pull-right">	
 												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
@@ -716,7 +714,7 @@
 											<div class="row">
 												<canvas id="test"></canvas>
 											</div>
-											
+											<input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
 											<!-- END CANVAS  -->
 											
 											<div class="pull-right">	
@@ -853,6 +851,7 @@
 	<!-- END OFFCANVAS -->
 </div>
 <input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
+
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
 
@@ -873,8 +872,8 @@
 		mostrarArhivos();
 		$("#test").jqScribble();
 		fechaActual();
-		$("#monitoreo").jqScribble();
-		$("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
+		// $("#monitoreo").jqScribble();
+		// $("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
 
 		var born = document.getElementById("nacim");
 		if(born != ''){
@@ -884,6 +883,16 @@
 		    	
     	mostrarNotas();
     	$('#lirecetas').hide();
+
+    	$('input[type="checkbox"]').on("change",function() {
+			if($(this).is(":checked")) {
+				//$("#test").data("jqScribble").update({width:"700"});	
+				$("#test").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});								
+			} else {
+				$("#test").data("jqScribble").clear();
+			}			
+		});
+
     });
 
 	$('#fum').datepicker({format: "dd-mm-yyyy"});
@@ -1083,4 +1092,6 @@
            }
        });
 	}
+
+
 </script>
