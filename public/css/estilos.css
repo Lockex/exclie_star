@@ -1,8 +1,8 @@
 #test{
 	border-style: solid;
 	border-color: #0AA89E;
-	height: 80%;
-	width: 98%;
+	height: 100%;
+	width: 100%;
 	cursor: crosshair;
 	padding-top: 1px;
 }
@@ -10,6 +10,20 @@
 #colores
 {
 	padding: 3px;
+}
+
+#monitoreo
+{
+	height: 100%;
+	width: 100%;
+	cursor: crosshair;
+	border-style: solid;
+	border-color: #0AA89E;
+	background-image: url('../img/cuadro_monitoreo.png');
+	background-size: 1442px 729px;
+	
+	
+	
 }
 
 

@@ -102,53 +102,53 @@
 					<!-- END HISTORIAL ANTERIOR -->
 
 					<!--Inicio mostrar videos -->
-							<div class="tab-pane" id="videos">
+					<div class="tab-pane" id="videos">
+						<br/>
+						<!-- BEGIN FILE UPLOAD -->
+						<div class="row">
+							<?php if(isset($paciente))  {  ?>
+							
 								<br/>
-								<!-- BEGIN FILE UPLOAD -->
-								<div class="row">
-									<?php if(isset($paciente))  {  ?>
-									
-										<br/>
-										<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
-									
-											<?php foreach($video as $v) { ?>
-												<div class="list-results list-results-underlined">
-														<div class="col-xs-12">
-															<p class="clearfix">
-																<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
-																<span class="pull-left">
-																	<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
-																</span>
-															</p>
-															<div>
-																<em><?php echo $v['VIDEO']; ?></em>
-															</div>
-														</div><!--end .col -->
-												</div><!--end .list-results -->
-											<?php } ?>
-										<?php } ?>
-								
-										<div class=" col-md-12">
-											<div class="card">
-												<div class="card-head style-primary">
-												
-													<header>Subir Videos</header>
-												</div>
-												<div class="card-body no-padding">
-													<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
-													<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
-													<div class="dz-message">
-														<h3 >Agrega aquí los videos  <br/><br/></h3>
+								<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+							
+									<?php foreach($video as $v) { ?>
+										<div class="list-results list-results-underlined">
+												<div class="col-xs-12">
+													<p class="clearfix">
+														<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
+														<span class="pull-left">
+															<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
+														</span>
+													</p>
+													<div>
+														<em><?php echo $v['VIDEO']; ?></em>
 													</div>
-													</form>
-												</div><!--end .card-body -->
-											</div><!--end .card -->
-										</div><!--end .col -->
+												</div><!--end .col -->
+										</div><!--end .list-results -->
 									<?php } ?>
-								</div><!--end .row -->
-								<!-- END FILE UPLOAD -->
-							</div>
-							<!--Fin mostrar videos -->
+								<?php } ?>
+						
+								<div class=" col-md-12">
+									<div class="card">
+										<div class="card-head style-primary">
+										
+											<header>Subir Videos</header>
+										</div>
+										<div class="card-body no-padding">
+											<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+											<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
+											<div class="dz-message">
+												<h3 >Agrega aquí los videos  <br/><br/></h3>
+											</div>
+											</form>
+										</div><!--end .card-body -->
+									</div><!--end .card -->
+								</div><!--end .col -->
+							<?php } ?>
+						</div><!--end .row -->
+						<!-- END FILE UPLOAD -->
+					</div>
+					<!--Fin mostrar videos -->
 
 					<!-- BEGIN ADDCONSULTA DETAILS -->
 					<div class="tab-pane active" id="addconsulta">
@@ -259,15 +259,7 @@
 										</div>
 									</div>
 									<hr>
-									<!-- COMIENZA REPRODUCCION ASISTIDA -->
-									<div class="row">
-										<div>
-											<label class="checkbox checkbox-styled">
-												<input type="checkbox" id="monitoreo">
-												<span style="font-size:18px">REPRODUCCIÓN ASISTIDA</span>
-											</label>												
-										</div>		
-									</div>
+									
 									<div class="row">
 										<!-- BEGIN CANVAS -->
 										<div class="card-tiles">
@@ -301,19 +293,30 @@
 												</div>
 												
 											</div>
-											
-											<!-- <div class="reproduccion_asistida hidden" id="divMonitoreo">
-												<div class="card-tiles">
-													<div style="overflow: hidden; margin-bottom: 5px;">
-														<div class="column-right links" id="colores">
-															<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divMonitoreo">
+															<span style="font-size:18px">REPRODUCCION ASISTIDA</span>
+														</label>												
+													</div>	
+												</div>	
+												<div class="form-group col-sm-12">
+													<div class="reproduccion_asistida hidden" id="divMonitoreo">
+														<div class="card-tiles">
+															<div style="overflow: hidden; margin-bottom: 5px;">
+																<div class="column-right links" id="colores">
+																	<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+																</div>
+															</div>
+															<div class="row">
+																<canvas id="monitoreo"></canvas>
+															</div>
 														</div>
 													</div>
-													<div class="row">
-														<canvas id="monitoreo"></canvas>
-													</div>
 												</div>
-											</div> -->
+											</div>
 											<!-- TERMINA REPRODUCCION ASISTIDA -->
 											<div class="pull-right">	
 												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
@@ -921,9 +924,12 @@
 	{
 		mostrarArhivos();
 		$("#test").jqScribble();
+		$("#monitoreo").jqScribble();
+		var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
+		//$("#monitoreo").data("jqScribble").update({backgroundImage: img,width:(1442),height:(729),backgroundColor:"rgba(255,255,255,0)"});
+		$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)"});
 		fechaActual();
-		// $("#monitoreo").jqScribble();
-		// $("#monitoreo").data("jqScribble").update({backgroundImage: "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png"});
+		
 
 		var born = document.getElementById("nacim");
 		if(born != ''){
@@ -934,16 +940,16 @@
     	mostrarNotas();
     	$('#lirecetas').hide();
 
-    	$('input[type="checkbox"]').on("change",function() {
-			if($(this).is(":checked")) {
+  //   	$('input[type="checkbox"]').on("change",function() {
+		// 	if($(this).is(":checked")) {
 				
-				var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
-				$("#test").data("jqScribble").update({backgroundImage: img});
+		// 		var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
+		// 		$("#test").data("jqScribble").update({backgroundImage: img,width:(1442),height:(729)});
 									       		
-			} else {
-				$("#test").data("jqScribble").clear();
-			}			
-		});
+		// 	} else {
+		// 		$("#test").data("jqScribble").clear();
+		// 	}			
+		// });
 
     });
 
