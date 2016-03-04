@@ -903,8 +903,11 @@
 	</div>
 	<!-- END OFFCANVAS -->
 </div>
+<?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
 <input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
-
+<?php }else{ ?>
+<input type="hidden" value="" id="nacim">
+<?php } ?>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
 
@@ -924,17 +927,20 @@
 	{
 		mostrarArhivos();
 		$("#test").jqScribble();
-		$("#monitoreo").jqScribble();
+		$("#monitoreo").jqScribble({width:(1442),height:(729)});
 		var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
 		//$("#monitoreo").data("jqScribble").update({backgroundImage: img,width:(1442),height:(729),backgroundColor:"rgba(255,255,255,0)"});
-		$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)"});
+		$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)",width:(1442),height:(729)});
 		fechaActual();
 		
 
-		var born = document.getElementById("nacim");
-		if(born != ''){
-			$('#edad').val(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>'));
-	    	$("#Edad").text(getEdad('<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>')+' años');
+		var born = document.getElementById("nacim").value;
+		
+		if(born == ''){
+			$('#edad').val('');
+		}else{
+			$('#edad').val(getEdad(born));
+			$('#Edad').text(getEdad(born));
 		}
 		    	
     	mostrarNotas();
