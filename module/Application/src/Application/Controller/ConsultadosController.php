@@ -93,6 +93,22 @@ class ConsultadosController extends AbstractActionController {
 
 	}
 
+	public function datosconsultaAction() {
+		$this->layout('layout/vacio');
+		$objectManager = $this->getObjectManager();
+
+		$idconsul = $this->request->getPost('id_consulta');
+		
+		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
+		$consultas = $query->getArrayResult();
+
+		$str = $consultas[0]['IMAGEN'];
+		$pac = explode('-', $str, 2);
+
+		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac));
+
+	}
+
 	public function guardarconsultaAction() {
 		$objectManager = $this->getObjectManager();
 
