@@ -423,8 +423,9 @@
 		    dataType: "json",
 		    data: $('#form').serialize(),
 		    success: function(data) {
-		       console.log('data');
-		       
+		       console.log(data);
+		       socket.emit("Paciente_Guardado",'456');
+
 		    },
 		    error: function(){
 		          alert('Ocurrió un error, inténtelo más tarde.');

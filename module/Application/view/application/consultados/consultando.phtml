@@ -307,7 +307,14 @@
 														<div class="card-tiles">
 															<div style="overflow: hidden; margin-bottom: 5px;">
 																<div class="column-right links" id="colores">
-																	<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+																<!--<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>-->
+																<strong>COLORES:</strong>
+														<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(32,37,43)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-default-dark fa fa-pencil" data-toggle="tooltip" data-original-title="Negro"></button>
+														<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(244,67,54)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-danger fa fa-pencil" data-toggle="tooltip" data-original-title="Rojo"></button>
+														<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(76,175,80)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-success fa fa-pencil" data-toggle="tooltip" data-original-title="Verde"></button>
+														<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(33,150,243)",brushSize:"2"});' class="btn ink-reaction btn-raised btn-sm btn-info fa fa-pencil" data-toggle="tooltip" data-original-title="Azul"></button>
+														<button type="button" onclick='$("#monitoreo").data("jqScribble").update({brushColor: "rgb(255,255,255)",brushSize:"30"});' class="btn ink-reaction btn-raised btn-sm btn-default-bright fa fa-eraser" data-toggle="tooltip" data-original-title="Borrador"></button>
+																	
 																</div>
 															</div>
 															<div class="row">
@@ -923,15 +930,28 @@
 
 
 <script>
+
+socket.on('updatecons',function(data) {
+	console.log('recibiendo updatecons');
+	switch(data.accion) {
+		case 'refrescarreceta':
+			console.log('recibiendo refrescarreceta');
+			if(data.datos.iddoctor == <?php echo $this->identity()->getId(); ?>)
+				consultatablet(data.datos.idconsulta);
+			break;
+	}
+});
+
 	$(document).ready(function()
 	{
 		mostrarArhivos();
 		$("#test").jqScribble();
-		$("#monitoreo").jqScribble({width:(1442),height:(729)});
-		var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
+		//$("#monitoreo").jqScribble({width:(1442),height:(729)});
+		$("#monitoreo").jqScribble();
+		//var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
 		//$("#monitoreo").data("jqScribble").update({backgroundImage: img,width:(1442),height:(729),backgroundColor:"rgba(255,255,255,0)"});
-		$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)",width:(1442),height:(729)});
-		fechaActual();
+		//$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)",width:(1442),height:(729)});
+		//fechaActual();
 		
 
 		var born = document.getElementById("nacim").value;
@@ -961,6 +981,22 @@
 
 	$('#fum').datepicker({format: "dd-mm-yyyy"});
 
+
+	function consultatablet(id)
+	{
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/datosconsulta",
+	       data: {id_consulta:id},
+	       dataType: "HTML",
+	       success: function(response) {
+	       		$('#motivo').val(response['consultag'][0].MOTIVO_CONS);
+	       },
+	       error: function(){
+	             alert('Inténtalo más tarde.');
+	       }
+	   });
+	}
 
 	function getEdad(fechanac)
 	{
@@ -992,6 +1028,10 @@
 	    $('#fechahoy').val(today);
 	}
 
+	function refrescarreceta(idconsulta) {
+		console.log('refrescando receta '+idConsulta);
+	}
+
 	function save()
 	{
 
@@ -1008,12 +1048,14 @@
 			    data: datos,
 			    success: function(respuesta) {
 			       console.log(respuesta);
+			       idConsulta = respuesta.id;
+			       datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
 			       $('#saveCons').attr('disabled','disabled');
-	           		$('#lirecetas').show();
-	           		idConsulta = respuesta.id;
+	           		$('#lirecetas').show();	           	
 	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
-	           		
+	           		console.log(JSON.stringify(datasocket)+' emitiendo');
+	           		socket.emit('updateconsultas',datasocket);
 	           		mostrarReceta(idConsulta);
 			    },
 			    error: function(){
