@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Entity\Cgineco;
 use Application\Entity\Consultas;
+use Application\Entity\Expescar;
 use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
 use Application\Entity\Videoconsulta;
@@ -103,7 +104,7 @@ class ConsultadosController extends AbstractActionController {
 		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
-		$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul");
+		$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco'");
 		$consulppal = $query2->getArrayResult();
 
 		$id_cons = $consulppal[0]['ID'];
