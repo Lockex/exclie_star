@@ -158,12 +158,15 @@ class CapturaController extends AbstractActionController {
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			$adapter->setDestination($ruta);
 
+			
 			$adapter->addfilter('Rename', array(
 				'target' => $ruta . '/' . $nombre_imagen,
 				'overwrite' => true,
 			));
+			
 
 			if ($adapter->receive()) {
+				$this->createthumb($ruta . '/' . $archivo, 100, 100);
 				$om->persist($imagenes);
 				$om->flush();
 			}
@@ -188,6 +191,8 @@ class CapturaController extends AbstractActionController {
 			$imagen = $this->request->getPost('archivo');
 			$idPaciente = $this->request->getPost('id');
 
+			$filename = explode(".", $nomfile);
+
 			$query = $om->createQuery("SELECT i.ID FROM Application\Entity\Imagenesconsultas i WHERE i.IMAGEN = '$imagen' AND i.PACIENTE = $idPaciente");
 			$foto = $query->getArrayResult();
 
@@ -199,9 +204,44 @@ class CapturaController extends AbstractActionController {
 			$ruta = getcwd() . '/public/imagenes/consultas/' . $idPaciente . '/' . $imagen;
 
 			unlink($ruta);
+			$thumb = getcwd() . '/public/imagenes/consultas/' . $idPaciente . '/' . $filename[0].'_th.'.$filename[1];
+			unlink($thumb);
 
 			return new JsonModel();
 		}
+	}
+
+	public function createthumb($name, $new_w, $new_h) {
+		$system = explode(".", $name);
+		$extension = end($system);
+		$nom = array_pop($system);
+		$nom = implode(".", $system);
+		if (preg_match("/jpg|jpeg/", $extension)) {$src_img = imagecreatefromjpeg($name);}
+		if (preg_match("/png/", $extension)) {$src_img = imagecreatefrompng($name);}
+
+		$old_x = imageSX($src_img);
+		$old_y = imageSY($src_img);
+		if ($old_x > $old_y) {
+			$thumb_w = $new_w;
+			$thumb_h = $old_y * ($new_h / $old_x);
+		}
+		if ($old_x < $old_y) {
+			$thumb_w = $old_x * ($new_w / $old_y);
+			$thumb_h = $new_h;
+		}
+		if ($old_x == $old_y) {
+			$thumb_w = $new_w;
+			$thumb_h = $new_h;
+		}
+		$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
+		imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+		if (preg_match("/png/", $extension)) {
+			imagepng($dst_img, $nom . '_th.' . $extension);
+		} else {
+			imagejpeg($dst_img, $nom . '_th.' . $extension);
+		}
+		imagedestroy($dst_img);
+		imagedestroy($src_img);
 	}
 
 	/**
