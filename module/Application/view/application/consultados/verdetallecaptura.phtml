@@ -1,0 +1,31 @@
+<p class="text-primary">Archivos con Fecha de <?php echo date_format($imagpac[0]['FECHACONSULTA'],'Y-m-d'); ?></p>
+<div class="list-results list-results-underlined">
+	<div class="col-xs-12">
+		<div id="links" class="links">
+				<?php foreach($imagpac as $ip) { ?>
+					<?php $nomfile = explode('.',$ip['IMAGEN']); ?>
+					<a href="<?php echo $this->basePath() ?>/public/imagenes/consultas/<?php echo $pati.'/'.$ip['IMAGEN']; ?>" title="Galería" data-gallery=""><img src="<?php echo $this->basePath() ?>/public/imagenes/consultas/<?php echo $pati.'/'.$nomfile[0].'_th.'.$nomfile[1]; ?>"></a>
+					
+				<?php } ?>
+			<div id="blueimp-gallery" class="blueimp-gallery">
+			    <div class="slides"></div>
+			    <h3 class="title"></h3>
+			    <a class="prev">‹</a>
+			    <a class="next">›</a>
+			    <a class="close">×</a>
+			    <a class="play-pause"></a>
+			    <ol class="indicator"></ol>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event},
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};
+</script>

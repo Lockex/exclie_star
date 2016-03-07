@@ -154,9 +154,14 @@ class CapturaController extends AbstractActionController {
 			if (!file_exists($ruta)) {
 				mkdir($ruta);
 			}
-
+			
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			$adapter->setDestination($ruta);
+
+			$adapter->addfilter('Rename', array(
+				'target' => $ruta . '/' . $nombre_imagen,
+				'overwrite' => true,
+			));
 
 			if ($adapter->receive()) {
 				$om->persist($imagenes);

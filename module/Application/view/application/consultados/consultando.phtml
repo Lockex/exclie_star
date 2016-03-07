@@ -832,7 +832,7 @@
 								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 								<dd>
 									<span class="opacity-50">Años</span><br/>
-									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
+									<span class="text-medium"><p class="form-control-static" id="aniospac"></p></span>
 								</dd>
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
@@ -938,6 +938,7 @@ socket.on('updatecons',function(data) {
 			console.log('recibiendo refrescarreceta');
 			if(data.datos.iddoctor == <?php echo $this->identity()->getId(); ?>)
 				consultatablet(data.datos.idconsulta);
+
 			break;
 	}
 });
@@ -951,16 +952,19 @@ socket.on('updatecons',function(data) {
 		//var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo.png";
 		//$("#monitoreo").data("jqScribble").update({backgroundImage: img,width:(1442),height:(729),backgroundColor:"rgba(255,255,255,0)"});
 		//$("#monitoreo").data("jqScribble").update({backgroundColor:"rgba(255,255,255,0)",width:(1442),height:(729)});
-		//fechaActual();
+		fechaActual();
 		
 
 		var born = document.getElementById("nacim").value;
 		
+
+
 		if(born == ''){
 			$('#edad').val('');
 		}else{
 			$('#edad').val(getEdad(born));
 			$('#Edad').text(getEdad(born));
+			$('#aniospac').text(getEdad(born));
 		}
 		    	
     	mostrarNotas();
@@ -988,9 +992,38 @@ socket.on('updatecons',function(data) {
 	       type: "POST",
 	       url: "<?php echo $this->basePath() ?>/consultados/datosconsulta",
 	       data: {id_consulta:id},
-	       dataType: "HTML",
+	       dataType: "json",
 	       success: function(response) {
+	       		$('#lirecetas').show();
 	       		$('#motivo').val(response['consultag'][0].MOTIVO_CONS);
+	       		$('#edad').val(response['consultag'][0].EDAD);
+	       		$('#ciclo').val(response['consultag'][0].CICLO);
+	       		$('#gestas').val(response['consultag'][0].GESTAS);
+	       		$('#partos').val(response['consultag'][0].PARTOS);
+	       		$('#cesarea').val(response['consultag'][0].CESAREAS);
+	       		$('#abortos').val(response['consultag'][0].ABORTOS);
+	       		$('#ectopicos').val(response['consultag'][0].ECTOPICOS);
+	       		$('#tiroidestxt').val(response['consultag'][0].TIROIDESNUM);
+	       		$('#peso').val(response['consultag'][0].PESO);
+	       		$('#presion').val(response['consultag'][0].PRESION);
+	       		$('#imx').val(response['consultag'][0].IMX);
+	       		$('#plan').val(response['consultag'][0].PLAN);
+	       		if (response['consultag'][0].FUM) {
+	       			var fecha = response['consultag'][0].FUM.date;
+	       			var arr = fecha.split(" ");
+	       			var mes = arr[0];
+	       			var separa = mes.split("-"); 
+	       			var Mes = separa[2];
+	       			var dia = separa[1];
+	       			var anio = separa[0];
+	       		} 
+	       		$('#fum').val(dia + "-" + Mes + "-" + anio);
+	       		var carpetanum = response['pac'][0];
+	       		var imagencons = response['consultag'][0].IMAGEN
+	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
+	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
+	       		mostrarReceta(response['consultag'][0].ID);
+	       		
 	       },
 	       error: function(){
 	             alert('Inténtalo más tarde.');
@@ -1028,9 +1061,9 @@ socket.on('updatecons',function(data) {
 	    $('#fechahoy').val(today);
 	}
 
-	function refrescarreceta(idconsulta) {
-		console.log('refrescando receta '+idConsulta);
-	}
+	// function refrescarreceta(idconsulta) {
+	// 	console.log('refrescando receta '+idConsulta);
+	// }
 
 	function save()
 	{
@@ -1047,16 +1080,15 @@ socket.on('updatecons',function(data) {
 			    dataType: "json",
 			    data: datos,
 			    success: function(respuesta) {
-			       console.log(respuesta);
-			       idConsulta = respuesta.id;
-			       datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
-			       $('#saveCons').attr('disabled','disabled');
-	           		$('#lirecetas').show();	           	
+			       
+			        idConsulta = respuesta.id;
+			        datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
+			        $('#saveCons').attr('disabled','disabled');
 	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
-	           		console.log(JSON.stringify(datasocket)+' emitiendo');
+	           		//console.log(JSON.stringify(datasocket)+' emitiendo');
 	           		socket.emit('updateconsultas',datasocket);
-	           		mostrarReceta(idConsulta);
+	           		
 			    },
 			    error: function(){
 			          alert('Ocurrió un error, inténtelo más tarde.');

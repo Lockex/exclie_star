@@ -8,6 +8,7 @@ use Application\Entity\Medicamentoreceta;
 use Application\Entity\Recetas;
 use Application\Entity\Videoconsulta;
 use Application\Entity\historianterior;
+use Application\Entity\Imagenesconsultas;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -22,7 +23,7 @@ class ConsultadosController extends AbstractActionController {
 			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
 			$paciente = $query->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
+			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid AND c.ESPEC != 'Captura' ORDER BY c.FECHA_CONS DESC");
 			$consultas = $query2->getArrayResult();
 
 			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
@@ -89,7 +90,7 @@ class ConsultadosController extends AbstractActionController {
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consultag' => $consultas, 'pac' => $pac));
+		return new ViewModel(array('consultag' => $consultas, 'pacin' => $pac));
 
 	}
 
@@ -102,10 +103,15 @@ class ConsultadosController extends AbstractActionController {
 		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
+		$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul");
+		$consulppal = $query2->getArrayResult();
+
+		$id_cons = $consulppal[0]['ID'];
+		
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
-
-		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac));
+		//print_r($consultas);
+		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac,'consult' => $id_cons));
 
 	}
 
@@ -425,15 +431,22 @@ class ConsultadosController extends AbstractActionController {
 		$this->layout('layout/vacio');
 		$oM = $this->getObjectManager();
 
-		$idconsulta = $this->request->getPost('id_consulta');
-		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsulta");
+		$idpaciente = $this->request->getPost('id_paciente');
+		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.PACIENTE = $idpaciente");
 		$consultas = $query->getArrayResult();
-
+		
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consultah' => $consultas, 'pac' => $pac));
+		if($consultas[0]['PACECIMIENTO'] == ''){
+		 	$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $idpaciente");
+			$imagenes = $query2->getArrayResult();
 
+			return new ViewModel(array('consultah' => $consultas, 'pac' => $pac, 'imgs' => $imagenes,'patientito'=>$idpaciente));
+		}else{
+
+			return new ViewModel(array('consultah' => $consultas, 'pac' => $pac));
+		}
 	}
 
 	/**
@@ -620,4 +633,53 @@ class ConsultadosController extends AbstractActionController {
 		
 		return new ViewModel(array('files' => $archivos,'paciente'=>$paciente));
 	}
+
+	public function verdetallecapturaAction() {
+		$this->layout('layout/vacio');
+		$oM = $this->getObjectManager();
+
+		$idpaciente = $this->request->getPost('id_paciente');
+		$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $idpaciente");
+		$imagenespaciente = $query2->getArrayResult();
+
+		return new ViewModel(array('imagpac' => $imagenespaciente, 'pati' =>$idpaciente));
+
+	}
+
+	public function verhistocliconsAction(){
+		$this->layout('layout/vacio');
+		$oM = $this->getObjectManager();
+
+		$idcons = $this->request->getPost('id_consulta');
+
+		$query = $oM->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idcons");
+		$histClin = $query->getArrayResult();
+
+		$str = $histClin[0]['IMAGEN'];
+		
+		$pac = explode('-', $str, 2);
+
+		if($histClin[0]['PACECIMIENTO'] == ''){
+
+			$query3 = $oM->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idcons AND c.ESPEC = 'Expescar'");
+			$consultas = $query3->getArrayResult();
+
+			$consulta_id = $consultas[0]['ID'];
+
+			$consulta = $oM->find('Application\Entity\Consultas', $consulta_id);
+
+			$paciente_id = $consulta->getPaciente()->getID();
+
+			
+		  	$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $paciente_id");
+			$imagenes = $query2->getArrayResult();
+
+			return new ViewModel(array('consultah' => $histClin, 'imgs' => $imagenes, 'patientito' => $paciente_id));
+		}else{
+			
+			return new ViewModel(array('consultah' => $histClin, 'patientito' => $paciente_id));
+		 }
+	}
+
+
 }

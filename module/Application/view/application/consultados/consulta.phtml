@@ -59,7 +59,7 @@
 										</div>
 									</a>
 									<?php }else if($con['ESPEC'] == 'Expescar'){?>
-									<a class="tile-content ink-reaction" onclick="detalleHisto(<?php echo $con['CONSULTA'];?>);">
+									<a class="tile-content ink-reaction" onclick="detalleHistoCon(<?php echo $con['CONSULTA'];?>);">
 										<div class="tile-text">
 											<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
 											<small>
@@ -72,6 +72,7 @@
 										</div>
 									</a>
 									<?php } ?>
+										
 								</li>
 							<?php } ?>
 							<?php } ?>
@@ -99,8 +100,8 @@
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
-							<li><a href="#historia">Historia Clinica</a></li>
-							
+							<li><a href="" onclick="detalleHisto(<?php echo $paciente[0]['ID'];?>);">Historia Clinica</a></li>
+							<li><a href="" onclick="detalleCaptura(<?php echo $paciente[0]['ID'];?>);">Archivo</a></li>
 						</ul>
 						<div class="tab-content">
 							<!-- BEGIN CONTACTS NOTES -->
@@ -131,6 +132,13 @@
 							<div class="tab-pane" id="historia">
 								<br>
 								<div id="verhistoriac"></div>
+							</div>
+							<!-- END CONTACTS HISTORIA CLINICA -->
+
+							<!-- BEGIN CONTACTS HISTORIA CLINICA -->
+							<div class="tab-pane" id="archivo">
+								<br>
+								<div id="verarchivo"></div>
 							</div>
 							<!-- END CONTACTS HISTORIA CLINICA -->
 
@@ -264,10 +272,10 @@
 	<input type="hidden" value="" id="pacienteid" name="pacienteid"/>
 </form>
 
-
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
 
-
+<script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultados.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
@@ -305,21 +313,64 @@
     	$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/verhistoclinica",
-           data: {id_consulta:id},
+           data: {id_paciente:id},
            dataType: "HTML",
            
            success: function(response) {
            		$('#verhistoriac').html(response);
+           		$('#verconsulta').removeClass('active');
+           		$('#notes').removeClass('active');
+           		$('#archivo').removeClass('active');
            		$('#historia').addClass('active');
-           },
+           	},
            error: function(){
                  alert('Inténtalo más tarde.');
            }
        });
     }
 
-    
-    
+    function detalleHistoCon(consu) {
+    	 console.log(consu);
+    	$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/verhistoclicons",
+           data: {id_consulta:consu},
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#verhistoriac').html(response);
+           		$('#verconsulta').removeClass('active');
+           		$('#notes').removeClass('active');
+           		$('#archivo').removeClass('active');
+           		$('#historia').addClass('active');
+           	},
+           error: function(){
+                 alert('Inténtalo más tarde.');
+           }
+       });
+    }
+
+    function detalleCaptura(id)
+    {
+    	
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/verdetallecaptura",
+	       data: {id_paciente:id},
+	       dataType: "HTML",
+	       
+	       success: function(response) {
+	       		$('#verarchivo').html(response);
+	       		$('#verconsulta').removeClass('active');
+	       		$('#notes').removeClass('active');
+	       		$('#historia').removeClass('active');
+	       		$('#archivo').addClass('active');
+	       	},
+	       error: function(){
+	             alert('Inténtalo más tarde.');
+	       }
+	   });
+    }
 	
 	
 
