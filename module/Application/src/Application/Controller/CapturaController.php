@@ -191,7 +191,7 @@ class CapturaController extends AbstractActionController {
 			$imagen = $this->request->getPost('archivo');
 			$idPaciente = $this->request->getPost('id');
 
-			$filename = explode(".", $nomfile);
+			$filename = explode(".", $imagen);
 
 			$query = $om->createQuery("SELECT i.ID FROM Application\Entity\Imagenesconsultas i WHERE i.IMAGEN = '$imagen' AND i.PACIENTE = $idPaciente");
 			$foto = $query->getArrayResult();
