@@ -207,6 +207,7 @@ return array(
             'layout/vacio'           => __DIR__ . '/../view/layout/vacio.phtml',
             'layout/invitado'           => __DIR__ . '/../view/layout/invitado.phtml',
             'layout/captura'           => __DIR__ . '/../view/layout/captura.phtml',
+            'layout/recepcion'           => __DIR__ . '/../view/layout/recepcion.phtml',
             'layout/login'           => __DIR__ . '/../view/application/index/login.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',

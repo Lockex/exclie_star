@@ -14,6 +14,7 @@
 	<!-- TERMINA CABECERA -->
 	
 	<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+	
 	<div class="card-body">
 		<div class="row">
 			<!-- BEGIN CONTACTS MAIN CONTENT -->
@@ -106,8 +107,6 @@
 						<br/>
 						<!-- BEGIN FILE UPLOAD -->
 						<div class="row">
-							<?php if(isset($paciente))  {  ?>
-							
 								<br/>
 								<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
 							
@@ -144,7 +143,7 @@
 										</div><!--end .card-body -->
 									</div><!--end .card -->
 								</div><!--end .col -->
-							<?php } ?>
+							
 						</div><!--end .row -->
 						<!-- END FILE UPLOAD -->
 					</div>
@@ -154,6 +153,7 @@
 					<div class="tab-pane active" id="addconsulta">
 						<br>
 						<form class="form form-validate" id="formConsul" novalidate="novalidate">
+						<input type="hidden" name="idconsg" id="idconsg">
 						<?php if(isset($consultas)){ $numero_consul = count($consultas);} ?>
 							<?php if($numero_consul >= '1'){ ?>
 							<div class="card">
@@ -910,6 +910,7 @@
 	</div>
 	<!-- END OFFCANVAS -->
 </div>
+
 <?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
 <input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
 <?php }else{ ?>
@@ -1008,6 +1009,7 @@ socket.on('updatecons',function(data) {
 	       		$('#presion').val(response['consultag'][0].PRESION);
 	       		$('#imx').val(response['consultag'][0].IMX);
 	       		$('#plan').val(response['consultag'][0].PLAN);
+	       		
 	       		if (response['consultag'][0].FUM) {
 	       			var fecha = response['consultag'][0].FUM.date;
 	       			var arr = fecha.split(" ");
@@ -1022,6 +1024,8 @@ socket.on('updatecons',function(data) {
 	       		var imagencons = response['consultag'][0].IMAGEN
 	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
 	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
+	       		 $('#idconsg').val(response['consultag'][0].ID);
+	       		 console.log('idconsg '+response['consultag'][0].ID);
 	       		mostrarReceta(response['consultag'][0].ID);
 	       		
 	       		
@@ -1072,7 +1076,6 @@ socket.on('updatecons',function(data) {
 
 		$("#test").data("jqScribble").save(function(imageData)
 		{	
-			
 			var formulario = $('#formConsul').serialize();
 			var datos = {imagedata: imageData,datos:formulario};
 			console.log(datos);
@@ -1082,12 +1085,13 @@ socket.on('updatecons',function(data) {
 			    dataType: "json",
 			    data: datos,
 			    success: function(respuesta) {
-			       
 			        idConsulta = respuesta.id;
 			        datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
 			        $('#saveCons').attr('disabled','disabled');
 	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
+	           		/*$('#lirecetas').show();
+	           		mostrarReceta(idConsulta);*/
 	           		//console.log(JSON.stringify(datasocket)+' emitiendo');
 	           		socket.emit('updateconsultas',datasocket);
 	           		
@@ -1273,5 +1277,6 @@ socket.on('updatecons',function(data) {
        });
 	}
 
+	
 
 </script>

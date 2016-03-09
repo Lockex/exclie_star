@@ -424,7 +424,8 @@
 		    data: $('#form').serialize(),
 		    success: function(data) {
 		       console.log(data);
-		       socket.emit("Paciente_Guardado",'456');
+		       window.location.href = '<?php echo $this->basePath() ?>/pacientes';
+		       
 
 		    },
 		    error: function(){

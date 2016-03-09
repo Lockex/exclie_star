@@ -99,6 +99,7 @@ return array(
 				 'Application\Controller\Agenda' => array(
                     'all'   => 'Recepción',
                     
+                    
                 ),
 				'CsnUser\Controller\Index' => array(
 					'login' => 'Invitado',

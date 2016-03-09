@@ -165,6 +165,11 @@ class ConsultadosController extends AbstractActionController {
 				/* SI ES UNA CONSULTA DE SEGUIMIENTO*/
 
 				$gine = new Cgineco;
+				if($arr['idconsg'] != ''){
+					
+					$gine->setID($arr['idconsg']);
+					
+				}
 				$gine->setFECHACONS($fecha_hoy);
 				$gine->setIMAGEN($filename);
 				$gine->setMOTIVOCONS($motivo_consulta);
@@ -182,34 +187,43 @@ class ConsultadosController extends AbstractActionController {
 				$gine->setPRESION($presion);
 				$gine->setIMX($imx);
 				$gine->setPLAN($plan);
-
-				$objectManager->persist($gine);
-				$objectManager->flush();
-
-				$consulta = new Consultas;
-
-				$consulta->setFECHACONS($fecha_hoy);
-				$consulta->setPACIENTE($paciente);
-				$consulta->setMEDICO($this->identity());
-				$consulta->setCONSULTA($gine->getID());
-				$consulta->setESPEC('Cgineco');
-				$consulta->setMOTIVO($motivo_consulta);
-
-				$objectManager->persist($consulta);
-				$objectManager->flush();
-
-				$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
-
-				if (!file_exists($ruta)) {
-					mkdir($ruta);
+				if($arr['idconsg'] != ''){
+					$objectManager->merge($gine);
+					
+				}else{
+					$objectManager->persist($gine);
+					
 				}
+				$objectManager->flush();
 
-				imagepng($imgRes, $ruta . '/' . $filename);
+				if($arr['idconsg'] == ''){
+					$consulta = new Consultas;
 
-				$adapter = new \Zend\File\Transfer\Adapter\Http();
-				$adapter->setDestination($ruta);
+					$consulta->setFECHACONS($fecha_hoy);
+					$consulta->setPACIENTE($paciente);
+					$consulta->setMEDICO($this->identity());
+					$consulta->setCONSULTA($gine->getID());
+					$consulta->setESPEC('Cgineco');
+					$consulta->setMOTIVO($motivo_consulta);
 
-				return new JsonModel(array('id' => $gine->getID()));
+					$objectManager->persist($consulta);
+					$objectManager->flush();
+
+					$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+
+					if (!file_exists($ruta)) {
+						mkdir($ruta);
+					}
+
+					imagepng($imgRes, $ruta . '/' . $filename);
+
+					$adapter = new \Zend\File\Transfer\Adapter\Http();
+					$adapter->setDestination($ruta);
+					return new JsonModel(array('id' => $gine->getID()));
+				}else{
+					return new JsonModel(array('id' => $arr['idconsg']));
+					
+				}	
 			} else if ($arr['tipocons'] == '0') {
 				/* SI ES UNA CONSULTA DE PRIMERA VEZ*/
 				$menarca = $arr['menarca'];
@@ -245,6 +259,13 @@ class ConsultadosController extends AbstractActionController {
 				$cirugias = urldecode($arr['cirugias']);
 
 				$hc = new Expescar;
+
+				if($arr['idconsg'] != ''){
+					
+					$hc->setID($arr['idconsg']);
+					
+				}
+
 				$hc->setPADECIMIENTO($motivo_consulta);
 				$hc->setFECHACONS($fecha_hoy);
 				$hc->setPRIMERHIJONOMBRE($h1n);
@@ -294,32 +315,42 @@ class ConsultadosController extends AbstractActionController {
 				$hc->setPLAN($plan);
 				$hc->setPACIENTE($paciente);
 
-				$objectManager->persist($hc);
-				$objectManager->flush();
-
-				$consulta = new Consultas;
-
-				$consulta->setFECHACONS($fecha_hoy);
-				$consulta->setPACIENTE($paciente);
-				$consulta->setMEDICO($this->identity());
-				$consulta->setCONSULTA($hc->getID());
-				$consulta->setESPEC('Expescar');
-				$consulta->setMOTIVO($motivo_consulta);
-
-				$objectManager->persist($consulta);
-				$objectManager->flush();
-
-				$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
-				if (!file_exists($ruta)) {
-					mkdir($ruta);
+				if($arr['idconsg'] != ''){
+					$objectManager->merge($hc);
+					
+				}else{
+					$objectManager->persist($hc);
+					
 				}
+				$objectManager->flush();
+				if($arr['idconsg'] == ''){
+					$consulta = new Consultas;
 
-				imagepng($imgRes, $ruta . '/' . $filename);
+					$consulta->setFECHACONS($fecha_hoy);
+					$consulta->setPACIENTE($paciente);
+					$consulta->setMEDICO($this->identity());
+					$consulta->setCONSULTA($hc->getID());
+					$consulta->setESPEC('Expescar');
+					$consulta->setMOTIVO($motivo_consulta);
 
-				$adapter = new \Zend\File\Transfer\Adapter\Http();
-				$adapter->setDestination($ruta);
+					$objectManager->persist($consulta);
+					$objectManager->flush();
 
-				return new JsonModel(array('id' => $hc->getID()));
+					$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+					if (!file_exists($ruta)) {
+						mkdir($ruta);
+					}
+
+					imagepng($imgRes, $ruta . '/' . $filename);
+
+					$adapter = new \Zend\File\Transfer\Adapter\Http();
+					$adapter->setDestination($ruta);
+
+					return new JsonModel(array('id' => $hc->getID()));
+				}else{
+					return new JsonModel(array('id' => $arr['idconsg']));
+					
+				}	
 			}
 		}
 	}

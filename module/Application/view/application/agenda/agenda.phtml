@@ -4,6 +4,7 @@
 	<input type="hidden" name="start" id="start">
 	<input type="hidden" name="end" id="end">
 	<input type="hidden" name="className" id="className">
+	<input type="hidden" name="idevento" id="idevento">
 
 	
 	<div class="modal fade" id="modAgendarcon" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -50,9 +51,9 @@
 							<label for="edad">EDAD</label>	
 						</div>						
 					</div>
-					<div class="col-sm-3" style="margin-bottom:10px">
+					<!-- <div class="col-sm-3" style="margin-bottom:10px">
 					    <button id="bNuevopaciente" type="button" class="btn btn-default btn-raised glyphicon glyphicon-user" onclick="pacientesModal()" style="margin-top:23px;padding:6px 12px"> Registrar</button>
-					</div>	
+					</div> -->	
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
@@ -138,8 +139,8 @@
 						</div>
 					</div>
 					<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-						<li data-mode="month" class="active"><a href="#">Mes</a></li>
-						<li data-mode="agendaWeek"><a href="#">Semana</a></li>
+						<li data-mode="month"><a href="#">Mes</a></li>
+						<li data-mode="agendaWeek" class="active"><a href="#">Semana</a></li>
 						<li data-mode="agendaDay"><a href="#">Día</a></li>
 					</ul>
 				</div><!--end .card-head -->

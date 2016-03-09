@@ -10,6 +10,7 @@
 		});
 
 	};
+	var accion = '';
 	var p = agenda.prototype;
 
 	// =========================================================================
@@ -114,8 +115,45 @@
 		$('#calendar').fullCalendar({
 			height: 700,
 			header: false,
+			minTime: "08:00:00",
+			maxTime: "20:00:00",
 			editable: true,
 			droppable: true,
+			defaultView: 'agendaWeek',
+			events: {
+			        url: ruta+'/agenda/vereventos',
+			        type: 'POST',
+			        data: function() {
+			        	return {idDoctor: $('#sDoctor').val(),paciente:$('#search').val()};
+			        },
+			        error: function() {
+			            alert('there was an error while fetching events!');
+			        }
+			},
+			eventDrop: function(event,delta,revetFunc, jsEvent, ui, view) {			
+				var inicio = event.start.format();				
+				var final = event.end.format();					
+				p.guardareventodrop(event.id,inicio,final);
+			},
+			eventResize: function(event,delta,revetFunc) {				
+				p.guardareventodrop(event.id,event.start.format(),event.end.format());
+			},
+			eventClick: function(calEvent, jsEvent, view) {	
+					document.getElementById('agendaConsulta').reset();		
+					var arreglo_fecha = calEvent.start.format().split("T");		
+					$('#modAgendarcon').modal('show');
+					$('#cFecha').val(arreglo_fecha[0]);
+					var arreglo_fecha = calEvent.start.format().split("T");
+					$("#desde").val(calEvent.start.format("HH:mm"));
+			        $("#hasta").val(calEvent.end.format("HH:mm"));
+			        $("#title").val(calEvent.pacientenr).prop('disabled',false);
+			        $("#edad").val(calEvent.edad);
+			        $("#idevento").val(calEvent.id);
+			        $("#telefono1").val(calEvent.telefono1);
+			        $("#telefono2").val(calEvent.telefono2);
+			        $("#referidopor").val(calEvent.refdoctor);
+			        accion = 'editarcita';
+			},
 			drop: function (date, allDay,view) { // this function is called when something is dropped
 				var fin = date;
 				if(view.intervalUnit == 'month') {
@@ -130,10 +168,10 @@
 				fin.add(30,'m');
 				$("#hasta").val(fin.format("HH:mm"));				
 				$('#modAgendarcon').modal('show');
-				$('#title').focus();				
+				$('#title').focus();
 				// // retrieve the dropped element's stored Event Object				
 				var originalEventObject = $(this).data('eventObject');
-
+				accion = 'guardarcita';
 				// // we need to copy it, so that multiple events don't have a reference to the same object
 				$('#className').val(originalEventObject.className);
 
@@ -160,6 +198,8 @@
 				$("#cFin").val(fin.toISOString());
 				$("#desde").val(date.format("HH:mm"));
 				fin.add(30,'m');
+				//accion = 'crear';
+				accion = 'guardarcita';
 				$("#hasta").val(fin.format("HH:mm"));
 				$('#title').focus();
 			},
@@ -169,19 +209,34 @@
 		});
 	};
 
-	p.guardarCita = function(evento) {
 
+	p.guardareventodrop = function(idEvento,start,end) {
+		$.ajax({
+            type: "POST",
+            url: ruta+"/agenda/dropevento",
+            data: {idEvento:idEvento,start:start,end:end},
+            dataType: "json",
+            success: function(data) {
+               toastr.success('Evento Actualizado');
+            },
+            error: function(){
+               toastr.error('Ocurrió un error, inténtelo mas tarde.');
+            }
+	    });
+	}
+
+	p.guardarCita = function(evento) {
 		var form = document.getElementById('agendaConsulta');
 
 		$.ajax({
             type: "POST",
-            url: ruta+"/agenda/guardarcita",
+            url: ruta+"/agenda/"+accion,
             data: $(form).serialize(),
             dataType: "json",
             success: function(data) {
             	toastr.success('Evento guardado');
                	$('#modAgendarcon').modal('hide');
-                $('#calendar').fullCalendar('renderEvent', data.evento, true);
+               	$('#calendar').fullCalendar('refetchEvents');
             },
             error: function(){
               	toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
