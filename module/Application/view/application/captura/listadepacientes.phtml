@@ -1,0 +1,90 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css?1423553989" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css?1423553990" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css?1423553990" />
+
+<form id="felimpaciente" action="<?php echo $this->basePath() ?>/captura/eliminarpaciente" method="POST">
+
+<div class="row">
+	<div class="card">
+		<div class="col-md-12">
+			<div class="card-head style-primary">
+				<div class="tools pull-left">
+					<form class="navbar-search" role="search">
+				        <h3>Lista de Pacientes</h3>
+				     </form>
+				</div><!--end .tools -->					
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="table-responsive">
+							<table id="datatable1" class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th class="sort-numeric">ID</th>
+										<th class="sort-alpha">Apellido Paterno</th>
+										<th class="sort-alpha">Apellido Materno</th>
+										<th class="sort-alpha">Nombre(s)</th>
+										<th class="sort-numeric">Telefono</th>
+										<th class="sort-alpha">Dirección</th>
+										<th class=""></th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($pacient as $key => $pac): ?>										
+										<tr class="gradeX">											
+											<td><?php echo $pac['ID'];?></td>											
+											<td><?php echo $pac['APELLIDO_PATERNO'];?></td>
+											<td><?php echo $pac['APELLIDO_MATERNO'];?></td>
+											<td><?php echo $pac['NOMBRE'];?></td>
+											<td><?php echo $pac['TELEFONO_1'];?></td>
+											<td><?php echo $pac['CALLE'];?> <?php echo $pac['NUMERO_EXT'];?></td>											
+											<td><button id="paid" name="paid" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="eliminar(<?php echo $pac['ID'];?>)" data-original-title="Eliminar Paciente" ><i class="fa fa-trash-o"></i> </button></td>
+
+											
+											
+											
+											
+										</tr>
+									<?php endforeach ?>																							
+								</tbody>
+							</table>
+						</div><!--end .table-responsive -->
+					</div><!--end .col -->
+				</div><!--end .row -->
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/jquery.dataTables.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoTableDynamic.js"></script>
+
+<script>
+
+
+
+function eliminar (ID) {
+	
+		$.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/captura/eliminarpaciente",
+		    dataType: "json",
+		    data: {pac: ID},
+		    success: function(data) {
+		       console.log(data);
+		       
+		      
+
+		    },
+		    error: function(){
+		          alert('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});  
+	}
+
+</script>

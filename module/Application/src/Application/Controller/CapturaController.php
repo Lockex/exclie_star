@@ -50,6 +50,8 @@ class CapturaController extends AbstractActionController {
 			$om->persist($paciente);
 			$om->flush();
 
+			/*
+
 			$antecedentes = new Antecedentes();
 			$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
 			$antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
@@ -67,6 +69,7 @@ class CapturaController extends AbstractActionController {
 
 			$om->persist($antecedentes);
 			$om->flush();
+			*/
 
 			$historia = new Expescar();
 			$historia->setPADECIMIENTO($this->request->getPost('MOTIVO'));
@@ -166,7 +169,7 @@ class CapturaController extends AbstractActionController {
 			
 
 			if ($adapter->receive()) {
-				$this->createthumb($ruta . '/' . $archivo, 100, 100);
+				$this->createthumb($ruta . '/' . $nombre_imagen, 100, 100);
 				$om->persist($imagenes);
 				$om->flush();
 			}
@@ -255,6 +258,102 @@ class CapturaController extends AbstractActionController {
 		}
 
 		return $this->_objectManager;
+	}
+
+	/**
+	 * get entityManager
+	 *
+	 * @return Doctrine\ORM\EntityManager
+	 */
+	
+	private function getEntityManager() {
+		if (null === $this->entityManager) {
+			$this->entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		}
+
+		return $this->entityManager;
+	}
+	
+
+	public function listarpacienteAction(){
+		$this->layout('layout/captura');
+		$om = $this->getObjectManager();
+
+		
+		$estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
+		$municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
+		$data = array('estados' => $estados, 'municipios' => $municipios);	
+		//return new ViewModel($data);
+
+		if ($this->request->isPost()) {
+			$pacienteid = $this->request->getPost('pac');
+			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
+			$paciente = $query->getArrayResult();
+
+			
+
+			$dat = array('paciente' => $paciente);
+
+		} else {
+
+			$dat = array();
+		}
+		return new ViewModel($data,$dat);
+
+		
+		
+			
+	}
+
+	public function listadepacientesAction(){
+		$this->layout('layout/captura');
+		$em = $this->getEntityManager();
+
+		
+			$pacient = $em->createQuery("SELECT r FROM Application\Entity\Pacientes r")->getArrayResult();
+
+			return new ViewModel(array("pacient" => $pacient));
+
+    			
+	}
+
+	public function eliminarpacienteAction(){
+		$this->layout('layout/captura');
+		
+		$om = $this->getObjectManager();
+		$pid = $this->request->getPost('pac');			
+
+		
+		
+		$query2 = $om->createQuery("SELECT a.ID FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pid ");		
+		$eant = $query2->getArrayResult();	
+
+		
+		
+		if($eant)
+		{
+			$bante = $om->find('Application\Entity\Antecedentes', $eant[0]['ID']);		
+			$om->remove($bante);
+			$om->flush();
+		}
+		
+
+		
+		$query1 = $om->createQuery("SELECT a.ID FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pid ");		
+		$eant = $query1->getArrayResult();	
+
+		
+		$bpac = $om->find('Application\Entity\Pacientes', $pid);
+		//print_r($bpac);
+		
+		$om->remove($bpac);
+		$om->flush();
+		
+
+		return new JsonModel();
+		
+
+    			
 	}
 
 }
