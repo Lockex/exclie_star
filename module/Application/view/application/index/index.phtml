@@ -1,7 +1,6 @@
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/rickshaw/rickshaw.css?1422792967" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/morris/morris.core.css?1420463396" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/rickshaw/rickshaw.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/morris/morris.core.css" />
 <script src="<?php echo $this->basePath() ?>/public/js/core/demo/Demo.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoDashboard.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/sparkline/jquery.sparkline.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/d3/d3.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/d3/d3.v3.js"></script>
@@ -18,74 +17,85 @@
 <section>
      <div class="section-body">
         <div class="row">
-
-            <!-- BEGIN ALERT - BOUNCE RATES -->
-            <div class="col-md-4 col-sm-6">
-                <a href="<?php echo $this->basePath() ?>/agenda" >
-                <div class="card">
-                    <div class="card-body no-padding">
-                        <div class="alert alert-callout alert-info no-margin">
-                            <strong class="pull-right text-xl"><i class="fa fa-calendar"></i></strong>
-                            <strong class="text-xl">Agenda</strong><br/>
-                            <span class=""></span>
-                            <div class="stick-bottom-left-right">
-                                <div class="progress progress-hairline no-margin">
-                                    <div class="progress-bar progress-bar-info" style="width:43%"></div>
-                                </div>
-                            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="<?php echo $this->basePath();?>/public/img/gine.png" alt="" class="p">
                         </div>
-                    </div><!--end .card-body -->
-                </div><!--end .card -->
-                </a>
-            </div><!--end .col -->
-            <!-- END ALERT - BOUNCE RATES -->
-
-            
-
-            <!-- BEGIN ALERT - BOUNCE RATES -->
-            <div class="col-md-4 col-sm-6">
-                <a href="<?php echo $this->basePath() ?>/consultados" >
-                <div class="card">
-                    <div class="card-body no-padding">
-                        <div class="alert alert-callout alert-success no-margin">
-                            <strong class="pull-right text-xl"><i class="fa fa-stethoscope"></i></strong>
-                            <strong class="text-xl">Consultas</strong><br/>
-                            <span class=""></span>
-                            <div class="stick-bottom-left-right">
-                                <div class="progress progress-hairline no-margin">
-                                    <div class="progress-bar progress-bar-success" style="width:43%"></div>
-                                </div>
+                        <div class="col-md-6">
+                            <br><br><br>
+                            <br><br><br>
+                            <!-- BEGIN ALERT - BOUNCE RATES -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?php echo $this->basePath() ?>/agenda" >
+                                    <div class="card">
+                                        <div class="card-body no-padding">
+                                            <div class="alert alert-callout alert-info no-margin">
+                                                <strong class="pull-right text-xl"><i class="fa fa-calendar"></i></strong>
+                                                <strong class="text-xl">Agenda</strong><br/>
+                                                <span class=""></span>
+                                                <div class="stick-bottom-left-right">
+                                                    <div class="progress progress-hairline no-margin">
+                                                        <div class="progress-bar progress-bar-info" style="width:43%"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--end .card-body -->
+                                    </div><!--end .card -->
+                                    </a>
+                                </div><!--end .col -->
                             </div>
-                        </div>
-                    </div><!--end .card-body -->
-                </div><!--end .card -->
-                </a>
-            </div><!--end .col -->
-            <!-- END ALERT - BOUNCE RATES -->
-
-            <!-- BEGIN ALERT - BOUNCE RATES -->
-            <div class="col-md-4 col-sm-6">
-                <a href="<?php echo $this->basePath() ?>/pacientes" >
-                <div class="card">
-                    <div class="card-body no-padding">
-                        <div class="alert alert-callout alert-warning no-margin">
-                            <strong class="pull-right text-xl"><i class="fa fa-user-plus"></i></strong>
-                            <strong class="text-xl">Pacientes</strong><br/>
-                            <span class=""></span>
-                            <div class="stick-bottom-left-right">
-                                <div class="progress progress-hairline no-margin">
-                                    <div class="progress-bar progress-bar-warning" style="width:43%"></div>
-                                </div>
+                            <!-- END ALERT - BOUNCE RATES -->
+                             <!-- BEGIN ALERT - BOUNCE RATES -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?php echo $this->basePath() ?>/consultados" >
+                                    <div class="card">
+                                        <div class="card-body no-padding">
+                                            <div class="alert alert-callout alert-success no-margin">
+                                                <strong class="pull-right text-xl"><i class="fa fa-stethoscope"></i></strong>
+                                                <strong class="text-xl">Consultas</strong><br/>
+                                                <span class=""></span>
+                                                <div class="stick-bottom-left-right">
+                                                    <div class="progress progress-hairline no-margin">
+                                                        <div class="progress-bar progress-bar-success" style="width:43%"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--end .card-body -->
+                                    </div><!--end .card -->
+                                    </a>
+                                </div><!--end .col -->
                             </div>
+                            <!-- END ALERT - BOUNCE RATES -->
+                            <!-- BEGIN ALERT - BOUNCE RATES -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?php echo $this->basePath() ?>/pacientes" >
+                                    <div class="card">
+                                        <div class="card-body no-padding">
+                                            <div class="alert alert-callout alert-warning no-margin">
+                                                <strong class="pull-right text-xl"><i class="fa fa-user-plus"></i></strong>
+                                                <strong class="text-xl">Pacientes</strong><br/>
+                                                <span class=""></span>
+                                                <div class="stick-bottom-left-right">
+                                                    <div class="progress progress-hairline no-margin">
+                                                        <div class="progress-bar progress-bar-warning" style="width:43%"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!--end .card-body -->
+                                    </div><!--end .card -->
+                                    </a>
+                                </div><!--end .col -->
+                            </div>
+                            <!-- END ALERT - BOUNCE RATES -->
                         </div>
-                    </div><!--end .card-body -->
-                </div><!--end .card -->
-                </a>
-            </div><!--end .col -->
-            <!-- END ALERT - BOUNCE RATES -->
-
+                    </div>
+                </div>
+            </div>
         </div><!--end .row -->
-        
-        
     </div><!--end .section-body -->
 </section>

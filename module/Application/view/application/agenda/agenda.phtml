@@ -63,12 +63,13 @@
 						</div>							
 					</div>
 					<div class="form-group col-sm-4">
-						<select name="dependencia" class="form-control" id="sDependencias">
-							<?php foreach ($dependencias as $key => $dep): ?>
-								<option value="<?php echo $dep['ID'] ?>"><?php echo $dep['DEPENDECIA']; ?></option>
-							<?php endforeach ?>
+						<select name="scargo" class="form-control" id="sCargo">
+							<option value="1">PARTICULAR</option>
+							<option value="2">BANCO
+							<option value="3">IMSS</option>
+							<option value="4">CORTESÍA</option>
 						</select>
-						<label for="sDependencias">INSTITUCIÓN MÉDICA</label>
+						<label for="sCargo">CARGO</label>
 					</div>												
 				</div>										
 				<div class="row">
@@ -119,11 +120,51 @@
 						<div class="tile-icon"><i class="fa fa-circle-thin text-warning"></i></div>
 					</div>
 				</li>
+				<li class="tile" data-class-name="event-blue">
+					<div class="tile-content">
+						<div class="tile-text">Retiro de Puntos</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-blue"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-success">
+					<div class="tile-content">
+						<div class="tile-text">Aplicación de Zoladex</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-success"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-rosa">
+					<div class="tile-content">
+						<div class="tile-text">Resultados</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-rosa"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-morado">
+					<div class="tile-content">
+						<div class="tile-text">Orden de Internamiento</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-accent"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-lima">
+					<div class="tile-content">
+						<div class="tile-text">Llenar Informe</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-lima"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-cafe">
+					<div class="tile-content">
+						<div class="tile-text">Procedimiento Especial</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-cafe"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-danger">
+					<div class="tile-content">
+						<div class="tile-text">Embarazo</div>
+						<div class="tile-icon"><i class="fa fa-circle-thin text-danger"></i></div>
+					</div>
+				</li>
 			</ul>
 		</div><!--end .col -->
 		<!-- END CALENDAR EVENTS -->
-
-		<!-- BEGIN CALENDAR -->
 		<div class="col-sm-9">
 			<div class="card">
 				<div class="card-head style-primary">
@@ -158,4 +199,12 @@
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/agenda.js"></script>
 <script>
 	var ruta = '<?php echo $this->basePath(); ?>';
+
+function borrarevento () {
+	
+	$.post('<?php echo $this->basePath() ?>/agenda/borrarevento',{id:$("#idevento").val()},
+		function (data){
+			location.reload();
+	});
+}
 </script>

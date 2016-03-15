@@ -12,7 +12,9 @@
 		</div><!--end .tools -->
 	</div><!--end .card-head -->
 	<!-- TERMINA CABECERA -->
-
+	
+	<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+	
 	<div class="card-body">
 		<div class="row">
 			<!-- BEGIN CONTACTS MAIN CONTENT -->
@@ -164,8 +166,7 @@
 						<br>
 						<br>
 						<form class="form form-validate" id="formConsul" novalidate="novalidate">
-							<input type="hidden" name="idconsg" id="idconsg">
-							
+						<input type="hidden" name="idconsg" id="idconsg">
 						<?php if(isset($consultas)){ $numero_consul = count($consultas);} ?>
 							<?php if($numero_consul >= '1'){ ?>
 							<div class="card">
@@ -508,12 +509,12 @@
 												<div class="form-group col-sm-4">
 													<div>
 														<label class="checkbox checkbox-styled">
-															<input type="checkbox" divref="asistDige">
+															<input type="checkbox" divref="sistDige">
 															<span style="font-size:12px">SISTEMA DIGESTIVO</span>
 														</label>
 													</div>
 												</div>
-												<div class="form-group col-sm-3 hidden" id="asistDige">
+												<div class="form-group col-sm-3 hidden" id="sistDige">
 													<textarea name="sistDige" id="sistDige" class="form-control" rows="3"></textarea>
 												</div>
 											</div>
@@ -527,7 +528,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="aAntico">
-													<input type="text" class="form-control input-lg" name="antico" id="antico">
+													<input type="text" class="form-control input-lg" name="aAntico" id="aAntico">
 												</div>
 												<div class="form-group col-sm-4">
 													<div>
@@ -538,7 +539,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="apapani">
-													<input type="text" class="form-control input-lg" name="papani" id="papani">
+													<input type="text" class="form-control input-lg" name="apapani" id="apapani">
 												</div>
 											</div>
 											<div class="row">
@@ -551,7 +552,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="agalacto">
-													<input type="text" class="form-control input-lg" name="galacto" id="galacto">
+													<input type="text" class="form-control input-lg" name="agalacto" id="agalacto">
 												</div>
 												<div class="form-group col-sm-4">
 													<div>
@@ -562,7 +563,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="ahirsu">
-													<input type="text" class="form-control input-lg" name="hirsu" id="hirsu">
+													<input type="text" class="form-control input-lg" name="ahirsu" id="ahirsu">
 												</div>
 											</div>
 											<div class="row">
@@ -575,8 +576,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="acohham">
-													<select name="cohham" id="cohham" class="form-control">
-														<option value="0">Selecciona</option>
+													<select name="acohham" id="acohham" class="form-control">
 														<option value="1">1</option>
 														<option value="2">2</option>
 														<option value="3">3</option>
@@ -596,7 +596,7 @@
 												<div class="form-group col-sm-3 hidden" id="ahsg">
 													<div>
 														<label for="acavidad">Cavidad</label>
-														<input type="text" class="form-control input-lg" name="cavidad" id="cavidad"><br>
+														<input type="text" class="form-control input-lg" name="acavidad" id="acavidad"><br>
 													</div>
 													<div>
 														<label for="aD">+D</label>
@@ -661,7 +661,6 @@
 														<div>
 															<br>
 															<select id="evolumen" name="evolumen" class="form-control">
-																<option value="0">Selecciona</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
 																<option value="3">3</option>
@@ -688,7 +687,7 @@
 													</div>
 												</div>
 												<div class="form-group col-sm-3 hidden" id="alab">
-													<input type="text" class="form-control input-lg" name="lab" id="lab">
+													<input type="text" class="form-control input-lg" name="alab" id="alab">
 												</div>
 											</div>
 										</div>
@@ -790,7 +789,7 @@
 			<!-- END CONTACTS MAIN CONTENT -->
 		</div><!--end .row -->
 	</div>
-
+	
 	<!-- BEGIN OFFCANVAS -->
 	<div class="offcanvas backdrop">
 		<!-- BEGIN CONTACTS COMMON DETAILS -->
@@ -893,7 +892,6 @@
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
 	<!-- END OFFCANVAS -->
-
 </div>
 
 <?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
@@ -916,20 +914,24 @@
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 
+
 <script>
-	socket.on('updatecons',function(data) {
-		switch(data.accion) {
-			case 'refrescarreceta':
-				if(data.datos.iddoctor == <?php echo $this->identity()->getId(); ?>)
-					consultatablet(data.datos.idconsulta,data.datos.tipo);
+
+socket.on('updatecons',function(data) {
+	console.log('recibiendo updatecons');
+	switch(data.accion) {
+		case 'refrescarreceta':
+			console.log('recibiendo refrescarreceta');
+			if(data.datos.iddoctor == <?php echo $this->identity()->getId(); ?>)
+				consultatablet(data.datos.idconsulta);
 
 			break;
-			case 'mandarmonitoreo':
-				if(data.data.iddoctor == <?php echo $this->identity()->getId(); ?>)
-					monitoreotablet(data.data.idconsulta);
+		case 'mandarmonitoreo':
+			if(data.datos.iddoctor == <?php echo $this->basePath()->getId(); ?>)
+				monitoreotablet(data.datos.idConsulta);
 			break;
-		}
-	});
+	}
+});
 
 	$(document).ready(function()
 	{
@@ -952,202 +954,57 @@
 	   	mostrarNotas();
 	   	$('#lirecetas').hide();
 		$('#lireproduccion').hide();
-	});
 
-	function consultatablet(id,tipo)
+
+	   });
+
+	
+
+	function consultatablet(id)
 	{
-		
 		$.ajax({
 	       type: "POST",
 	       url: "<?php echo $this->basePath() ?>/consultados/datosconsulta",
-	       data: {id_consulta:id,tipo_cons:tipo},
+	       data: {id_consulta:id},
 	       dataType: "json",
 	       success: function(response) {
-	       		var carpetanum = response['pac'][0];
-	       		var imagencons = response['consultag'][0].IMAGEN;
-	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
-	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
-	       			       		
 	       		$('#lirecetas').show();
-	       		mostrarReceta(response['consultag'][0].ID);
-	       		$('#limpio').attr('disabled','disabled');
-
-	       		$('#idconsg').val(response['consultag'][0].ID);
+	       		$('#motivo').val(response['consultag'][0].MOTIVO_CONS);
 	       		$('#edad').val(response['consultag'][0].EDAD);
+	       		$('#ciclo').val(response['consultag'][0].CICLO);
 	       		$('#gestas').val(response['consultag'][0].GESTAS);
 	       		$('#partos').val(response['consultag'][0].PARTOS);
 	       		$('#cesarea').val(response['consultag'][0].CESAREAS);
 	       		$('#abortos').val(response['consultag'][0].ABORTOS);
 	       		$('#ectopicos').val(response['consultag'][0].ECTOPICOS);
-				$('#tiroidestxt').val(response['consultag'][0].TIROIDESNUM);
-				$('#peso').val(response['consultag'][0].PESO);
+	       		$('#tiroidestxt').val(response['consultag'][0].TIROIDESNUM);
+	       		$('#peso').val(response['consultag'][0].PESO);
 	       		$('#presion').val(response['consultag'][0].PRESION);
 	       		$('#imx').val(response['consultag'][0].IMX);
 	       		$('#plan').val(response['consultag'][0].PLAN);
 	       		
-
-	       		if (response['tipo'] == 1) {
-	       			console.log('consulta seg');
-		       		$('#motivo').val(response['consultag'][0].MOTIVO_CONS);
-		       		$('#ciclo').val(response['consultag'][0].CICLO);
-		       		if (response['consultag'][0].FUM) {
-		       			var fecha = response['consultag'][0].FUM.date;
-		       			var arr = fecha.split(" ");
-		       			var mes = arr[0];
-		       			var separa = mes.split("-"); 
-		       			var Mes = separa[2];
-		       			var dia = separa[1];
-		       			var anio = separa[0];
-		       			$('#fum').val(dia + "-" + Mes + "-" + anio);
-		       		}
-		       	}
-	       		if (response['tipo'] == 0) {
-	       			console.log('conslta primera');
-	       			$('#motivo').val(response['consultag'][0].PADECIMIENTO);
-	       			$('#ciclo').val(response['consultag'][0].CICLOS);
-	       			$('#menarca').val(response['consultag'][0].MENARCA);
-	       			$('#ivsa').val(response['consultag'][0].IVSA);
-	       			$('#duracion').val(response['consultag'][0].DURACION);
-	       			$('#fum').val(response['consultag'][0].FUM);
-	       			if (response['consultag'][0].PRIMERHIJO_NOMBRE) {
-	       				$('#hijoUno').removeClass('hidden');
-	       				$('input[divref="hijoUno"]').attr('checked',true);
-	       				$('#hijoUnoNombre').val(response['consultag'][0].PRIMERHIJO_NOMBRE);
-	       				$('#hijoUnoEdad').val(response['consultag'][0].PRIMERHIJO_EDAD);
-	       			} else {
-	       				$('#hijoUnoNombre').val('');
-	       				$('#hijoUnoEdad').val('');
-	       			}
-	       			if (response['consultag'][0].SEGUNDOHIJO_NOMBRE) {
-	       				$('#hijoDos').removeClass('hidden');
-	       				$('input[divref="hijoDos"]').attr('checked',true);
-	       				$('#hijoDosNombre').val(response['consultag'][0].SEGUNDOHIJO_NOMBRE);
-	       				$('#hijoDosEdad').val(response['consultag'][0].PRIMERHIJO_EDAD);
-	       				
-	       			} else {
-	       				$('#hijoDosNombre').val('');
-	       				$('#hijoDosEdad').val('');
-	       			}
-	       			if (response['consultag'][0].TERCERHIJO_NOMBRE) {
-	       				$('#hijoTres').removeClass('hidden');
-	       				$('input[divref="hijoTres"]').attr('checked',true);
-	       				$('#hijoTresNombre').val(response['consultag'][0].TERCERHIJO_NOMBRE);
-	       				$('#hijoTresEdad').val(response['consultag'][0].TERCERHIJO_EDAD);
-	       				
-	       			} else {
-	       				$('#hijoTresNombre').val('');
-	       				$('#hijoTresEdad').val('');
-	       			}
-	       			if (response['consultag'][0].DISMENORREA) {
-	       				$('#adisme').removeClass('hidden');
-	       				$('input[divref="adisme"]').attr('checked',true);
-	       				$('#DISMENORREA').val(response['consultag'][0].DISMENORREA);
-	       			} else {
-	       				$('#DISMENORREA').val('');
-	       			}
-	       			if (response['consultag'][0].FLUJO) {
-	       				$('#aflu').removeClass('hidden');
-	       				$('input[divref="aflu"]').attr('checked',true);
-	       				$('#FLUJO').val(response['consultag'][0].FLUJO);
-	       			} else{
-	       				$('#FLUJO').val('');
-	       			}
-	       			if (response['consultag'][0].SIST_URINARIO) {
-	       				$('#asistU').removeClass('hidden');
-	       				$('input[divref="asistU"]').attr('checked',true);
-	       				$('#sistUri').val(response['consultag'][0].SIST_URINARIO);
-	       			} else {
-	       				$('#sistUri').val('');
-	       			}
-	       			if (response['consultag'][0].SIST_DIGESTIVO) {
-	       				$('#asistDige').removeClass('hidden');
-	       				$('input[divref="asistDige"]').attr('checked',true);
-	       				$('#sistDige').val(response['consultag'][0].SIST_DIGESTIVO);
-	       			} else {
-	       				$('#sistDige').val('');
-	       			}
-	       			if (response['consultag'][0].ANTICONCEPTIVOS) {
-	       				$('#aAntico').removeClass('hidden');
-	       				$('input[divref="aAntico"]').attr('checked',true);
-	       				$('#antico').val(response['consultag'][0].ANTICONCEPTIVOS);
-	       			} else {
-	       				$('#antico').val('');
-	       			}
-	       			if (response['consultag'][0].PAP) {
-	       				$('#apapani').removeClass('hidden');
-	       				$('input[divref="apapani"]').attr('checked',true);
-	       				$('#antico').val(response['consultag'][0].PAP);
-	       			} else {
-	       				$('#antico').val('');
-	       			}
-	       			if (response['consultag'][0].COH != 0) {
-	       				$('#acohham').removeClass('hidden');
-	       				$('input[divref="acohham"]').attr('checked',true);
-	       				$('#cohham').val(response['consultag'][0].COH);
-	       			} else {
-	       				$('#cohham').val('0');
-	       			}
-	       			if (response['consultag'][0].GALACTORREA) {
-	       				$('#agalacto').removeClass('hidden');
-	       				$('input[divref="galacto"]').attr('checked',true);
-	       				$('#galacto').val(response['consultag'][0].GALACTORREA);
-	       			} else {
-	       				$('#galacto').val('');
-	       			}
-	       			if (response['consultag'][0].HIRSUTISM) {
-	       				$('#ahirsu').removeClass('hidden');
-	       				$('input[divref="ahirsu"]').attr('checked',true);
-	       				$('#hirsu').val(response['consultag'][0].HIRSUTISM);
-	       			} else {
-	       				$('#hirsu').val('');
-	       			}
-	       			if (response['consultag'][0].HSG_CAVIDAD) {
-	       				$('#ahsg').removeClass('hidden');
-	       				$('input[divref="ahsg"]').attr('checked',true);
-	       				$('#aD').val(response['consultag'][0].HSG_D);
-	       				$('#aI').val(response['consultag'][0].HSG_I);
-	       			} else {
-	       				$('#cavidad').val('');
-	       				$('#aD').val('');
-	       				$('#aI').val('');
-	       			}
-	       			if (response['consultag'][0].LABORATORIO_NOTAS) {
-	       				$('input[divref="alab"]').attr('checked',true);
-	       				$('#alab').removeClass('hidden');
-	       				$('#lab').val(response['consultag'][0].LABORATORIO_NOTAS);
-	       			} else {
-	       				$('#lab').val('');
-	       			}
-	       			if (response['consultag'][0].CIRUGIAS_PREVIAS) {
-	       				$('#acirug').removeClass('hidden');
-	       				$('input[divref="acirug"]').attr('checked',true);
-	       				$('#cirugias').val(response['consultag'][0].CIRUGIAS_PREVIAS);
-	       			} else {
-	       				$('#cirugias').val('');
-	       			}
-	       			if (response['consultag'][0].ESPERMO_CUENTA) {
-	       				$('#divaespermo').removeClass('hidden');
-	       				$('input[divref="divaespermo"]').attr('checked',true);
-	       				$('#ecuenta').val(response['consultag'][0].ESPERMO_CUENTA);
-	       				$('#efecha').val(response['consultag'][0].ESPERMO_FECHA);
-	       				$('#evolumen').val(response['consultag'][0].ESPERMO_VOLUMEN);
-	       				$('#emoti').val(response['consultag'][0].ESPERMO_MOTIVIDAD);
-	       				$('#efn').val(response['consultag'][0].ESPERMO_FN);
-	       				$('#efragm').val(response['consultag'][0].ESPERMO_DNA);
-	       				$('#ecultiv').val(response['consultag'][0].ESPERMO_CULTIVO);
-	       				$('#eapp').val(response['consultag'][0].ESPERMO_APP);
-	       			} else {
-	       				$('#ecuenta').val('');
-	       				$('#efecha').val('');
-	       				$('#evolumen').val('0');
-	       				$('#emoti').val('');
-	       				$('#efn').val('');
-	       				$('#efragm').val('');
-	       				$('#ecultiv').val('');
-	       				$('#eapp').val('');
-	       			}
-	       		}
-	       	},
+	       		if (response['consultag'][0].FUM) {
+	       			var fecha = response['consultag'][0].FUM.date;
+	       			var arr = fecha.split(" ");
+	       			var mes = arr[0];
+	       			var separa = mes.split("-"); 
+	       			var Mes = separa[2];
+	       			var dia = separa[1];
+	       			var anio = separa[0];
+	       		} 
+	       		$('#fum').val(dia + "-" + Mes + "-" + anio);
+	       		var carpetanum = response['pac'][0];
+	       		var imagencons = response['consultag'][0].IMAGEN
+	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
+	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
+	       		 $('#idconsg').val(response['consultag'][0].ID);
+	       		 console.log('idconsg '+response['consultag'][0].ID);
+	       		mostrarReceta(response['consultag'][0].ID);
+	       		$('#limpio').attr('disabled','disabled');
+	       		
+	       		
+	       		
+	       },
 	       error: function(){
 	             toastr.error('Inténtalo más tarde.');
 	       }
@@ -1191,6 +1048,7 @@
 		{	
 			var formulario = $('#formConsul').serialize();
 			var datos = {imagedata: imageData,datos:formulario};
+			console.log(datos);
 			$.ajax({
 			    type: "POST",
 			    url: "<?php echo $this->basePath() ?>/consultados/guardarconsulta",
@@ -1198,8 +1056,7 @@
 			    data: datos,
 			    success: function(respuesta) {
 			        idConsulta = respuesta.id;
-			        tipoconsu = respuesta.tipocons;
-			        datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>,tipo:tipoconsu}};
+			        datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
 			        $('#saveCons').attr('disabled','disabled');
 			        $('#limpio').attr('disabled','disabled');
 	           		$('#consultaid').val(idConsulta);
@@ -1274,7 +1131,7 @@
            }
        });
 	}
-
+	
 	Dropzone.autoDiscover = false;
 	/** COMIENZA DROPZONE DE VIDEOS**/
 	var myDropzone = new Dropzone("#dropa", {
@@ -1427,21 +1284,24 @@
 		
 		$("#monitoreo").data("jqScribble").save(function(imageData)
 		{	
-			$("#hImagen").val(imageData);
 			var formularioMon = $('#formMonitoreo').serialize();
+			var datos = {imagedata: imageData,datos:formularioMon};
+			console.log(datos);
 			$.ajax({
 			    type: "POST",
-			    url: "<?php echo $this->basePath() ?>/consultados/guardamonitoreo",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardarmonitoreo",
 			    dataType: "json",
-			    data: formularioMon,
+			    data: datos,
 			    success: function(respuesta) {
 			        idConsulta = respuesta.id;
-			        datasocket = {accion:'mandarmonitoreo',data:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
-			        $('#saveConsm').attr('disabled','disabled');
-			        $('#consultaid').val(idConsulta);
+			        datasocket = {accion:'mandarmonitoreo',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
+			        $('#saveCons').attr('disabled','disabled');
+			        $('#limpio').attr('disabled','disabled');
+	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
-	           		toastr.success('Consulta Guardada.');
-	           		socket.emit('updateconsultas',datasocket);
+	           		
+	           		
+	           		//socket.emit('updateconsultas',datasocket);
 	           		
 			    },
 			    error: function(){
@@ -1452,258 +1312,6 @@
 		});
 	}
 
-	function monitoreotablet(id)
-	{
-		
-		$.ajax({
-	       type: "POST",
-	       url: "<?php echo $this->basePath() ?>/consultados/datosconsultamoni",
-	       data: {id_consulta:id},
-	       dataType: "json",
-	       success: function(response) {
-	       		console.log(response);
-	       		$('#lirecetas').show();
-	       		$('#saveConsm').attr('disabled','disabled');
-	       		$('#repasistida').val(response['consultam'][0].REPRODUCCION);
-	       		$('#protocolo').val(response['consultam'][0].PROTOCOLO);
-	       		$('#progestina').val(response['consultam'][0].PROGESTINA);
-	       		$('#gnrh').val(response['consultam'][0].GNRH);
-	       		$('#metro').val(response['consultam'][0].MENOTROPINAS);
-	       		$('#fsh').val(response['consultam'][0].FSH);
-	       		$('#pgyn').val(response['consultam'][0].PRIMOGYN);
-	       		$('#otros').val(response['consultam'][0].OTROS);
-	       		$('#residente').val(response['consultam'][0].RESIDENTE);
-	       		$('#autorizado').val(response['consultam'][0].AUTORIZADO);
-	       		$('#enviado').val(response['consultam'][0].ENVIADO);
-	       			       		
-	       		if (response['consultam'][0].FUR) {
-	       			var fecha   = response['consultam'][0].FUR.date;
-	       			var arr 	= fecha.split(" ");
-	       			var mes 	= arr[0];
-	       			var separa  = mes.split("-"); 
-	       			var Mes 	= separa[2];
-	       			var dia 	= separa[1];
-	       			var anio 	= separa[0];
-	       			$('#fur').val(dia + "-" + Mes + "-" + anio);
-	       		}else{
-	       			$('#fur').val();
-	       		}
-	       		
-
-	       		if (response['consultam'][0].FPM) {
-	       			var fecha2  = response['consultam'][0].FPM.date;
-	       			var arr2 	= fecha2.split(" ");
-	       			var mes2 	= arr2[0];
-	       			var separa2 = mes2.split("-"); 
-	       			var Mes2 	= separa2[2];
-	       			var dia2 	= separa2[1];
-	       			var anio2 	= separa2[0];
-	       			$('#fpm').val(dia2 + "-" + Mes2 + "-" + anio2);
-	       		}else{
-	       			$('#fpm').val();
-	       		}
-	       		
-
-	       		if (response['consultam'][0].PROGESTINA_DEL) {
-	       			var fecha3  = response['consultam'][0].PROGESTINA_DEL.date;
-	       			var arr3 	= fecha3.split(" ");
-	       			var mes3 	= arr3[0];
-	       			var separa3 = mes3.split("-"); 
-	       			var Mes3 	= separa3[2];
-	       			var dia3 	= separa3[1];
-	       			var anio3 	= separa3[0];
-	       			$('#start_preog').val(dia3 + "-" + Mes3 + "-" + anio3);
-	       		}else{
-	       			$('#start_preog').val();
-	       		}
-	       		
-
-	       		if (response['consultam'][0].PROGESTINA_AL) {
-	       			var fecha4  = response['consultam'][0].PROGESTINA_AL.date;
-	       			var arr4  	= fecha4.split(" ");
-	       			var mes4 	= arr4[0];
-	       			var separa4 = mes4.split("-"); 
-	       			var Mes4 	= separa4[2];
-	       			var dia4 	= separa4[1];
-	       			var anio4 	= separa4[0];
-	       			$('#end_preog').val(dia4 + "-" + Mes4 + "-" + anio4);
-	       		}else{
-	       			$('#end_preog').val();
-	       		} 
-	       		
-
-	       		if (response['consultam'][0].GNRHD_EL) {
-	       			var fecha5  = response['consultam'][0].GNRHD_EL.date;
-	       			var arr5 	= fecha5.split(" ");
-	       			var mes5 	= arr5[0];
-	       			var separa5 = mes5.split("-"); 
-	       			var Mes5 	= separa5[2];
-	       			var dia5 	= separa5[1];
-	       			var anio5 	= separa5[0];
-	       			$('#start_ghnr').val(dia5 + "-" + Mes5 + "-" + anio5);
-	       		}else{
-	       			$('#start_ghnr').val();
-	       		} 
-
-	       		
-
-	       		if (response['consultam'][0].GNRH_AL) {
-	       			var fecha6  = response['consultam'][0].GNRH_AL.date;
-	       			var arr6 	= fecha6.split(" ");
-	       			var mes6 	= arr6[0];
-	       			var separa6 = mes6.split("-"); 
-	       			var Mes6 	= separa6[2];
-	       			var dia6 	= separa6[1];
-	       			var anio6 	= separa6[0];
-	       			$('#end_ghnr').val(dia6 + "-" + Mes6 + "-" + anio6);
-	       		}else{
-	       			$('#end_ghnr').val();
-	       		}  
-	       		
-
-	       		if (response['consultam'][0].MENOTROPINAS_DEL) {
-	       			var fecha7  = response['consultam'][0].MENOTROPINAS_DEL.date;
-	       			var arr7 	= fecha7.split(" ");
-	       			var mes7 	= arr7[0];
-	       			var separa7 = mes7.split("-"); 
-	       			var Mes7 	= separa7[2];
-	       			var dia7 	= separa7[1];
-	       			var anio7 	= separa7[0];
-	       			$('#start_metro').val(dia7 + "-" + Mes7 + "-" + anio7);
-	       		}else{
-	       			$('#start_metro').val();
-	       		}  
-	       		
-
-	       		if (response['consultam'][0].MENOTROPINAL_AL) {
-	       			var fecha8  = response['consultam'][0].MENOTROPINAL_AL.date;
-	       			var arr8 	= fecha8.split(" ");
-	       			var mes8 	= arr8[0];
-	       			var separa8 = mes8.split("-"); 
-	       			var Mes8 	= separa8[2];
-	       			var dia8 	= separa8[1];
-	       			var anio8 	= separa8[0];
-	       			$('#end_metro').val(dia8 + "-" + Mes8 + "-" + anio8);
-	       		}else{
-	       			$('#end_metro').val();
-	       		}  
-	       		
-
-	       		if (response['consultam'][0].FSH_DEL) {
-	       			var fecha9  = response['consultam'][0].FSH_DEL.date;
-	       			var arr9 	= fecha9.split(" ");
-	       			var mes9 	= arr9[0];
-	       			var separa9 = mes9.split("-"); 
-	       			var Mes9 	= separa9[2];
-	       			var dia9 	= separa9[1];
-	       			var anio9 	= separa9[0];
-	       			$('#start_fsh').val(dia9 + "-" + Mes9 + "-" + anio9);
-	       		}else{
-	       			$('#start_fsh').val();
-	       		} 
-	       		
-
-	       		if (response['consultam'][0].FSH_AL) {
-	       			var fecha_f  = response['consultam'][0].FSH_AL.date;
-	       			var arr_f 	 = fecha_f.split(" ");
-	       			var mes_f 	 = arr_f[0];
-	       			var separa_f = mes_f.split("-"); 
-	       			var Mes_f 	 = separa_f[2];
-	       			var dia_f 	 = separa_f[1];
-	       			var anio_f	 = separa_f[0];
-	       			$('#end_fsh').val(dia_f + "-" + Mes_f + "-" + anio_f);
-	       		}else{
-	       			$('#end_fsh').val();
-	       		} 
-	       		
-
-	       		if (response['consultam'][0].PRIMOGYN_DEL) {
-	       			var fechagd   = response['consultam'][0].PRIMOGYN_DEL.date;
-	       			var arrgd	  = fechagd.split(" ");
-	       			var mesgd 	  = arrgd[0];
-	       			var separagd  = mesgd.split("-"); 
-	       			var Mesgd 	  = separagd[2];
-	       			var diagd 	  = separagd[1];
-	       			var aniogd    = separagd[0];
-	       			$('#start_pgyn').val(diagd + "-" + Mesgd + "-" + aniogd);
-	       		}else{
-	       			$('#start_pgyn').val();
-	       		} 
-	       		 
-
-	       		if (response['consultam'][0].PRIMOGYN_AL) {
-	       			var fecha_ga  = response['consultam'][0].PRIMOGYN_AL.date;
-	       			var arr_ga	  = fecha_ga.split(" ");
-	       			var mes_ga 	  = arr_ga[0];
-	       			var separa_ga = mes_ga.split("-"); 
-	       			var Mes_ga 	  = separa_ga[2];
-	       			var dia_ga    = separa_ga[1];
-	       			var anio_ga   = separa_ga[0];
-	       			$('#end_pgyn').val(dia_ga + "-" + Mes_ga + "-" + anio_ga);
-	       		}else{
-	       			$('#end_pgyn').val();
-	       		}  
-	       		
-
-	       		if (response['consultam'][0].OTROS_DEL) {
-	       			var fecha_o1  = response['consultam'][0].OTROS_DEL.date;
-	       			var arr_o1 	  = fecha_o1.split(" ");
-	       			var mes_o1 	  = arr_o1[0];
-	       			var separa_o1 = mes_o1.split("-"); 
-	       			var Mes_o1 	  = separa_o1[2];
-	       			var dia_o1 	  = separa_o1[1];
-	       			var anio_o1   = separa_o1[0];
-	       			$('#start_otros').val(dia_o1 + "-" + Mes_o1 + "-" + anio_o1);
-	       		}else{
-	       			$('#start_otros').val();
-	       		}  
-	       		
-
-	       		if (response['consultam'][0].OTROS_AL) {
-	       			var fecha_o2  = response['consultam'][0].OTROS_AL.date;
-	       			var arr_o2	  = fecha_o2.split(" ");
-	       			var mes_o2 	  = arr_o2[0];
-	       			var separa_o2 = mes_o2.split("-"); 
-	       			var Mes_o2 	  = separa_o2[2];
-	       			var dia_o2    = separa_o2[1];
-	       			var anio_o2   = separa_o2[0];
-	       			$('#end_otros').val(dia_o2 + "-" + Mes_o2 + "-" + anio_o2);
-	       		}else{
-	       			$('#end_otros').val();
-	       		} 
-	       		
-
-	       		if (response['consultam'][0].FECHA_PROCEDIIENTO) {
-	       			var fecha_pro  = response['consultam'][0].FECHA_PROCEDIIENTO.date;
-	       			var arr_pro	   = fecha_pro.split(" ");
-	       			var mes_pro    = arr_pro[0];
-	       			var separa_pro = mes_pro.split("-"); 
-	       			var Mes_pro    = separa_pro[2];
-	       			var dia_pro    = separa_pro[1];
-	       			var anio_pro   = separa_pro[0];
-	       			$('#fecha_proc').val(dia_pro + "-" + Mes_pro + "-" + anio_pro);
-	       		} else{
-	       			$('#fecha_proc').val();
-	       		}
-	       		
-
-	       		var carpetanum = response['pac'][0];
-	       		var imagencons = response['consultam'][0].IMAGEN
-	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
-	       		$("#monitoreo").data("jqScribble").update({backgroundImage: imgcons});
-	       		 $('#idconsm').val(response['consultam'][0].ID);
-	       		 console.log('idconsm '+response['consultam'][0].ID);
-	       		mostrarReceta(response['consultam'][0].ID);
-	       		
-	       		
-	       		
-	       		
-	       },
-	       error: function(){
-	             toastr.error('Inténtalo más tarde.');
-	       }
-	   });
-	}
-
+	
 
 </script>

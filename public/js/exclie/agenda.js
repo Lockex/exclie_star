@@ -24,6 +24,7 @@
 		this._initCalendar();
 		this._displayDate();
 		this._initBotones();
+
 	};
 
 	// =========================================================================
@@ -271,6 +272,15 @@
 			
 		});
 	}
+
+	// p.borrarevento = function() {
+	// 	console.log($("#idevento").val());
+	// 	$.post('<?php echo $this->basePath() ?>/agenda/borrarevento',{id:$("#idevento").val()},
+	// 	function (data){
+	// 		location.reload();
+	// 	});
+
+	// }
 
 	// =========================================================================
 	namespace.agenda = new agenda;

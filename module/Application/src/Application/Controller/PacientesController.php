@@ -60,6 +60,9 @@ REGISTRANDO PACIENTE
 		$om = $this->getObjectManager();
 		if ($this->request->isPost()) {
 			$paciente = new Pacientes();
+			if($this->request->getPost('idpac') != ''){
+				$paciente->setID($this->request->getPost('idpac'));
+			}
 			$paciente->setSEXO($this->request->getPost('SEXO'));
 			$paciente->setNOMBRE($this->request->getPost('NOMBRE'));
 			$paciente->setAPELLIDO_PATERNO($this->request->getPost('APELLIDO_PATERNO'));
@@ -72,15 +75,24 @@ REGISTRANDO PACIENTE
 			$paciente->setTELEFONO1($this->request->getPost('TELEFONO1'));
 			$paciente->setTELEFONO2($this->request->getPost('TELEFONO2'));
 			$paciente->setOCUPACION($this->request->getPost('OCUPACION'));
+			$paciente->setEMAIL($this->request->getPost('email'));
+			$paciente->setREFERIDO($this->request->getPost('referido'));
 			$paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
 			$paciente->setFECHA_NACIMIENTO(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('FECHA_NACIMIENTO')))));
 			$paciente->setFECHAREGISTRO(new \DateTime());
 			$paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos', $this->request->getPost('TIPO_SANGUINEO')));
-
-			$om->persist($paciente);
+			$paciente->setUSUARIO($this->identity());
+			if($this->request->getPost('idpac') == ''){
+				$om->persist($paciente);
+			}else{
+				$om->merge($paciente);
+			}
 			$om->flush();
 
 			$antecedentes = new Antecedentes();
+			if($this->request->getPost('idante') != ''){
+				$antecedentes->setID($this->request->getPost('idante'));
+			}
 			$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
 			$antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
 			$antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
@@ -95,7 +107,11 @@ REGISTRANDO PACIENTE
 			$antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
 			$antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
 
-			$om->persist($antecedentes);
+			if($this->request->getPost('idante') == ''){
+				$om->persist($antecedentes);
+			}else{
+				$om->merge($antecedentes);
+			}
 			$om->flush();
 		}
 		return new JsonModel();
@@ -113,6 +129,28 @@ REGISTRANDO PACIENTE
 		}
 
 		return $this->_objectManager;
+	}
+
+	public function datospacienteAction(){
+		$this->layout('layout/vacio');
+		$id_paciente = $this->request->getPost('pac');
+		
+		$oM = $this->getObjectManager();
+		$query 	= $oM->createQuery("SELECT p,t,m,e FROM Application\Entity\Pacientes p JOIN p.TIPO_SANGUINEO t JOIN p.MUNICIPIO m LEFT JOIN p.ESTADO e WHERE p.ID = $id_paciente");
+		$paciente 	 = $query->getArrayResult();
+
+		$query2 = $oM->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $id_paciente");
+		$antecedentes = $query2->getArrayResult();
+		
+		return new JsonModel(array('patient'=>$paciente,'ante'=>$antecedentes));
+	}
+
+	public function fotopacienteAction(){
+
+	}
+
+	public function eliminarpacienteAction(){
+
 	}
 
 }

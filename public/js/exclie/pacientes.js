@@ -21,6 +21,9 @@
 		this._checkboxesInit();	
 		this._masksInit();	
 		this._modalCodigoInit();
+		//this._iniciarAutocomplete();
+
+
 	};
 
 	// =========================================================================
@@ -32,7 +35,7 @@
 	// 		return;
 	// 	}
 
-	// 	$( "#buscarpaciente" )
+	// 	$("#searchpatient")
 		
 	// 	.bind( "keydown", function( event ) {
 	// 	  if ( event.keyCode === $.ui.keyCode.TAB &&
@@ -42,7 +45,7 @@
 	// 	})
 	// 	.autocomplete({
 	// 	  source: function( request, response ) {
-	// 	    $.getJSON( "pacientes/pacientesjson", {
+	// 	    $.getJSON( ruta+"/pacientes/pacientesjson", {
 	// 	      term: p._extractLast( request.term )
 	// 	    }, response );
 	// 	  },
@@ -97,6 +100,7 @@
 				$('#'+divid).find('input[type="text"]').focus();								
 			} else {
 				$('#'+divid).addClass('hidden');
+				
 			}			
 		});
 	};
@@ -111,7 +115,8 @@
 			return;
 		}
 		$(":input").inputmask();		
-		$('#FECHA_NACIMIENTO').datepicker({autoclose: true, todayHighlight: true, format: "dd/mm/yyyy"});
+		$('#FECHA_NACIMIENTO').datepicker({autoclose: true, todayHighlight: true, format: "dd-mm-yyyy"});
+		$('#conyuge').hide();
 	};
 
 	// =========================================================================
@@ -128,6 +133,8 @@
 		});
 		
 	};
+
+		
 
 	// =========================================================================
 	namespace.pacientes = new pacientes;

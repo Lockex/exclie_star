@@ -54,10 +54,10 @@
 		}
 
 		
-		$('#fecha-histo').datepicker({format: "dd-mm-yyyy", locale: 'es'});
-		$('#FUM').datepicker({format: "dd-mm-yyyy"});
-		$('#efecha').datepicker({format: "dd-mm-yyyy"});
-		$('#fecha_consulta').datepicker({format: "dd-mm-yyyy"});
+		$('#fecha-histo').datepicker({autoclose: true,format: "dd-mm-yyyy", locale: 'es'});
+		$('#FUM').datepicker({autoclose: true,format: "dd-mm-yyyy"});
+		$('#efecha').datepicker({autoclose: true,format: "dd-mm-yyyy"});
+		$('#fecha_consulta').datepicker({autoclose: true,format: "dd-mm-yyyy"});
 		
 	};
 	// =========================================================================
