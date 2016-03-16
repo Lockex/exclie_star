@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
 	<div class="section-body">		
 		<!-- BEGIN FORM WIZARD -->
 		<div class="row">
@@ -31,20 +32,23 @@
 								<br>
 									<div class="tab-pane active" id="tab1">
 										<div class="row pull-left">
-											<div id="foto" class="form-element col-lg-3">	
-					 	                    	<img  src="<?php echo $this->basePath() ?>/public/img/def-woman.png?>" style="width:150px; ">	       
-								      		</div>
-								      		<div id="fotoUp">
-							        			<div class="panel-body" style="width:200px; ">
-							            			<form action="<?php echo $this->basePath() ?>/pacientes/foto?>" class="dropzone" id="dropfoto" ebctype="multipart/form-data" >
-							              				<input type="hidden" id="paciente"  name="pac" value=""/>
-							                
-							            			</form>
-							        			</div>
+											<div class="col-md-4" id="fotoSube">
+												<div id="foto" class="form-element col-lg-3">	
+						 	                    	<img  src="<?php echo $this->basePath() ?>/public/img/def-woman.png?>" style="width:150px; ">	       
+									      		</div>
+									      		<div id="drop-foto">
+								        			<div class="panel-body" style="width:200px; ">
+								            			<form action="<?php echo $this->basePath() ?>/pacientes/foto?>" class="dropzone  dz-clickable" id="dropfoto" ebctype="multipart/form-data" >
+								              				<input type="hidden" id="paciente"  name="pac"/>
+								                			
+								            			</form>
+								        			</div>
+								       			</div>
 							       			</div>
+							       			<div class="col-md-8"></div>
 							       		</div>
 						       			<form id="form" class="form form-validate" action="<?php echo $this->basePath() ?>/pacientes/guardarpaciente" method="POST" novalidate="novalidate"> 
-						    			<div>
+						    			<div class="row">
 											<label class="radio-inline radio-styled">
 												<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
 											</label>
@@ -445,7 +449,6 @@
 											</div>											
 										</div>	
 									</div><!--end #tab3 -->	
-									<!-- <input type="file" style="display:none" id="iFoto" onchange="subirfoto(this)" accept="image/*"> -->
 										</form>	
 								</div><!--end .tab-content -->
 								<ul class="pager wizard">									
@@ -460,7 +463,9 @@
 			</div><!--end .col -->
 		</div><!--end .row -->
 	</div><!--end .section-body -->
-<input type="file" accept="image/*" capture="camera" />
+	
+	<input type="file" style="display:none" id="iFoto" onchange="subirfoto(this)" accept="image/*">
+
 	<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/wizard/wizard.css" />
 	<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
@@ -480,7 +485,7 @@
 
 	$(document).ready(function () {
 
-		$('#fotoUp').hide();	
+		$('#fotoSube').hide();
 		/*====== Buscador Pacientes =======*/
 		function split( val ) {
           return val.split( /;\s*/ );
@@ -541,7 +546,9 @@
 		    dataType: "json",
 		    data: datos,
 		    success: function(response) {
+		       $('#fotoSube').show();
 		       $('#idpac').val(response['patient'][0].ID);
+		       $('#paciente').val(response['patient'][0].ID);
 		       $('#idante').val(response['ante'][0].ID);
 		       $('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
 		       $('#APELLIDO_MATERNO').val(response['patient'][0].APELLIDO_MATERNO);
@@ -670,7 +677,7 @@
 		    success: function(data) {
 		       toastr.success('Paciente Guardado');
 		       window.location.href = '<?php echo $this->basePath() ?>/pacientes';
-		       $('#fotoUp').show();
+		       
 		    },
 		    error: function() {
 		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
@@ -723,5 +730,9 @@
 		      });
 		  }
 	});
+
+	function abrirfile() {
+  	$('#iFoto').click();
+  }
 
 	</script>

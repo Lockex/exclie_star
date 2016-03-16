@@ -82,6 +82,8 @@ REGISTRANDO PACIENTE
 			$paciente->setFECHAREGISTRO(new \DateTime());
 			$paciente->setTIPOSANGUINEO($om->find('Application\Entity\Tipossanguineos', $this->request->getPost('TIPO_SANGUINEO')));
 			$paciente->setUSUARIO($this->identity());
+			$paciente->setNOMBRECONYUGE($this->request->getPost('NombreC'));
+			$paciente->setEDADCONYUGE($this->request->getPost('EdadC'));
 			if($this->request->getPost('idpac') == ''){
 				$om->persist($paciente);
 			}else{

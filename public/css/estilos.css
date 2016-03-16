@@ -22,25 +22,18 @@
 
 }
 
-	/*
-	height: 100%;
-	width: 100%;	
-	cursor: crosshair;
-	border-style: solid;
-	padding-top: 1px;
-	background-image: url('../img/cuadro_monitoreo.png');
-	background-repeat: no-repeat;
-	background-size: 100%;
-	border-color: #0AA89E;
-	
-	
-	background-size: 100%;
-	
-	
-	
-	
-	*/
-	
+
+
+#foto:hover {
+	opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+    position: absolute;
+    
+}
+#foto:hover #drop-foto{
+	display: block;
+}
+
 	
 }
 
