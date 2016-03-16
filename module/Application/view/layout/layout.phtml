@@ -53,17 +53,15 @@
     <script src="<?php echo $this->basePath() ?>/public/js/libs/toastr/toastr.js"></script>
 
     <script >
-    var socket = io.connect("http://localhost:3000");
+    var socket = io.connect("http://192.168.100.3:3000");
+    //var socket = io.connect("http://localhost:3000");
       
-      socket.on('se actualizo pacientes', function(msg){
-       
-        alert(msg);
-      });
+     
     </script>
 
 
     <!-- END JAVASCRIPT -->
-    <body class="menubar-hoverable header-fixed full-content">
+    <body class="header-fixed full-content">
 
 
         <!-- BEGIN HEADER-->
@@ -156,7 +154,11 @@
                     <ul class="header-nav header-nav-profile">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                                <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg?1403934956" alt="" />
+                                <?php if($this->identity()->getFOTO() != ''){ ?>
+                                    <img src="<?php echo $this->basePath() ?>/public/img/<?php echo $this->identity()->getFOTO(); ?>" alt="" />
+                                <?php }else{ ?>
+                                    <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg" alt="" />
+                                <?php } ?>
                                 <span class="profile-info">
                                     <?php echo $this->identity()->getNOMBRE(); ?>
                                     <small><?php echo $this->identity()->getROLE()->getName(); ?></small>

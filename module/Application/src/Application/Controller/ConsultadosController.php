@@ -10,6 +10,7 @@ use Application\Entity\Recetas;
 use Application\Entity\Videoconsulta;
 use Application\Entity\historianterior;
 use Application\Entity\Imagenesconsultas;
+use Application\Entity\Monitoreo;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -100,20 +101,36 @@ class ConsultadosController extends AbstractActionController {
 		$objectManager = $this->getObjectManager();
 
 		$idconsul = $this->request->getPost('id_consulta');
+		$tipoconsul = $this->request->getPost('tipo_cons');
+			
 		
-		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
-		$consultas = $query->getArrayResult();
+		if($tipoconsul == '1'){
 
-		$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco'");
-		$consulppal = $query2->getArrayResult();
+			$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $idconsul");
+			$consultas = $query->getArrayResult();
+			
+			$str = $consultas[0]['IMAGEN'];
+			$pac = explode('-', $str, 2);
+			
+			$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco'");
+			$consulppal = $query2->getArrayResult();
 
-		$id_cons = $consulppal[0]['ID'];
-		
-		$str = $consultas[0]['IMAGEN'];
-		$pac = explode('-', $str, 2);
-		//print_r($consultas);
-		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac,'consult' => $id_cons));
+			$id_cons = $consulppal[0]['ID'];
+				
+		}else{
 
+			$query = $objectManager->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.ID = $idconsul");
+			$consultas = $query->getArrayResult();
+			
+			$str = $consultas[0]['IMAGEN'];
+			$pac = explode('-', $str, 2);
+
+			$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Expescar'");
+			$consulppal = $query2->getArrayResult();
+
+			$id_cons = $consulppal[0]['ID'];
+		}
+		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac,'consult' => $id_cons, 'tipo' => $tipoconsul));
 	}
 
 	public function guardarconsultaAction() {
@@ -153,7 +170,7 @@ class ConsultadosController extends AbstractActionController {
 			$fum2 = new \DateTime(date('Y-m-d', strtotime($fum)));
 			/* TERMINA TRATAMIENTO DE FECHAS*/
 
-			str_replace("%body%", "black", "<body text='%body%'>");
+			
 			/* INICIA GUARDAR IMAGEN*/
 			$filename = $arr['idpac'] . '-' . $fecha . '.png';
 			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
@@ -219,9 +236,9 @@ class ConsultadosController extends AbstractActionController {
 
 					$adapter = new \Zend\File\Transfer\Adapter\Http();
 					$adapter->setDestination($ruta);
-					return new JsonModel(array('id' => $gine->getID()));
+					return new JsonModel(array('id' => $gine->getID(),'tipocons'=>$arr['tipocons']));
 				}else{
-					return new JsonModel(array('id' => $arr['idconsg']));
+					return new JsonModel(array('id' => $arr['idconsg'],'tipocons'=>$arr['tipocons']));
 					
 				}	
 			} else if ($arr['tipocons'] == '0') {
@@ -239,12 +256,12 @@ class ConsultadosController extends AbstractActionController {
 				$flujo = urldecode($arr['FLUJO']);
 				$sistU = urldecode($arr['sistUri']);
 				$sistD = urldecode($arr['sistDige']);
-				$anticon = $arr['aAntico'];
-				$papani = $arr['apapani'];
-				$galacto = $arr['agalacto'];
-				$hirsu = $arr['ahirsu'];
-				$cohham = $arr['acohham'];
-				$cavidad = $arr['acavidad'];
+				$anticon = $arr['antico'];
+				$papani = $arr['papani'];
+				$galacto = $arr['galacto'];
+				$hirsu = $arr['hirsu'];
+				$cohham = $arr['cohham'];
+				$cavidad = $arr['cavidad'];
 				$aD = $arr['aD'];
 				$aI = $arr['aI'];
 				$efecha = $arr['efecha'];
@@ -255,7 +272,7 @@ class ConsultadosController extends AbstractActionController {
 				$eapp = $arr['eapp'];
 				$evolumen = $arr['evolumen'];
 				$efragmenta = $arr['efragm'];
-				$lab = urldecode($arr['alab']);
+				$lab = urldecode($arr['lab']);
 				$cirugias = urldecode($arr['cirugias']);
 
 				$hc = new Expescar;
@@ -282,7 +299,7 @@ class ConsultadosController extends AbstractActionController {
 				$hc->setFUM($fum);
 				$hc->setGESTAS($gestas);
 				$hc->setPARTOS($partos);
-				$hc->setABOTOS($abortos);
+				$hc->setABORTOS($abortos);
 				$hc->setCESAREAS($cesarea);
 				$hc->setECTOPICOS($ectopicos);
 				$hc->setDISMENORREA($dismenorrea);
@@ -346,9 +363,9 @@ class ConsultadosController extends AbstractActionController {
 					$adapter = new \Zend\File\Transfer\Adapter\Http();
 					$adapter->setDestination($ruta);
 
-					return new JsonModel(array('id' => $hc->getID()));
+					return new JsonModel(array('id' => $hc->getID(),'tipocons'=>$arr['tipocons']));
 				}else{
-					return new JsonModel(array('id' => $arr['idconsg']));
+					return new JsonModel(array('id' => $arr['idconsg'],'tipocons'=>$arr['tipocons']));
 					
 				}	
 			}
@@ -453,10 +470,6 @@ class ConsultadosController extends AbstractActionController {
 		));
 
 		return $pdf;
-	}
-
-	public function monitoreoAction() {
-		return new ViewModel();
 	}
 
 	public function verhistoclinicaAction() {
@@ -713,5 +726,164 @@ class ConsultadosController extends AbstractActionController {
 		 }
 	}
 
+	public function monitoreoAction(){
+		
+		$this->layout('layout/vacio');
+		$oM = $this->getObjectManager();
+
+		$id_paci = $this->request->getPost('paciente');
+
+		$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paci");
+		$paciente = $query->getArrayResult();
+				
+		return new ViewModel(array('paciente' => $paciente));
+	}
+
+	public function guardamonitoreoAction(){
+		$oM = $this->getObjectManager();
+
+		if ($this->request->getPost()) {
+			$data = $this->request->getPost('imagen');
+			
+			
+			$fecha_hoy = new \DateTime();
+			$fecha = date_format($fecha_hoy, "Y-m-d");
+
+			$paciente 		 = $oM->find('Application\Entity\Pacientes', $this->request->getPost('idpac'));
+									
+			/* INICIA GUARDAR IMAGEN*/
+			$filename = $this->request->getPost('idpac') . '-' . $fecha . '.png';
+			
+			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
+			$data = substr($data, strpos($data, ",") + 1);
+			$data = base64_decode($data);
+			$imgRes = imagecreatefromstring($data);
+
+			
+			$moni = new Monitoreo;
+
+			if($this->request->getPost('idconsm') != ''){
+				
+				$moni->setID($this->request->getPost('idconsm'));
+				
+			}
+			$moni->setREPRODUCCION($this->request->getPost('repasistida'));
+			$moni->setPROTOCOLO($this->request->getPost('protocolo'));
+			if($this->request->getPost('fur') != ''){
+				$moni->setFUR(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('fur')))));
+			}
+			$moni->setPROGESTINA($this->request->getPost('progestina'));
+			if($this->request->getPost('start_preog') != ''){
+				$moni->setPROGESTINADEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_preog')))));
+			}
+			if($this->request->getPost('end_preog') != ''){
+				$moni->setPROGESTINAAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_preog')))));
+			}
+			if($this->request->getPost('fmp') != ''){
+				$moni->setFPM(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('fmp')))));
+			}
+			$moni->setGNRH($this->request->getPost('ghnr'));
+			if($this->request->getPost('start_ghnr') != ''){
+				$moni->setGNRHDEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_ghnr')))));
+			}
+			if($this->request->getPost('end_ghnr') != ''){
+				$moni->setGNRHAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_ghnr')))));
+			}
+			$moni->setMENOTROPINAS($this->request->getPost('metro'));
+			if($this->request->getPost('start_metro') != ''){
+				$moni->setMENOTROPINASDEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_metro')))));
+			}
+			if($this->request->getPost('end_metro') != ''){
+				$moni->setMENOTROPINALAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_metro')))));
+			}
+			$moni->setFSH($this->request->getPost('fsh'));
+			if($this->request->getPost('start_fsh') != ''){
+				$moni->setFSHDEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_fsh')))));
+			}
+			if($this->request->getPost('end_fsh') != ''){
+				$moni->setFSHAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_fsh')))));
+			}
+			$moni->setPRIMOGYN($this->request->getPost('pgyn'));
+			if($this->request->getPost('start_pgyn') != ''){
+				$moni->setPRIMOGYNDEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_pgyn')))));
+			}
+			if($this->request->getPost('end_pgyn') != ''){
+				$moni->setPRIMOGYNAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_pgyn')))));
+			}
+			$moni->setOTROS($this->request->getPost('otros'));
+			if($this->request->getPost('start_otros') != ''){
+				$moni->setOTROSDEL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('start_otros')))));
+			}
+			if($this->request->getPost('end_otros') != ''){
+				$moni->setOTROSAL(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('end_otros')))));
+			}
+			if($this->request->getPost('fecha_proc') != ''){
+				$moni->setFECHAPROCEDIIENTO(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('fecha_proc')))));
+			}
+			$moni->setRESIDENTE($this->request->getPost('residente'));
+			$moni->setAUTORIZADO($this->request->getPost('autorizado'));
+			$moni->setENVIADO($this->request->getPost('enviado'));
+			$moni->setIMAGEN($filename);
+
+			if($this->request->getPost('idconsm')!= ''){
+				$oM->merge($moni);
+			}else{
+				$oM->persist($moni);
+			}
+			$oM->flush();
+
+			if($this->request->getPost('idconsm') == ''){
+				
+				$consulta = new Consultas;
+
+				$consulta->setFECHACONS($fecha_hoy);
+				$consulta->setPACIENTE($paciente);
+				$consulta->setMEDICO($this->identity());
+				$consulta->setCONSULTA($moni->getID());
+				$consulta->setESPEC('Cgineco2');
+				$consulta->setMOTIVO('Monitoreo');
+
+				$oM->persist($consulta);
+				$oM->flush();
+
+				$ruta = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+
+				if (!file_exists($ruta)) {
+					mkdir($ruta);
+				}
+
+				imagepng($imgRes, $ruta . '/' . $filename);
+
+				$adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setDestination($ruta);
+
+				return new JsonModel(array('id' => $moni->getID()));
+			}else{
+				return new JsonModel(array('id' => $this->request->getPost('idconsm')));
+				
+			}
+		}
+	}
+
+	public function datosconsultamoniAction() {
+		$this->layout('layout/vacio');
+		$oM = $this->getObjectManager();
+
+		$idconsul = $this->request->getPost('id_consulta');
+		
+		$query = $oM->createQuery("SELECT m FROM Application\Entity\Monitoreo m WHERE m.ID = $idconsul");
+		$consultas = $query->getArrayResult();
+
+		$query2 = $oM->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco2'");
+		$consulppal = $query2->getArrayResult();
+
+		$id_cons = $consulppal[0]['ID'];
+		
+		$str = $consultas[0]['IMAGEN'];
+		$pac = explode('-', $str, 2);
+		//print_r($consultas);
+		return new JsonModel(array('consultam' => $consultas, 'pac' => $pac,'consulta' => $id_cons));
+
+	}
 
 }

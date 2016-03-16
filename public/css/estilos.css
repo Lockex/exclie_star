@@ -16,26 +16,29 @@
 {
 	border-style: solid;
 	border-color: #0AA89E;
-	height: 100%;
-	width: 100%;
+	
 	cursor: crosshair;
-	padding-top: 1px;
+	
+
 }
+
 	/*
 	height: 100%;
 	width: 100%;	
 	cursor: crosshair;
 	border-style: solid;
 	padding-top: 1px;
-	
+	background-image: url('../img/cuadro_monitoreo.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
 	border-color: #0AA89E;
 	
-	background-image: url('../img/cuadro_monitoreo.png');
+	
 	background-size: 100%;
 	
-	background-size: 1280px 650px;
 	
-	background-repeat: no-repeat;
+	
+	
 	*/
 	
 	

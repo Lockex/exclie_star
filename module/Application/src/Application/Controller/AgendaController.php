@@ -120,7 +120,7 @@ class AgendaController extends AbstractActionController
             $agenda->setEnd($this->request->getPost('end'));
             $agenda->setClassName($this->request->getPost('className'));            
             $agenda->setDoctor($om->find('Application\Entity\Usuarios',1));
-            $agenda->setUsuariox($om->find('Application\Entity\Usuarios', 1));            
+            $agenda->setUsuariox($om->find('Application\Entity\Usuarios', $this->identity()->getId()));            
             $agenda->setTitle($this->request->getPost('title'));
 
             $om->persist($agenda);
@@ -138,6 +138,17 @@ class AgendaController extends AbstractActionController
         
     }
 
+    public function borrareventoAction(){
+      $om = $this->getObjectManager();
+      if($this->request->isPost()){
+        $id = $this->request->getPost('id');
+        $evento = $om->find('Application\Entity\Agendas',$id);
+        $om->remove($evento);
+        $om->flush();
+      }
+      return new JsonModel();
+    }
+
 	/**
      * get entityManager
      *
@@ -150,4 +161,6 @@ class AgendaController extends AbstractActionController
 
         return $this->_objectManager;
     }
+
+
 }

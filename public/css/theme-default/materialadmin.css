@@ -1136,6 +1136,37 @@ a.text-danger:hover {
 a.text-success:hover {
   color: #3d8b40;
 }
+/*colores agregados para calendario*/
+.text-rosa {
+  color: #E91E63;
+}
+a.text-rosa:hover {
+  color: #c51162;
+}
+.text-lima{
+  color: #cddc39;
+}
+a.text-lima:hover{
+  color: #afb42b;
+}
+.text-blue{
+  color: #3f51b5;
+}
+a.text-blue:hover{
+  color: #283593;
+}
+.text-cafe{
+  color: #795548;
+}
+a.text-cafe:hover{
+  color: #4e342e;
+}
+.text-rojo{
+  color: #d32f2f;
+}
+a.text-rojo:hover{
+  color: #b71c1c;
+}
 #base {
   overflow: hidden;
   padding-left: 64px;

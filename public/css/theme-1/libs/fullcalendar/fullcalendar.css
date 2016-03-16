@@ -1468,3 +1468,8 @@ be a descendant of the grid when it is being dragged.
   background-color: #96999c;
 }
 
+.fc-event.event-morado {
+  border-color: #9128c1;
+  background-color: #9128c1;
+}
+

@@ -41,7 +41,7 @@ class Expescar {
     /** @ORM\Column(type="string", nullable=true) */
     protected $PARTOS;
     /** @ORM\Column(type="string", nullable=true) */
-    protected $ABOTOS;
+    protected $ABORTOS;
     /** @ORM\Column(type="string", nullable=true) */
     protected $CESAREAS;
     /** @ORM\Column(type="string", nullable=true) */
@@ -469,25 +469,25 @@ class Expescar {
     }
 
     /**
-     * Gets the value of ABOTOS.
+     * Gets the value of ABORTOS.
      *
      * @return mixed
      */
-    public function getABOTOS()
+    public function getABORTOS()
     {
-        return $this->ABOTOS;
+        return $this->ABORTOS;
     }
 
     /**
-     * Sets the value of ABOTOS.
+     * Sets the value of ABORTOS.
      *
-     * @param mixed $ABOTOS the 
+     * @param mixed $ABORTOS the 
      *
      * @return self
      */
-    public function setABOTOS($ABOTOS)
+    public function setABORTOS($ABORTOS)
     {
-        $this->ABOTOS = $ABOTOS;
+        $this->ABORTOS = $ABORTOS;
 
         return $this;
     }

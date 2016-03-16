@@ -1468,3 +1468,37 @@ be a descendant of the grid when it is being dragged.
   background-color: #969c9c;
 }
 
+.fc-event.event-morado {
+  border-color: #9128c1;
+  background-color: #9128c1;
+}
+
+.fc-event.event-negro {
+  border-color: #000000;
+  background-color: #000000;
+}
+
+.fc-event.event-rosa {
+  border-color: #E91E63;
+  background-color: #E91E63;
+}
+
+.fc-event.event-lima {
+  border-color: #cddc39;
+  background-color: #cddc39;
+}
+
+.fc-event.event-blue {
+  border-color: #3f51b5;
+  background-color: #3f51b5;
+}
+
+.fc-event.event-cafe {
+  border-color: #795548;
+  background-color: #795548;
+}
+
+.fc-event.event-rojo {
+  border-color: #d32f2f;
+  background-color: #d32f2f;
+}
