@@ -11,6 +11,7 @@
         <!-- END META -->
 
         <!-- BEGIN STYLESHEETS -->
+        <link rel="icon" type="image/png" href="<?php echo $this->basePath() ?>/public/img/favicon.png" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/fontRoboto.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/bootstrap.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/materialadmin.css" />
@@ -53,8 +54,8 @@
     <script src="<?php echo $this->basePath() ?>/public/js/libs/toastr/toastr.js"></script>
 
     <script >
-    var socket = io.connect("http://192.168.100.3:3000");
-    //var socket = io.connect("http://localhost:3000");
+   // var socket = io.connect("http://192.168.100.6:3000");
+    var socket = io.connect("http://localhost:3000");
       
      
     </script>
@@ -198,7 +199,7 @@
             <!-- BEGIN CONTENT-->
             <div id="content">
                 <section>
-                    <?php echo $this->content; ?>
+                <?php echo $this->content; ?>
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->

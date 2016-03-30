@@ -12,7 +12,7 @@ class Recetas {
     protected $FECHA_INICIO;
     /** @ORM\Column(type="string",nullable=true) */
     protected $INDICACIONES_ADICIONALES;
-      /** @ORM\ManyToOne(targetEntity="Cgineco") @ORM\JoinColumn(referencedColumnName="ID") */
+      /** @ORM\ManyToOne(targetEntity="Consultas") @ORM\JoinColumn(referencedColumnName="ID") */
     protected $CONSULTAS;
 
    

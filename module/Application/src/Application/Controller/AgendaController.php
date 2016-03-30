@@ -30,7 +30,7 @@ class AgendaController extends AbstractActionController
           if($paciente)
           $where .= " AND a.pacientenr like '%$paciente%'"; 
           $query = $this->getObjectManager()->createQuery("SELECT a.title,a.start,a.end,a.descripcion,a.id,a.color,
-            a.pacientenr,u.NOMBRE,a.className,p.ID as paciente,d.ID as refdocid,
+            a.pacientenr,u.NOMBRE,a.className,a.tipoCargo,p.ID as paciente,d.ID as refdocid,
             a.refdoctor,a.edad,a.reservado,de.ID as dependencia,a.telefono1,a.telefono2 FROM Application\Entity\Agendas a 
             LEFT JOIN a.paciente p LEFT JOIN a.usuariox u LEFT JOIN a.refdocid d LEFT JOIN a.dependencia de 
             $where");
@@ -74,9 +74,10 @@ class AgendaController extends AbstractActionController
             $agenda->setPacientenr($this->request->getPost('title'));
             $agenda->setStart($this->request->getPost('start'));
             $agenda->setEnd($this->request->getPost('end'));
-            $agenda->setClassName($this->request->getPost('className'));            
+            $agenda->setClassName($this->request->getPost('className')); 
+            $agenda->setTipoCargo($this->request->getPost('sCargo'));              
             $agenda->setDoctor($om->find('Application\Entity\Usuarios',1));
-            $agenda->setUsuariox($om->find('Application\Entity\Usuarios', 1));            
+            $agenda->setUsuariox($om->find('Application\Entity\Usuarios', $this->identity()->getId()));            
             $agenda->setTitle($this->request->getPost('title'));
 
             $om->merge($agenda);
@@ -93,6 +94,7 @@ class AgendaController extends AbstractActionController
                 'telefono1' => $agenda->getTelefono1(),
                 'telefono2' => $agenda->getTelefono2(),
                 'edad'      => $agenda->getEdad(), 
+                'tipoCargo' => $agenda->getTipoCargo(), 
 
             );
 
@@ -122,6 +124,7 @@ class AgendaController extends AbstractActionController
             $agenda->setDoctor($om->find('Application\Entity\Usuarios',1));
             $agenda->setUsuariox($om->find('Application\Entity\Usuarios', $this->identity()->getId()));            
             $agenda->setTitle($this->request->getPost('title'));
+            $agenda->setTipoCargo($this->request->getPost('scargo'));
 
             $om->persist($agenda);
             $om->flush();    

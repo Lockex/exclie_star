@@ -33,17 +33,16 @@
 									<div class="tab-pane active" id="tab1">
 										<div class="row pull-left">
 											<div class="col-md-4" id="fotoSube">
-												<div id="foto" class="form-element col-lg-3">	
-						 	                    	<img  src="<?php echo $this->basePath() ?>/public/img/def-woman.png?>" style="width:150px; ">	       
-									      		</div>
-									      		<div id="drop-foto">
-								        			<div class="panel-body" style="width:200px; ">
-								            			<form action="<?php echo $this->basePath() ?>/pacientes/foto?>" class="dropzone  dz-clickable" id="dropfoto" ebctype="multipart/form-data" >
-								              				<input type="hidden" id="paciente"  name="pac"/>
-								                			
-								            			</form>
-								        			</div>
+												<div id="foto" class="form-element col-lg-3">
+													<img src="<?php echo $this->basePath() ?>/public/img/def-woman.png" style="width:150px; ">
+												</div>
+						 	                    <div id="textofoto">
+								        			<span>Subir foto de Paciente</span>
 								       			</div>
+								       			<form action="" id="formularioFoto" >
+									      			<input type="file" style="display:none" id="camara" accept="image/*" name="image">
+									      			<input type="hidden" name="pac" id="pac">
+									      		</form>
 							       			</div>
 							       			<div class="col-md-8"></div>
 							       		</div>
@@ -464,7 +463,7 @@
 		</div><!--end .row -->
 	</div><!--end .section-body -->
 	
-	<input type="file" style="display:none" id="iFoto" onchange="subirfoto(this)" accept="image/*">
+	
 
 	<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/wizard/wizard.css" />
@@ -486,6 +485,9 @@
 	$(document).ready(function () {
 
 		$('#fotoSube').hide();
+
+		
+
 		/*====== Buscador Pacientes =======*/
 		function split( val ) {
           return val.split( /;\s*/ );
@@ -548,6 +550,7 @@
 		    success: function(response) {
 		       $('#fotoSube').show();
 		       $('#idpac').val(response['patient'][0].ID);
+		       $('#pac').val(response['patient'][0].ID);
 		       $('#paciente').val(response['patient'][0].ID);
 		       $('#idante').val(response['ante'][0].ID);
 		       $('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
@@ -566,7 +569,7 @@
  			   $('#sTipoSanguineo').val(response['patient'][0].TIPO_SANGUINEO.ID);
  			   $('#sEstados').val(response['patient'][0].ESTADO.ID);
  			   $('#sMUNICIPIO').val(response['patient'][0].MUNICIPIO.ID);
-
+ 			   
 		       if (response['patient'][0].FECHA_NACIMIENTO != '') {
 	       			var fecha   = response['patient'][0].FECHA_NACIMIENTO.date;
 	       			var arr 	= fecha.split(" ");
@@ -661,6 +664,11 @@
 	       			$('input[divref="divTiroides"]').attr('checked',true);
 	       			$('#sTiroides').val(response['ante'][0].TIROIDES);
 	       		}
+	       		if (response['patient'][0].IMAGEN){
+	       			var foto = response['patient'][0].IMAGEN;
+		       		var id = response['patient'][0].ID
+		      	 	$("#foto").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
+		      	}
 	       	},
 		    error: function() {
 		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
@@ -693,46 +701,58 @@
 		}
 	}
 
-	Dropzone.autoDiscover = false;
-	/** COMIENZA DROPZONE DE VIDEOS**/
-	var myDropzone = new Dropzone("#dropfoto", {
-		paramName: "file", // The name that will be used to transfer the file
-		  accept: function(file, done) {
-		    done();
-		  },
-		  addRemoveLinks: true,
-		  removedfile: function(file){
-		    var datos = {archivo:file.name,id:$('#pacid').val()};
-		    console.log(datos);
-		    $.ajax({
-		          type: "POST",
-		          url: "<?php echo $this->basePath() ?>/pacientes/eliminarfoto",
-		          data: datos,
-		          dataType: "json",
-		          success: function(data) {
-		                  var _ref;
-		                     if (file.previewElement) {
-		                       if ((_ref = file.previewElement) != null) {
-		                         _ref.parentNode.removeChild(file.previewElement);
-		                       }
-		                     }
-		                     return this._updateMaxFilesReachedClass();
-		                },
-		          error: function(data){
-		                      var _ref;
-		                        if (file.previewElement) {
-		                          if ((_ref = file.previewElement) != null) {
-		                            _ref.parentNode.removeChild(file.previewElement);
-		                          }
-		                        }
-		                        return this._updateMaxFilesReachedClass();
-		          }
-		      });
-		  }
+	
+	$('#foto').click(function(){
+		$('#camara').click();
+			
+		});
+	$('#camara').on('change',function(){
+		
+		subirFoto();
+		
 	});
 
-	function abrirfile() {
-  	$('#iFoto').click();
-  }
+	function subirFoto(){
+		var formulario = new FormData($('#formularioFoto')[0]);	
+		
+		$.ajax({
+	      type: "POST",
+	      data:formulario,
+          cache:false,
+          async: false,
+          contentType: false,
+          processData: false,
+	      url: "<?php echo $this->basePath() ?>/pacientes/foto",	      
+	      dataType: "json",
+		      success: function(data) {
+		        mostrarImagen();
+	          },
+		      error: function(data){
+		     	console.log('errors');
+		      }
+		  });
+	}
 
+	
+	
+	function mostrarImagen() {
+	  paciente = $('#idpac').val();
+	  $.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/pacientes/verfoto",
+           data: {id_pac:paciente},
+           dataType: "json",
+           
+           success: function(response) {
+           		console.log('resp '+response['patient'][0].IMAGEN);
+           		var foto = response['patient'][0].IMAGEN;
+	       		var id = response['patient'][0].ID
+
+	      	 	$("#foto").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
+           	},
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
 	</script>

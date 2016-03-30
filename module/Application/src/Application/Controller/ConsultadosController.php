@@ -11,6 +11,8 @@ use Application\Entity\Videoconsulta;
 use Application\Entity\historianterior;
 use Application\Entity\Imagenesconsultas;
 use Application\Entity\Monitoreo;
+use Application\Entity\Medicamentos;
+use Application\Entity\Fotosconsulta;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -58,7 +60,10 @@ class ConsultadosController extends AbstractActionController {
 			$query5 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Historianterior a WHERE a.PACIENTE = $pacienteid");
 			$archivos = $query5->getArrayResult();
 
-			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas, 'files' => $archivos);
+			$query4 = $this->getObjectManager()->createQuery("SELECT v FROM Application\Entity\Videoconsulta v WHERE v.PACIENTE = $pacienteid");
+			$videos = $query4->getArrayResult();
+
+			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas, 'files' => $archivos,'videos' => $videos);
 
 		} else {
 
@@ -102,7 +107,7 @@ class ConsultadosController extends AbstractActionController {
 
 		$idconsul = $this->request->getPost('id_consulta');
 		$tipoconsul = $this->request->getPost('tipo_cons');
-			
+		$id_cons = $oM->find('Application\Entity\Consultas', $this->request->getPost('consult'));
 		
 		if($tipoconsul == '1'){
 
@@ -112,10 +117,12 @@ class ConsultadosController extends AbstractActionController {
 			$str = $consultas[0]['IMAGEN'];
 			$pac = explode('-', $str, 2);
 			
-			$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco'");
-			$consulppal = $query2->getArrayResult();
+			
 
-			$id_cons = $consulppal[0]['ID'];
+			// $query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco'");
+			// $consulppal = $query2->getArrayResult();
+
+			// $id_cons = $consulppal[0]['ID'];
 				
 		}else{
 
@@ -125,66 +132,75 @@ class ConsultadosController extends AbstractActionController {
 			$str = $consultas[0]['IMAGEN'];
 			$pac = explode('-', $str, 2);
 
-			$query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Expescar'");
-			$consulppal = $query2->getArrayResult();
+			// $query2 = $objectManager->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Expescar'");
+			// $consulppal = $query2->getArrayResult();
 
-			$id_cons = $consulppal[0]['ID'];
+			// $id_cons = $consulppal[0]['ID'];
 		}
 		return new JsonModel(array('consultag' => $consultas, 'pac' => $pac,'consult' => $id_cons, 'tipo' => $tipoconsul));
 	}
 
 	public function guardarconsultaAction() {
 		$objectManager = $this->getObjectManager();
-
+		
 		if ($this->request->getPost()) {
-			$data = $this->request->getPost('imagedata');
-			/* ARREGLO DE DATOS*/
-			$datos = $this->request->getPost('datos');
-			$datos = explode("&", $datos);
+			$data = $this->request->getPost('imagen');
+			
+			$paciente 		 = $objectManager->find('Application\Entity\Pacientes', $this->request->getPost('idpac'));			
+			$motivo_consulta = $this->request->getPost('motivo');
+			$fecha_hoy 		 = $this->request->getPost('fechahoy');
+			$edad 			 = $this->request->getPost('edad');
+			$ciclo 			 = $this->request->getPost('ciclo');
+			$fum 			 = $this->request->getPost('fum');
+			$gestas 		 = $this->request->getPost('gestas');
+			$partos 		 = $this->request->getPost('partos');
+			$abortos 		 = $this->request->getPost('bortos');
+			$cesarea 		 = $this->request->getPost('cesarea');
+			$ectopicos 		 = $this->request->getPost('ectopicos');
+			$tiroides_txt 	 = $this->request->getPost('tiroidestxt');
+			$peso 			 = $this->request->getPost('peso');
+			$presion 		 = $this->request->getPost('presion');
+			$plan 			 = $this->request->getPost('plan');
+			$imx 			 = $this->request->getPost('imx');
 
-			foreach ($datos as $dato) {
-				$var = explode('=', $dato);
-				$arr[$var[0]] = $var[1];
-			}
-			$caractraros = array('_', '+');
-			$paciente = $objectManager->find('Application\Entity\Pacientes', $arr['idpac']);
-			$motivo_consulta = urldecode($arr['motivo']);
-			$fecha_hoy = $arr['fechahoy'];
-			$edad = $arr['edad'];
-			$ciclo = str_replace($caractraros, '', $arr['ciclo']);
-			$fum = $arr['fum'];
-			$gestas = $arr['gestas'];
-			$partos = $arr['partos'];
-			$abortos = $arr['bortos'];
-			$cesarea = $arr['cesarea'];
-			$ectopicos = $arr['ectopicos'];
-			$tiroides_txt = $arr['tiroidestxt'];
-			$peso = $arr['peso'];
-			$presion = str_replace($caractraros, '', urldecode($arr['presion']));
-			$plan = urldecode($arr['plan']);
-			$imx = urldecode($arr['imx']);
-
+			$datos = array_merge_recursive(
+				$this->getRequest()->getFiles()->toArray()
+            );
+			
+			
+			
+			$total = count($datos['fotingas'])-1;
+					
 			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy = new \DateTime();
 			$fecha = date_format($fecha_hoy, "Y-m-d");
 			$fum2 = new \DateTime(date('Y-m-d', strtotime($fum)));
-			/* TERMINA TRATAMIENTO DE FECHAS*/
-
-			
+						
 			/* INICIA GUARDAR IMAGEN*/
-			$filename = $arr['idpac'] . '-' . $fecha . '.png';
+			$filename = $this->request->getPost('idpac') . '-' . $fecha . '.png';
 			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
 			$data = substr($data, strpos($data, ",") + 1);
 			$data = base64_decode($data);
 			$imgRes = imagecreatefromstring($data);
 
-			if ($arr['tipocons'] == '1') {
+			$ruta = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+
+			if (!file_exists($ruta)) {
+				mkdir($ruta);
+			}
+
+			imagepng($imgRes, $ruta . '/' . $filename);
+
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setDestination($ruta);
+
+			if ($this->request->getPost('tipocons') == '1') {
 				/* SI ES UNA CONSULTA DE SEGUIMIENTO*/
 
 				$gine = new Cgineco;
-				if($arr['idconsg'] != ''){
+				if($this->request->getPost('idconsg') != ''){
 					
-					$gine->setID($arr['idconsg']);
+					$gine->setID($this->request->getPost('idconsg'));
 					
 				}
 				$gine->setFECHACONS($fecha_hoy);
@@ -204,7 +220,7 @@ class ConsultadosController extends AbstractActionController {
 				$gine->setPRESION($presion);
 				$gine->setIMX($imx);
 				$gine->setPLAN($plan);
-				if($arr['idconsg'] != ''){
+				if($this->request->getPost('idconsg') != ''){
 					$objectManager->merge($gine);
 					
 				}else{
@@ -213,7 +229,7 @@ class ConsultadosController extends AbstractActionController {
 				}
 				$objectManager->flush();
 
-				if($arr['idconsg'] == ''){
+				if($this->request->getPost('idconsg') == ''){
 					$consulta = new Consultas;
 
 					$consulta->setFECHACONS($fecha_hoy);
@@ -226,60 +242,110 @@ class ConsultadosController extends AbstractActionController {
 					$objectManager->persist($consulta);
 					$objectManager->flush();
 
-					$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+					
+					print_r($datos['fotingas']);
+					
+					for($i=0;$i <= $total;$i++){
+						$tmpFilePath = $datos['fotingas'][$i]['tmp_name'];
+						if($tmpFilePath != ""){
+            
+			                //save the filename
+			                $shortname = 'foto-'.$datos['fotingas'][$i]['name'];
 
-					if (!file_exists($ruta)) {
-						mkdir($ruta);
+			                //save the url and the file
+			                $ruta2 = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+
+							if (!file_exists($ruta2)) {
+								mkdir($ruta2);
+							}
+
+			               
+			                	$foto = new Fotosconsulta();
+
+								$foto->setIDCONS($consulta);
+								$foto->setIDCONSGINECO($gine);
+								$foto->setIMAGEN($shortname);
+								
+								$adapter->addfilter('Rename', array(
+									'target' => $ruta2 . '/' . $shortname,
+									'overwrite' => true,
+								));
+								
+
+								if ($adapter->receive()) {
+									//$this->createthumb($ruta2 . '/' . $shortname, 100, 100);
+									$objectManager->persist($foto);
+									$objectManager->flush();
+								}
+			                    
+
+			               
+			              }
+						//$nombreFoto = $datos['fotingas'][$i]['name'];
+						
+						// $foto = new Fotosconsulta();
+
+						// $foto->setIDCONS($consulta);
+						// $foto->setIDCONSGINECO($gine);
+						// $foto->setIMAGEN($nombreFoto);
+						
+						// $adapter->addfilter('Rename', array(
+						// 	'target' => $ruta . '/' . $nombreFoto,
+						// 	'overwrite' => true,
+						// ));
+						
+
+						// if ($adapter->receive()) {
+						// 	$this->createthumb($ruta . '/' . $nombreFoto, 100, 100);
+						// 	$objectManager->persist($foto);
+						// 	$objectManager->flush();
+						// }
 					}
 
-					imagepng($imgRes, $ruta . '/' . $filename);
-
-					$adapter = new \Zend\File\Transfer\Adapter\Http();
-					$adapter->setDestination($ruta);
-					return new JsonModel(array('id' => $gine->getID(),'tipocons'=>$arr['tipocons']));
+					return new JsonModel(array('id' => $gine->getID(),'tipocons'=>$this->request->getPost('tipocons'),'idconsulta' => $consulta->getID()));
 				}else{
-					return new JsonModel(array('id' => $arr['idconsg'],'tipocons'=>$arr['tipocons']));
+					return new JsonModel(array('id' => $this->request->getPost('idconsg'),'tipocons'=>$this->request->getPost('tipocons')));
 					
 				}	
-			} else if ($arr['tipocons'] == '0') {
+			} else if ($this->request->getPost('tipocons') == '0') {
 				/* SI ES UNA CONSULTA DE PRIMERA VEZ*/
-				$menarca = $arr['menarca'];
-				$ivsa = $arr['ivsa'];
-				$duracion = $arr['duracion'];
-				$h1n = urldecode($arr['hijoUnoNombre']);
-				$h1e = $arr['hijoUnoEdad'];
-				$h2n = urldecode($arr['hijoDosNombre']);
-				$h2e = $arr['hijoDosEdad'];
-				$h3n = urldecode($arr['hijoTresNombre']);
-				$h3e = $arr['hijoTresEdad'];
-				$dismenorrea = urldecode($arr['DISMENORREA']);
-				$flujo = urldecode($arr['FLUJO']);
-				$sistU = urldecode($arr['sistUri']);
-				$sistD = urldecode($arr['sistDige']);
-				$anticon = $arr['antico'];
-				$papani = $arr['papani'];
-				$galacto = $arr['galacto'];
-				$hirsu = $arr['hirsu'];
-				$cohham = $arr['cohham'];
-				$cavidad = $arr['cavidad'];
-				$aD = $arr['aD'];
-				$aI = $arr['aI'];
-				$efecha = $arr['efecha'];
-				$emotivo = $arr['emoti'];
-				$ecultivo = $arr['ecultiv'];
-				$ecuenta = $arr['ecuenta'];
-				$efn = $arr['efn'];
-				$eapp = $arr['eapp'];
-				$evolumen = $arr['evolumen'];
-				$efragmenta = $arr['efragm'];
-				$lab = urldecode($arr['lab']);
-				$cirugias = urldecode($arr['cirugias']);
+				$menarca 	 = $this->request->getPost('menarca');
+				$ivsa 		 = $this->request->getPost('ivsa');
+				$duracion 	 = $this->request->getPost('duracion');
+				$h1n 		 = $this->request->getPost('hijoUnoNombre');
+				$h1e 		 = $this->request->getPost('hijoUnoEdad');
+				$h2n 		 = $this->request->getPost('hijoDosNombre');
+				$h2e 		 = $this->request->getPost('hijoDosEdad');
+				$h3n 		 = $this->request->getPost('hijoTresNombre');
+				$h3e 		 = $this->request->getPost('hijoTresEdad');
+				$dismenorrea = $this->request->getPost('DISMENORREA');
+				$flujo 		 = $this->request->getPost('FLUJO');
+				$sistU 		 = $this->request->getPost('sistUri');
+				$sistD 		 = $this->request->getPost('sistDige');
+				$anticon 	 = $this->request->getPost('antico');
+				$papani 	 = $this->request->getPost('papani');
+				$galacto 	 = $this->request->getPost('galacto');
+				$hirsu 		 = $this->request->getPost('hirsu');
+				$cohham 	 = $this->request->getPost('cohham');
+				$cavidad 	 = $this->request->getPost('cavidad');
+				$aD 		 = $this->request->getPost('aD');
+				$aI 		 = $this->request->getPost('aI');
+				$efecha 	 = $this->request->getPost('efecha');
+				$emotivo 	 = $this->request->getPost('emoti');
+				$ecultivo 	 = $this->request->getPost('ecultiv');
+				$ecuenta 	 = $this->request->getPost('ecuenta');
+				$efn 		 = $this->request->getPost('efn');
+				$eapp 		 = $this->request->getPost('eapp');
+				$evolumen 	 = $this->request->getPost('evolumen');
+				$efragmenta  = $this->request->getPost('efragm');
+				$lab 		 = $this->request->getPost('lab');
+				$cirugias 	 = $this->request->getPost('cirugias');
 
 				$hc = new Expescar;
 
-				if($arr['idconsg'] != ''){
+				if($this->request->getPost('idconsg') != ''){
 					
-					$hc->setID($arr['idconsg']);
+					$hc->setID($this->request->getPost('idconsg'));
 					
 				}
 
@@ -332,7 +398,7 @@ class ConsultadosController extends AbstractActionController {
 				$hc->setPLAN($plan);
 				$hc->setPACIENTE($paciente);
 
-				if($arr['idconsg'] != ''){
+				if($this->request->getPost('idconsg') != ''){
 					$objectManager->merge($hc);
 					
 				}else{
@@ -340,7 +406,7 @@ class ConsultadosController extends AbstractActionController {
 					
 				}
 				$objectManager->flush();
-				if($arr['idconsg'] == ''){
+				if($this->request->getPost('idconsg') == ''){
 					$consulta = new Consultas;
 
 					$consulta->setFECHACONS($fecha_hoy);
@@ -353,7 +419,7 @@ class ConsultadosController extends AbstractActionController {
 					$objectManager->persist($consulta);
 					$objectManager->flush();
 
-					$ruta = getcwd() . '/public/imagenes/consultas/' . $arr['idpac'];
+					$ruta = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
 					if (!file_exists($ruta)) {
 						mkdir($ruta);
 					}
@@ -363,9 +429,9 @@ class ConsultadosController extends AbstractActionController {
 					$adapter = new \Zend\File\Transfer\Adapter\Http();
 					$adapter->setDestination($ruta);
 
-					return new JsonModel(array('id' => $hc->getID(),'tipocons'=>$arr['tipocons']));
+					return new JsonModel(array('id' => $hc->getID(),'tipocons'=>$this->request->getPost('tipocons'),'idconsulta' => $consulta->getID()));
 				}else{
-					return new JsonModel(array('id' => $arr['idconsg'],'tipocons'=>$arr['tipocons']));
+					return new JsonModel(array('id' => $this->request->getPost('idconsg'),'tipocons'=>$this->request->getPost('tipocons')));
 					
 				}	
 			}
@@ -385,12 +451,32 @@ class ConsultadosController extends AbstractActionController {
 		return new ViewModel($data);
 	}
 
+	public function medicamentosAction(){
+
+		$dato = $this->getRequest()->getQuery('term');
+		$query = $this->getObjectManager()->createQuery("SELECT m FROM Application\Entity\Medicamentos m
+        WHERE CONCAT(m.NOMBRE,' ',m.ID) like '%$dato%'
+        OR CONCAT(m.NOMBRE,' ',m.ID) like '%$dato%'");
+		$medis = $query->getArrayResult();
+		$json = array();
+		foreach ($medis as $meds) {
+			
+			$json[] = array('id' => $meds['ID'], 'label' => $meds['NOMBRE'],
+				'value' => $meds['NOMBRE'],
+				'name' => 'med' . $meds['ID'],
+				'idMed' => $meds['ID'],
+			);
+		}
+		$resultado = new JsonModel($json);
+		return $resultado;
+	}
+
 	public function guardarecetaAction() {
 		$oM = $this->getObjectManager();
 
 		if ($this->request->getPost()) {
 			$consulta = $this->request->getPost('consultaid');
-			$consulta_id = $oM->find('Application\Entity\Cgineco', $consulta);
+			$consulta_id = $oM->find('Application\Entity\Consultas', $consulta);
 			$fecha = new \DateTime(date('Y-m-d', strtotime($this->request->getPost('fechahoy2'))));
 			$indicaciones = $this->request->getPost('indicaciones');
 			$meds = $this->request->getPost('array-med');
@@ -409,15 +495,32 @@ class ConsultadosController extends AbstractActionController {
 
 				$presc = $medi->MEDICAMENTO;
 				$frec = $medi->PRESC;
-
-				$medicamento = new Medicamentoreceta;
+				
+				$medicina = $oM->getRepository('Application\Entity\Medicamentos')->findOneBy(array('NOMBRE' => $presc));
+				
+			 	$medicamento = new Medicamentoreceta;
 
 				$medicamento->setFRECUENCIA($frec);
-				$medicamento->setMEDICAMENTO($presc);
+
+			 	if($medicina == null){
+			 		$meds = new Medicamentos;
+					$meds->setNOMBRE($presc);
+					$oM->persist($meds);
+					$oM->flush();
+
+					$medicamento->setMEDICAMENTO($meds);
+				}else{
+					 $id_medicina = $medicina->getID();
+					 $cmeds_id = $oM->find('Application\Entity\Medicamentos', $id_medicina);
+					 $medicamento->setMEDICAMENTO($cmeds_id);
+				}
+				
 				$medicamento->setRECETA($receta);
 
 				$oM->persist($medicamento);
 				$oM->flush();
+				
+				
 			}
 		}
 		return new JsonModel(array('recetaid' => $receta->getID(), 'consulta' => $consulta));
@@ -434,7 +537,7 @@ class ConsultadosController extends AbstractActionController {
 
 		$id = $this->params()->fromRoute('id');
 
-		$query2 = $oM->createQuery("SELECT m,r FROM Application\Entity\Medicamentoreceta m LEFT JOIN m.RECETA r WHERE r.ID = $id");
+		$query2 = $oM->createQuery("SELECT m,r,a FROM Application\Entity\Medicamentoreceta m JOIN m.MEDICAMENTO a LEFT JOIN m.RECETA r WHERE r.ID = $id");
 		$meds = $query2->getArrayResult();
 
 		$receta = $oM->find('Application\Entity\Recetas', $id);
@@ -679,6 +782,17 @@ class ConsultadosController extends AbstractActionController {
 		return new ViewModel(array('files' => $archivos,'paciente'=>$paciente));
 	}
 
+	public function listavideosAction() {
+		$this->layout('layout/vacio');
+
+		$paciente = $this->request->getPost('paciente');
+		$query = $this->getObjectManager()->createQuery("SELECT v FROM Application\Entity\Videoconsulta v WHERE v.PACIENTE = $paciente");
+		$videos = $query->getArrayResult();
+		
+		return new ViewModel(array('videos' => $videos,'paciente'=>$paciente));
+		//return new JsonModel(array('videos' => $videos, 'paciente' => $paciente));
+	}
+
 	public function verdetallecapturaAction() {
 		$this->layout('layout/vacio');
 		$oM = $this->getObjectManager();
@@ -735,8 +849,16 @@ class ConsultadosController extends AbstractActionController {
 
 		$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paci");
 		$paciente = $query->getArrayResult();
-				
-		return new ViewModel(array('paciente' => $paciente));
+
+		$query2 = $oM->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $id_paci AND c.ESPEC ='Cgineco2' ORDER BY c.FECHA_CONS DESC ");
+		$monitoreos = $query2->getArrayResult();
+
+		$id_cons = $monitoreos[0]['CONSULTA'];
+
+		$query3 = $oM->createQuery("SELECT m FROM Application\Entity\Monitoreo m WHERE m.ID = $id_cons");
+		$monitor = $query3->getArrayResult();
+
+		return new ViewModel(array('paciente' => $paciente,'monitor'=>$monitor));
 	}
 
 	public function guardamonitoreoAction(){
@@ -744,15 +866,15 @@ class ConsultadosController extends AbstractActionController {
 
 		if ($this->request->getPost()) {
 			$data = $this->request->getPost('imagen');
-			
-			
+			$tipo = $this->request->getPost('htipo');
+						
 			$fecha_hoy = new \DateTime();
 			$fecha = date_format($fecha_hoy, "Y-m-d");
 
 			$paciente 		 = $oM->find('Application\Entity\Pacientes', $this->request->getPost('idpac'));
 									
 			/* INICIA GUARDAR IMAGEN*/
-			$filename = $this->request->getPost('idpac') . '-' . $fecha . '.png';
+			$filename = $this->request->getPost('idpac') . '-' . $fecha. 'm.png';
 			
 			/* SE QUITAN COSAS DEL PRINCIPIO DEL STRING */
 			$data = substr($data, strpos($data, ",") + 1);
@@ -823,7 +945,19 @@ class ConsultadosController extends AbstractActionController {
 			$moni->setRESIDENTE($this->request->getPost('residente'));
 			$moni->setAUTORIZADO($this->request->getPost('autorizado'));
 			$moni->setENVIADO($this->request->getPost('enviado'));
+			$moni->setFIN($tipo);
 			$moni->setIMAGEN($filename);
+
+			$ruta = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+
+			if (!file_exists($ruta)) {
+				mkdir($ruta);
+			}
+
+			imagepng($imgRes, $ruta . '/' . $filename);
+
+			$adapter = new \Zend\File\Transfer\Adapter\Http();
+			$adapter->setDestination($ruta);
 
 			if($this->request->getPost('idconsm')!= ''){
 				$oM->merge($moni);
@@ -846,18 +980,9 @@ class ConsultadosController extends AbstractActionController {
 				$oM->persist($consulta);
 				$oM->flush();
 
-				$ruta = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+				
 
-				if (!file_exists($ruta)) {
-					mkdir($ruta);
-				}
-
-				imagepng($imgRes, $ruta . '/' . $filename);
-
-				$adapter = new \Zend\File\Transfer\Adapter\Http();
-				$adapter->setDestination($ruta);
-
-				return new JsonModel(array('id' => $moni->getID()));
+				return new JsonModel(array('id' => $moni->getID(),'idconsulta' => $consulta->getID()));
 			}else{
 				return new JsonModel(array('id' => $this->request->getPost('idconsm')));
 				
@@ -870,19 +995,81 @@ class ConsultadosController extends AbstractActionController {
 		$oM = $this->getObjectManager();
 
 		$idconsul = $this->request->getPost('id_consulta');
+		$id_cons = $this->request->getPost('consppal');
 		
 		$query = $oM->createQuery("SELECT m FROM Application\Entity\Monitoreo m WHERE m.ID = $idconsul");
 		$consultas = $query->getArrayResult();
 
-		$query2 = $oM->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.CONSULTA = $idconsul AND c.ESPEC = 'Cgineco2'");
-		$consulppal = $query2->getArrayResult();
-
-		$id_cons = $consulppal[0]['ID'];
-		
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
-		//print_r($consultas);
+		
 		return new JsonModel(array('consultam' => $consultas, 'pac' => $pac,'consulta' => $id_cons));
+
+	}
+
+	public function fotingasConsulAction(){
+		$this->layout('layout/vacio');
+		
+		if($this->request->isPost()){
+			$oM = $this->getObjectManager();
+			$data = array_merge_recursive(
+				$this->getRequest()->getPost()->toArray(),
+				$this->getRequest()->getFiles()->toArray()
+			);
+			
+			if($data['fotingas']['name']) {
+				$nombre = explode('/',$data['fotingas']['type']);
+				$tipo = $nombre[1];
+				
+				$fotos = $oM->find('Application\Entity\Fotosconsulta', $data['pac']);
+				$ruta = getcwd() . '/public/imagenes/fotosconsulta/' . $data['pac'];
+
+                if (!file_exists($ruta)){
+                	mkdir($ruta);
+                } 
+
+                if($fotos->getIMAGEN()){
+                	unlink($ruta.'/'.$fotos->getIMAGEN());
+                }
+
+                $adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setDestination($ruta);
+
+				$nombre = 'foto'.uniqid().'.'.$tipo;
+
+				$adapter->addfilter('Rename', array(
+				'target' => $ruta . '/' .$nombre ,
+				'overwrite' => true,
+				));
+				
+				if($adapter->receive()){
+					$fotos->setImagen($nombre);
+					$oM->merge($fotos);
+					$oM->flush();
+				}
+            }
+           
+		}
+
+		return new JsonModel();
+	}
+
+	public function vermonitoreoAction() {
+		$this->layout('layout/vacio');
+		$objectManager = $this->getObjectManager();
+
+		$idconsul = $this->request->getPost('id_consulta');
+		$query2 = $objectManager->createQuery("SELECT c.CONSULTA FROM Application\Entity\Consultas c WHERE c.ID = $idconsul");
+		$gineid = $query2->getArrayResult();
+
+		$id_gine = $gineid[0]['CONSULTA'];
+		$query = $objectManager->createQuery("SELECT m FROM Application\Entity\Monitoreo m WHERE m.ID = $id_gine");
+		$consultas = $query->getArrayResult();
+
+		$str = $consultas[0]['IMAGEN'];
+		$pac = explode('-', $str, 2);
+
+		return new ViewModel(array('consultam' => $consultas, 'pacie' => $pac));
 
 	}
 

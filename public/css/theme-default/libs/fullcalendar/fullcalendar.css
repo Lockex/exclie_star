@@ -1502,3 +1502,18 @@ be a descendant of the grid when it is being dragged.
   border-color: #d32f2f;
   background-color: #d32f2f;
 }
+
+.fc-event.event-rosota {
+  border-color: #880e4f;
+  background-color: #880e4f;
+}
+
+.fc-event.event-azul-gris {
+  border-color: #546e7a;
+  background-color: #546e7a;
+}
+
+.fc-event.event-azul-cielo {
+  border-color:#2979ff;
+  background-color: #2979ff;
+}

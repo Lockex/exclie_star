@@ -64,6 +64,8 @@ class Monitoreo {
     protected $DOCTOR;
     /** @ORM\Column(type="string",nullable=true) */
     protected $IMAGEN;
+    /** @ORM\Column(type="integer") */
+    protected $FIN;
 
 
 
@@ -760,6 +762,30 @@ class Monitoreo {
     public function setIMAGEN($IMAGEN)
     {
         $this->IMAGEN = $IMAGEN;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of FIN.
+     *
+     * @return mixed
+     */
+    public function getFIN()
+    {
+        return $this->FIN;
+    }
+
+    /**
+     * Sets the value of FIN.
+     *
+     * @param mixed $FIN the 
+     *
+     * @return self
+     */
+    public function setFIN($FIN)
+    {
+        $this->FIN = $FIN;
 
         return $this;
     }

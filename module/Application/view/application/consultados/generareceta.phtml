@@ -8,7 +8,7 @@ position: relative;
 }
 
 .page p.re {
-    margin: 79px 150px 100px 20px;
+    margin: 70px 150px 100px 70px;
     font-size: 85%;
 
 }
@@ -39,10 +39,11 @@ p{
       <br />
      <?php  echo $pacienten.' '.$pacientep.' '.$pacientem; ?>
       <input type="hidden" name="id" value="<?php echo $idp ?>" />
-      <table style="position: fixed; top:150px; margin: 0 0 0 110; font-size: 85%">  
+      <table style="position: fixed; top:150px; margin: 0 0 0 50; font-size: 85%">  
+      
       <?php foreach($medicinas as $s){?>
         <tr>
-          <td><b><?php echo $s['MEDICAMENTO']; ?></b></td> 
+          <td><b><?php echo $s['MEDICAMENTO']['NOMBRE']; ?></b></td> 
           <td><?php echo '('.$s['FRECUENCIA'].')'; ?></td>                          
         </tr>
       <?php } ?>
@@ -51,7 +52,7 @@ p{
             
           </td>
         </tr>  
-        <tfoot>
+        <tfoot style="position: fixed; margin: 0 0 20 50; font-size: 85%">
           <tr>
             <td><?php if ($medicinas[0]['RECETA']['INDICACIONES_ADICIONALES'] ) { ?>
               <p><b>Indicaciones Adicionales: </b><br> <?php echo $medicinas[0]['RECETA']['INDICACIONES_ADICIONALES']; ?></p>

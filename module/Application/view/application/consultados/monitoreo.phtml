@@ -1,8 +1,238 @@
+
+<input type="hidden" name="tipos" id="tipos" value="<?php echo $monitor[0]['FIN']; ?>">
+
+<?php if($monitor[0]['FIN'] == '0'){ ?>
+	<br>
+	
+	<input type="hidden" name="imagenmon" id="imagenmon" value="<?php echo $monitor[0]['IMAGEN']; ?>">
+<div class="row">
+	<form class="form form-validate" id="formMonitoreo" novalidate="novalidate">
+		<input type="hidden" name="idconsm" id="idconsm" value="<?php echo $monitor[0]['ID']; ?>">
+		<input type="hidden" name="imagen" id="hImagen">
+		<input type="hidden" name="htipo" id="htipo">
+		<div class="card">
+			<input type="hidden" name="idpac" id="idpac" value="<?php echo $paciente[0]['ID']; ?>">
+			<input type="hidden" name="tipocons" value="3">
+			<div class="card-body ">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<input type="text" class="form-control" id="repasistida" name="repasistida" value="<?php echo $monitor[0]['REPRODUCCION']; ?>">
+							<label for="repasistida">Reproducción Asistida</label>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="protocolo" name="protocolo" value="<?php echo $monitor[0]['PROTOCOLO']; ?>">
+							<label for="protocolo">Protocolo</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="fur" name="fur" value="<?php echo date_format($monitor[0]['FUR'],'d-m-Y');?>">
+							<label for="fur">FUR</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="progestina" name="progestina" value="<?php echo $monitor[0]['PROGESTINA']; ?>">
+							<label for="progestina">Anticonceptivo o Progestina</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_preog">
+								<div class="input-group-content">
+									<input type="text" class="form-control" id="start_preog" name="start_preog" value="<?php echo date_format($monitor[0]['PROGESTINA_DEL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_preog" id="end_preog" value="<?php echo date_format($monitor[0]['PROGESTINA_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="fpm" name="fpm" value="<?php echo date_format($monitor[0]['FPM'],'d-m-Y'); ?>">
+							<label for="fpm">FPM</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="gnrh" name="ghnr" value="<?php echo $monitor[0]['GNRH']; ?>">
+							<label for="gnrh">Análogo GnRh</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_ghnr">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="start_ghnr" id="start_ghnr" value="<?php echo date_format($monitor[0]['GNRHD_EL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_ghnr" id="end_ghnr" value="<?php echo date_format($monitor[0]['GNRH_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="metro" name="metro" value="<?php echo $monitor[0]['MENOTROPINAS']; ?>">
+							<label for="metro">Menotropinas</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_metro">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="start_metro" id="start_metro" value="<?php echo date_format($monitor[0]['MENOTROPINAS_DEL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_metro" id="end_metro" value="<?php echo date_format($monitor[0]['MENOTROPINAL_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="fsh" name="fsh" value="<?php echo $monitor[0]['FSH']; ?>">
+							<label for="fsh">FSH</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_fsh">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="start_fsh" id="start_fsh" value="<?php echo date_format($monitor[0]['FSH_DEL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_fsh" id="end_fsh" value="<?php echo date_format($monitor[0]['FSH_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="pgyn" name="pgyn" value="<?php echo $monitor[0]['PRIMOGYN']; ?>">
+							<label for="fsh">Primogyn</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_pgyn">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="start_pgyn" id="start_pgyn" value="<?php echo date_format($monitor[0]['PRIMOGYN_DEL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_pgyn" id="end_pgyn" value="<?php echo date_format($monitor[0]['PRIMOGYN_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="otros" name="otros" value="<?php echo $monitor[0]['OTROS']; ?>">
+							<label for="fsh">Otros</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-daterange input-group" id="rango_otros">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="start_otros" id="start_otros" value="<?php echo date_format($monitor[0]['OTROS_DEL'],'d-m-Y'); ?>">
+									<label>Del</label>
+								</div>
+								<span class="input-group-addon">al</span>
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="end_otros" id="end_otros" value="<?php echo date_format($monitor[0]['OTROS_AL'],'d-m-Y'); ?>">
+									<div class="form-control-line"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="fecha_proc" name="fecha_proc" value="<?php echo date_format($monitor[0]['FECHA_PROCEDIIENTO'],'d-m-Y'); ?>">
+							<label for="fecha_proc">Fecha de Procedimiento</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="residente" name="residente" value="<?php echo $monitor[0]['RESIDENTE']; ?>">
+							<label for="residente">Residente</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="autorizado" name="autorizado" value="<?php echo $monitor[0]['AUTORIZADO']; ?>">
+							<label for="autorizado">Autorizado</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="enviado" name="enviado" value="<?php echo $monitor[0]['ENVIADO']; ?>">
+							<label for="enviado">Enviado</label>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<!-- BEGIN CANVAS -->
+					<div class="card-tiles">
+						<div id="contiene">
+							<canvas id="monitoreo"></canvas>
+						</div>
+						<div class="pull-right">	
+						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardamonitoreo('1')" id="saveConsmt">Terminar</button>
+						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardamonitoreo('0')" id="saveConsm">Guardar</button>
+						</div>
+					</div>
+					<!-- END CANVAS  -->
+				</div>
+				
+				
+			</div><!--end .card-body -->
+		</div>
+	</form>
+</div>
+	
+<?php }else{ ?>
 <br>
 <div class="row">
 	<form class="form form-validate" id="formMonitoreo" novalidate="novalidate">
 		<input type="hidden" name="idconsm" id="idconsm">
 		<input type="hidden" name="imagen" id="hImagen">
+		<input type="hidden" name="htipo" id="htipo">
 		<div class="card">
 			<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
 			<input type="hidden" name="tipocons" value="3">
@@ -205,8 +435,9 @@
 						<div id="contiene">
 							<canvas id="monitoreo"></canvas>
 						</div>
-						<div class="pull-right">	
-						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardamonitoreo()" id="saveConsm">Guardar</button>
+						<div class="pull-right">
+						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardamonitoreo('1')" id="saveConsmt">Terminar</button>	
+						<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardamonitoreo('0')" id="saveConsm">Guardar</button>
 						</div>
 					</div>
 					<!-- END CANVAS  -->
@@ -217,16 +448,26 @@
 		</div>
 	</form>
 </div>
-
+<?php } ?>
 
 
 
 <script>
 	$(document).ready(function()
 	{
-	    
-		$("#monitoreo").jqScribble({width:(1165),height:(599)});
-		var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo2.png";
+	 	$("#monitoreo").jqScribble({width:(1165),height:(599)});
+	 	var tipos = $('#tipos').val();  
+	 	 
+	 	var paciente = $('#idpac').val();
+	 	
+	 	if(tipos == '0'){
+	 		var imagenmon = $('#imagenmon').val();
+			var img = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+paciente+"/"+imagenmon;
+		}
+		if(tipos == '1'){
+			var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo2.png";
+		}
+		
 		$("#monitoreo").data("jqScribble").update({backgroundImage: img});
 		$('#rango_preog').datepicker({todayHighlight: true, format: "dd-mm-yyyy"});
 		$('#rango_ghnr').datepicker({todayHighlight: true, format: "dd-mm-yyyy"});

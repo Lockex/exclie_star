@@ -1167,6 +1167,25 @@ a.text-cafe:hover{
 a.text-rojo:hover{
   color: #b71c1c;
 }
+.text-rosota{
+  color: #880e4f;
+}
+a.text-rosota:hover{
+  color: #ad1457;
+}
+.text-azul-gris{
+  color: #546e7a;
+}
+a.text-azul-gris:hover{
+  color: #37474f;
+}
+.text-azul-cielo{
+  color: #2979ff;
+}
+a.text-azul-cielo:hover{
+  color: #2962ff;
+}
+
 #base {
   overflow: hidden;
   padding-left: 64px;

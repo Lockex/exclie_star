@@ -1,0 +1,219 @@
+<div class="card">
+	<div class="card-body ">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="form-group">
+					<h4 class="text-primary">Reproducción Asistida</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['REPRODUCCION'];?></p>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Protocolo</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['PROTOCOLO'];?></p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					<h4 class="text-primary">FUR</h4>
+					<p class="form-control-static"><?php echo date_format($consultam[0]['FUR'],'Y-m-d');?></p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<h4 class="text-primary">Anticonceptivo o Progestina</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['PROGESTINA'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['PROGESTINA_DEL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['PROGESTINA_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<div class="form-group">
+					<h4 class="text-primary">FPM</h4>
+					<p class="form-control-static"><?php echo date_format($consultam[0]['FPM'],'Y-m-d');?></p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<h4 class="text-primary">Análogo GnRh</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['GNRH'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['GNRHD_EL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['GNRH_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">Menotropinas</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['MENOTROPINAS'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['MENOTROPINAS_DEL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['MENOTROPINAL_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">FSH</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['FSH'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['FSH_DEL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['FSH_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">Primogyn</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['PRIMOGYN'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['PRIMOGYN_DEL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['PRIMOGYN_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<h4 class="text-primary">Otros</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['OTROS'];?></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Del</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['OTROS_DEL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="input-group-content">
+							<h4 class="text-primary">Al</h4>
+							<p class="form-control-static"><?php echo date_format($consultam[0]['OTROS_AL'],'Y-m-d');?></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Fecha de Procedimiento</h4>
+					<p class="form-control-static"><?php echo date_format($consultam[0]['FECHA_PROCEDIIENTO'],'Y-m-d');?></p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Residente</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['RESIDENTE'];?></p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Autorizado</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['AUTORIZADO'];?></p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<h4 class="text-primary">Enviado</h4>
+					<p class="form-control-static"><?php echo $consultam[0]['ENVIADO'];?></p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<?php if(isset($consultam[0]['IMAGEN'])){ ?>
+			<img src="<?php echo $this->basePath(); ?>/public/imagenes/consultas/<?php echo $pacie[0];?>/<?php echo $consultam[0]['IMAGEN'];?>" alt="" style="max-width: 100%;,max-height: 100%;">
+			<?php } ?>
+		</div>
+	</div><!--end .card-body -->
+</div>

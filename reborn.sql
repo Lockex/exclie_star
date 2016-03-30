@@ -1,146 +1,2958 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Versión 4499
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 127.0.0.1 (MySQL 5.6.25)
-# Base de datos: reborn
-# Tiempo de Generación: 2016-01-18 21:33:26 +0000
-# ************************************************************
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-03-2016 a las 17:05:49
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.6.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de datos: `reborn`
+--
 
-# Volcado de tabla Dependencias
-# ------------------------------------------------------------
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `Dependencias`;
+--
+-- Estructura de tabla para la tabla `agendas`
+--
 
-CREATE TABLE `Dependencias` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `agendas` (
+  `id` int(11) NOT NULL,
+  `usuariox_id` int(11) DEFAULT NULL,
+  `paciente_id` int(11) DEFAULT NULL,
+  `refdocid_id` int(11) DEFAULT NULL,
+  `dependencia_id` int(11) DEFAULT NULL,
+  `doctor_id` int(11) DEFAULT NULL,
+  `descripcion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `edad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `refdoctor` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefono1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefono2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pacientenr` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `allDay` tinyint(1) NOT NULL,
+  `start` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `end` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `className` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `color` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `editable` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `startEditable` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `durationEditable` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `source` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `backgroundColor` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `textColor` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `borderColor` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reservado` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `antecedentes`
+--
+
+CREATE TABLE `antecedentes` (
+  `ID` int(11) NOT NULL,
+  `TABAQUISMO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TOXICOMANIAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ALCOHOLISMO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ALERGIAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AUMENTO_PERDIDA` tinyint(1) DEFAULT NULL,
+  `CIRUGIAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AHF` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CANCER` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TIROIDES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CARDIOPATIAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LUPUS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EJERCICIO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DROGAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DIABETES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ARTRITIS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ANTECEDENTES_NP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL,
+  `HIPERTENSION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cbasica`
+--
+
+CREATE TABLE `cbasica` (
+  `ID` int(11) NOT NULL,
+  `FECHA_CONS` date NOT NULL,
+  `MOTIVO_CONS` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `SUBJETIVO` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `OBJETIVO` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `ANALISIS` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `PLAN` mediumtext COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cgineco`
+--
+
+CREATE TABLE `cgineco` (
+  `ID` int(11) NOT NULL,
+  `FECHA_CONS` date DEFAULT NULL,
+  `MOTIVO_CONS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FUM` date DEFAULT NULL,
+  `CICLO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GESTAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PARTOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CESAREAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ABORTOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TIROIDESNUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PESO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PLAN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IMX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRESION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IMAGEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ECTOPICOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `consultas`
+--
+
+CREATE TABLE `consultas` (
+  `ID` int(11) NOT NULL,
+  `FECHA_CONS` date NOT NULL,
+  `ESPEC` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL,
+  `MEDICO_id` int(11) DEFAULT NULL,
+  `CONSULTA` int(11) NOT NULL,
+  `MOTIVO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FC` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FR` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TA` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `T` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ALTURA` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PESO` decimal(10,0) DEFAULT NULL,
+  `IMC` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dependencias`
+--
+
+CREATE TABLE `dependencias` (
+  `ID` int(11) NOT NULL,
   `NOMBREDEPENDENCIA` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `COBRO` tinyint(1) NOT NULL,
-  `ACTIVO` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `ACTIVO` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `dependencias`
+--
 
+INSERT INTO `dependencias` (`ID`, `NOMBREDEPENDENCIA`, `COBRO`, `ACTIVO`) VALUES
+(1, 'Pensines', 0, NULL);
 
-# Volcado de tabla Discapacidades
-# ------------------------------------------------------------
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `Discapacidades`;
+--
+-- Estructura de tabla para la tabla `discapacidades`
+--
 
-CREATE TABLE `Discapacidades` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `discapacidades` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `doctores`
+--
 
-# Volcado de tabla Estados
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Estados`;
-
-CREATE TABLE `Estados` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `doctores` (
+  `ID` int(11) NOT NULL,
+  `CLAVE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROCEDENCIA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `APELLIDO1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `APELLIDO2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TELEFONO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CELULAR` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPECIALIDAD_id` int(11) DEFAULT NULL,
+  `DEPENDENCIA_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `especialidades`
+--
 
-# Volcado de tabla friends
-# ------------------------------------------------------------
+CREATE TABLE `especialidades` (
+  `ID` int(11) NOT NULL,
+  `ESPECIALIDAD` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `friends`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estados`
+--
+
+CREATE TABLE `estados` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `estados`
+--
+
+INSERT INTO `estados` (`ID`, `NOMBRE`) VALUES
+(1, 'AGUASCALIENTES'),
+(2, 'BAJA CALIFORNIA'),
+(3, 'BAJA CALIFORNIA SUR'),
+(4, 'CAMPECHE'),
+(5, 'COAHUILA'),
+(6, 'COLIMA'),
+(7, 'CHIAPAS'),
+(8, 'CHIHUAHUA'),
+(9, 'DISTRITO FEDERAL'),
+(10, 'DURANGO'),
+(11, 'GUANAJUATO'),
+(12, 'GUERRERO'),
+(13, 'HIDALGO'),
+(14, 'JALISCO'),
+(15, 'MÉXICO'),
+(16, 'MICHOACÁN'),
+(17, 'MORELOS'),
+(18, 'NAYARIT'),
+(19, 'NUEVO LEÓN'),
+(20, 'OAXACA'),
+(21, 'PUEBLA'),
+(22, 'QUERÉTARO'),
+(23, 'QUINTANA ROO'),
+(24, 'SAN LUIS POTOSI'),
+(25, 'SINALOA'),
+(26, 'SONORA'),
+(27, 'TABASCO'),
+(28, 'TAMAULIPAS'),
+(29, 'TLAXCALA'),
+(30, 'VERACRUZ'),
+(31, 'YUCATÁN'),
+(32, 'ZACATECAS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `expescar`
+--
+
+CREATE TABLE `expescar` (
+  `ID` int(11) NOT NULL,
+  `PADECIMIENTO` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `PRIMERHIJO_NOMBRE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRIMERHIJO_EDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SEGUNDOHIJO_NOMBRE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SEGUNDOHIJO_EDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TERCERHIJO_NOMBRE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TERCERHIJO_EDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MENARCA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IVSA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CICLOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DURACION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GESTAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PARTOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ABORTOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CESAREAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ECTOPICOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DISMENORREA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FLUJO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SIST_URINARIO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SIST_DIGESTIVO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ANTICONCEPTIVOS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PAP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `COH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GALACTORREA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HIRSUTISM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HSG_CAVIDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HSG_D` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `HSG_I` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LABORATORIO_NOTAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LABORATORIO_IMAGEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_FECHA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_CUENTA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_VOLUMEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_MOTIVIDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_FN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_DNA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_CULTIVO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ESPERMO_APP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL,
+  `CIRUGIAS_PREVIAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IMAGEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FECHA_CONS` date DEFAULT NULL,
+  `EDAD` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `TIROIDESNUM` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PESO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PLAN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IMX` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRESION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `friends`
+--
 
 CREATE TABLE `friends` (
   `user_id` int(11) NOT NULL,
-  `friend_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`friend_id`),
-  KEY `IDX_21EE7069A76ED395` (`user_id`),
-  KEY `IDX_21EE70696A5458E8` (`friend_id`),
-  CONSTRAINT `FK_21EE70696A5458E8` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_21EE7069A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `friend_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `gruposetnicos`
+--
 
-# Volcado de tabla Gruposetnicos
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Gruposetnicos`;
-
-CREATE TABLE `Gruposetnicos` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `gruposetnicos` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `historianterior`
+--
 
-# Volcado de tabla language
-# ------------------------------------------------------------
+CREATE TABLE `historianterior` (
+  `ID` int(11) NOT NULL,
+  `ARCHIVO` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `FECHA` date NOT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `language`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagenesconsultas`
+--
+
+CREATE TABLE `imagenesconsultas` (
+  `ID` int(11) NOT NULL,
+  `IMAGEN` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `FECHACONSULTA` date NOT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `language`
+--
 
 CREATE TABLE `language` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `abbreviation` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `abbreviation` varchar(10) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `medicamentoreceta`
+--
 
-# Volcado de tabla Municipios
-# ------------------------------------------------------------
+CREATE TABLE `medicamentoreceta` (
+  `ID` int(11) NOT NULL,
+  `FRECUENCIA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MEDICAMENTO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `RECETA_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `Municipios`;
+-- --------------------------------------------------------
 
-CREATE TABLE `Municipios` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+--
+-- Estructura de tabla para la tabla `monitoreo`
+--
+
+CREATE TABLE `monitoreo` (
+  `ID` int(11) NOT NULL,
+  `REPRODUCCION` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROTOCOLO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FUR` date DEFAULT NULL,
+  `PROGESTINA` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PROGESTINA_DEL` date DEFAULT NULL,
+  `PROGESTINA_AL` date DEFAULT NULL,
+  `GNRH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `GNRHD_EL` date DEFAULT NULL,
+  `GNRH_AL` date DEFAULT NULL,
+  `MENOTROPINAS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MENOTROPINAS_DEL` date DEFAULT NULL,
+  `MENOTROPINAL_AL` date DEFAULT NULL,
+  `FSH` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FSH_DEL` date DEFAULT NULL,
+  `FSH_AL` date DEFAULT NULL,
+  `PRIMOGYN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PRIMOGYN_DEL` date DEFAULT NULL,
+  `PRIMOGYN_AL` date DEFAULT NULL,
+  `OTROS` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `OTROS_DEL` date DEFAULT NULL,
+  `OTROS_AL` date DEFAULT NULL,
+  `FECHA_PROCEDIIENTO` date DEFAULT NULL,
+  `RESIDENTE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AUTORIZADO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ENVIADO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DOCTOR` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IMAGEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FPM` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `municipios`
+--
+
+CREATE TABLE `municipios` (
+  `ID` int(11) NOT NULL,
   `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ESTADO_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `IDX_F4A7B6564D3F186E` (`ESTADO_id`),
-  CONSTRAINT `FK_F4A7B6564D3F186E` FOREIGN KEY (`ESTADO_id`) REFERENCES `Estados` (`ID`)
+  `ESTADO_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `municipios`
+--
 
+INSERT INTO `municipios` (`ID`, `NOMBRE`, `ESTADO_id`) VALUES
+(1, 'AGUASCALIENTES', 1),
+(2, 'ASIENTOS', 1),
+(3, 'CALVILLO', 1),
+(4, 'COSIO', 1),
+(5, 'JESUS MARIA', 1),
+(6, 'PABELLON DE ARTEAGA', 1),
+(7, 'RINCON DE ROMOS', 1),
+(8, 'SAN JOSE DE GRACIA', 1),
+(9, 'TEPEZALA', 1),
+(10, 'EL LLANO', 1),
+(11, 'SAN FRANCISCO DE LOS ROMO', 1),
+(12, 'ENSENADA', 2),
+(13, 'MEXICALI', 2),
+(14, 'TECATE', 2),
+(15, 'TIJUANA', 2),
+(16, 'PLAYAS DE ROSARITO', 2),
+(17, 'AGUASCALIENTES', 1),
+(18, 'ASIENTOS', 1),
+(19, 'CALVILLO', 1),
+(20, 'COSIO', 1),
+(21, 'JESUS MARIA', 1),
+(22, 'PABELLON DE ARTEAGA', 1),
+(23, 'RINCON DE ROMOS', 1),
+(24, 'SAN JOSE DE GRACIA', 1),
+(25, 'TEPEZALA', 1),
+(26, 'EL LLANO', 1),
+(27, 'SAN FRANCISCO DE LOS ROMO', 1),
+(28, 'ENSENADA', 2),
+(29, 'MEXICALI', 2),
+(30, 'TECATE', 2),
+(31, 'TIJUANA', 2),
+(32, 'PLAYAS DE ROSARITO', 2),
+(33, 'COMONDU', 3),
+(34, 'MULEGE', 3),
+(35, 'LA PAZ', 3),
+(36, 'LOS CABOS', 3),
+(37, 'LORETO', 3),
+(38, 'CALKINI', 4),
+(39, 'CAMPECHE', 4),
+(40, 'CARMEN', 4),
+(41, 'CHAMPOTON', 4),
+(42, 'HECELCHAKAN', 4),
+(43, 'HOPELCHEN', 4),
+(44, 'PALIZADA', 4),
+(45, 'TENABO', 4),
+(46, 'ESCARCEGA', 4),
+(47, 'CALAKMUL', 4),
+(48, 'CANDELARIA', 4),
+(49, 'ABASOLO', 5),
+(50, 'ACUÑA', 5),
+(51, 'ALLENDE', 5),
+(52, 'ARTEAGA', 5),
+(53, 'CANDELA', 5),
+(54, 'CASTAÑOS', 5),
+(55, 'CUATRO CIENEGAS', 5),
+(56, 'ESCOBEDO', 5),
+(57, 'FRANCISCO I. MADERO', 5),
+(58, 'FRONTERA', 5),
+(59, 'GENERAL CEPEDA', 5),
+(60, 'GUERRERO', 5),
+(61, 'HIDALGO', 5),
+(62, 'JIMENEZ', 5),
+(63, 'JUAREZ', 5),
+(64, 'LAMADRID', 5),
+(65, 'MATAMOROS', 5),
+(66, 'MONCLOVA', 5),
+(67, 'MORELOS', 5),
+(68, 'MUZQUIZ', 5),
+(69, 'NADADORES', 5),
+(70, 'NAVA', 5),
+(71, 'OCAMPO', 5),
+(72, 'PARRAS', 5),
+(73, 'PIEDRAS NEGRAS', 5),
+(74, 'PROGRESO', 5),
+(75, 'RAMOS ARIZPE', 5),
+(76, 'SABINAS', 5),
+(77, 'SACRAMENTO', 5),
+(78, 'SALTILLO', 5),
+(79, 'SAN BUENAVENTURA', 5),
+(80, 'SAN JUAN DE SABINAS', 5),
+(81, 'SAN PEDRO', 5),
+(82, 'SIERRA MOJADA', 5),
+(83, 'TORREON', 5),
+(84, 'VIESCA', 5),
+(85, 'VILLA UNION', 5),
+(86, 'ZARAGOZA', 5),
+(87, 'ARMERIA', 6),
+(88, 'COLIMA', 6),
+(89, 'COMALA', 6),
+(90, 'COQUIMATLAN', 6),
+(91, 'CUAUHTEMOC', 6),
+(92, 'IXTLAHUACAN', 6),
+(93, 'MANZANILLO', 6),
+(94, 'MINATITLAN', 6),
+(95, 'TECOMAN', 6),
+(96, 'VILLA DE ALVAREZ', 6),
+(97, 'ACACOYAGUA', 7),
+(98, 'ACALA', 7),
+(99, 'ACAPETAHUA', 7),
+(100, 'ALTAMIRANO', 7),
+(101, 'AMATAN', 7),
+(102, 'AMATENANGO DE LA FRONTERA', 7),
+(103, 'AMATENANGO DEL VALLE', 7),
+(104, 'ANGEL ALBINO CORZO', 7),
+(105, 'ARRIAGA', 7),
+(106, 'BEJUCAL DE OCAMPO', 7),
+(107, 'BELLA VISTA', 7),
+(108, 'BERRIOZABAL', 7),
+(109, 'BOCHIL', 7),
+(110, 'EL BOSQUE', 7),
+(111, 'CACAHOATAN', 7),
+(112, 'CATAZAJA', 7),
+(113, 'CINTALAPA', 7),
+(114, 'COAPILLA', 7),
+(115, 'COMITAN DE DOMINGUEZ', 7),
+(116, 'LA CONCORDIA', 7),
+(117, 'COPAINALA', 7),
+(118, 'CHALCHIHUITAN', 7),
+(119, 'CHAMULA', 7),
+(120, 'CHANAL', 7),
+(121, 'CHAPULTENANGO', 7),
+(122, 'CHENALHO', 7),
+(123, 'CHIAPA DE CORZO', 7),
+(124, 'CHIAPILLA', 7),
+(125, 'CHICOASEN', 7),
+(126, 'CHICOMUSELO', 7),
+(127, 'CHILON', 7),
+(128, 'ESCUINTLA', 7),
+(129, 'FRANCISCO LEON', 7),
+(130, 'FRONTERA COMALAPA', 7),
+(131, 'FRONTERA HIDALGO', 7),
+(132, 'LA GRANDEZA', 7),
+(133, 'HUEHUETAN', 7),
+(134, 'HUIXTAN', 7),
+(135, 'HUITIUPAN', 7),
+(136, 'HUIXTLA', 7),
+(137, 'LA INDEPENDENCIA', 7),
+(138, 'IXHUATAN', 7),
+(139, 'IXTACOMITAN', 7),
+(140, 'IXTAPA', 7),
+(141, 'IXTAPANGAJOYA', 7),
+(142, 'JIQUIPILAS', 7),
+(143, 'JITOTOL', 7),
+(144, 'JUAREZ', 7),
+(145, 'LARRAINZAR', 7),
+(146, 'LA LIBERTAD', 7),
+(147, 'MAPASTEPEC', 7),
+(148, 'LAS MARGARITAS', 7),
+(149, 'MAZAPA DE MADERO', 7),
+(150, 'MAZATAN', 7),
+(151, 'METAPA', 7),
+(152, 'MITONTIC', 7),
+(153, 'MOTOZINTLA', 7),
+(154, 'NICOLAS RUIZ', 7),
+(155, 'OCOSINGO', 7),
+(156, 'OCOTEPEC', 7),
+(157, 'OCOZOCOAUTLA DE ESPINOSA', 7),
+(158, 'OSTUACAN', 7),
+(159, 'OSUMACINTA', 7),
+(160, 'OXCHUC', 7),
+(161, 'PALENQUE', 7),
+(162, 'PANTELHO', 7),
+(163, 'PANTEPEC', 7),
+(164, 'PICHUCALCO', 7),
+(165, 'PIJIJIAPAN', 7),
+(166, 'EL PORVENIR', 7),
+(167, 'VILLA COMALTITLAN', 7),
+(168, 'PUEBLO NUEVO SOLISTAHUACAN', 7),
+(169, 'RAYON', 7),
+(170, 'REFORMA', 7),
+(171, 'LAS ROSAS', 7),
+(172, 'SABANILLA', 7),
+(173, 'SALTO DE AGUA', 7),
+(174, 'SAN CRISTOBAL DE LAS CASAS', 7),
+(175, 'SAN FERNANDO', 7),
+(176, 'SILTEPEC', 7),
+(177, 'SIMOJOVEL', 7),
+(178, 'SITALA', 7),
+(179, 'SOCOLTENANGO', 7),
+(180, 'SOLOSUCHIAPA', 7),
+(181, 'SOYALO', 7),
+(182, 'SUCHIAPA', 7),
+(183, 'SUCHIATE', 7),
+(184, 'SUNUAPA', 7),
+(185, 'TAPACHULA', 7),
+(186, 'TAPALAPA', 7),
+(187, 'TAPILULA', 7),
+(188, 'TECPATAN', 7),
+(189, 'TENEJAPA', 7),
+(190, 'TEOPISCA', 7),
+(191, 'TILA', 7),
+(192, 'TONALA', 7),
+(193, 'TOTOLAPA', 7),
+(194, 'LA TRINITARIA', 7),
+(195, 'TUMBALA', 7),
+(196, 'TUXTLA GUTIERREZ', 7),
+(197, 'TUXTLA CHICO', 7),
+(198, 'TUZANTAN', 7),
+(199, 'TZIMOL', 7),
+(200, 'UNION JUAREZ', 7),
+(201, 'VENUSTIANO CARRANZA', 7),
+(202, 'VILLA CORZO', 7),
+(203, 'VILLAFLORES', 7),
+(204, 'YAJALON', 7),
+(205, 'SAN LUCAS', 7),
+(206, 'ZINACANTAN', 7),
+(207, 'SAN JUAN CANCUC', 7),
+(208, 'ALDAMA', 7),
+(209, 'BENEMERITO DE LAS AMERICAS', 7),
+(210, 'MARAVILLA TENEJAPA', 7),
+(211, 'MARQUES DE COMILLAS', 7),
+(212, 'MONTECRISTO DE GUERRERO', 7),
+(213, 'SAN ANDRES DURAZNAL', 7),
+(214, 'SANTIAGO EL PINAR', 7),
+(215, 'AHUMADA', 8),
+(216, 'ALDAMA', 8),
+(217, 'ALLENDE', 8),
+(218, 'AQUILES SERDAN', 8),
+(219, 'ASCENSION', 8),
+(220, 'BACHINIVA', 8),
+(221, 'BALLEZA', 8),
+(222, 'BATOPILAS', 8),
+(223, 'BOCOYNA', 8),
+(224, 'BUENAVENTURA', 8),
+(225, 'CAMARGO', 8),
+(226, 'CARICHI', 8),
+(227, 'CASAS GRANDES', 8),
+(228, 'CORONADO', 8),
+(229, 'COYAME DEL SOTOL', 8),
+(230, 'LA CRUZ', 8),
+(231, 'CUAUHTEMOC', 8),
+(232, 'CUSIHUIRIACHI', 8),
+(233, 'CHIHUAHUA', 8),
+(234, 'CHINIPAS', 8),
+(235, 'DELICIAS', 8),
+(236, 'DR. BELISARIO DOMINGUEZ', 8),
+(237, 'GALEANA', 8),
+(238, 'SANTA ISABEL', 8),
+(239, 'GOMEZ FARIAS', 8),
+(240, 'GRAN MORELOS', 8),
+(241, 'GUACHOCHI', 8),
+(242, 'GUADALUPE', 8),
+(243, 'GUADALUPE Y CALVO', 8),
+(244, 'GUAZAPARES', 8),
+(245, 'GUERRERO', 8),
+(246, 'HIDALGO DEL PARRAL', 8),
+(247, 'HUEJOTITAN', 8),
+(248, 'IGNACIO ZARAGOZA', 8),
+(249, 'JANOS', 8),
+(250, 'JIMENEZ', 8),
+(251, 'JUAREZ', 8),
+(252, 'JULIMES', 8),
+(253, 'LOPEZ', 8),
+(254, 'MADERA', 8),
+(255, 'MAGUARICHI', 8),
+(256, 'MANUEL BENAVIDES', 8),
+(257, 'MATACHI', 8),
+(258, 'MATAMOROS', 8),
+(259, 'MEOQUI', 8),
+(260, 'MORELOS', 8),
+(261, 'MORIS', 8),
+(262, 'NAMIQUIPA', 8),
+(263, 'NONOAVA', 8),
+(264, 'NUEVO CASAS GRANDES', 8),
+(265, 'OCAMPO', 8),
+(266, 'OJINAGA', 8),
+(267, 'PRAXEDIS G. GUERRERO', 8),
+(268, 'RIVA PALACIO', 8),
+(269, 'ROSALES', 8),
+(270, 'ROSARIO', 8),
+(271, 'SAN FRANCISCO DE BORJA', 8),
+(272, 'SAN FRANCISCO DE CONCHOS', 8),
+(273, 'SAN FRANCISCO DEL ORO', 8),
+(274, 'SANTA BARBARA', 8),
+(275, 'SATEVO', 8),
+(276, 'SAUCILLO', 8),
+(277, 'TEMOSACHI', 8),
+(278, 'EL TULE', 8),
+(279, 'URIQUE', 8),
+(280, 'URUACHI', 8),
+(281, 'VALLE DE ZARAGOZA', 8),
+(282, 'AZCAPOTZALCO', 9),
+(283, 'COYOACAN', 9),
+(284, 'CUAJIMALPA DE MORELOS', 9),
+(285, 'GUSTAVO A. MADERO', 9),
+(286, 'IZTACALCO', 9),
+(287, 'IZTAPALAPA', 9),
+(288, 'LA MAGDALENA CONTRERAS', 9),
+(289, 'MILPA ALTA', 9),
+(290, 'ALVARO OBREGON', 9),
+(291, 'TLAHUAC', 9),
+(292, 'TLALPAN', 9),
+(293, 'XOCHIMILCO', 9),
+(294, 'BENITO JUAREZ', 9),
+(295, 'CUAUHTEMOC', 9),
+(296, 'MIGUEL HIDALGO', 9),
+(297, 'VENUSTIANO CARRANZA', 9),
+(298, 'CANATLAN', 10),
+(299, 'CANELAS', 10),
+(300, 'CONETO DE COMONFORT', 10),
+(301, 'CUENCAME', 10),
+(302, 'DURANGO', 10),
+(303, 'GENERAL SIMON BOLIVAR', 10),
+(304, 'GOMEZ PALACIO', 10),
+(305, 'GUADALUPE VICTORIA', 10),
+(306, 'GUANACEVI', 10),
+(307, 'HIDALGO', 10),
+(308, 'INDE', 10),
+(309, 'LERDO', 10),
+(310, 'MAPIMI', 10),
+(311, 'MEZQUITAL', 10),
+(312, 'NAZAS', 10),
+(313, 'NOMBRE DE DIOS', 10),
+(314, 'OCAMPO', 10),
+(315, 'EL ORO', 10),
+(316, 'OTAEZ', 10),
+(317, 'PANUCO DE CORONADO', 10),
+(318, 'PEÑON BLANCO', 10),
+(319, 'POANAS', 10),
+(320, 'PUEBLO NUEVO', 10),
+(321, 'RODEO', 10),
+(322, 'SAN BERNARDO', 10),
+(323, 'SAN DIMAS', 10),
+(324, 'SAN JUAN DE GUADALUPE', 10),
+(325, 'SAN JUAN DEL RIO', 10),
+(326, 'SAN LUIS DEL CORDERO', 10),
+(327, 'SAN PEDRO DEL GALLO', 10),
+(328, 'SANTA CLARA', 10),
+(329, 'SANTIAGO PAPASQUIARO', 10),
+(330, 'SUCHIL', 10),
+(331, 'TAMAZULA', 10),
+(332, 'TEPEHUANES', 10),
+(333, 'TLAHUALILO', 10),
+(334, 'TOPIA', 10),
+(335, 'VICENTE GUERRERO', 10),
+(336, 'NUEVO IDEAL', 10),
+(337, 'ABASOLO', 11),
+(338, 'ACAMBARO', 11),
+(339, 'SAN MIGUEL DE ALLENDE', 11),
+(340, 'APASEO EL ALTO', 11),
+(341, 'APASEO EL GRANDE', 11),
+(342, 'ATARJEA', 11),
+(343, 'CELAYA', 11),
+(344, 'MANUEL DOBLADO', 11),
+(345, 'COMONFORT', 11),
+(346, 'CORONEO', 11),
+(347, 'CORTAZAR', 11),
+(348, 'CUERAMARO', 11),
+(349, 'DOCTOR MORA', 11),
+(350, 'DOLORES HIDALGO CUNA DE LA INDEPENDENCIA NAL.', 11),
+(351, 'GUANAJUATO', 11),
+(352, 'HUANIMARO', 11),
+(353, 'IRAPUATO', 11),
+(354, 'JARAL DEL PROGRESO', 11),
+(355, 'JERECUARO', 11),
+(356, 'LEON', 11),
+(357, 'MOROLEON', 11),
+(358, 'OCAMPO', 11),
+(359, 'PENJAMO', 11),
+(360, 'PUEBLO NUEVO', 11),
+(361, 'PURISIMA DEL RINCON', 11),
+(362, 'ROMITA', 11),
+(363, 'SALAMANCA', 11),
+(364, 'SALVATIERRA', 11),
+(365, 'SAN DIEGO DE LA UNION', 11),
+(366, 'SAN FELIPE', 11),
+(367, 'SAN FRANCISCO DEL RINCON', 11),
+(368, 'SAN JOSE ITURBIDE', 11),
+(369, 'SAN LUIS DE LA PAZ', 11),
+(370, 'SANTA CATARINA', 11),
+(371, 'SANTA CRUZ DE JUVENTINO ROSAS', 11),
+(372, 'SANTIAGO MARAVATIO', 11),
+(373, 'SILAO', 11),
+(374, 'TARANDACUAO', 11),
+(375, 'TARIMORO', 11),
+(376, 'TIERRA BLANCA', 11),
+(377, 'URIANGATO', 11),
+(378, 'VALLE DE SANTIAGO', 11),
+(379, 'VICTORIA', 11),
+(380, 'VILLAGRAN', 11),
+(381, 'XICHU', 11),
+(382, 'YURIRIA', 11),
+(383, 'ACAPULCO DE JUAREZ', 12),
+(384, 'AHUACUOTZINGO', 12),
+(385, 'AJUCHITLAN DEL PROGRESO', 12),
+(386, 'ALCOZAUCA DE GUERRERO', 12),
+(387, 'ALPOYECA', 12),
+(388, 'APAXTLA', 12),
+(389, 'ARCELIA', 12),
+(390, 'ATENANGO DEL RIO', 12),
+(391, 'ATLAMAJALCINGO DEL MONTE', 12),
+(392, 'ATLIXTAC', 12),
+(393, 'ATOYAC DE ALVAREZ', 12),
+(394, 'AYUTLA DE LOS LIBRES', 12),
+(395, 'AZOYU', 12),
+(396, 'BENITO JUAREZ', 12),
+(397, 'BUENAVISTA DE CUELLAR', 12),
+(398, 'COAHUAYUTLA DE JOSE MARIA IZAZAGA', 12),
+(399, 'COCULA', 12),
+(400, 'COPALA', 12),
+(401, 'COPALILLO', 12),
+(402, 'COPANATOYAC', 12),
+(403, 'COYUCA DE BENITEZ', 12),
+(404, 'COYUCA DE CATALAN', 12),
+(405, 'CUAJINICUILAPA', 12),
+(406, 'CUALAC', 12),
+(407, 'CUAUTEPEC', 12),
+(408, 'CUETZALA DEL PROGRESO', 12),
+(409, 'CUTZAMALA DE PINZON', 12),
+(410, 'CHILAPA DE ALVAREZ', 12),
+(411, 'CHILPANCINGO DE LOS BRAVO', 12),
+(412, 'FLORENCIO VILLARREAL', 12),
+(413, 'GENERAL CANUTO A. NERI', 12),
+(414, 'GENERAL HELIODORO CASTILLO', 12),
+(415, 'HUAMUXTITLAN', 12),
+(416, 'HUITZUCO DE LOS FIGUEROA', 12),
+(417, 'IGUALA DE LA INDEPENDENCIA', 12),
+(418, 'IGUALAPA', 12),
+(419, 'IXCATEOPAN DE CUAUHTEMOC', 12),
+(420, 'JOSE AZUETA', 12),
+(421, 'JUAN R. ESCUDERO', 12),
+(422, 'LEONARDO BRAVO', 12),
+(423, 'MALINALTEPEC', 12),
+(424, 'MARTIR DE CUILAPAN', 12),
+(425, 'METLATONOC', 12),
+(426, 'MOCHITLAN', 12),
+(427, 'OLINALA', 12),
+(428, 'OMETEPEC', 12),
+(429, 'PEDRO ASCENCIO ALQUISIRAS', 12),
+(430, 'PETATLAN', 12),
+(431, 'PILCAYA', 12),
+(432, 'PUNGARABATO', 12),
+(433, 'QUECHULTENANGO', 12),
+(434, 'SAN LUIS ACATLAN', 12),
+(435, 'SAN MARCOS', 12),
+(436, 'SAN MIGUEL TOTOLAPAN', 12),
+(437, 'TAXCO DE ALARCON', 12),
+(438, 'TECOANAPA', 12),
+(439, 'TECPAN DE GALEANA', 12),
+(440, 'TELOLOAPAN', 12),
+(441, 'TEPECOACUILCO DE TRUJANO', 12),
+(442, 'TETIPAC', 12),
+(443, 'TIXTLA DE GUERRERO', 12),
+(444, 'TLACOACHISTLAHUACA', 12),
+(445, 'TLACOAPA', 12),
+(446, 'TLALCHAPA', 12),
+(447, 'TLALIXTAQUILLA DE MALDONADO', 12),
+(448, 'TLAPA DE COMONFORT', 12),
+(449, 'TLAPEHUALA', 12),
+(450, 'LA UNION DE ISIDORO MONTES DE OCA', 12),
+(451, 'XALPATLAHUAC', 12),
+(452, 'XOCHIHUEHUETLAN', 12),
+(453, 'XOCHISTLAHUACA', 12),
+(454, 'ZAPOTITLAN TABLAS', 12),
+(455, 'ZIRANDARO', 12),
+(456, 'ZITLALA', 12),
+(457, 'EDUARDO NERI', 12),
+(458, 'ACATEPEC', 12),
+(459, 'MARQUELIA', 12),
+(460, 'COCHOAPA EL GRANDE', 12),
+(461, 'JOSE JOAQUIN DE HERRERA', 12),
+(462, 'JUCHITAN', 12),
+(463, 'ILIATENCO', 12),
+(464, 'ACATLAN', 13),
+(465, 'ACAXOCHITLAN', 13),
+(466, 'ACTOPAN', 13),
+(467, 'AGUA BLANCA DE ITURBIDE', 13),
+(468, 'AJACUBA', 13),
+(469, 'ALFAJAYUCAN', 13),
+(470, 'ALMOLOYA', 13),
+(471, 'APAN', 13),
+(472, 'EL ARENAL', 13),
+(473, 'ATITALAQUIA', 13),
+(474, 'ATLAPEXCO', 13),
+(475, 'ATOTONILCO EL GRANDE', 13),
+(476, 'ATOTONILCO DE TULA', 13),
+(477, 'CALNALI', 13),
+(478, 'CARDONAL', 13),
+(479, 'CUAUTEPEC DE HINOJOSA', 13),
+(480, 'CHAPANTONGO', 13),
+(481, 'CHAPULHUACAN', 13),
+(482, 'CHILCUAUTLA', 13),
+(483, 'ELOXOCHITLAN', 13),
+(484, 'EMILIANO ZAPATA', 13),
+(485, 'EPAZOYUCAN', 13),
+(486, 'FRANCISCO I. MADERO', 13),
+(487, 'HUASCA DE OCAMPO', 13),
+(488, 'HUAUTLA', 13),
+(489, 'HUAZALINGO', 13),
+(490, 'HUEHUETLA', 13),
+(491, 'HUEJUTLA DE REYES', 13),
+(492, 'HUICHAPAN', 13),
+(493, 'IXMIQUILPAN', 13),
+(494, 'JACALA DE LEDEZMA', 13),
+(495, 'JALTOCAN', 13),
+(496, 'JUAREZ HIDALGO', 13),
+(497, 'LOLOTLA', 13),
+(498, 'METEPEC', 13),
+(499, 'SAN AGUSTIN METZQUITITLAN', 13),
+(500, 'METZTITLAN', 13),
+(501, 'MINERAL DEL CHICO', 13),
+(502, 'MINERAL DEL MONTE', 13),
+(503, 'LA MISION', 13),
+(504, 'MIXQUIAHUALA DE JUAREZ', 13),
+(505, 'MOLANGO DE ESCAMILLA', 13),
+(506, 'NICOLAS FLORES', 13),
+(507, 'NOPALA DE VILLAGRAN', 13),
+(508, 'OMITLAN DE JUAREZ', 13),
+(509, 'SAN FELIPE ORIZATLAN', 13),
+(510, 'PACULA', 13),
+(511, 'PACHUCA DE SOTO', 13),
+(512, 'PISAFLORES', 13),
+(513, 'PROGRESO DE OBREGON', 13),
+(514, 'MINERAL DE LA REFORMA', 13),
+(515, 'SAN AGUSTIN TLAXIACA', 13),
+(516, 'SAN BARTOLO TUTOTEPEC', 13),
+(517, 'SAN SALVADOR', 13),
+(518, 'SANTIAGO DE ANAYA', 13),
+(519, 'SANTIAGO TULANTEPEC DE LUGO GUERRERO', 13),
+(520, 'SINGUILUCAN', 13),
+(521, 'TASQUILLO', 13),
+(522, 'TECOZAUTLA', 13),
+(523, 'TENANGO DE DORIA', 13),
+(524, 'TEPEAPULCO', 13),
+(525, 'TEPEHUACAN DE GUERRERO', 13),
+(526, 'TEPEJI DEL RIO DE OCAMPO', 13),
+(527, 'TEPETITLAN', 13),
+(528, 'TETEPANGO', 13),
+(529, 'VILLA DE TEZONTEPEC', 13),
+(530, 'TEZONTEPEC DE ALDAMA', 13),
+(531, 'TIANGUISTENGO', 13),
+(532, 'TIZAYUCA', 13),
+(533, 'TLAHUELILPAN', 13),
+(534, 'TLAHUILTEPA', 13),
+(535, 'TLANALAPA', 13),
+(536, 'TLANCHINOL', 13),
+(537, 'TLAXCOAPAN', 13),
+(538, 'TOLCAYUCA', 13),
+(539, 'TULA DE ALLENDE', 13),
+(540, 'TULANCINGO DE BRAVO', 13),
+(541, 'XOCHIATIPAN', 13),
+(542, 'XOCHICOATLAN', 13),
+(543, 'YAHUALICA', 13),
+(544, 'ZACUALTIPAN DE ANGELES', 13),
+(545, 'ZAPOTLAN DE JUAREZ', 13),
+(546, 'ZEMPOALA', 13),
+(547, 'ZIMAPAN', 13),
+(548, 'ACATIC', 14),
+(549, 'ACATLAN DE JUAREZ', 14),
+(550, 'AHUALULCO DE MERCADO', 14),
+(551, 'AMACUECA', 14),
+(552, 'AMATITAN', 14),
+(553, 'AMECA', 14),
+(554, 'SAN JUANITO DE ESCOBEDO', 14),
+(555, 'ARANDAS', 14),
+(556, 'EL ARENAL', 14),
+(557, 'ATEMAJAC DE BRIZUELA', 14),
+(558, 'ATENGO', 14),
+(559, 'ATENGUILLO', 14),
+(560, 'ATOTONILCO EL ALTO', 14),
+(561, 'ATOYAC', 14),
+(562, 'AUTLAN DE NAVARRO', 14),
+(563, 'AYOTLAN', 14),
+(564, 'AYUTLA', 14),
+(565, 'LA BARCA', 14),
+(566, 'BOLAÑOS', 14),
+(567, 'CABO CORRIENTES', 14),
+(568, 'CASIMIRO CASTILLO', 14),
+(569, 'CIHUATLAN', 14),
+(570, 'ZAPOTLAN EL GRANDE', 14),
+(571, 'COCULA', 14),
+(572, 'COLOTLAN', 14),
+(573, 'CONCEPCION DE BUENOS AIRES', 14),
+(574, 'CUAUTITLAN DE GARCIA BARRAGAN', 14),
+(575, 'CUAUTLA', 14),
+(576, 'CUQUIO', 14),
+(577, 'CHAPALA', 14),
+(578, 'CHIMALTITAN', 14),
+(579, 'CHIQUILISTLAN', 14),
+(580, 'DEGOLLADO', 14),
+(581, 'EJUTLA', 14),
+(582, 'ENCARNACION DE DIAZ', 14),
+(583, 'ETZATLAN', 14),
+(584, 'EL GRULLO', 14),
+(585, 'GUACHINANGO', 14),
+(586, 'GUADALAJARA', 14),
+(587, 'HOSTOTIPAQUILLO', 14),
+(588, 'HUEJUCAR', 14),
+(589, 'HUEJUQUILLA EL ALTO', 14),
+(590, 'LA HUERTA', 14),
+(591, 'IXTLAHUACAN DE LOS MEMBRILLOS', 14),
+(592, 'IXTLAHUACAN DEL RIO', 14),
+(593, 'JALOSTOTITLAN', 14),
+(594, 'JAMAY', 14),
+(595, 'JESUS MARIA', 14),
+(596, 'JILOTLAN DE LOS DOLORES', 14),
+(597, 'JOCOTEPEC', 14),
+(598, 'JUANACATLAN', 14),
+(599, 'JUCHITLAN', 14),
+(600, 'LAGOS DE MORENO', 14),
+(601, 'EL LIMON', 14),
+(602, 'MAGDALENA', 14),
+(603, 'SANTA MARIA DEL ORO', 14),
+(604, 'LA MANZANILLA DE LA PAZ', 14),
+(605, 'MASCOTA', 14),
+(606, 'MAZAMITLA', 14),
+(607, 'MEXTICACAN', 14),
+(608, 'MEZQUITIC', 14),
+(609, 'MIXTLAN', 14),
+(610, 'OCOTLAN', 14),
+(611, 'OJUELOS DE JALISCO', 14),
+(612, 'PIHUAMO', 14),
+(613, 'PONCITLAN', 14),
+(614, 'PUERTO VALLARTA', 14),
+(615, 'VILLA PURIFICACION', 14),
+(616, 'QUITUPAN', 14),
+(617, 'EL SALTO', 14),
+(618, 'SAN CRISTOBAL DE LA BARRANCA', 14),
+(619, 'SAN DIEGO DE ALEJANDRIA', 14),
+(620, 'SAN JUAN DE LOS LAGOS', 14),
+(621, 'SAN JULIAN', 14),
+(622, 'SAN MARCOS', 14),
+(623, 'SAN MARTIN DE BOLAÑOS', 14),
+(624, 'SAN MARTIN HIDALGO', 14),
+(625, 'SAN MIGUEL EL ALTO', 14),
+(626, 'GOMEZ FARIAS', 14),
+(627, 'SAN SEBASTIAN DEL OESTE', 14),
+(628, 'SANTA MARIA DE LOS ANGELES', 14),
+(629, 'SAYULA', 14),
+(630, 'TALA', 14),
+(631, 'TALPA DE ALLENDE', 14),
+(632, 'TAMAZULA DE GORDIANO', 14),
+(633, 'TAPALPA', 14),
+(634, 'TECALITLAN', 14),
+(635, 'TECOLOTLAN', 14),
+(636, 'TECHALUTA DE MONTENEGRO', 14),
+(637, 'TENAMAXTLAN', 14),
+(638, 'TEOCALTICHE', 14),
+(639, 'TEOCUITATLAN DE CORONA', 14),
+(640, 'TEPATITLAN DE MORELOS', 14),
+(641, 'TEQUILA', 14),
+(642, 'TEUCHITLAN', 14),
+(643, 'TIZAPAN EL ALTO', 14),
+(644, 'TLAJOMULCO DE ZUÑIGA', 14),
+(645, 'TLAQUEPAQUE', 14),
+(646, 'TOLIMAN', 14),
+(647, 'TOMATLAN', 14),
+(648, 'TONALA', 14),
+(649, 'TONAYA', 14),
+(650, 'TONILA', 14),
+(651, 'TOTATICHE', 14),
+(652, 'TOTOTLAN', 14),
+(653, 'TUXCACUESCO', 14),
+(654, 'TUXCUECA', 14),
+(655, 'TUXPAN', 14),
+(656, 'UNION DE SAN ANTONIO', 14),
+(657, 'UNION DE TULA', 14),
+(658, 'VALLE DE GUADALUPE', 14),
+(659, 'VALLE DE JUAREZ', 14),
+(660, 'SAN GABRIEL', 14),
+(661, 'VILLA CORONA', 14),
+(662, 'VILLA GUERRERO', 14),
+(663, 'VILLA HIDALGO', 14),
+(664, 'CAÑADAS DE OBREGON', 14),
+(665, 'YAHUALICA DE GONZALEZ GALLO', 14),
+(666, 'ZACOALCO DE TORRES', 14),
+(667, 'ZAPOPAN', 14),
+(668, 'ZAPOTILTIC', 14),
+(669, 'ZAPOTITLAN DE VADILLO', 14),
+(670, 'ZAPOTLAN DEL REY', 14),
+(671, 'ZAPOTLANEJO', 14),
+(672, 'ACAMBAY', 15),
+(673, 'ACOLMAN', 15),
+(674, 'ACULCO', 15),
+(675, 'ALMOLOYA DE ALQUISIRAS', 15),
+(676, 'ALMOLOYA DE JUAREZ', 15),
+(677, 'ALMOLOYA DEL RIO', 15),
+(678, 'AMANALCO', 15),
+(679, 'AMATEPEC', 15),
+(680, 'AMECAMECA', 15),
+(681, 'APAXCO', 15),
+(682, 'ATENCO', 15),
+(683, 'ATIZAPAN', 15),
+(684, 'ATIZAPAN DE ZARAGOZA', 15),
+(685, 'ATLACOMULCO', 15),
+(686, 'ATLAUTLA', 15),
+(687, 'AXAPUSCO', 15),
+(688, 'AYAPANGO', 15),
+(689, 'CALIMAYA', 15),
+(690, 'CAPULHUAC', 15),
+(691, 'COACALCO DE BERRIOZABAL', 15),
+(692, 'COATEPEC HARINAS', 15),
+(693, 'COCOTITLAN', 15),
+(694, 'COYOTEPEC', 15),
+(695, 'CUAUTITLAN', 15),
+(696, 'CHALCO', 15),
+(697, 'CHAPA DE MOTA', 15),
+(698, 'CHAPULTEPEC', 15),
+(699, 'CHIAUTLA', 15),
+(700, 'CHICOLOAPAN', 15),
+(701, 'CHICONCUAC', 15),
+(702, 'CHIMALHUACAN', 15),
+(703, 'DONATO GUERRA', 15),
+(704, 'ECATEPEC DE MORELOS', 15),
+(705, 'ECATZINGO', 15),
+(706, 'HUEHUETOCA', 15),
+(707, 'HUEYPOXTLA', 15),
+(708, 'HUIXQUILUCAN', 15),
+(709, 'ISIDRO FABELA', 15),
+(710, 'IXTAPALUCA', 15),
+(711, 'IXTAPAN DE LA SAL', 15),
+(712, 'IXTAPAN DEL ORO', 15),
+(713, 'IXTLAHUACA', 15),
+(714, 'XALATLACO', 15),
+(715, 'JALTENCO', 15),
+(716, 'JILOTEPEC', 15),
+(717, 'JILOTZINGO', 15),
+(718, 'JIQUIPILCO', 15),
+(719, 'JOCOTITLAN', 15),
+(720, 'JOQUICINGO', 15),
+(721, 'JUCHITEPEC', 15),
+(722, 'LERMA', 15),
+(723, 'MALINALCO', 15),
+(724, 'MELCHOR OCAMPO', 15),
+(725, 'METEPEC', 15),
+(726, 'MEXICALTZINGO', 15),
+(727, 'MORELOS', 15),
+(728, 'NAUCALPAN DE JUAREZ', 15),
+(729, 'NEZAHUALCOYOTL', 15),
+(730, 'NEXTLALPAN', 15),
+(731, 'NICOLAS ROMERO', 15),
+(732, 'NOPALTEPEC', 15),
+(733, 'OCOYOACAC', 15),
+(734, 'OCUILAN', 15),
+(735, 'EL ORO', 15),
+(736, 'OTUMBA', 15),
+(737, 'OTZOLOAPAN', 15),
+(738, 'OTZOLOTEPEC', 15),
+(739, 'OZUMBA', 15),
+(740, 'PAPALOTLA', 15),
+(741, 'LA PAZ', 15),
+(742, 'POLOTITLAN', 15),
+(743, 'RAYON', 15),
+(744, 'SAN ANTONIO LA ISLA', 15),
+(745, 'SAN FELIPE DEL PROGRESO', 15),
+(746, 'SAN MARTIN DE LAS PIRAMIDES', 15),
+(747, 'SAN MATEO ATENCO', 15),
+(748, 'SAN SIMON DE GUERRERO', 15),
+(749, 'SANTO TOMAS', 15),
+(750, 'SOYANIQUILPAN DE JUAREZ', 15),
+(751, 'SULTEPEC', 15),
+(752, 'TECAMAC', 15),
+(753, 'TEJUPILCO', 15),
+(754, 'TEMAMATLA', 15),
+(755, 'TEMASCALAPA', 15),
+(756, 'TEMASCALCINGO', 15),
+(757, 'TEMASCALTEPEC', 15),
+(758, 'TEMOAYA', 15),
+(759, 'TENANCINGO', 15),
+(760, 'TENANGO DEL AIRE', 15),
+(761, 'TENANGO DEL VALLE', 15),
+(762, 'TEOLOYUCAN', 15),
+(763, 'TEOTIHUACAN', 15),
+(764, 'TEPETLAOXTOC', 15),
+(765, 'TEPETLIXPA', 15),
+(766, 'TEPOTZOTLAN', 15),
+(767, 'TEQUIXQUIAC', 15),
+(768, 'TEXCALTITLAN', 15),
+(769, 'TEXCALYACAC', 15),
+(770, 'TEXCOCO', 15),
+(771, 'TEZOYUCA', 15),
+(772, 'TIANGUISTENCO', 15),
+(773, 'TIMILPAN', 15),
+(774, 'TLALMANALCO', 15),
+(775, 'TLALNEPANTLA DE BAZ', 15),
+(776, 'TLATLAYA', 15),
+(777, 'TOLUCA', 15),
+(778, 'TONATICO', 15),
+(779, 'TULTEPEC', 15),
+(780, 'TULTITLAN', 15),
+(781, 'VALLE DE BRAVO', 15),
+(782, 'VILLA DE ALLENDE', 15),
+(783, 'VILLA DEL CARBON', 15),
+(784, 'VILLA GUERRERO', 15),
+(785, 'VILLA VICTORIA', 15),
+(786, 'XONACATLAN', 15),
+(787, 'ZACAZONAPAN', 15),
+(788, 'ZACUALPAN', 15),
+(789, 'ZINACANTEPEC', 15),
+(790, 'ZUMPAHUACAN', 15),
+(791, 'ZUMPANGO', 15),
+(792, 'CUAUTITLAN IZCALLI', 15),
+(793, 'VALLE DE CHALCO SOLIDARIDAD', 15),
+(794, 'LUVIANOS', 15),
+(795, 'SAN JOSE DEL RINCON', 15),
+(796, 'TONANITLA', 15),
+(797, 'ACUITZIO', 16),
+(798, 'AGUILILLA', 16),
+(799, 'ALVARO OBREGON', 16),
+(800, 'ANGAMACUTIRO', 16),
+(801, 'ANGANGUEO', 16),
+(802, 'APATZINGAN', 16),
+(803, 'APORO', 16),
+(804, 'AQUILA', 16),
+(805, 'ARIO', 16),
+(806, 'ARTEAGA', 16),
+(807, 'BRISEÑAS', 16),
+(808, 'BUENAVISTA', 16),
+(809, 'CARACUARO', 16),
+(810, 'COAHUAYANA', 16),
+(811, 'COALCOMAN DE VAZQUEZ PALLARES', 16),
+(812, 'COENEO', 16),
+(813, 'CONTEPEC', 16),
+(814, 'COPANDARO', 16),
+(815, 'COTIJA', 16),
+(816, 'CUITZEO', 16),
+(817, 'CHARAPAN', 16),
+(818, 'CHARO', 16),
+(819, 'CHAVINDA', 16),
+(820, 'CHERAN', 16),
+(821, 'CHILCHOTA', 16),
+(822, 'CHINICUILA', 16),
+(823, 'CHUCANDIRO', 16),
+(824, 'CHURINTZIO', 16),
+(825, 'CHURUMUCO', 16),
+(826, 'ECUANDUREO', 16),
+(827, 'EPITACIO HUERTA', 16),
+(828, 'ERONGARICUARO', 16),
+(829, 'GABRIEL ZAMORA', 16),
+(830, 'HIDALGO', 16),
+(831, 'LA HUACANA', 16),
+(832, 'HUANDACAREO', 16),
+(833, 'HUANIQUEO', 16),
+(834, 'HUETAMO', 16),
+(835, 'HUIRAMBA', 16),
+(836, 'INDAPARAPEO', 16),
+(837, 'IRIMBO', 16),
+(838, 'IXTLAN', 16),
+(839, 'JACONA', 16),
+(840, 'JIMENEZ', 16),
+(841, 'JIQUILPAN', 16),
+(842, 'JUAREZ', 16),
+(843, 'JUNGAPEO', 16),
+(844, 'LAGUNILLAS', 16),
+(845, 'MADERO', 16),
+(846, 'MARAVATIO', 16),
+(847, 'MARCOS CASTELLANOS', 16),
+(848, 'LAZARO CARDENAS', 16),
+(849, 'MORELIA', 16),
+(850, 'MORELOS', 16),
+(851, 'MUGICA', 16),
+(852, 'NAHUATZEN', 16),
+(853, 'NOCUPETARO', 16),
+(854, 'NUEVO PARANGARICUTIRO', 16),
+(855, 'NUEVO URECHO', 16),
+(856, 'NUMARAN', 16),
+(857, 'OCAMPO', 16),
+(858, 'PAJACUARAN', 16),
+(859, 'PANINDICUARO', 16),
+(860, 'PARACUARO', 16),
+(861, 'PARACHO', 16),
+(862, 'PATZCUARO', 16),
+(863, 'PENJAMILLO', 16),
+(864, 'PERIBAN', 16),
+(865, 'LA PIEDAD', 16),
+(866, 'PUREPERO', 16),
+(867, 'PURUANDIRO', 16),
+(868, 'QUERENDARO', 16),
+(869, 'QUIROGA', 16),
+(870, 'COJUMATLAN DE REGULES', 16),
+(871, 'LOS REYES', 16),
+(872, 'SAHUAYO', 16),
+(873, 'SAN LUCAS', 16),
+(874, 'SANTA ANA MAYA', 16),
+(875, 'SALVADOR ESCALANTE', 16),
+(876, 'SENGUIO', 16),
+(877, 'SUSUPUATO', 16),
+(878, 'TACAMBARO', 16),
+(879, 'TANCITARO', 16),
+(880, 'TANGAMANDAPIO', 16),
+(881, 'TANGANCICUARO', 16),
+(882, 'TANHUATO', 16),
+(883, 'TARETAN', 16),
+(884, 'TARIMBARO', 16),
+(885, 'TEPALCATEPEC', 16),
+(886, 'TINGAMBATO', 16),
+(887, 'TINGÜINDIN', 16),
+(888, 'TIQUICHEO DE NICOLAS ROMERO', 16),
+(889, 'TLALPUJAHUA', 16),
+(890, 'TLAZAZALCA', 16),
+(891, 'TOCUMBO', 16),
+(892, 'TUMBISCATIO', 16),
+(893, 'TURICATO', 16),
+(894, 'TUXPAN', 16),
+(895, 'TUZANTLA', 16),
+(896, 'TZINTZUNTZAN', 16),
+(897, 'TZITZIO', 16),
+(898, 'URUAPAN', 16),
+(899, 'VENUSTIANO CARRANZA', 16),
+(900, 'VILLAMAR', 16),
+(901, 'VISTA HERMOSA', 16),
+(902, 'YURECUARO', 16),
+(903, 'ZACAPU', 16),
+(904, 'ZAMORA', 16),
+(905, 'ZINAPARO', 16),
+(906, 'ZINAPECUARO', 16),
+(907, 'ZIRACUARETIRO', 16),
+(908, 'ZITACUARO', 16),
+(909, 'JOSE SIXTO VERDUZCO', 16),
+(910, 'AMACUZAC', 17),
+(911, 'ATLATLAHUCAN', 17),
+(912, 'AXOCHIAPAN', 17),
+(913, 'AYALA', 17),
+(914, 'COATLAN DEL RIO', 17),
+(915, 'CUAUTLA', 17),
+(916, 'CUERNAVACA', 17),
+(917, 'EMILIANO ZAPATA', 17),
+(918, 'HUITZILAC', 17),
+(919, 'JANTETELCO', 17),
+(920, 'JIUTEPEC', 17),
+(921, 'JOJUTLA', 17),
+(922, 'JONACATEPEC', 17),
+(923, 'MAZATEPEC', 17),
+(924, 'MIACATLAN', 17),
+(925, 'OCUITUCO', 17),
+(926, 'PUENTE DE IXTLA', 17),
+(927, 'TEMIXCO', 17),
+(928, 'TEPALCINGO', 17),
+(929, 'TEPOZTLAN', 17),
+(930, 'TETECALA', 17),
+(931, 'TETELA DEL VOLCAN', 17),
+(932, 'TLALNEPANTLA', 17),
+(933, 'TLALTIZAPAN', 17),
+(934, 'TLAQUILTENANGO', 17),
+(935, 'TLAYACAPAN', 17),
+(936, 'TOTOLAPAN', 17),
+(937, 'XOCHITEPEC', 17),
+(938, 'YAUTEPEC', 17),
+(939, 'YECAPIXTLA', 17),
+(940, 'ZACATEPEC DE HIDALGO', 17),
+(941, 'ZACUALPAN DE AMILPAS', 17),
+(942, 'TEMOAC', 17),
+(943, 'ACAPONETA', 18),
+(944, 'AHUACATLAN', 18),
+(945, 'AMATLAN DE CAÑAS', 18),
+(946, 'COMPOSTELA', 18),
+(947, 'HUAJICORI', 18),
+(948, 'IXTLAN DEL RIO', 18),
+(949, 'JALA', 18),
+(950, 'XALISCO', 18),
+(951, 'DEL NAYAR', 18),
+(952, 'ROSAMORADA', 18),
+(953, 'RUIZ', 18),
+(954, 'SAN BLAS', 18),
+(955, 'SAN PEDRO LAGUNILLAS', 18),
+(956, 'SANTA MARIA DEL ORO', 18),
+(957, 'SANTIAGO IXCUINTLA', 18),
+(958, 'TECUALA', 18),
+(959, 'TEPIC', 18),
+(960, 'TUXPAN', 18),
+(961, 'LA YESCA', 18),
+(962, 'BAHIA DE BANDERAS', 18),
+(963, 'ABASOLO', 19),
+(964, 'AGUALEGUAS', 19),
+(965, 'LOS ALDAMAS', 19),
+(966, 'ALLENDE', 19),
+(967, 'ANAHUAC', 19),
+(968, 'APODACA', 19),
+(969, 'ARAMBERRI', 19),
+(970, 'BUSTAMANTE', 19),
+(971, 'CADEREYTA JIMENEZ', 19),
+(972, 'CARMEN', 19),
+(973, 'CERRALVO', 19),
+(974, 'CIENEGA DE FLORES', 19),
+(975, 'CHINA', 19),
+(976, 'DR. ARROYO', 19),
+(977, 'DR. COSS', 19),
+(978, 'DR. GONZALEZ', 19),
+(979, 'GALEANA', 19),
+(980, 'GARCIA', 19),
+(981, 'SAN PEDRO GARZA GARCIA', 19),
+(982, 'GRAL. BRAVO', 19),
+(983, 'GRAL. ESCOBEDO', 19),
+(984, 'GRAL. TERAN', 19),
+(985, 'GRAL. TREVIÑO', 19),
+(986, 'GRAL. ZARAGOZA', 19),
+(987, 'GRAL. ZUAZUA', 19),
+(988, 'GUADALUPE', 19),
+(989, 'LOS HERRERAS', 19),
+(990, 'HIGUERAS', 19),
+(991, 'HUALAHUISES', 19),
+(992, 'ITURBIDE', 19),
+(993, 'JUAREZ', 19),
+(994, 'LAMPAZOS DE NARANJO', 19),
+(995, 'LINARES', 19),
+(996, 'MARIN', 19),
+(997, 'MELCHOR OCAMPO', 19),
+(998, 'MIER Y NORIEGA', 19),
+(999, 'MINA', 19),
+(1000, 'MONTEMORELOS', 19),
+(1001, 'MONTERREY', 19),
+(1002, 'PARAS', 19),
+(1003, 'PESQUERIA', 19),
+(1004, 'LOS RAMONES', 19),
+(1005, 'RAYONES', 19),
+(1006, 'SABINAS HIDALGO', 19),
+(1007, 'SALINAS VICTORIA', 19),
+(1008, 'SAN NICOLAS DE LOS GARZA', 19),
+(1009, 'HIDALGO', 19),
+(1010, 'SANTA CATARINA', 19),
+(1011, 'SANTIAGO', 19),
+(1012, 'VALLECILLO', 19),
+(1013, 'VILLALDAMA', 19),
+(1014, 'ABEJONES', 20),
+(1015, 'ACATLAN DE PEREZ FIGUEROA', 20),
+(1016, 'ASUNCION CACALOTEPEC', 20),
+(1017, 'ASUNCION CUYOTEPEJI', 20),
+(1018, 'ASUNCION IXTALTEPEC', 20),
+(1019, 'ASUNCION NOCHIXTLAN', 20),
+(1020, 'ASUNCION OCOTLAN', 20),
+(1021, 'ASUNCION TLACOLULITA', 20),
+(1022, 'AYOTZINTEPEC', 20),
+(1023, 'EL BARRIO DE LA SOLEDAD', 20),
+(1024, 'CALIHUALA', 20),
+(1025, 'CANDELARIA LOXICHA', 20),
+(1026, 'CIENEGA DE ZIMATLAN', 20),
+(1027, 'CIUDAD IXTEPEC', 20),
+(1028, 'COATECAS ALTAS', 20),
+(1029, 'COICOYAN DE LAS FLORES', 20),
+(1030, 'LA COMPAÑIA', 20),
+(1031, 'CONCEPCION BUENAVISTA', 20),
+(1032, 'CONCEPCION PAPALO', 20),
+(1033, 'CONSTANCIA DEL ROSARIO', 20),
+(1034, 'COSOLAPA', 20),
+(1035, 'COSOLTEPEC', 20),
+(1036, 'CUILAPAM DE GUERRERO', 20),
+(1037, 'CUYAMECALCO VILLA DE ZARAGOZA', 20),
+(1038, 'CHAHUITES', 20),
+(1039, 'CHALCATONGO DE HIDALGO', 20),
+(1040, 'CHIQUIHUITLAN DE BENITO JUAREZ', 20),
+(1041, 'HEROICA CIUDAD DE EJUTLA DE CRESPO', 20),
+(1042, 'ELOXOCHITLAN DE FLORES MAGON', 20),
+(1043, 'EL ESPINAL', 20),
+(1044, 'TAMAZULAPAM DEL ESPIRITU SANTO', 20),
+(1045, 'FRESNILLO DE TRUJANO', 20),
+(1046, 'GUADALUPE ETLA', 20),
+(1047, 'GUADALUPE DE RAMIREZ', 20),
+(1048, 'GUELATAO DE JUAREZ', 20),
+(1049, 'GUEVEA DE HUMBOLDT', 20),
+(1050, 'MESONES HIDALGO', 20),
+(1051, 'VILLA HIDALGO', 20),
+(1052, 'HEROICA CIUDAD DE HUAJUAPAN DE LEON', 20),
+(1053, 'HUAUTEPEC', 20),
+(1054, 'HUAUTLA DE JIMENEZ', 20),
+(1055, 'IXTLAN DE JUAREZ', 20),
+(1056, 'JUCHITAN DE ZARAGOZA', 20),
+(1057, 'LOMA BONITA', 20),
+(1058, 'MAGDALENA APASCO', 20),
+(1059, 'MAGDALENA JALTEPEC', 20),
+(1060, 'SANTA MAGDALENA JICOTLAN', 20),
+(1061, 'MAGDALENA MIXTEPEC', 20),
+(1062, 'MAGDALENA OCOTLAN', 20),
+(1063, 'MAGDALENA PEÑASCO', 20),
+(1064, 'MAGDALENA TEITIPAC', 20),
+(1065, 'MAGDALENA TEQUISISTLAN', 20),
+(1066, 'MAGDALENA TLACOTEPEC', 20),
+(1067, 'MAGDALENA ZAHUATLAN', 20),
+(1068, 'MARISCALA DE JUAREZ', 20),
+(1069, 'MARTIRES DE TACUBAYA', 20),
+(1070, 'MATIAS ROMERO AVENDAÑO', 20),
+(1071, 'MAZATLAN VILLA DE FLORES', 20),
+(1072, 'MIAHUATLAN DE PORFIRIO DIAZ', 20),
+(1073, 'MIXISTLAN DE LA REFORMA', 20),
+(1074, 'MONJAS', 20),
+(1075, 'NATIVIDAD', 20),
+(1076, 'NAZARENO ETLA', 20),
+(1077, 'NEJAPA DE MADERO', 20),
+(1078, 'IXPANTEPEC NIEVES', 20),
+(1079, 'SANTIAGO NILTEPEC', 20),
+(1080, 'OAXACA DE JUAREZ', 20),
+(1081, 'OCOTLAN DE MORELOS', 20),
+(1082, 'LA PE', 20),
+(1083, 'PINOTEPA DE DON LUIS', 20),
+(1084, 'PLUMA HIDALGO', 20),
+(1085, 'SAN JOSE DEL PROGRESO', 20),
+(1086, 'PUTLA VILLA DE GUERRERO', 20),
+(1087, 'SANTA CATARINA QUIOQUITANI', 20),
+(1088, 'REFORMA DE PINEDA', 20),
+(1089, 'LA REFORMA', 20),
+(1090, 'REYES ETLA', 20),
+(1091, 'ROJAS DE CUAUHTEMOC', 20),
+(1092, 'SALINA CRUZ', 20),
+(1093, 'SAN AGUSTIN AMATENGO', 20),
+(1094, 'SAN AGUSTIN ATENANGO', 20),
+(1095, 'SAN AGUSTIN CHAYUCO', 20),
+(1096, 'SAN AGUSTIN DE LAS JUNTAS', 20),
+(1097, 'SAN AGUSTIN ETLA', 20),
+(1098, 'SAN AGUSTIN LOXICHA', 20),
+(1099, 'SAN AGUSTIN TLACOTEPEC', 20),
+(1100, 'SAN AGUSTIN YATARENI', 20),
+(1101, 'SAN ANDRES CABECERA NUEVA', 20),
+(1102, 'SAN ANDRES DINICUITI', 20),
+(1103, 'SAN ANDRES HUAXPALTEPEC', 20),
+(1104, 'SAN ANDRES HUAYAPAM', 20),
+(1105, 'SAN ANDRES IXTLAHUACA', 20),
+(1106, 'SAN ANDRES LAGUNAS', 20),
+(1107, 'SAN ANDRES NUXIÑO', 20),
+(1108, 'SAN ANDRES PAXTLAN', 20),
+(1109, 'SAN ANDRES SINAXTLA', 20),
+(1110, 'SAN ANDRES SOLAGA', 20),
+(1111, 'SAN ANDRES TEOTILALPAM', 20),
+(1112, 'SAN ANDRES TEPETLAPA', 20),
+(1113, 'SAN ANDRES YAA', 20),
+(1114, 'SAN ANDRES ZABACHE', 20),
+(1115, 'SAN ANDRES ZAUTLA', 20),
+(1116, 'SAN ANTONINO CASTILLO VELASCO', 20),
+(1117, 'SAN ANTONINO EL ALTO', 20),
+(1118, 'SAN ANTONINO MONTE VERDE', 20),
+(1119, 'SAN ANTONIO ACUTLA', 20),
+(1120, 'SAN ANTONIO DE LA CAL', 20),
+(1121, 'SAN ANTONIO HUITEPEC', 20),
+(1122, 'SAN ANTONIO NANAHUATIPAM', 20),
+(1123, 'SAN ANTONIO SINICAHUA', 20),
+(1124, 'SAN ANTONIO TEPETLAPA', 20),
+(1125, 'SAN BALTAZAR CHICHICAPAM', 20),
+(1126, 'SAN BALTAZAR LOXICHA', 20),
+(1127, 'SAN BALTAZAR YATZACHI EL BAJO', 20),
+(1128, 'SAN BARTOLO COYOTEPEC', 20),
+(1129, 'SAN BARTOLOME AYAUTLA', 20),
+(1130, 'SAN BARTOLOME LOXICHA', 20),
+(1131, 'SAN BARTOLOME QUIALANA', 20),
+(1132, 'SAN BARTOLOME YUCUAÑE', 20),
+(1133, 'SAN BARTOLOME ZOOGOCHO', 20),
+(1134, 'SAN BARTOLO SOYALTEPEC', 20),
+(1135, 'SAN BARTOLO YAUTEPEC', 20),
+(1136, 'SAN BERNARDO MIXTEPEC', 20),
+(1137, 'SAN BLAS ATEMPA', 20),
+(1138, 'SAN CARLOS YAUTEPEC', 20),
+(1139, 'SAN CRISTOBAL AMATLAN', 20),
+(1140, 'SAN CRISTOBAL AMOLTEPEC', 20),
+(1141, 'SAN CRISTOBAL LACHIRIOAG', 20),
+(1142, 'SAN CRISTOBAL SUCHIXTLAHUACA', 20),
+(1143, 'SAN DIONISIO DEL MAR', 20),
+(1144, 'SAN DIONISIO OCOTEPEC', 20),
+(1145, 'SAN DIONISIO OCOTLAN', 20),
+(1146, 'SAN ESTEBAN ATATLAHUCA', 20),
+(1147, 'SAN FELIPE JALAPA DE DIAZ', 20),
+(1148, 'SAN FELIPE TEJALAPAM', 20),
+(1149, 'SAN FELIPE USILA', 20),
+(1150, 'SAN FRANCISCO CAHUACUA', 20),
+(1151, 'SAN FRANCISCO CAJONOS', 20),
+(1152, 'SAN FRANCISCO CHAPULAPA', 20),
+(1153, 'SAN FRANCISCO CHINDUA', 20),
+(1154, 'SAN FRANCISCO DEL MAR', 20),
+(1155, 'SAN FRANCISCO HUEHUETLAN', 20),
+(1156, 'SAN FRANCISCO IXHUATAN', 20),
+(1157, 'SAN FRANCISCO JALTEPETONGO', 20),
+(1158, 'SAN FRANCISCO LACHIGOLO', 20),
+(1159, 'SAN FRANCISCO LOGUECHE', 20),
+(1160, 'SAN FRANCISCO NUXAÑO', 20),
+(1161, 'SAN FRANCISCO OZOLOTEPEC', 20),
+(1162, 'SAN FRANCISCO SOLA', 20),
+(1163, 'SAN FRANCISCO TELIXTLAHUACA', 20),
+(1164, 'SAN FRANCISCO TEOPAN', 20),
+(1165, 'SAN FRANCISCO TLAPANCINGO', 20),
+(1166, 'SAN GABRIEL MIXTEPEC', 20),
+(1167, 'SAN ILDEFONSO AMATLAN', 20),
+(1168, 'SAN ILDEFONSO SOLA', 20),
+(1169, 'SAN ILDEFONSO VILLA ALTA', 20),
+(1170, 'SAN JACINTO AMILPAS', 20),
+(1171, 'SAN JACINTO TLACOTEPEC', 20),
+(1172, 'SAN JERONIMO COATLAN', 20),
+(1173, 'SAN JERONIMO SILACAYOAPILLA', 20),
+(1174, 'SAN JERONIMO SOSOLA', 20),
+(1175, 'SAN JERONIMO TAVICHE', 20),
+(1176, 'SAN JERONIMO TECOATL', 20),
+(1177, 'SAN JORGE NUCHITA', 20),
+(1178, 'SAN JOSE AYUQUILA', 20),
+(1179, 'SAN JOSE CHILTEPEC', 20),
+(1180, 'SAN JOSE DEL PEÑASCO', 20),
+(1181, 'SAN JOSE ESTANCIA GRANDE', 20),
+(1182, 'SAN JOSE INDEPENDENCIA', 20),
+(1183, 'SAN JOSE LACHIGUIRI', 20),
+(1184, 'SAN JOSE TENANGO', 20),
+(1185, 'SAN JUAN ACHIUTLA', 20),
+(1186, 'SAN JUAN ATEPEC', 20),
+(1187, 'ANIMAS TRUJANO', 20),
+(1188, 'SAN JUAN BAUTISTA ATATLAHUCA', 20),
+(1189, 'SAN JUAN BAUTISTA COIXTLAHUACA', 20),
+(1190, 'SAN JUAN BAUTISTA CUICATLAN', 20),
+(1191, 'SAN JUAN BAUTISTA GUELACHE', 20),
+(1192, 'SAN JUAN BAUTISTA JAYACATLAN', 20),
+(1193, 'SAN JUAN BAUTISTA LO DE SOTO', 20),
+(1194, 'SAN JUAN BAUTISTA SUCHITEPEC', 20),
+(1195, 'SAN JUAN BAUTISTA TLACOATZINTEPEC', 20),
+(1196, 'SAN JUAN BAUTISTA TLACHICHILCO', 20),
+(1197, 'SAN JUAN BAUTISTA TUXTEPEC', 20),
+(1198, 'SAN JUAN CACAHUATEPEC', 20),
+(1199, 'SAN JUAN CIENEGUILLA', 20),
+(1200, 'SAN JUAN COATZOSPAM', 20),
+(1201, 'SAN JUAN COLORADO', 20),
+(1202, 'SAN JUAN COMALTEPEC', 20),
+(1203, 'SAN JUAN COTZOCON', 20),
+(1204, 'SAN JUAN CHICOMEZUCHIL', 20),
+(1205, 'SAN JUAN CHILATECA', 20),
+(1206, 'SAN JUAN DEL ESTADO', 20),
+(1207, 'SAN JUAN DEL RIO', 20),
+(1208, 'SAN JUAN DIUXI', 20),
+(1209, 'SAN JUAN EVANGELISTA ANALCO', 20),
+(1210, 'SAN JUAN GUELAVIA', 20),
+(1211, 'SAN JUAN GUICHICOVI', 20),
+(1212, 'SAN JUAN IHUALTEPEC', 20),
+(1213, 'SAN JUAN JUQUILA MIXES', 20),
+(1214, 'SAN JUAN JUQUILA VIJANOS', 20),
+(1215, 'SAN JUAN LACHAO', 20),
+(1216, 'SAN JUAN LACHIGALLA', 20),
+(1217, 'SAN JUAN LAJARCIA', 20),
+(1218, 'SAN JUAN LALANA', 20),
+(1219, 'SAN JUAN DE LOS CUES', 20),
+(1220, 'SAN JUAN MAZATLAN', 20),
+(1221, 'SAN JUAN MIXTEPEC - DTO. 08 -', 20),
+(1222, 'SAN JUAN MIXTEPEC - DTO. 26 -', 20),
+(1223, 'SAN JUAN ÑUMI', 20),
+(1224, 'SAN JUAN OZOLOTEPEC', 20),
+(1225, 'SAN JUAN PETLAPA', 20),
+(1226, 'SAN JUAN QUIAHIJE', 20),
+(1227, 'SAN JUAN QUIOTEPEC', 20),
+(1228, 'SAN JUAN SAYULTEPEC', 20),
+(1229, 'SAN JUAN TABAA', 20),
+(1230, 'SAN JUAN TAMAZOLA', 20),
+(1231, 'SAN JUAN TEITA', 20),
+(1232, 'SAN JUAN TEITIPAC', 20),
+(1233, 'SAN JUAN TEPEUXILA', 20),
+(1234, 'SAN JUAN TEPOSCOLULA', 20),
+(1235, 'SAN JUAN YAEE', 20),
+(1236, 'SAN JUAN YATZONA', 20),
+(1237, 'SAN JUAN YUCUITA', 20),
+(1238, 'SAN LORENZO', 20),
+(1239, 'SAN LORENZO ALBARRADAS', 20),
+(1240, 'SAN LORENZO CACAOTEPEC', 20),
+(1241, 'SAN LORENZO CUAUNECUILTITLA', 20),
+(1242, 'SAN LORENZO TEXMELUCAN', 20),
+(1243, 'SAN LORENZO VICTORIA', 20),
+(1244, 'SAN LUCAS CAMOTLAN', 20),
+(1245, 'SAN LUCAS OJITLAN', 20),
+(1246, 'SAN LUCAS QUIAVINI', 20),
+(1247, 'SAN LUCAS ZOQUIAPAM', 20),
+(1248, 'SAN LUIS AMATLAN', 20),
+(1249, 'SAN MARCIAL OZOLOTEPEC', 20),
+(1250, 'SAN MARCOS ARTEAGA', 20),
+(1251, 'SAN MARTIN DE LOS CANSECOS', 20),
+(1252, 'SAN MARTIN HUAMELULPAM', 20),
+(1253, 'SAN MARTIN ITUNYOSO', 20),
+(1254, 'SAN MARTIN LACHILA', 20),
+(1255, 'SAN MARTIN PERAS', 20),
+(1256, 'SAN MARTIN TILCAJETE', 20),
+(1257, 'SAN MARTIN TOXPALAN', 20),
+(1258, 'SAN MARTIN ZACATEPEC', 20),
+(1259, 'SAN MATEO CAJONOS', 20),
+(1260, 'CAPULALPAM DE MENDEZ', 20),
+(1261, 'SAN MATEO DEL MAR', 20),
+(1262, 'SAN MATEO YOLOXOCHITLAN', 20),
+(1263, 'SAN MATEO ETLATONGO', 20),
+(1264, 'SAN MATEO NEJAPAM', 20),
+(1265, 'SAN MATEO PEÑASCO', 20),
+(1266, 'SAN MATEO PIÑAS', 20),
+(1267, 'SAN MATEO RIO HONDO', 20),
+(1268, 'SAN MATEO SINDIHUI', 20),
+(1269, 'SAN MATEO TLAPILTEPEC', 20),
+(1270, 'SAN MELCHOR BETAZA', 20),
+(1271, 'SAN MIGUEL ACHIUTLA', 20),
+(1272, 'SAN MIGUEL AHUEHUETITLAN', 20),
+(1273, 'SAN MIGUEL ALOAPAM', 20),
+(1274, 'SAN MIGUEL AMATITLAN', 20),
+(1275, 'SAN MIGUEL AMATLAN', 20),
+(1276, 'SAN MIGUEL COATLAN', 20),
+(1277, 'SAN MIGUEL CHICAHUA', 20),
+(1278, 'SAN MIGUEL CHIMALAPA', 20),
+(1279, 'SAN MIGUEL DEL PUERTO', 20),
+(1280, 'SAN MIGUEL DEL RIO', 20),
+(1281, 'SAN MIGUEL EJUTLA', 20),
+(1282, 'SAN MIGUEL EL GRANDE', 20),
+(1283, 'SAN MIGUEL HUAUTLA', 20),
+(1284, 'SAN MIGUEL MIXTEPEC', 20),
+(1285, 'SAN MIGUEL PANIXTLAHUACA', 20),
+(1286, 'SAN MIGUEL PERAS', 20),
+(1287, 'SAN MIGUEL PIEDRAS', 20),
+(1288, 'SAN MIGUEL QUETZALTEPEC', 20),
+(1289, 'SAN MIGUEL SANTA FLOR', 20),
+(1290, 'VILLA SOLA DE VEGA', 20),
+(1291, 'SAN MIGUEL SOYALTEPEC', 20),
+(1292, 'SAN MIGUEL SUCHIXTEPEC', 20),
+(1293, 'VILLA TALEA DE CASTRO', 20),
+(1294, 'SAN MIGUEL TECOMATLAN', 20),
+(1295, 'SAN MIGUEL TENANGO', 20),
+(1296, 'SAN MIGUEL TEQUIXTEPEC', 20),
+(1297, 'SAN MIGUEL TILQUIAPAM', 20),
+(1298, 'SAN MIGUEL TLACAMAMA', 20),
+(1299, 'SAN MIGUEL TLACOTEPEC', 20),
+(1300, 'SAN MIGUEL TULANCINGO', 20),
+(1301, 'SAN MIGUEL YOTAO', 20),
+(1302, 'SAN NICOLAS', 20),
+(1303, 'SAN NICOLAS HIDALGO', 20),
+(1304, 'SAN PABLO COATLAN', 20),
+(1305, 'SAN PABLO CUATRO VENADOS', 20),
+(1306, 'SAN PABLO ETLA', 20),
+(1307, 'SAN PABLO HUITZO', 20),
+(1308, 'SAN PABLO HUIXTEPEC', 20),
+(1309, 'SAN PABLO MACUILTIANGUIS', 20),
+(1310, 'SAN PABLO TIJALTEPEC', 20),
+(1311, 'SAN PABLO VILLA DE MITLA', 20),
+(1312, 'SAN PABLO YAGANIZA', 20),
+(1313, 'SAN PEDRO AMUZGOS', 20),
+(1314, 'SAN PEDRO APOSTOL', 20),
+(1315, 'SAN PEDRO ATOYAC', 20),
+(1316, 'SAN PEDRO CAJONOS', 20),
+(1317, 'SAN PEDRO COXCALTEPEC CANTAROS', 20),
+(1318, 'SAN PEDRO COMITANCILLO', 20),
+(1319, 'SAN PEDRO EL ALTO', 20),
+(1320, 'SAN PEDRO HUAMELULA', 20),
+(1321, 'SAN PEDRO HUILOTEPEC', 20),
+(1322, 'SAN PEDRO IXCATLAN', 20),
+(1323, 'SAN PEDRO IXTLAHUACA', 20),
+(1324, 'SAN PEDRO JALTEPETONGO', 20),
+(1325, 'SAN PEDRO JICAYAN', 20),
+(1326, 'SAN PEDRO JOCOTIPAC', 20),
+(1327, 'SAN PEDRO JUCHATENGO', 20),
+(1328, 'SAN PEDRO MARTIR', 20),
+(1329, 'SAN PEDRO MARTIR QUIECHAPA', 20),
+(1330, 'SAN PEDRO MARTIR YUCUXACO', 20),
+(1331, 'SAN PEDRO MIXTEPEC - DTO. 22 -', 20),
+(1332, 'SAN PEDRO MIXTEPEC - DTO. 26 -', 20),
+(1333, 'SAN PEDRO MOLINOS', 20),
+(1334, 'SAN PEDRO NOPALA', 20),
+(1335, 'SAN PEDRO OCOPETATILLO', 20),
+(1336, 'SAN PEDRO OCOTEPEC', 20),
+(1337, 'SAN PEDRO POCHUTLA', 20),
+(1338, 'SAN PEDRO QUIATONI', 20),
+(1339, 'SAN PEDRO SOCHIAPAM', 20),
+(1340, 'SAN PEDRO TAPANATEPEC', 20),
+(1341, 'SAN PEDRO TAVICHE', 20),
+(1342, 'SAN PEDRO TEOZACOALCO', 20),
+(1343, 'SAN PEDRO TEUTILA', 20),
+(1344, 'SAN PEDRO TIDAA', 20),
+(1345, 'SAN PEDRO TOPILTEPEC', 20),
+(1346, 'SAN PEDRO TOTOLAPA', 20),
+(1347, 'VILLA DE TUTUTEPEC DE MELCHOR OCAMPO', 20),
+(1348, 'SAN PEDRO YANERI', 20),
+(1349, 'SAN PEDRO YOLOX', 20),
+(1350, 'SAN PEDRO Y SAN PABLO AYUTLA', 20),
+(1351, 'VILLA DE ETLA', 20),
+(1352, 'SAN PEDRO Y SAN PABLO TEPOSCOLULA', 20),
+(1353, 'SAN PEDRO Y SAN PABLO TEQUIXTEPEC', 20),
+(1354, 'SAN PEDRO YUCUNAMA', 20),
+(1355, 'SAN RAYMUNDO JALPAN', 20),
+(1356, 'SAN SEBASTIAN ABASOLO', 20),
+(1357, 'SAN SEBASTIAN COATLAN', 20),
+(1358, 'SAN SEBASTIAN IXCAPA', 20),
+(1359, 'SAN SEBASTIAN NICANANDUTA', 20),
+(1360, 'SAN SEBASTIAN RIO HONDO', 20),
+(1361, 'SAN SEBASTIAN TECOMAXTLAHUACA', 20),
+(1362, 'SAN SEBASTIAN TEITIPAC', 20),
+(1363, 'SAN SEBASTIAN TUTLA', 20),
+(1364, 'SAN SIMON ALMOLONGAS', 20),
+(1365, 'SAN SIMON ZAHUATLAN', 20),
+(1366, 'SANTA ANA', 20),
+(1367, 'SANTA ANA ATEIXTLAHUACA', 20),
+(1368, 'SANTA ANA CUAUHTEMOC', 20),
+(1369, 'SANTA ANA DEL VALLE', 20),
+(1370, 'SANTA ANA TAVELA', 20),
+(1371, 'SANTA ANA TLAPACOYAN', 20),
+(1372, 'SANTA ANA YARENI', 20),
+(1373, 'SANTA ANA ZEGACHE', 20),
+(1374, 'SANTA CATALINA QUIERI', 20),
+(1375, 'SANTA CATARINA CUIXTLA', 20),
+(1376, 'SANTA CATARINA IXTEPEJI', 20),
+(1377, 'SANTA CATARINA JUQUILA', 20),
+(1378, 'SANTA CATARINA LACHATAO', 20),
+(1379, 'SANTA CATARINA LOXICHA', 20),
+(1380, 'SANTA CATARINA MECHOACAN', 20),
+(1381, 'SANTA CATARINA MINAS', 20),
+(1382, 'SANTA CATARINA QUIANE', 20),
+(1383, 'SANTA CATARINA TAYATA', 20),
+(1384, 'SANTA CATARINA TICUA', 20),
+(1385, 'SANTA CATARINA YOSONOTU', 20),
+(1386, 'SANTA CATARINA ZAPOQUILA', 20),
+(1387, 'SANTA CRUZ ACATEPEC', 20),
+(1388, 'SANTA CRUZ AMILPAS', 20),
+(1389, 'SANTA CRUZ DE BRAVO', 20),
+(1390, 'SANTA CRUZ ITUNDUJIA', 20),
+(1391, 'SANTA CRUZ MIXTEPEC', 20),
+(1392, 'SANTA CRUZ NUNDACO', 20),
+(1393, 'SANTA CRUZ PAPALUTLA', 20),
+(1394, 'SANTA CRUZ TACACHE DE MINA', 20),
+(1395, 'SANTA CRUZ TACAHUA', 20),
+(1396, 'SANTA CRUZ TAYATA', 20),
+(1397, 'SANTA CRUZ XITLA', 20),
+(1398, 'SANTA CRUZ XOXOCOTLAN', 20),
+(1399, 'SANTA CRUZ ZENZONTEPEC', 20),
+(1400, 'SANTA GERTRUDIS', 20),
+(1401, 'SANTA INES DEL MONTE', 20),
+(1402, 'SANTA INES YATZECHE', 20),
+(1403, 'SANTA LUCIA DEL CAMINO', 20),
+(1404, 'SANTA LUCIA MIAHUATLAN', 20),
+(1405, 'SANTA LUCIA MONTEVERDE', 20),
+(1406, 'SANTA LUCIA OCOTLAN', 20),
+(1407, 'SANTA MARIA ALOTEPEC', 20),
+(1408, 'SANTA MARIA APAZCO', 20),
+(1409, 'SANTA MARIA LA ASUNCION', 20),
+(1410, 'HEROICA CIUDAD DE TLAXIACO', 20),
+(1411, 'AYOQUEZCO DE ALDAMA', 20),
+(1412, 'SANTA MARIA ATZOMPA', 20),
+(1413, 'SANTA MARIA CAMOTLAN', 20),
+(1414, 'SANTA MARIA COLOTEPEC', 20),
+(1415, 'SANTA MARIA CORTIJO', 20),
+(1416, 'SANTA MARIA COYOTEPEC', 20),
+(1417, 'SANTA MARIA CHACHOAPAM', 20),
+(1418, 'VILLA DE CHILAPA DE DIAZ', 20),
+(1419, 'SANTA MARIA CHILCHOTLA', 20),
+(1420, 'SANTA MARIA CHIMALAPA', 20),
+(1421, 'SANTA MARIA DEL ROSARIO', 20),
+(1422, 'SANTA MARIA DEL TULE', 20),
+(1423, 'SANTA MARIA ECATEPEC', 20),
+(1424, 'SANTA MARIA GUELACE', 20),
+(1425, 'SANTA MARIA GUIENAGATI', 20),
+(1426, 'SANTA MARIA HUATULCO', 20),
+(1427, 'SANTA MARIA HUAZOLOTITLAN', 20),
+(1428, 'SANTA MARIA IPALAPA', 20),
+(1429, 'SANTA MARIA IXCATLAN', 20),
+(1430, 'SANTA MARIA JACATEPEC', 20),
+(1431, 'SANTA MARIA JALAPA DEL MARQUES', 20),
+(1432, 'SANTA MARIA JALTIANGUIS', 20),
+(1433, 'SANTA MARIA LACHIXIO', 20),
+(1434, 'SANTA MARIA MIXTEQUILLA', 20),
+(1435, 'SANTA MARIA NATIVITAS', 20),
+(1436, 'SANTA MARIA NDUAYACO', 20),
+(1437, 'SANTA MARIA OZOLOTEPEC', 20),
+(1438, 'SANTA MARIA PAPALO', 20),
+(1439, 'SANTA MARIA PEÑOLES', 20),
+(1440, 'SANTA MARIA PETAPA', 20),
+(1441, 'SANTA MARIA QUIEGOLANI', 20),
+(1442, 'SANTA MARIA SOLA', 20),
+(1443, 'SANTA MARIA TATALTEPEC', 20),
+(1444, 'SANTA MARIA TECOMAVACA', 20),
+(1445, 'SANTA MARIA TEMAXCALAPA', 20),
+(1446, 'SANTA MARIA TEMAXCALTEPEC', 20),
+(1447, 'SANTA MARIA TEOPOXCO', 20),
+(1448, 'SANTA MARIA TEPANTLALI', 20),
+(1449, 'SANTA MARIA TEXCATITLAN', 20),
+(1450, 'SANTA MARIA TLAHUITOLTEPEC', 20),
+(1451, 'SANTA MARIA TLALIXTAC', 20),
+(1452, 'SANTA MARIA TONAMECA', 20),
+(1453, 'SANTA MARIA TOTOLAPILLA', 20),
+(1454, 'SANTA MARIA XADANI', 20),
+(1455, 'SANTA MARIA YALINA', 20),
+(1456, 'SANTA MARIA YAVESIA', 20),
+(1457, 'SANTA MARIA YOLOTEPEC', 20),
+(1458, 'SANTA MARIA YOSOYUA', 20),
+(1459, 'SANTA MARIA YUCUHITI', 20),
+(1460, 'SANTA MARIA ZACATEPEC', 20),
+(1461, 'SANTA MARIA ZANIZA', 20),
+(1462, 'SANTA MARIA ZOQUITLAN', 20),
+(1463, 'SANTIAGO AMOLTEPEC', 20),
+(1464, 'SANTIAGO APOALA', 20),
+(1465, 'SANTIAGO APOSTOL', 20),
+(1466, 'SANTIAGO ASTATA', 20),
+(1467, 'SANTIAGO ATITLAN', 20),
+(1468, 'SANTIAGO AYUQUILILLA', 20),
+(1469, 'SANTIAGO CACALOXTEPEC', 20),
+(1470, 'SANTIAGO CAMOTLAN', 20),
+(1471, 'SANTIAGO COMALTEPEC', 20),
+(1472, 'SANTIAGO CHAZUMBA', 20),
+(1473, 'SANTIAGO CHOAPAM', 20),
+(1474, 'SANTIAGO DEL RIO', 20),
+(1475, 'SANTIAGO HUAJOLOTITLAN', 20),
+(1476, 'SANTIAGO HUAUCLILLA', 20),
+(1477, 'SANTIAGO IHUITLAN PLUMAS', 20),
+(1478, 'SANTIAGO IXCUINTEPEC', 20),
+(1479, 'SANTIAGO IXTAYUTLA', 20),
+(1480, 'SANTIAGO JAMILTEPEC', 20),
+(1481, 'SANTIAGO JOCOTEPEC', 20),
+(1482, 'SANTIAGO JUXTLAHUACA', 20),
+(1483, 'SANTIAGO LACHIGUIRI', 20),
+(1484, 'SANTIAGO LALOPA', 20),
+(1485, 'SANTIAGO LAOLLAGA', 20),
+(1486, 'SANTIAGO LAXOPA', 20),
+(1487, 'SANTIAGO LLANO GRANDE', 20),
+(1488, 'SANTIAGO MATATLAN', 20),
+(1489, 'SANTIAGO MILTEPEC', 20),
+(1490, 'SANTIAGO MINAS', 20),
+(1491, 'SANTIAGO NACALTEPEC', 20),
+(1492, 'SANTIAGO NEJAPILLA', 20),
+(1493, 'SANTIAGO NUNDICHE', 20),
+(1494, 'SANTIAGO NUYOO', 20),
+(1495, 'SANTIAGO PINOTEPA NACIONAL', 20),
+(1496, 'SANTIAGO SUCHILQUITONGO', 20),
+(1497, 'SANTIAGO TAMAZOLA', 20),
+(1498, 'SANTIAGO TAPEXTLA', 20),
+(1499, 'VILLA TEJUPAM DE LA UNION', 20),
+(1500, 'SANTIAGO TENANGO', 20),
+(1501, 'SANTIAGO TEPETLAPA', 20),
+(1502, 'SANTIAGO TETEPEC', 20),
+(1503, 'SANTIAGO TEXCALCINGO', 20),
+(1504, 'SANTIAGO TEXTITLAN', 20),
+(1505, 'SANTIAGO TILANTONGO', 20),
+(1506, 'SANTIAGO TILLO', 20),
+(1507, 'SANTIAGO TLAZOYALTEPEC', 20),
+(1508, 'SANTIAGO XANICA', 20),
+(1509, 'SANTIAGO XIACUI', 20),
+(1510, 'SANTIAGO YAITEPEC', 20),
+(1511, 'SANTIAGO YAVEO', 20),
+(1512, 'SANTIAGO YOLOMECATL', 20),
+(1513, 'SANTIAGO YOSONDUA', 20),
+(1514, 'SANTIAGO YUCUYACHI', 20),
+(1515, 'SANTIAGO ZACATEPEC', 20),
+(1516, 'SANTIAGO ZOOCHILA', 20),
+(1517, 'NUEVO ZOQUIAPAM', 20),
+(1518, 'SANTO DOMINGO INGENIO', 20),
+(1519, 'SANTO DOMINGO ALBARRADAS', 20),
+(1520, 'SANTO DOMINGO ARMENTA', 20),
+(1521, 'SANTO DOMINGO CHIHUITAN', 20),
+(1522, 'SANTO DOMINGO DE MORELOS', 20),
+(1523, 'SANTO DOMINGO IXCATLAN', 20),
+(1524, 'SANTO DOMINGO NUXAA', 20),
+(1525, 'SANTO DOMINGO OZOLOTEPEC', 20),
+(1526, 'SANTO DOMINGO PETAPA', 20),
+(1527, 'SANTO DOMINGO ROAYAGA', 20),
+(1528, 'SANTO DOMINGO TEHUANTEPEC', 20),
+(1529, 'SANTO DOMINGO TEOJOMULCO', 20),
+(1530, 'SANTO DOMINGO TEPUXTEPEC', 20),
+(1531, 'SANTO DOMINGO TLATAYAPAM', 20),
+(1532, 'SANTO DOMINGO TOMALTEPEC', 20),
+(1533, 'SANTO DOMINGO TONALA', 20),
+(1534, 'SANTO DOMINGO TONALTEPEC', 20),
+(1535, 'SANTO DOMINGO XAGACIA', 20),
+(1536, 'SANTO DOMINGO YANHUITLAN', 20),
+(1537, 'SANTO DOMINGO YODOHINO', 20),
+(1538, 'SANTO DOMINGO ZANATEPEC', 20),
+(1539, 'SANTOS REYES NOPALA', 20),
+(1540, 'SANTOS REYES PAPALO', 20),
+(1541, 'SANTOS REYES TEPEJILLO', 20),
+(1542, 'SANTOS REYES YUCUNA', 20),
+(1543, 'SANTO TOMAS JALIEZA', 20),
+(1544, 'SANTO TOMAS MAZALTEPEC', 20),
+(1545, 'SANTO TOMAS OCOTEPEC', 20),
+(1546, 'SANTO TOMAS TAMAZULAPAN', 20),
+(1547, 'SAN VICENTE COATLAN', 20),
+(1548, 'SAN VICENTE LACHIXIO', 20),
+(1549, 'SAN VICENTE NUÑU', 20),
+(1550, 'SILACAYOAPAM', 20),
+(1551, 'SITIO DE XITLAPEHUA', 20),
+(1552, 'SOLEDAD ETLA', 20),
+(1553, 'VILLA DE TAMAZULAPAM DEL PROGRESO', 20),
+(1554, 'TANETZE DE ZARAGOZA', 20),
+(1555, 'TANICHE', 20),
+(1556, 'TATALTEPEC DE VALDES', 20),
+(1557, 'TEOCOCUILCO DE MARCOS PEREZ', 20),
+(1558, 'TEOTITLAN DE FLORES MAGON', 20),
+(1559, 'TEOTITLAN DEL VALLE', 20),
+(1560, 'TEOTONGO', 20),
+(1561, 'TEPELMEME VILLA DE MORELOS', 20),
+(1562, 'TEZOATLAN DE SEGURA Y LUNA', 20),
+(1563, 'SAN JERONIMO TLACOCHAHUAYA', 20),
+(1564, 'TLACOLULA DE MATAMOROS', 20),
+(1565, 'TLACOTEPEC PLUMAS', 20),
+(1566, 'TLALIXTAC DE CABRERA', 20),
+(1567, 'TOTONTEPEC VILLA DE MORELOS', 20),
+(1568, 'TRINIDAD ZAACHILA', 20),
+(1569, 'LA TRINIDAD VISTA HERMOSA', 20),
+(1570, 'UNION HIDALGO', 20),
+(1571, 'VALERIO TRUJANO', 20),
+(1572, 'SAN JUAN BAUTISTA VALLE NACIONAL', 20),
+(1573, 'VILLA DIAZ ORDAZ', 20),
+(1574, 'YAXE', 20),
+(1575, 'MAGDALENA YODOCONO DE PORFIRIO DIAZ', 20),
+(1576, 'YOGANA', 20),
+(1577, 'YUTANDUCHI DE GUERRERO', 20),
+(1578, 'VILLA DE ZAACHILA', 20),
+(1579, 'ZAPOTITLAN DEL RIO', 20),
+(1580, 'ZAPOTITLAN LAGUNAS', 20),
+(1581, 'ZAPOTITLAN PALMAS', 20),
+(1582, 'SANTA INES DE ZARAGOZA', 20),
+(1583, 'ZIMATLAN DE ALVAREZ', 20),
+(1584, 'ACAJETE', 21),
+(1585, 'ACATENO', 21),
+(1586, 'ACATLAN', 21),
+(1587, 'ACATZINGO', 21),
+(1588, 'ACTEOPAN', 21),
+(1589, 'AHUACATLAN', 21),
+(1590, 'AHUATLAN', 21),
+(1591, 'AHUAZOTEPEC', 21),
+(1592, 'AHUEHUETITLA', 21),
+(1593, 'AJALPAN', 21),
+(1594, 'ALBINO ZERTUCHE', 21),
+(1595, 'ALJOJUCA', 21),
+(1596, 'ALTEPEXI', 21),
+(1597, 'AMIXTLAN', 21),
+(1598, 'AMOZOC', 21),
+(1599, 'AQUIXTLA', 21),
+(1600, 'ATEMPAN', 21),
+(1601, 'ATEXCAL', 21),
+(1602, 'ATLIXCO', 21),
+(1603, 'ATOYATEMPAN', 21),
+(1604, 'ATZALA', 21),
+(1605, 'ATZITZIHUACAN', 21),
+(1606, 'ATZITZINTLA', 21),
+(1607, 'AXUTLA', 21),
+(1608, 'AYOTOXCO DE GUERRERO', 21),
+(1609, 'CALPAN', 21),
+(1610, 'CALTEPEC', 21),
+(1611, 'CAMOCUAUTLA', 21),
+(1612, 'CAXHUACAN', 21),
+(1613, 'COATEPEC', 21),
+(1614, 'COATZINGO', 21),
+(1615, 'COHETZALA', 21),
+(1616, 'COHUECAN', 21),
+(1617, 'CORONANGO', 21),
+(1618, 'COXCATLAN', 21),
+(1619, 'COYOMEAPAN', 21),
+(1620, 'COYOTEPEC', 21),
+(1621, 'CUAPIAXTLA DE MADERO', 21),
+(1622, 'CUAUTEMPAN', 21),
+(1623, 'CUAUTINCHAN', 21),
+(1624, 'CUAUTLANCINGO', 21),
+(1625, 'CUAYUCA DE ANDRADE', 21),
+(1626, 'CUETZALAN DEL PROGRESO', 21),
+(1627, 'CUYOACO', 21),
+(1628, 'CHALCHICOMULA DE SESMA', 21),
+(1629, 'CHAPULCO', 21),
+(1630, 'CHIAUTLA', 21),
+(1631, 'CHIAUTZINGO', 21),
+(1632, 'CHICONCUAUTLA', 21),
+(1633, 'CHICHIQUILA', 21),
+(1634, 'CHIETLA', 21),
+(1635, 'CHIGMECATITLAN', 21),
+(1636, 'CHIGNAHUAPAN', 21),
+(1637, 'CHIGNAUTLA', 21),
+(1638, 'CHILA', 21),
+(1639, 'CHILA DE LA SAL', 21),
+(1640, 'HONEY', 21),
+(1641, 'CHILCHOTLA', 21),
+(1642, 'CHINANTLA', 21),
+(1643, 'DOMINGO ARENAS', 21),
+(1644, 'ELOXOCHITLAN', 21),
+(1645, 'EPATLAN', 21),
+(1646, 'ESPERANZA', 21),
+(1647, 'FRANCISCO Z. MENA', 21),
+(1648, 'GENERAL FELIPE ANGELES', 21),
+(1649, 'GUADALUPE', 21),
+(1650, 'GUADALUPE VICTORIA', 21),
+(1651, 'HERMENEGILDO GALEANA', 21),
+(1652, 'HUAQUECHULA', 21),
+(1653, 'HUATLATLAUCA', 21),
+(1654, 'HUAUCHINANGO', 21),
+(1655, 'HUEHUETLA', 21),
+(1656, 'HUEHUETLAN EL CHICO', 21),
+(1657, 'HUEJOTZINGO', 21),
+(1658, 'HUEYAPAN', 21),
+(1659, 'HUEYTAMALCO', 21),
+(1660, 'HUEYTLALPAN', 21),
+(1661, 'HUITZILAN DE SERDAN', 21),
+(1662, 'HUITZILTEPEC', 21),
+(1663, 'ATLEQUIZAYAN', 21),
+(1664, 'IXCAMILPA DE GUERRERO', 21),
+(1665, 'IXCAQUIXTLA', 21),
+(1666, 'IXTACAMAXTITLAN', 21),
+(1667, 'IXTEPEC', 21),
+(1668, 'IZUCAR DE MATAMOROS', 21),
+(1669, 'JALPAN', 21),
+(1670, 'JOLALPAN', 21),
+(1671, 'JONOTLA', 21),
+(1672, 'JOPALA', 21),
+(1673, 'JUAN C. BONILLA', 21),
+(1674, 'JUAN GALINDO', 21),
+(1675, 'JUAN N. MENDEZ', 21),
+(1676, 'LAFRAGUA', 21),
+(1677, 'LIBRES', 21),
+(1678, 'LA MAGDALENA TLATLAUQUITEPEC', 21),
+(1679, 'MAZAPILTEPEC DE JUAREZ', 21),
+(1680, 'MIXTLA', 21),
+(1681, 'MOLCAXAC', 21),
+(1682, 'CAÑADA MORELOS', 21),
+(1683, 'NAUPAN', 21),
+(1684, 'NAUZONTLA', 21),
+(1685, 'NEALTICAN', 21),
+(1686, 'NICOLAS BRAVO', 21),
+(1687, 'NOPALUCAN', 21),
+(1688, 'OCOTEPEC', 21),
+(1689, 'OCOYUCAN', 21),
+(1690, 'OLINTLA', 21),
+(1691, 'ORIENTAL', 21),
+(1692, 'PAHUATLAN', 21),
+(1693, 'PALMAR DE BRAVO', 21),
+(1694, 'PANTEPEC', 21),
+(1695, 'PETLALCINGO', 21),
+(1696, 'PIAXTLA', 21),
+(1697, 'PUEBLA', 21),
+(1698, 'QUECHOLAC', 21),
+(1699, 'QUIMIXTLAN', 21),
+(1700, 'RAFAEL LARA GRAJALES', 21),
+(1701, 'LOS REYES DE JUAREZ', 21),
+(1702, 'SAN ANDRES CHOLULA', 21),
+(1703, 'SAN ANTONIO CAÑADA', 21),
+(1704, 'SAN DIEGO LA MESA TOCHIMILTZINGO', 21),
+(1705, 'SAN FELIPE TEOTLALCINGO', 21),
+(1706, 'SAN FELIPE TEPATLAN', 21),
+(1707, 'SAN GABRIEL CHILAC', 21),
+(1708, 'SAN GREGORIO ATZOMPA', 21),
+(1709, 'SAN JERONIMO TECUANIPAN', 21),
+(1710, 'SAN JERONIMO XAYACATLAN', 21),
+(1711, 'SAN JOSE CHIAPA', 21),
+(1712, 'SAN JOSE MIAHUATLAN', 21),
+(1713, 'SAN JUAN ATENCO', 21),
+(1714, 'SAN JUAN ATZOMPA', 21),
+(1715, 'SAN MARTIN TEXMELUCAN', 21),
+(1716, 'SAN MARTIN TOTOLTEPEC', 21),
+(1717, 'SAN MATIAS TLALANCALECA', 21),
+(1718, 'SAN MIGUEL IXITLAN', 21),
+(1719, 'SAN MIGUEL XOXTLA', 21),
+(1720, 'SAN NICOLAS BUENOS AIRES', 21),
+(1721, 'SAN NICOLAS DE LOS RANCHOS', 21),
+(1722, 'SAN PABLO ANICANO', 21),
+(1723, 'SAN PEDRO CHOLULA', 21),
+(1724, 'SAN PEDRO YELOIXTLAHUACA', 21),
+(1725, 'SAN SALVADOR EL SECO', 21),
+(1726, 'SAN SALVADOR EL VERDE', 21),
+(1727, 'SAN SALVADOR HUIXCOLOTLA', 21),
+(1728, 'SAN SEBASTIAN TLACOTEPEC', 21),
+(1729, 'SANTA CATARINA TLALTEMPAN', 21),
+(1730, 'SANTA INES AHUATEMPAN', 21),
+(1731, 'SANTA ISABEL CHOLULA', 21),
+(1732, 'SANTIAGO MIAHUATLAN', 21),
+(1733, 'HUEHUETLAN EL GRANDE', 21),
+(1734, 'SANTO TOMAS HUEYOTLIPAN', 21),
+(1735, 'SOLTEPEC', 21),
+(1736, 'TECALI DE HERRERA', 21),
+(1737, 'TECAMACHALCO', 21),
+(1738, 'TECOMATLAN', 21),
+(1739, 'TEHUACAN', 21),
+(1740, 'TEHUITZINGO', 21),
+(1741, 'TENAMPULCO', 21),
+(1742, 'TEOPANTLAN', 21),
+(1743, 'TEOTLALCO', 21),
+(1744, 'TEPANCO DE LOPEZ', 21),
+(1745, 'TEPANGO DE RODRIGUEZ', 21),
+(1746, 'TEPATLAXCO DE HIDALGO', 21),
+(1747, 'TEPEACA', 21),
+(1748, 'TEPEMAXALCO', 21),
+(1749, 'TEPEOJUMA', 21),
+(1750, 'TEPETZINTLA', 21),
+(1751, 'TEPEXCO', 21),
+(1752, 'TEPEXI DE RODRIGUEZ', 21),
+(1753, 'TEPEYAHUALCO', 21),
+(1754, 'TEPEYAHUALCO DE CUAUHTEMOC', 21),
+(1755, 'TETELA DE OCAMPO', 21),
+(1756, 'TETELES DE AVILA CASTILLO', 21),
+(1757, 'TEZIUTLAN', 21),
+(1758, 'TIANGUISMANALCO', 21),
+(1759, 'TILAPA', 21),
+(1760, 'TLACOTEPEC DE BENITO JUAREZ', 21),
+(1761, 'TLACUILOTEPEC', 21),
+(1762, 'TLACHICHUCA', 21),
+(1763, 'TLAHUAPAN', 21),
+(1764, 'TLALTENANGO', 21),
+(1765, 'TLANEPANTLA', 21),
+(1766, 'TLAOLA', 21),
+(1767, 'TLAPACOYA', 21),
+(1768, 'TLAPANALA', 21),
+(1769, 'TLATLAUQUITEPEC', 21),
+(1770, 'TLAXCO', 21),
+(1771, 'TOCHIMILCO', 21),
+(1772, 'TOCHTEPEC', 21),
+(1773, 'TOTOLTEPEC DE GUERRERO', 21),
+(1774, 'TULCINGO', 21),
+(1775, 'TUZAMAPAN DE GALEANA', 21),
+(1776, 'TZICATLACOYAN', 21),
+(1777, 'VENUSTIANO CARRANZA', 21),
+(1778, 'VICENTE GUERRERO', 21),
+(1779, 'XAYACATLAN DE BRAVO', 21),
+(1780, 'XICOTEPEC', 21),
+(1781, 'XICOTLAN', 21),
+(1782, 'XIUTETELCO', 21),
+(1783, 'XOCHIAPULCO', 21),
+(1784, 'XOCHILTEPEC', 21),
+(1785, 'XOCHITLAN DE VICENTE SUAREZ', 21),
+(1786, 'XOCHITLAN TODOS SANTOS', 21),
+(1787, 'YAONAHUAC', 21),
+(1788, 'YEHUALTEPEC', 21),
+(1789, 'ZACAPALA', 21),
+(1790, 'ZACAPOAXTLA', 21),
+(1791, 'ZACATLAN', 21),
+(1792, 'ZAPOTITLAN', 21),
+(1793, 'ZAPOTITLAN DE MENDEZ', 21),
+(1794, 'ZARAGOZA', 21),
+(1795, 'ZAUTLA', 21),
+(1796, 'ZIHUATEUTLA', 21),
+(1797, 'ZINACATEPEC', 21),
+(1798, 'ZONGOZOTLA', 21),
+(1799, 'ZOQUIAPAN', 21),
+(1800, 'ZOQUITLAN', 21),
+(1801, 'AMEALCO DE BONFIL', 22),
+(1802, 'PINAL DE AMOLES', 22),
+(1803, 'ARROYO SECO', 22),
+(1804, 'CADEREYTA DE MONTES', 22),
+(1805, 'COLON', 22),
+(1806, 'CORREGIDORA', 22),
+(1807, 'EZEQUIEL MONTES', 22),
+(1808, 'HUIMILPAN', 22),
+(1809, 'JALPAN DE SERRA', 22),
+(1810, 'LANDA DE MATAMOROS', 22),
+(1811, 'EL MARQUES', 22),
+(1812, 'PEDRO ESCOBEDO', 22),
+(1813, 'PEÑAMILLER', 22),
+(1814, 'QUERETARO', 22);
+INSERT INTO `municipios` (`ID`, `NOMBRE`, `ESTADO_id`) VALUES
+(1815, 'SAN JOAQUIN', 22),
+(1816, 'SAN JUAN DEL RIO', 22),
+(1817, 'TEQUISQUIAPAN', 22),
+(1818, 'TOLIMAN', 22),
+(1819, 'COZUMEL', 23),
+(1820, 'FELIPE CARRILLO PUERTO', 23),
+(1821, 'ISLA MUJERES', 23),
+(1822, 'OTHON P. BLANCO', 23),
+(1823, 'BENITO JUAREZ', 23),
+(1824, 'JOSE MARIA MORELOS', 23),
+(1825, 'LAZARO CARDENAS', 23),
+(1826, 'SOLIDARIDAD', 23),
+(1827, 'AHUALULCO', 24),
+(1828, 'ALAQUINES', 24),
+(1829, 'AQUISMON', 24),
+(1830, 'ARMADILLO DE LOS INFANTE', 24),
+(1831, 'CARDENAS', 24),
+(1832, 'CATORCE', 24),
+(1833, 'CEDRAL', 24),
+(1834, 'CERRITOS', 24),
+(1835, 'CERRO DE SAN PEDRO', 24),
+(1836, 'CIUDAD DEL MAIZ', 24),
+(1837, 'CIUDAD FERNANDEZ', 24),
+(1838, 'TANCANHUITZ', 24),
+(1839, 'CIUDAD VALLES', 24),
+(1840, 'COXCATLAN', 24),
+(1841, 'CHARCAS', 24),
+(1842, 'EBANO', 24),
+(1843, 'GUADALCAZAR', 24),
+(1844, 'HUEHUETLAN', 24),
+(1845, 'LAGUNILLAS', 24),
+(1846, 'MATEHUALA', 24),
+(1847, 'MEXQUITIC DE CARMONA', 24),
+(1848, 'MOCTEZUMA', 24),
+(1849, 'RAYON', 24),
+(1850, 'RIOVERDE', 24),
+(1851, 'SALINAS', 24),
+(1852, 'SAN ANTONIO', 24),
+(1853, 'SAN CIRO DE ACOSTA', 24),
+(1854, 'SAN LUIS POTOSI', 24),
+(1855, 'SAN MARTIN CHALCHICUAUTLA', 24),
+(1856, 'SAN NICOLAS TOLENTINO', 24),
+(1857, 'SANTA CATARINA', 24),
+(1858, 'SANTA MARIA DEL RIO', 24),
+(1859, 'SANTO DOMINGO', 24),
+(1860, 'SAN VICENTE TANCUAYALAB', 24),
+(1861, 'SOLEDAD DE GRACIANO SANCHEZ', 24),
+(1862, 'TAMASOPO', 24),
+(1863, 'TAMAZUNCHALE', 24),
+(1864, 'TAMPACAN', 24),
+(1865, 'TAMPAMOLON CORONA', 24),
+(1866, 'TAMUIN', 24),
+(1867, 'TANLAJAS', 24),
+(1868, 'TANQUIAN DE ESCOBEDO', 24),
+(1869, 'TIERRA NUEVA', 24),
+(1870, 'VANEGAS', 24),
+(1871, 'VENADO', 24),
+(1872, 'VILLA DE ARRIAGA', 24),
+(1873, 'VILLA DE GUADALUPE', 24),
+(1874, 'VILLA DE LA PAZ', 24),
+(1875, 'VILLA DE RAMOS', 24),
+(1876, 'VILLA DE REYES', 24),
+(1877, 'VILLA HIDALGO', 24),
+(1878, 'VILLA JUAREZ', 24),
+(1879, 'AXTLA DE TERRAZAS', 24),
+(1880, 'XILITLA', 24),
+(1881, 'ZARAGOZA', 24),
+(1882, 'VILLA DE ARISTA', 24),
+(1883, 'MATLAPA', 24),
+(1884, 'EL NARANJO', 24),
+(1885, 'AHOME', 25),
+(1886, 'ANGOSTURA', 25),
+(1887, 'BADIRAGUATO', 25),
+(1888, 'CONCORDIA', 25),
+(1889, 'COSALA', 25),
+(1890, 'CULIACAN', 25),
+(1891, 'CHOIX', 25),
+(1892, 'ELOTA', 25),
+(1893, 'ESCUINAPA', 25),
+(1894, 'EL FUERTE', 25),
+(1895, 'GUASAVE', 25),
+(1896, 'MAZATLAN', 25),
+(1897, 'MOCORITO', 25),
+(1898, 'ROSARIO', 25),
+(1899, 'SALVADOR ALVARADO', 25),
+(1900, 'SAN IGNACIO', 25),
+(1901, 'SINALOA', 25),
+(1902, 'NAVOLATO', 25),
+(1903, 'ACONCHI', 26),
+(1904, 'AGUA PRIETA', 26),
+(1905, 'ALAMOS', 26),
+(1906, 'ALTAR', 26),
+(1907, 'ARIVECHI', 26),
+(1908, 'ARIZPE', 26),
+(1909, 'ATIL', 26),
+(1910, 'BACADEHUACHI', 26),
+(1911, 'BACANORA', 26),
+(1912, 'BACERAC', 26),
+(1913, 'BACOACHI', 26),
+(1914, 'BACUM', 26),
+(1915, 'BANAMICHI', 26),
+(1916, 'BAVIACORA', 26),
+(1917, 'BAVISPE', 26),
+(1918, 'BENJAMIN HILL', 26),
+(1919, 'CABORCA', 26),
+(1920, 'CAJEME', 26),
+(1921, 'CANANEA', 26),
+(1922, 'CARBO', 26),
+(1923, 'LA COLORADA', 26),
+(1924, 'CUCURPE', 26),
+(1925, 'CUMPAS', 26),
+(1926, 'DIVISADEROS', 26),
+(1927, 'EMPALME', 26),
+(1928, 'ETCHOJOA', 26),
+(1929, 'FRONTERAS', 26),
+(1930, 'GRANADOS', 26),
+(1931, 'GUAYMAS', 26),
+(1932, 'HERMOSILLO', 26),
+(1933, 'HUACHINERA', 26),
+(1934, 'HUASABAS', 26),
+(1935, 'HUATABAMPO', 26),
+(1936, 'HUEPAC', 26),
+(1937, 'IMURIS', 26),
+(1938, 'MAGDALENA', 26),
+(1939, 'MAZATAN', 26),
+(1940, 'MOCTEZUMA', 26),
+(1941, 'NACO', 26),
+(1942, 'NACORI CHICO', 26),
+(1943, 'NACOZARI DE GARCIA', 26),
+(1944, 'NAVOJOA', 26),
+(1945, 'NOGALES', 26),
+(1946, 'ONAVAS', 26),
+(1947, 'OPODEPE', 26),
+(1948, 'OQUITOA', 26),
+(1949, 'PITIQUITO', 26),
+(1950, 'PUERTO PEÑASCO', 26),
+(1951, 'QUIRIEGO', 26),
+(1952, 'RAYON', 26),
+(1953, 'ROSARIO', 26),
+(1954, 'SAHUARIPA', 26),
+(1955, 'SAN FELIPE DE JESUS', 26),
+(1956, 'SAN JAVIER', 26),
+(1957, 'SAN LUIS RIO COLORADO', 26),
+(1958, 'SAN MIGUEL DE HORCASITAS', 26),
+(1959, 'SAN PEDRO DE LA CUEVA', 26),
+(1960, 'SANTA ANA', 26),
+(1961, 'SANTA CRUZ', 26),
+(1962, 'SARIC', 26),
+(1963, 'SOYOPA', 26),
+(1964, 'SUAQUI GRANDE', 26),
+(1965, 'TEPACHE', 26),
+(1966, 'TRINCHERAS', 26),
+(1967, 'TUBUTAMA', 26),
+(1968, 'URES', 26),
+(1969, 'VILLA HIDALGO', 26),
+(1970, 'VILLA PESQUEIRA', 26),
+(1971, 'YECORA', 26),
+(1972, 'GENERAL PLUTARCO ELIAS CALLES', 26),
+(1973, 'BENITO JUAREZ', 26),
+(1974, 'SAN IGNACIO RIO MUERTO', 26),
+(1975, 'BALANCAN', 27),
+(1976, 'CARDENAS', 27),
+(1977, 'CENTLA', 27),
+(1978, 'CENTRO', 27),
+(1979, 'COMALCALCO', 27),
+(1980, 'CUNDUACAN', 27),
+(1981, 'EMILIANO ZAPATA', 27),
+(1982, 'HUIMANGUILLO', 27),
+(1983, 'JALAPA', 27),
+(1984, 'JALPA DE MENDEZ', 27),
+(1985, 'JONUTA', 27),
+(1986, 'MACUSPANA', 27),
+(1987, 'NACAJUCA', 27),
+(1988, 'PARAISO', 27),
+(1989, 'TACOTALPA', 27),
+(1990, 'TEAPA', 27),
+(1991, 'TENOSIQUE', 27),
+(1992, 'ABASOLO', 28),
+(1993, 'ALDAMA', 28),
+(1994, 'ALTAMIRA', 28),
+(1995, 'ANTIGUO MORELOS', 28),
+(1996, 'BURGOS', 28),
+(1997, 'BUSTAMANTE', 28),
+(1998, 'CAMARGO', 28),
+(1999, 'CASAS', 28),
+(2000, 'CIUDAD MADERO', 28),
+(2001, 'CRUILLAS', 28),
+(2002, 'GOMEZ FARIAS', 28),
+(2003, 'GONZALEZ', 28),
+(2004, 'GÜEMEZ', 28),
+(2005, 'GUERRERO', 28),
+(2006, 'GUSTAVO DIAZ ORDAZ', 28),
+(2007, 'HIDALGO', 28),
+(2008, 'JAUMAVE', 28),
+(2009, 'JIMENEZ', 28),
+(2010, 'LLERA', 28),
+(2011, 'MAINERO', 28),
+(2012, 'EL MANTE', 28),
+(2013, 'MATAMOROS', 28),
+(2014, 'MENDEZ', 28),
+(2015, 'MIER', 28),
+(2016, 'MIGUEL ALEMAN', 28),
+(2017, 'MIQUIHUANA', 28),
+(2018, 'NUEVO LAREDO', 28),
+(2019, 'NUEVO MORELOS', 28),
+(2020, 'OCAMPO', 28),
+(2021, 'PADILLA', 28),
+(2022, 'PALMILLAS', 28),
+(2023, 'REYNOSA', 28),
+(2024, 'RIO BRAVO', 28),
+(2025, 'SAN CARLOS', 28),
+(2026, 'SAN FERNANDO', 28),
+(2027, 'SAN NICOLAS', 28),
+(2028, 'SOTO LA MARINA', 28),
+(2029, 'TAMPICO', 28),
+(2030, 'TULA', 28),
+(2031, 'VALLE HERMOSO', 28),
+(2032, 'VICTORIA', 28),
+(2033, 'VILLAGRAN', 28),
+(2034, 'XICOTENCATL', 28),
+(2035, 'AMAXAC DE GUERRERO', 29),
+(2036, 'APETATITLAN DE ANTONIO CARVAJAL', 29),
+(2037, 'ATLANGATEPEC', 29),
+(2038, 'ALTZAYANCA', 29),
+(2039, 'APIZACO', 29),
+(2040, 'CALPULALPAN', 29),
+(2041, 'EL CARMEN TEQUEXQUITLA', 29),
+(2042, 'CUAPIAXTLA', 29),
+(2043, 'CUAXOMULCO', 29),
+(2044, 'CHIAUTEMPAN', 29),
+(2045, 'MUÑOZ DE DOMINGO ARENAS', 29),
+(2046, 'ESPAÑITA', 29),
+(2047, 'HUAMANTLA', 29),
+(2048, 'HUEYOTLIPAN', 29),
+(2049, 'IXTACUIXTLA DE MARIANO MATAMOROS', 29),
+(2050, 'IXTENCO', 29),
+(2051, 'MAZATECOCHCO DE JOSE MARIA MORELOS', 29),
+(2052, 'CONTLA DE JUAN CUAMATZI', 29),
+(2053, 'TEPETITLA DE LARDIZABAL', 29),
+(2054, 'SANCTORUM DE LAZARO CARDENAS', 29),
+(2055, 'NANACAMILPA DE MARIANO ARISTA', 29),
+(2056, 'ACUAMANALA DE MIGUEL HIDALGO', 29),
+(2057, 'NATIVITAS', 29),
+(2058, 'PANOTLA', 29),
+(2059, 'SAN PABLO DEL MONTE', 29),
+(2060, 'SANTA CRUZ TLAXCALA', 29),
+(2061, 'TENANCINGO', 29),
+(2062, 'TEOLOCHOLCO', 29),
+(2063, 'TEPEYANCO', 29),
+(2064, 'TERRENATE', 29),
+(2065, 'TETLA DE LA SOLIDARIDAD', 29),
+(2066, 'TETLATLAHUCA', 29),
+(2067, 'TLAXCALA', 29),
+(2068, 'TLAXCO', 29),
+(2069, 'TOCATLAN', 29),
+(2070, 'TOTOLAC', 29),
+(2071, 'ZITLALTEPEC DE TRINIDAD SANCHEZ SANTOS', 29),
+(2072, 'TZOMPANTEPEC', 29),
+(2073, 'XALOZTOC', 29),
+(2074, 'XALTOCAN', 29),
+(2075, 'PAPALOTLA DE XICOHTENCATL', 29),
+(2076, 'XICOHTZINCO', 29),
+(2077, 'YAUHQUEMECAN', 29),
+(2078, 'ZACATELCO', 29),
+(2079, 'BENITO JUAREZ', 29),
+(2080, 'EMILIANO ZAPATA', 29),
+(2081, 'LAZARO CARDENAS', 29),
+(2082, 'LA MAGDALENA TLALTELULCO', 29),
+(2083, 'SAN DAMIAN TEXOLOC', 29),
+(2084, 'SAN FRANCISCO TETLANOHCAN', 29),
+(2085, 'SAN JERONIMO ZACUALPAN', 29),
+(2086, 'SAN JOSE TEACALCO', 29),
+(2087, 'SAN JUAN HUACTZINCO', 29),
+(2088, 'SAN LORENZO AXOCOMANITLA', 29),
+(2089, 'SAN LUCAS TECOPILCO', 29),
+(2090, 'SANTA ANA NOPALUCAN', 29),
+(2091, 'SANTA APOLONIA TEACALCO', 29),
+(2092, 'SANTA CATARINA AYOMETLA', 29),
+(2093, 'SANTA CRUZ QUILEHTLA', 29),
+(2094, 'SANTA ISABEL XILOXOXTLA', 29),
+(2095, 'ACAJETE', 30),
+(2096, 'ACATLAN', 30),
+(2097, 'ACAYUCAN', 30),
+(2098, 'ACTOPAN', 30),
+(2099, 'ACULA', 30),
+(2100, 'ACULTZINGO', 30),
+(2101, 'CAMARON DE TEJEDA', 30),
+(2102, 'ALPATLAHUAC', 30),
+(2103, 'ALTO LUCERO DE GUTIERREZ BARRIOS', 30),
+(2104, 'ALTOTONGA', 30),
+(2105, 'ALVARADO', 30),
+(2106, 'AMATITLAN', 30),
+(2107, 'NARANJOS AMATLAN', 30),
+(2108, 'AMATLAN DE LOS REYES', 30),
+(2109, 'ANGEL R. CABADA', 30),
+(2110, 'LA ANTIGUA', 30),
+(2111, 'APAZAPAN', 30),
+(2112, 'AQUILA', 30),
+(2113, 'ASTACINGA', 30),
+(2114, 'ATLAHUILCO', 30),
+(2115, 'ATOYAC', 30),
+(2116, 'ATZACAN', 30),
+(2117, 'ATZALAN', 30),
+(2118, 'TLALTETELA', 30),
+(2119, 'AYAHUALULCO', 30),
+(2120, 'BANDERILLA', 30),
+(2121, 'BENITO JUAREZ', 30),
+(2122, 'BOCA DEL RIO', 30),
+(2123, 'CALCAHUALCO', 30),
+(2124, 'CAMERINO Z. MENDOZA', 30),
+(2125, 'CARRILLO PUERTO', 30),
+(2126, 'CATEMACO', 30),
+(2127, 'CAZONES', 30),
+(2128, 'CERRO AZUL', 30),
+(2129, 'CITLALTEPETL', 30),
+(2130, 'COACOATZINTLA', 30),
+(2131, 'COAHUITLAN', 30),
+(2132, 'COATEPEC', 30),
+(2133, 'COATZACOALCOS', 30),
+(2134, 'COATZINTLA', 30),
+(2135, 'COETZALA', 30),
+(2136, 'COLIPA', 30),
+(2137, 'COMAPA', 30),
+(2138, 'CORDOBA', 30),
+(2139, 'COSAMALOAPAN DE CARPIO', 30),
+(2140, 'COSAUTLAN DE CARVAJAL', 30),
+(2141, 'COSCOMATEPEC', 30),
+(2142, 'COSOLEACAQUE', 30),
+(2143, 'COTAXTLA', 30),
+(2144, 'COXQUIHUI', 30),
+(2145, 'COYUTLA', 30),
+(2146, 'CUICHAPA', 30),
+(2147, 'CUITLAHUAC', 30),
+(2148, 'CHACALTIANGUIS', 30),
+(2149, 'CHALMA', 30),
+(2150, 'CHICONAMEL', 30),
+(2151, 'CHICONQUIACO', 30),
+(2152, 'CHICONTEPEC', 30),
+(2153, 'CHINAMECA', 30),
+(2154, 'CHINAMPA DE GOROSTIZA', 30),
+(2155, 'LAS CHOAPAS', 30),
+(2156, 'CHOCAMAN', 30),
+(2157, 'CHONTLA', 30),
+(2158, 'CHUMATLAN', 30),
+(2159, 'EMILIANO ZAPATA', 30),
+(2160, 'ESPINAL', 30),
+(2161, 'FILOMENO MATA', 30),
+(2162, 'FORTIN', 30),
+(2163, 'GUTIERREZ ZAMORA', 30),
+(2164, 'HIDALGOTITLAN', 30),
+(2165, 'HUATUSCO', 30),
+(2166, 'HUAYACOCOTLA', 30),
+(2167, 'HUEYAPAN DE OCAMPO', 30),
+(2168, 'HUILOAPAN', 30),
+(2169, 'IGNACIO DE LA LLAVE', 30),
+(2170, 'ILAMATLAN', 30),
+(2171, 'ISLA', 30),
+(2172, 'IXCATEPEC', 30),
+(2173, 'IXHUACAN DE LOS REYES', 30),
+(2174, 'IXHUATLAN DEL CAFE', 30),
+(2175, 'IXHUATLANCILLO', 30),
+(2176, 'IXHUATLAN DEL SURESTE', 30),
+(2177, 'IXHUATLAN DE MADERO', 30),
+(2178, 'IXMATLAHUACAN', 30),
+(2179, 'IXTACZOQUITLAN', 30),
+(2180, 'JALACINGO', 30),
+(2181, 'XALAPA', 30),
+(2182, 'JALCOMULCO', 30),
+(2183, 'JALTIPAN', 30),
+(2184, 'JAMAPA', 30),
+(2185, 'JESUS CARRANZA', 30),
+(2186, 'XICO', 30),
+(2187, 'JILOTEPEC', 30),
+(2188, 'JUAN RODRIGUEZ CLARA', 30),
+(2189, 'JUCHIQUE DE FERRER', 30),
+(2190, 'LANDERO Y COSS', 30),
+(2191, 'LERDO DE TEJADA', 30),
+(2192, 'MAGDALENA', 30),
+(2193, 'MALTRATA', 30),
+(2194, 'MANLIO FABIO ALTAMIRANO', 30),
+(2195, 'MARIANO ESCOBEDO', 30),
+(2196, 'MARTINEZ DE LA TORRE', 30),
+(2197, 'MECATLAN', 30),
+(2198, 'MECAYAPAN', 30),
+(2199, 'MEDELLIN', 30),
+(2200, 'MIAHUATLAN', 30),
+(2201, 'LAS MINAS', 30),
+(2202, 'MINATITLAN', 30),
+(2203, 'MISANTLA', 30),
+(2204, 'MIXTLA DE ALTAMIRANO', 30),
+(2205, 'MOLOACAN', 30),
+(2206, 'NAOLINCO', 30),
+(2207, 'NARANJAL', 30),
+(2208, 'NAUTLA', 30),
+(2209, 'NOGALES', 30),
+(2210, 'OLUTA', 30),
+(2211, 'OMEALCA', 30),
+(2212, 'ORIZABA', 30),
+(2213, 'OTATITLAN', 30),
+(2214, 'OTEAPAN', 30),
+(2215, 'OZULUAMA DE MASCAREÑAS', 30),
+(2216, 'PAJAPAN', 30),
+(2217, 'PANUCO', 30),
+(2218, 'PAPANTLA', 30),
+(2219, 'PASO DEL MACHO', 30),
+(2220, 'PASO DE OVEJAS', 30),
+(2221, 'LA PERLA', 30),
+(2222, 'PEROTE', 30),
+(2223, 'PLATON SANCHEZ', 30),
+(2224, 'PLAYA VICENTE', 30),
+(2225, 'POZA RICA DE HIDALGO', 30),
+(2226, 'LAS VIGAS DE RAMIREZ', 30),
+(2227, 'PUEBLO VIEJO', 30),
+(2228, 'PUENTE NACIONAL', 30),
+(2229, 'RAFAEL DELGADO', 30),
+(2230, 'RAFAEL LUCIO', 30),
+(2231, 'LOS REYES', 30),
+(2232, 'RIO BLANCO', 30),
+(2233, 'SALTABARRANCA', 30),
+(2234, 'SAN ANDRES TENEJAPAN', 30),
+(2235, 'SAN ANDRES TUXTLA', 30),
+(2236, 'SAN JUAN EVANGELISTA', 30),
+(2237, 'SANTIAGO TUXTLA', 30),
+(2238, 'SAYULA DE ALEMAN', 30),
+(2239, 'SOCONUSCO', 30),
+(2240, 'SOCHIAPA', 30),
+(2241, 'SOLEDAD ATZOMPA', 30),
+(2242, 'SOLEDAD DE DOBLADO', 30),
+(2243, 'SOTEAPAN', 30),
+(2244, 'TAMALIN', 30),
+(2245, 'TAMIAHUA', 30),
+(2246, 'TAMPICO ALTO', 30),
+(2247, 'TANCOCO', 30),
+(2248, 'TANTIMA', 30),
+(2249, 'TANTOYUCA', 30),
+(2250, 'TATATILA', 30),
+(2251, 'CASTILLO DE TEAYO', 30),
+(2252, 'TECOLUTLA', 30),
+(2253, 'TEHUIPANGO', 30),
+(2254, 'TEMAPACHE', 30),
+(2255, 'TEMPOAL', 30),
+(2256, 'TENAMPA', 30),
+(2257, 'TENOCHTITLAN', 30),
+(2258, 'TEOCELO', 30),
+(2259, 'TEPATLAXCO', 30),
+(2260, 'TEPETLAN', 30),
+(2261, 'TEPETZINTLA', 30),
+(2262, 'TEQUILA', 30),
+(2263, 'JOSE AZUETA', 30),
+(2264, 'TEXCATEPEC', 30),
+(2265, 'TEXHUACAN', 30),
+(2266, 'TEXISTEPEC', 30),
+(2267, 'TEZONAPA', 30),
+(2268, 'TIERRA BLANCA', 30),
+(2269, 'TIHUATLAN', 30),
+(2270, 'TLACOJALPAN', 30),
+(2271, 'TLACOLULAN', 30),
+(2272, 'TLACOTALPAN', 30),
+(2273, 'TLACOTEPEC DE MEJIA', 30),
+(2274, 'TLACHICHILCO', 30),
+(2275, 'TLALIXCOYAN', 30),
+(2276, 'TLALNELHUAYOCAN', 30),
+(2277, 'TLAPACOYAN', 30),
+(2278, 'TLAQUILPA', 30),
+(2279, 'TLILAPAN', 30),
+(2280, 'TOMATLAN', 30),
+(2281, 'TONAYAN', 30),
+(2282, 'TOTUTLA', 30),
+(2283, 'TUXPAM', 30),
+(2284, 'TUXTILLA', 30),
+(2285, 'URSULO GALVAN', 30),
+(2286, 'VEGA DE ALATORRE', 30),
+(2287, 'VERACRUZ', 30),
+(2288, 'VILLA ALDAMA', 30),
+(2289, 'XOXOCOTLA', 30),
+(2290, 'YANGA', 30),
+(2291, 'YECUATLA', 30),
+(2292, 'ZACUALPAN', 30),
+(2293, 'ZARAGOZA', 30),
+(2294, 'ZENTLA', 30),
+(2295, 'ZONGOLICA', 30),
+(2296, 'ZONTECOMATLAN DE LOPEZ Y FUENTES', 30),
+(2297, 'ZOZOCOLCO DE HIDALGO', 30),
+(2298, 'AGUA DULCE', 30),
+(2299, 'EL HIGO', 30),
+(2300, 'NANCHITAL DE LAZARO CARDENAS DEL RIO', 30),
+(2301, 'TRES VALLES', 30),
+(2302, 'CARLOS A. CARRILLO', 30),
+(2303, 'TATAHUICAPAN DE JUAREZ', 30),
+(2304, 'UXPANAPA', 30),
+(2305, 'SAN RAFAEL', 30),
+(2306, 'SANTIAGO SOCHIAPAN', 30),
+(2307, 'ABALA', 31),
+(2308, 'ACANCEH', 31),
+(2309, 'AKIL', 31),
+(2310, 'BACA', 31),
+(2311, 'BOKOBA', 31),
+(2312, 'BUCTZOTZ', 31),
+(2313, 'CACALCHEN', 31),
+(2314, 'CALOTMUL', 31),
+(2315, 'CANSAHCAB', 31),
+(2316, 'CANTAMAYEC', 31),
+(2317, 'CELESTUN', 31),
+(2318, 'CENOTILLO', 31),
+(2319, 'CONKAL', 31),
+(2320, 'CUNCUNUL', 31),
+(2321, 'CUZAMA', 31),
+(2322, 'CHACSINKIN', 31),
+(2323, 'CHANKOM', 31),
+(2324, 'CHAPAB', 31),
+(2325, 'CHEMAX', 31),
+(2326, 'CHICXULUB PUEBLO', 31),
+(2327, 'CHICHIMILA', 31),
+(2328, 'CHIKINDZONOT', 31),
+(2329, 'CHOCHOLA', 31),
+(2330, 'CHUMAYEL', 31),
+(2331, 'DZAN', 31),
+(2332, 'DZEMUL', 31),
+(2333, 'DZIDZANTUN', 31),
+(2334, 'DZILAM DE BRAVO', 31),
+(2335, 'DZILAM GONZALEZ', 31),
+(2336, 'DZITAS', 31),
+(2337, 'DZONCAUICH', 31),
+(2338, 'ESPITA', 31),
+(2339, 'HALACHO', 31),
+(2340, 'HOCABA', 31),
+(2341, 'HOCTUN', 31),
+(2342, 'HOMUN', 31),
+(2343, 'HUHI', 31),
+(2344, 'HUNUCMA', 31),
+(2345, 'IXIL', 31),
+(2346, 'IZAMAL', 31),
+(2347, 'KANASIN', 31),
+(2348, 'KANTUNIL', 31),
+(2349, 'KAUA', 31),
+(2350, 'KINCHIL', 31),
+(2351, 'KOPOMA', 31),
+(2352, 'MAMA', 31),
+(2353, 'MANI', 31),
+(2354, 'MAXCANU', 31),
+(2355, 'MAYAPAN', 31),
+(2356, 'MERIDA', 31),
+(2357, 'MOCOCHA', 31),
+(2358, 'MOTUL', 31),
+(2359, 'MUNA', 31),
+(2360, 'MUXUPIP', 31),
+(2361, 'OPICHEN', 31),
+(2362, 'OXKUTZCAB', 31),
+(2363, 'PANABA', 31),
+(2364, 'PETO', 31),
+(2365, 'PROGRESO', 31),
+(2366, 'QUINTANA ROO', 31),
+(2367, 'RIO LAGARTOS', 31),
+(2368, 'SACALUM', 31),
+(2369, 'SAMAHIL', 31),
+(2370, 'SANAHCAT', 31),
+(2371, 'SAN FELIPE', 31),
+(2372, 'SANTA ELENA', 31),
+(2373, 'SEYE', 31),
+(2374, 'SINANCHE', 31),
+(2375, 'SOTUTA', 31),
+(2376, 'SUCILA', 31),
+(2377, 'SUDZAL', 31),
+(2378, 'SUMA', 31),
+(2379, 'TAHDZIU', 31),
+(2380, 'TAHMEK', 31),
+(2381, 'TEABO', 31),
+(2382, 'TECOH', 31),
+(2383, 'TEKAL DE VENEGAS', 31),
+(2384, 'TEKANTO', 31),
+(2385, 'TEKAX', 31),
+(2386, 'TEKIT', 31),
+(2387, 'TEKOM', 31),
+(2388, 'TELCHAC PUEBLO', 31),
+(2389, 'TELCHAC PUERTO', 31),
+(2390, 'TEMAX', 31),
+(2391, 'TEMOZON', 31),
+(2392, 'TEPAKAN', 31),
+(2393, 'TETIZ', 31),
+(2394, 'TEYA', 31),
+(2395, 'TICUL', 31),
+(2396, 'TIMUCUY', 31),
+(2397, 'TINUM', 31),
+(2398, 'TIXCACALCUPUL', 31),
+(2399, 'TIXKOKOB', 31),
+(2400, 'TIXMEHUAC', 31),
+(2401, 'TIXPEHUAL', 31),
+(2402, 'TIZIMIN', 31),
+(2403, 'TUNKAS', 31),
+(2404, 'TZUCACAB', 31),
+(2405, 'UAYMA', 31),
+(2406, 'UCU', 31),
+(2407, 'UMAN', 31),
+(2408, 'VALLADOLID', 31),
+(2409, 'XOCCHEL', 31),
+(2410, 'YAXCABA', 31),
+(2411, 'YAXKUKUL', 31),
+(2412, 'YOBAIN', 31),
+(2413, 'APOZOL', 32),
+(2414, 'APULCO', 32),
+(2415, 'ATOLINGA', 32),
+(2416, 'BENITO JUAREZ', 32),
+(2417, 'CALERA', 32),
+(2418, 'CAÑITAS DE FELIPE PESCADOR', 32),
+(2419, 'CONCEPCION DEL ORO', 32),
+(2420, 'CUAUHTEMOC', 32),
+(2421, 'CHALCHIHUITES', 32),
+(2422, 'FRESNILLO', 32),
+(2423, 'TRINIDAD GARCIA DE LA CADENA', 32),
+(2424, 'GENARO CODINA', 32),
+(2425, 'GENERAL ENRIQUE ESTRADA', 32),
+(2426, 'GENERAL FRANCISCO R. MURGUIA', 32),
+(2427, 'EL PLATEADO DE JOAQUIN AMARO', 32),
+(2428, 'GENERAL PANFILO NATERA', 32),
+(2429, 'GUADALUPE', 32),
+(2430, 'HUANUSCO', 32),
+(2431, 'JALPA', 32),
+(2432, 'JEREZ', 32),
+(2433, 'JIMENEZ DEL TEUL', 32),
+(2434, 'JUAN ALDAMA', 32),
+(2435, 'JUCHIPILA', 32),
+(2436, 'LORETO', 32),
+(2437, 'LUIS MOYA', 32),
+(2438, 'MAZAPIL', 32),
+(2439, 'MELCHOR OCAMPO', 32),
+(2440, 'MEZQUITAL DEL ORO', 32),
+(2441, 'MIGUEL AUZA', 32),
+(2442, 'MOMAX', 32),
+(2443, 'MONTE ESCOBEDO', 32),
+(2444, 'MORELOS', 32),
+(2445, 'MOYAHUA DE ESTRADA', 32),
+(2446, 'NOCHISTLAN DE MEJIA', 32),
+(2447, 'NORIA DE ANGELES', 32),
+(2448, 'OJOCALIENTE', 32),
+(2449, 'PANUCO', 32),
+(2450, 'PINOS', 32),
+(2451, 'RIO GRANDE', 32),
+(2452, 'SAIN ALTO', 32),
+(2453, 'EL SALVADOR', 32),
+(2454, 'SOMBRERETE', 32),
+(2455, 'SUSTICACAN', 32),
+(2456, 'TABASCO', 32),
+(2457, 'TEPECHITLAN', 32),
+(2458, 'TEPETONGO', 32),
+(2459, 'TEUL DE GONZALEZ ORTEGA', 32),
+(2460, 'TLALTENANGO DE SANCHEZ ROMAN', 32),
+(2461, 'VALPARAISO', 32),
+(2462, 'VETAGRANDE', 32),
+(2463, 'VILLA DE COS', 32),
+(2464, 'VILLA GARCIA', 32),
+(2465, 'VILLA GONZALEZ ORTEGA', 32),
+(2466, 'VILLA HIDALGO', 32),
+(2467, 'VILLANUEVA', 32),
+(2468, 'ZACATECAS', 32),
+(2469, 'TRANCOSO', 32),
+(2470, 'SANTA MARIA DE LA PAZ', 32),
+(2471, 'Ahuevó', 19);
 
-# Volcado de tabla Nivelessocioeconomicos
-# ------------------------------------------------------------
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `Nivelessocioeconomicos`;
+--
+-- Estructura de tabla para la tabla `nivelessocioeconomicos`
+--
 
-CREATE TABLE `Nivelessocioeconomicos` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `nivelessocioeconomicos` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `notaspaciente`
+--
 
-# Volcado de tabla Pacientes
-# ------------------------------------------------------------
+CREATE TABLE `notaspaciente` (
+  `ID` int(11) NOT NULL,
+  `NOTAS` longtext COLLATE utf8_unicode_ci,
+  `FECHA` date NOT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `Pacientes`;
+-- --------------------------------------------------------
 
-CREATE TABLE `Pacientes` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+--
+-- Estructura de tabla para la tabla `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `ID` int(11) NOT NULL,
   `CURP` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `SEXO` int(11) DEFAULT NULL,
   `NOMBRE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -157,8 +2969,8 @@ CREATE TABLE `Pacientes` (
   `TELEFONO_1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `TELEFONO_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `EMAIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `RFC` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `FECHA_REGISTRO` date NOT NULL,
+  `RFC` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FECHA_REGISTRO` datetime NOT NULL,
   `ESTADO_CIVIL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `REFERIDO` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `IMAGEN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -175,192 +2987,198 @@ CREATE TABLE `Pacientes` (
   `VIVIENDA_id` int(11) DEFAULT NULL,
   `USUARIO_id` int(11) DEFAULT NULL,
   `DEPENDENCIA_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `IDX_15EAFAF257F28A7E` (`NIVEL_SOCIOECONOMICO_id`),
-  KEY `IDX_15EAFAF2E17BA5C4` (`TIPO_SANGUINEO_id`),
-  KEY `IDX_15EAFAF2E69063BB` (`DISCAPACIDAD_id`),
-  KEY `IDX_15EAFAF259130E16` (`GRUPO_ETNICO_id`),
-  KEY `IDX_15EAFAF24D3F186E` (`ESTADO_id`),
-  KEY `IDX_15EAFAF2AC21DCDF` (`RELIGION_id`),
-  KEY `IDX_15EAFAF25B29107A` (`MUNICIPIO_id`),
-  KEY `IDX_15EAFAF29A0387EA` (`VIVIENDA_id`),
-  KEY `IDX_15EAFAF246001C2B` (`USUARIO_id`),
-  KEY `IDX_15EAFAF2A2AB0A01` (`DEPENDENCIA_id`),
-  CONSTRAINT `FK_15EAFAF246001C2B` FOREIGN KEY (`USUARIO_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_15EAFAF24D3F186E` FOREIGN KEY (`ESTADO_id`) REFERENCES `Estados` (`ID`),
-  CONSTRAINT `FK_15EAFAF257F28A7E` FOREIGN KEY (`NIVEL_SOCIOECONOMICO_id`) REFERENCES `Nivelessocioeconomicos` (`ID`),
-  CONSTRAINT `FK_15EAFAF259130E16` FOREIGN KEY (`GRUPO_ETNICO_id`) REFERENCES `Gruposetnicos` (`ID`),
-  CONSTRAINT `FK_15EAFAF25B29107A` FOREIGN KEY (`MUNICIPIO_id`) REFERENCES `Municipios` (`ID`),
-  CONSTRAINT `FK_15EAFAF29A0387EA` FOREIGN KEY (`VIVIENDA_id`) REFERENCES `Viviendas` (`ID`),
-  CONSTRAINT `FK_15EAFAF2A2AB0A01` FOREIGN KEY (`DEPENDENCIA_id`) REFERENCES `Dependencias` (`ID`),
-  CONSTRAINT `FK_15EAFAF2AC21DCDF` FOREIGN KEY (`RELIGION_id`) REFERENCES `Religiones` (`ID`),
-  CONSTRAINT `FK_15EAFAF2E17BA5C4` FOREIGN KEY (`TIPO_SANGUINEO_id`) REFERENCES `Tipossanguineos` (`ID`),
-  CONSTRAINT `FK_15EAFAF2E69063BB` FOREIGN KEY (`DISCAPACIDAD_id`) REFERENCES `Discapacidades` (`ID`)
+  `NOMBRE_CONYUGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `EDAD_CONYUGE` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `pacientes`
+--
 
+INSERT INTO `pacientes` (`ID`, `CURP`, `SEXO`, `NOMBRE`, `APELLIDO_PATERNO`, `APELLIDO_MATERNO`, `FECHA_NACIMIENTO`, `OCUPACION`, `EMBARAZO`, `CALLE`, `NUMERO_EXT`, `NUMERO_INT`, `CODIGO_POSTAL`, `COLONIA`, `TELEFONO_1`, `TELEFONO_2`, `EMAIL`, `RFC`, `FECHA_REGISTRO`, `ESTADO_CIVIL`, `REFERIDO`, `IMAGEN`, `FECHA_MODIFICACION`, `AFILIACION`, `CLINICA`, `NIVEL_SOCIOECONOMICO_id`, `TIPO_SANGUINEO_id`, `DISCAPACIDAD_id`, `GRUPO_ETNICO_id`, `ESTADO_id`, `RELIGION_id`, `MUNICIPIO_id`, `VIVIENDA_id`, `USUARIO_id`, `DEPENDENCIA_id`, `NOMBRE_CONYUGE`, `EDAD_CONYUGE`) VALUES
+(1, NULL, 2, 'Soheil', 'Barrios', 'Parra', '1980-01-29', 'Progra', NULL, 'Pimentel', '4311', '', NULL, NULL, '', '', 'soheil.barrios@exclie.com.mx', NULL, '2016-03-16 02:35:57', '2', 'Dr. Simi', 'perfil.jpeg', NULL, NULL, NULL, NULL, 6, NULL, NULL, 8, NULL, 233, NULL, 2, NULL, 'Raúl Ramos', '35'),
+(2, NULL, 2, 'Camen', 'Justiniani', 'Segovia', NULL, NULL, NULL, 'Monasterio', '45', '', NULL, 'Los Sacros', '(614) 523-9875', '', 'cmert@me.com', NULL, '2016-03-01 20:31:34', '1', 'Dr. Similitud', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(3, NULL, 2, 'Camen', 'Justiniani', 'Segovia', NULL, NULL, NULL, 'Monasterio', '45', '', NULL, 'Los Sacros', '(614) 523-9875', '', 'cmert@me.com', NULL, '2016-03-01 20:35:32', '1', 'Dr. Similitud', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(4, NULL, 2, 'Flor', 'Perez', 'Dominguez', NULL, NULL, NULL, 'Maple', '526', '', NULL, 'Dulces Campos', '(614) 523-6589', '', 'florecita@rokera.com', NULL, '2016-03-04 16:31:29', '1', 'Sandra Carranza', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(5, NULL, 2, 'jhb', 'ds', 'hj', '2016-04-03', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-04 19:30:31', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(6, NULL, 2, 'dpksdpoa', 'fsfksfpok', 'osofpo', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-04 19:33:28', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(7, NULL, 2, 'dpksdpoa', 'fsfksfpok', 'osofpo', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-04 19:33:30', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(8, NULL, 2, '', 'asdad', '', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-04 19:34:41', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(9, NULL, 2, 'Felicitas', 'Fernandez', 'Fernandez', NULL, NULL, NULL, 'Del Olmo', '564', '', NULL, 'Bosques Reales', '(614) 253-6987', '', 'felicitas@fernadez.com', NULL, '2016-03-06 04:00:26', '1', 'Dr. Simi', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(10, NULL, 2, 'sad', 'asd', 'asd', NULL, NULL, NULL, '', '', '', NULL, '', '', '', '', NULL, '2016-03-06 04:05:34', '1', '', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(11, NULL, 2, 'Blanca', 'Charming', 'Nieves', NULL, NULL, NULL, 'Castillo', '15', '', NULL, 'Cuentos de hadas', '(624) 536-8588', '', '', NULL, '2016-03-06 05:09:06', '1', 'Bella Durmiente', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(12, NULL, 2, '', 'asd', 'asd', NULL, NULL, NULL, '', '', '', NULL, '', '', '', '', NULL, '2016-03-09 16:17:40', '1', '', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(13, NULL, 2, 'sdfsdf', 'dfsdf', 'dfsdf', NULL, NULL, NULL, '', '', '', NULL, '', '', '', '', NULL, '2016-03-09 16:21:51', '1', '', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(14, NULL, 2, 'zxc', 'xc', 'xczxc', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-09 16:22:55', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(15, NULL, 2, 'sdfsdf', 'dsf', 'sdfsdf', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-09 16:25:03', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(16, NULL, 2, 'sdf', 'sdfs', 'sdf', NULL, NULL, NULL, '', '', '', NULL, '', '', '', '', NULL, '2016-03-09 16:26:40', '1', '', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, '', ''),
+(17, NULL, 2, 'sdfsdf', 'dsfsdf', 'sdf', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-09 16:29:15', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(18, NULL, 2, 'Paulina', 'Jordan', 'Sith', '1999-06-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-10 03:52:59', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(19, NULL, 2, 'Prueba', 'Prueba ', 'Prueba', NULL, NULL, NULL, 'x', '15', '', NULL, 'dsf', '(614) 589-8532', '', 'prueba@pruebita.com', NULL, '2016-03-13 16:24:39', '2', 'Dr. Simi', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, 'Casado con prueba', '15'),
+(20, NULL, 2, 'Elisa', 'Contreras', 'Vargas', '1970-01-01', 'Contadora', NULL, 'De la O', '258', '', NULL, NULL, '(614) 589-2563', '', NULL, NULL, '2016-03-13 18:10:12', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(21, NULL, 2, 'Mas', 'otra', '', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', NULL, NULL, '2016-03-13 18:12:57', '1', NULL, NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, NULL, NULL, NULL, NULL),
+(22, NULL, 2, 'LAurel', 'Prueba sangre', '', '2016-03-11', '', NULL, '', '', '', NULL, NULL, '', '', '', NULL, '2016-03-13 19:53:50', '1', 'Laura Ponce', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 8, NULL, 230, NULL, 2, NULL, NULL, NULL),
+(23, NULL, 2, '', '', '', '1970-01-01', '', NULL, '', '', '', NULL, NULL, '', '', '', NULL, '2016-03-14 02:54:40', '1', '', NULL, NULL, NULL, NULL, NULL, 9, NULL, NULL, 8, NULL, 233, NULL, 2, NULL, NULL, NULL);
 
-# Volcado de tabla privilege
-# ------------------------------------------------------------
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `privilege`;
+--
+-- Estructura de tabla para la tabla `privilege`
+--
 
 CREATE TABLE `privilege` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `resource_id` int(11) DEFAULT NULL,
   `role_id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `permission_allow` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_87209A8789329D25` (`resource_id`),
-  KEY `IDX_87209A87D60322AC` (`role_id`),
-  CONSTRAINT `FK_87209A8789329D25` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`),
-  CONSTRAINT `FK_87209A87D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  `permission_allow` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
-
-# Volcado de tabla question
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `question`;
+--
+-- Estructura de tabla para la tabla `question`
+--
 
 CREATE TABLE `question` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `question` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_B6F7494EB6F7494E` (`question`)
+  `id` int(11) NOT NULL,
+  `question` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `recetas`
+--
 
-# Volcado de tabla Religiones
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Religiones`;
-
-CREATE TABLE `Religiones` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `recetas` (
+  `ID` int(11) NOT NULL,
+  `FECHA_INICIO` date DEFAULT NULL,
+  `INDICACIONES_ADICIONALES` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CONSULTAS_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `religiones`
+--
 
-# Volcado de tabla resource
-# ------------------------------------------------------------
+CREATE TABLE `religiones` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `resource`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resource`
+--
 
 CREATE TABLE `resource` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
-
-# Volcado de tabla role
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `role`;
+--
+-- Estructura de tabla para la tabla `role`
+--
 
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
-  `name` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `name` varchar(15) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+--
+-- Volcado de datos para la tabla `role`
+--
 
-INSERT INTO `role` (`id`, `name`)
-VALUES
-	(1,'Admin'),
-	(2,'Administrativo'),
-	(3,'Médico'),
-	(4,'Técnico'),
-	(5,'Recepción'),
-	(6,'Invitado');
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'Admin'),
+(2, 'Administrativo'),
+(3, 'Médico'),
+(4, 'Técnico'),
+(5, 'Recepción'),
+(6, 'Invitado'),
+(7, 'Capturista');
 
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
-
-# Volcado de tabla roles_parents
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `roles_parents`;
+--
+-- Estructura de tabla para la tabla `roles_parents`
+--
 
 CREATE TABLE `roles_parents` (
   `role_id` int(11) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  PRIMARY KEY (`role_id`,`parent_id`),
-  KEY `IDX_C70E6B91D60322AC` (`role_id`),
-  KEY `IDX_C70E6B91727ACA70` (`parent_id`),
-  CONSTRAINT `FK_C70E6B91727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `role` (`id`),
-  CONSTRAINT `FK_C70E6B91D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  `parent_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `roles_parents` WRITE;
-/*!40000 ALTER TABLE `roles_parents` DISABLE KEYS */;
+--
+-- Volcado de datos para la tabla `roles_parents`
+--
 
-INSERT INTO `roles_parents` (`role_id`, `parent_id`)
-VALUES
-	(1,2),
-	(2,3),
-	(3,4),
-	(4,5);
+INSERT INTO `roles_parents` (`role_id`, `parent_id`) VALUES
+(1, 2),
+(2, 3),
+(3, 4),
+(4, 5);
 
-/*!40000 ALTER TABLE `roles_parents` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
-
-# Volcado de tabla state
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `state`;
+--
+-- Estructura de tabla para la tabla `state`
+--
 
 CREATE TABLE `state` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `state` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_A393D2FBA393D2FB` (`state`)
+  `id` int(11) NOT NULL,
+  `state` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `state` WRITE;
-/*!40000 ALTER TABLE `state` DISABLE KEYS */;
+--
+-- Volcado de datos para la tabla `state`
+--
 
-INSERT INTO `state` (`id`, `state`)
-VALUES
-	(1,'Activo'),
-	(2,'Inactivo'),
-	(3,'Suspendido');
+INSERT INTO `state` (`id`, `state`) VALUES
+(1, 'Activo'),
+(2, 'Inactivo'),
+(3, 'Suspendido');
 
-/*!40000 ALTER TABLE `state` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `tipossanguineos`
+--
 
-# Volcado de tabla Tipossanguineos
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Tipossanguineos`;
-
-CREATE TABLE `Tipossanguineos` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `tipossanguineos` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `tipossanguineos`
+--
 
+INSERT INTO `tipossanguineos` (`ID`, `NOMBRE`) VALUES
+(1, 'O+'),
+(2, 'A+'),
+(3, 'O-'),
+(4, 'B+'),
+(5, 'A-'),
+(6, 'B-'),
+(7, 'AB+'),
+(8, 'AB-'),
+(9, 'Desconoce');
 
-# Volcado de tabla user
-# ------------------------------------------------------------
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+--
+-- Estructura de tabla para la tabla `user`
+--
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
@@ -374,30 +3192,17 @@ CREATE TABLE `user` (
   `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
   `registration_token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email_confirmed` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`),
-  UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
-  KEY `IDX_8D93D649D60322AC` (`role_id`),
-  KEY `IDX_8D93D64982F1BAF4` (`language_id`),
-  KEY `IDX_8D93D6495D83CC1` (`state_id`),
-  KEY `IDX_8D93D6491E27F6BF` (`question_id`),
-  KEY `search_idx` (`username`,`first_name`,`last_name`,`email`),
-  CONSTRAINT `FK_8D93D6491E27F6BF` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
-  CONSTRAINT `FK_8D93D6495D83CC1` FOREIGN KEY (`state_id`) REFERENCES `state` (`id`),
-  CONSTRAINT `FK_8D93D64982F1BAF4` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
-  CONSTRAINT `FK_8D93D649D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  `email_confirmed` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
 
-# Volcado de tabla Usuarios
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Usuarios`;
-
-CREATE TABLE `Usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
   `USUARIO` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `NOMBRE` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
   `EMAIL` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -406,45 +3211,604 @@ CREATE TABLE `Usuarios` (
   `FECHAREGISTRO` datetime DEFAULT NULL,
   `EMAILCONFIRMADO` tinyint(1) NOT NULL,
   `ROL_id` int(11) NOT NULL,
-  `ESTATUS_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_F780E5A41D204E47` (`USUARIO`),
-  UNIQUE KEY `UNIQ_F780E5A410C6BEC4` (`EMAIL`),
-  KEY `IDX_F780E5A462E53C60` (`ROL_id`),
-  KEY `IDX_F780E5A4C482ECE4` (`ESTATUS_id`),
-  KEY `search_idx` (`USUARIO`,`NOMBRE`,`EMAIL`),
-  CONSTRAINT `FK_F780E5A462E53C60` FOREIGN KEY (`ROL_id`) REFERENCES `role` (`id`),
-  CONSTRAINT `FK_F780E5A4C482ECE4` FOREIGN KEY (`ESTATUS_id`) REFERENCES `state` (`id`)
+  `ESTATUS_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `Usuarios` WRITE;
-/*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
+--
+-- Volcado de datos para la tabla `usuarios`
+--
 
-INSERT INTO `Usuarios` (`id`, `USUARIO`, `NOMBRE`, `EMAIL`, `PASSWORD`, `FOTO`, `FECHAREGISTRO`, `EMAILCONFIRMADO`, `ROL_id`, `ESTATUS_id`)
-VALUES
-	(1,'Admin','Abraham Martínez Wong','mtz_wg@hotmail.com','$2y$10$z9WCLFgyQ.3UlyYZlDL3MeXnqUam0ZqbP/bL0.7rQ2b/6Hc.m8PWK',NULL,NULL,1,1,1);
+INSERT INTO `usuarios` (`id`, `USUARIO`, `NOMBRE`, `EMAIL`, `PASSWORD`, `FOTO`, `FECHAREGISTRO`, `EMAILCONFIRMADO`, `ROL_id`, `ESTATUS_id`) VALUES
+(1, 'Admin', 'Abraham Martínez Wong', 'mtz_wg@hotmail.com', '$2y$10$z9WCLFgyQ.3UlyYZlDL3MeXnqUam0ZqbP/bL0.7rQ2b/6Hc.m8PWK', NULL, NULL, 1, 1, 1),
+(2, 'soheil', 'Soheil Barrios', 'soheil.barrios@exclie.com.mx', '$2y$10$fKWeephseW3IJxe5xzzTtu3DG17pTapJXpQ35rw7Q3iABvBRqrRo6', 'cap1.jpg', NULL, 1, 1, 1),
+(3, 'Samuel', 'Samuel', 'samuel.saenz@exclie.com.mx', '$2y$10$3NtFdWT87l4K/sDdXBDbAuETZHynkVNretqzJrsocs3CNa1PZ4eZ6', NULL, '2016-02-11 19:47:39', 1, 1, 1),
+(4, 'yasuri', 'Yasuri', 'yasglez6@gmail.com', '$2y$10$p/8ktJW34.IbbXEu.f52NePfVKlTcYHRGdRwbuS1dz8fTXfC7dndi', NULL, '2016-02-11 20:41:41', 1, 7, 1),
+(5, 'Recepcioni', 'Concepcion', 'Concha@exce.com', '$2y$10$fKWeephseW3IJxe5xzzTtu3DG17pTapJXpQ35rw7Q3iABvBRqrRo6', NULL, '2016-03-08 04:40:33', 1, 5, 2);
 
-/*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `videoconsulta`
+--
 
-# Volcado de tabla Viviendas
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `Viviendas`;
-
-CREATE TABLE `Viviendas` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `videoconsulta` (
+  `ID` int(11) NOT NULL,
+  `VIDEO` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `FECHA` date NOT NULL,
+  `PACIENTE_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `viviendas`
+--
 
+CREATE TABLE `viviendas` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `agendas`
+--
+ALTER TABLE `agendas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_1AFEFFC0271CBC24` (`usuariox_id`),
+  ADD KEY `IDX_1AFEFFC07310DAD4` (`paciente_id`),
+  ADD KEY `IDX_1AFEFFC0CB27EB37` (`refdocid_id`),
+  ADD KEY `IDX_1AFEFFC0DF2432B6` (`dependencia_id`),
+  ADD KEY `IDX_1AFEFFC087F4FB17` (`doctor_id`);
+
+--
+-- Indices de la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_273DEF7468B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `cbasica`
+--
+ALTER TABLE `cbasica`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `cgineco`
+--
+ALTER TABLE `cgineco`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_F8324C4468B40AB6` (`PACIENTE_id`),
+  ADD KEY `IDX_F8324C44759E4069` (`MEDICO_id`);
+
+--
+-- Indices de la tabla `dependencias`
+--
+ALTER TABLE `dependencias`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `discapacidades`
+--
+ALTER TABLE `discapacidades`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `doctores`
+--
+ALTER TABLE `doctores`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_D28FF086E3EE96C5` (`ESPECIALIDAD_id`),
+  ADD KEY `IDX_D28FF086A2AB0A01` (`DEPENDENCIA_id`);
+
+--
+-- Indices de la tabla `especialidades`
+--
+ALTER TABLE `especialidades`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `expescar`
+--
+ALTER TABLE `expescar`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_70DE48AD68B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`user_id`,`friend_id`),
+  ADD KEY `IDX_21EE7069A76ED395` (`user_id`),
+  ADD KEY `IDX_21EE70696A5458E8` (`friend_id`);
+
+--
+-- Indices de la tabla `gruposetnicos`
+--
+ALTER TABLE `gruposetnicos`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `historianterior`
+--
+ALTER TABLE `historianterior`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_CDFFB1A668B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `imagenesconsultas`
+--
+ALTER TABLE `imagenesconsultas`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_A5496C5B68B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `language`
+--
+ALTER TABLE `language`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `medicamentoreceta`
+--
+ALTER TABLE `medicamentoreceta`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_4392A462869D0F9D` (`RECETA_id`);
+
+--
+-- Indices de la tabla `monitoreo`
+--
+ALTER TABLE `monitoreo`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_F4A7B6564D3F186E` (`ESTADO_id`);
+
+--
+-- Indices de la tabla `nivelessocioeconomicos`
+--
+ALTER TABLE `nivelessocioeconomicos`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `notaspaciente`
+--
+ALTER TABLE `notaspaciente`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_8C0EFF868B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_15EAFAF257F28A7E` (`NIVEL_SOCIOECONOMICO_id`),
+  ADD KEY `IDX_15EAFAF2E17BA5C4` (`TIPO_SANGUINEO_id`),
+  ADD KEY `IDX_15EAFAF2E69063BB` (`DISCAPACIDAD_id`),
+  ADD KEY `IDX_15EAFAF259130E16` (`GRUPO_ETNICO_id`),
+  ADD KEY `IDX_15EAFAF24D3F186E` (`ESTADO_id`),
+  ADD KEY `IDX_15EAFAF2AC21DCDF` (`RELIGION_id`),
+  ADD KEY `IDX_15EAFAF25B29107A` (`MUNICIPIO_id`),
+  ADD KEY `IDX_15EAFAF29A0387EA` (`VIVIENDA_id`),
+  ADD KEY `IDX_15EAFAF246001C2B` (`USUARIO_id`),
+  ADD KEY `IDX_15EAFAF2A2AB0A01` (`DEPENDENCIA_id`);
+
+--
+-- Indices de la tabla `privilege`
+--
+ALTER TABLE `privilege`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_87209A8789329D25` (`resource_id`),
+  ADD KEY `IDX_87209A87D60322AC` (`role_id`);
+
+--
+-- Indices de la tabla `question`
+--
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_B6F7494EB6F7494E` (`question`);
+
+--
+-- Indices de la tabla `recetas`
+--
+ALTER TABLE `recetas`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_456709499E6D613F` (`CONSULTAS_id`);
+
+--
+-- Indices de la tabla `religiones`
+--
+ALTER TABLE `religiones`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `resource`
+--
+ALTER TABLE `resource`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `roles_parents`
+--
+ALTER TABLE `roles_parents`
+  ADD PRIMARY KEY (`role_id`,`parent_id`),
+  ADD KEY `IDX_C70E6B91D60322AC` (`role_id`),
+  ADD KEY `IDX_C70E6B91727ACA70` (`parent_id`);
+
+--
+-- Indices de la tabla `state`
+--
+ALTER TABLE `state`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_A393D2FBA393D2FB` (`state`);
+
+--
+-- Indices de la tabla `tipossanguineos`
+--
+ALTER TABLE `tipossanguineos`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
+  ADD KEY `IDX_8D93D649D60322AC` (`role_id`),
+  ADD KEY `IDX_8D93D64982F1BAF4` (`language_id`),
+  ADD KEY `IDX_8D93D6495D83CC1` (`state_id`),
+  ADD KEY `IDX_8D93D6491E27F6BF` (`question_id`),
+  ADD KEY `search_idx` (`username`,`first_name`,`last_name`,`email`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_F780E5A41D204E47` (`USUARIO`),
+  ADD UNIQUE KEY `UNIQ_F780E5A410C6BEC4` (`EMAIL`),
+  ADD KEY `IDX_F780E5A462E53C60` (`ROL_id`),
+  ADD KEY `IDX_F780E5A4C482ECE4` (`ESTATUS_id`),
+  ADD KEY `search_idx` (`USUARIO`,`NOMBRE`,`EMAIL`);
+
+--
+-- Indices de la tabla `videoconsulta`
+--
+ALTER TABLE `videoconsulta`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `IDX_84257CFB68B40AB6` (`PACIENTE_id`);
+
+--
+-- Indices de la tabla `viviendas`
+--
+ALTER TABLE `viviendas`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `agendas`
+--
+ALTER TABLE `agendas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `cbasica`
+--
+ALTER TABLE `cbasica`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `cgineco`
+--
+ALTER TABLE `cgineco`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `dependencias`
+--
+ALTER TABLE `dependencias`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `discapacidades`
+--
+ALTER TABLE `discapacidades`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `doctores`
+--
+ALTER TABLE `doctores`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `especialidades`
+--
+ALTER TABLE `especialidades`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT de la tabla `expescar`
+--
+ALTER TABLE `expescar`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `gruposetnicos`
+--
+ALTER TABLE `gruposetnicos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `historianterior`
+--
+ALTER TABLE `historianterior`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `imagenesconsultas`
+--
+ALTER TABLE `imagenesconsultas`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `language`
+--
+ALTER TABLE `language`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `medicamentoreceta`
+--
+ALTER TABLE `medicamentoreceta`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `monitoreo`
+--
+ALTER TABLE `monitoreo`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2472;
+--
+-- AUTO_INCREMENT de la tabla `nivelessocioeconomicos`
+--
+ALTER TABLE `nivelessocioeconomicos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `notaspaciente`
+--
+ALTER TABLE `notaspaciente`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT de la tabla `privilege`
+--
+ALTER TABLE `privilege`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `question`
+--
+ALTER TABLE `question`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `recetas`
+--
+ALTER TABLE `recetas`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `religiones`
+--
+ALTER TABLE `religiones`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `resource`
+--
+ALTER TABLE `resource`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `state`
+--
+ALTER TABLE `state`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `tipossanguineos`
+--
+ALTER TABLE `tipossanguineos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `videoconsulta`
+--
+ALTER TABLE `videoconsulta`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `viviendas`
+--
+ALTER TABLE `viviendas`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `agendas`
+--
+ALTER TABLE `agendas`
+  ADD CONSTRAINT `FK_1AFEFFC0271CBC24` FOREIGN KEY (`usuariox_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `FK_1AFEFFC07310DAD4` FOREIGN KEY (`paciente_id`) REFERENCES `pacientes` (`ID`),
+  ADD CONSTRAINT `FK_1AFEFFC087F4FB17` FOREIGN KEY (`doctor_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `FK_1AFEFFC0CB27EB37` FOREIGN KEY (`refdocid_id`) REFERENCES `doctores` (`ID`),
+  ADD CONSTRAINT `FK_1AFEFFC0DF2432B6` FOREIGN KEY (`dependencia_id`) REFERENCES `dependencias` (`ID`);
+
+--
+-- Filtros para la tabla `antecedentes`
+--
+ALTER TABLE `antecedentes`
+  ADD CONSTRAINT `FK_273DEF7468B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
+--
+-- Filtros para la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  ADD CONSTRAINT `FK_F8324C4468B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`),
+  ADD CONSTRAINT `FK_F8324C44759E4069` FOREIGN KEY (`MEDICO_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `doctores`
+--
+ALTER TABLE `doctores`
+  ADD CONSTRAINT `FK_D28FF086A2AB0A01` FOREIGN KEY (`DEPENDENCIA_id`) REFERENCES `dependencias` (`ID`),
+  ADD CONSTRAINT `FK_D28FF086E3EE96C5` FOREIGN KEY (`ESPECIALIDAD_id`) REFERENCES `especialidades` (`ID`);
+
+--
+-- Filtros para la tabla `expescar`
+--
+ALTER TABLE `expescar`
+  ADD CONSTRAINT `FK_70DE48AD68B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
+--
+-- Filtros para la tabla `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `FK_21EE70696A5458E8` FOREIGN KEY (`friend_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FK_21EE7069A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Filtros para la tabla `historianterior`
+--
+ALTER TABLE `historianterior`
+  ADD CONSTRAINT `FK_CDFFB1A668B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
+--
+-- Filtros para la tabla `imagenesconsultas`
+--
+ALTER TABLE `imagenesconsultas`
+  ADD CONSTRAINT `FK_A5496C5B68B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
+--
+-- Filtros para la tabla `medicamentoreceta`
+--
+ALTER TABLE `medicamentoreceta`
+  ADD CONSTRAINT `FK_4392A462869D0F9D` FOREIGN KEY (`RECETA_id`) REFERENCES `recetas` (`ID`);
+
+--
+-- Filtros para la tabla `municipios`
+--
+ALTER TABLE `municipios`
+  ADD CONSTRAINT `FK_F4A7B6564D3F186E` FOREIGN KEY (`ESTADO_id`) REFERENCES `estados` (`ID`);
+
+--
+-- Filtros para la tabla `notaspaciente`
+--
+ALTER TABLE `notaspaciente`
+  ADD CONSTRAINT `FK_8C0EFF868B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
+--
+-- Filtros para la tabla `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD CONSTRAINT `FK_15EAFAF246001C2B` FOREIGN KEY (`USUARIO_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `FK_15EAFAF24D3F186E` FOREIGN KEY (`ESTADO_id`) REFERENCES `estados` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF257F28A7E` FOREIGN KEY (`NIVEL_SOCIOECONOMICO_id`) REFERENCES `nivelessocioeconomicos` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF259130E16` FOREIGN KEY (`GRUPO_ETNICO_id`) REFERENCES `gruposetnicos` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF25B29107A` FOREIGN KEY (`MUNICIPIO_id`) REFERENCES `municipios` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF29A0387EA` FOREIGN KEY (`VIVIENDA_id`) REFERENCES `viviendas` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF2A2AB0A01` FOREIGN KEY (`DEPENDENCIA_id`) REFERENCES `dependencias` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF2AC21DCDF` FOREIGN KEY (`RELIGION_id`) REFERENCES `religiones` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF2E17BA5C4` FOREIGN KEY (`TIPO_SANGUINEO_id`) REFERENCES `tipossanguineos` (`ID`),
+  ADD CONSTRAINT `FK_15EAFAF2E69063BB` FOREIGN KEY (`DISCAPACIDAD_id`) REFERENCES `discapacidades` (`ID`);
+
+--
+-- Filtros para la tabla `privilege`
+--
+ALTER TABLE `privilege`
+  ADD CONSTRAINT `FK_87209A8789329D25` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`),
+  ADD CONSTRAINT `FK_87209A87D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
+-- Filtros para la tabla `recetas`
+--
+ALTER TABLE `recetas`
+  ADD CONSTRAINT `FK_456709499E6D613F` FOREIGN KEY (`CONSULTAS_id`) REFERENCES `cgineco` (`ID`);
+
+--
+-- Filtros para la tabla `roles_parents`
+--
+ALTER TABLE `roles_parents`
+  ADD CONSTRAINT `FK_C70E6B91727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `role` (`id`),
+  ADD CONSTRAINT `FK_C70E6B91D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
+-- Filtros para la tabla `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `FK_8D93D6491E27F6BF` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  ADD CONSTRAINT `FK_8D93D6495D83CC1` FOREIGN KEY (`state_id`) REFERENCES `state` (`id`),
+  ADD CONSTRAINT `FK_8D93D64982F1BAF4` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
+  ADD CONSTRAINT `FK_8D93D649D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `FK_F780E5A462E53C60` FOREIGN KEY (`ROL_id`) REFERENCES `role` (`id`),
+  ADD CONSTRAINT `FK_F780E5A4C482ECE4` FOREIGN KEY (`ESTATUS_id`) REFERENCES `state` (`id`);
+
+--
+-- Filtros para la tabla `videoconsulta`
+--
+ALTER TABLE `videoconsulta`
+  ADD CONSTRAINT `FK_84257CFB68B40AB6` FOREIGN KEY (`PACIENTE_id`) REFERENCES `pacientes` (`ID`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

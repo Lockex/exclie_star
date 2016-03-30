@@ -86,7 +86,7 @@ class CapturaController extends AbstractActionController {
 			$historia->setFUM($this->request->getPost('FUM'));
 			$historia->setGESTAS($this->request->getPost('GESTAS'));
 			$historia->setPARTOS($this->request->getPost('PARTOS'));
-			$historia->setABOTOS($this->request->getPost('ABORTOS'));
+			$historia->setABORTOS($this->request->getPost('ABORTOS'));
 			$historia->setCESAREAS($this->request->getPost('CESAREAS'));
 			$historia->setECTOPICOS($this->request->getPost('ECTOPICOS'));
 			$historia->setDISMENORREA($this->request->getPost('DISMENORREA'));

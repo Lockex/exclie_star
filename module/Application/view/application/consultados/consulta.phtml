@@ -10,7 +10,7 @@
                 </div>
                 <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
             </form>
-		</div><!--end .tools -->
+		</div>
 		<div class="tools">
 			<?php if(isset($paciente))  {  ?>
 				<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
@@ -20,7 +20,7 @@
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
             </a>
-        </div><!--end .tools -->
+        </div>
 	</div>
 	<!-- END BUSCADOR DE PACIENTES -->
 
@@ -71,13 +71,25 @@
 											<span class="fa fa-stethoscope fa-2x text-accent"></span>
 										</div>
 									</a>
-									<?php } ?>
+									<?php } else if($con['ESPEC'] == 'Cgineco2'){?>
+									<a class="tile-content ink-reaction" onclick="detalleMonitoreo(<?php echo $con['ID'];?>);">
+										<div class="tile-text">
+											<?php echo date_format($con['FECHA_CONS'],'Y-m-d'); ?>
+											<small>
+												<?php echo $con['MOTIVO']; ?>
+											</small>
+										</div>
 										
+										<div class="tile-icon">
+											<span class="fa fa-stethoscope fa-2x text-accent-light"></span>
+										</div>
+									</a>
+									<?php } ?>
 								</li>
 							<?php } ?>
 							<?php } ?>
 						</ul>
-					</div><!--end .col -->
+					</div>
 					<!-- END CONTACTS NAV -->
 
 					<!-- BEGIN CONTACTS MAIN CONTENT -->
@@ -87,7 +99,7 @@
 								<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
 									<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
 								<?php } else  {?>
-									 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
+									 <img  src="<?php echo $this->basePath().'/public/imagenes/pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
                           		<?php } ?> 
 							</div>
 							<?php if(!isset($paciente)){ ?>
@@ -96,7 +108,7 @@
 								<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
 							<?php } ?>
 								&nbsp;&nbsp;
-						</div><!--end .margin-bottom-xxl -->
+						</div>
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li class="active"><a href="#verconsulta">CONSULTA</a></li>
 							<li><a href="#notes">NOTAS</a></li>
@@ -120,8 +132,8 @@
 												<div>
 													<em><?php echo $n['NOTAS']; ?></em>
 												</div>
-											</div><!--end .col -->
-									</div><!--end .list-results -->
+											</div>
+									</div>
 									<?php } ?>
 								<?php } ?>
 							</div>
@@ -155,11 +167,11 @@
 							<!-- END VERCONSULTA -->
 							
 							
-						</div><!--end .tab-content -->
-					</div><!--end .col -->
+						</div>
+					</div>
 					<!-- END CONTACTS MAIN CONTENT -->
-				</div><!--end .row -->
-			</div><!--end .hbox-column -->
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- END CONTACTS DETAILS -->
@@ -187,7 +199,7 @@
 								<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 								<dd>
 									<span class="opacity-50">Años</span><br/>
-									<span class="text-medium"><?php echo date_format($paciente[0]['FECHA_NACIMIENTO'],'d/m/Y'); ?></span>
+									<span class="text-medium"><p class="form-control-static" id="aniospac"></p></span>
 								</dd>
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
@@ -264,6 +276,13 @@
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
 </div>
+
+<?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
+<input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
+<?php }else{ ?>
+<input type="hidden" value="" id="nacim">
+<?php } ?>
+
 <form action='<?php echo $this->basePath()?>/consultados' method="post" name="fPac" id="fPac">
 	<input type="hidden" value="" id="pac" name="pac"/>
 </form>
@@ -280,8 +299,36 @@
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/pacientes.js"></script>
 <script>
+	$(document).ready(function()
+	{
+		
 
+		var born = document.getElementById("nacim").value;
+		
+		if(born == ''){
+			$('#edad').val('');
+		}else{
+			$('#edad').val(getEdad(born));
+			$('#Edad').text(getEdad(born));
+			$('#aniospac').text(getEdad(born));
+		}
+		    	
+	   	
+
+	});
 	var ruta = '<?php echo $this->basePath(); ?>';	
+	
+	function getEdad(fechanac)
+	{
+		var hoy = new Date();
+    	var fechaNacimiento = new Date(fechanac);
+    	var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    	var m = hoy.getMonth() - fechaNacimiento.getMonth();
+    	if (m < 0 || (m === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        	edad--;
+    	}
+    	return edad;
+	}
 	
 	function nuevaConsulta(pac)
 	{
@@ -372,6 +419,22 @@
 	   });
     }
 	
-	
+	function detalleMonitoreo(id)
+    {
+    	$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/vermonitoreo",
+           data: {id_consulta:id},
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#consultita').html(response);
+           		
+           },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+    }
 
 </script>

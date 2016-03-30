@@ -116,8 +116,8 @@
 		$('#calendar').fullCalendar({
 			height: 700,
 			header: false,
-			minTime: "08:00:00",
-			maxTime: "20:00:00",
+			minTime: "07:00:00",
+			maxTime: "21:00:00",
 			editable: true,
 			droppable: true,
 			defaultView: 'agendaWeek',
@@ -140,6 +140,7 @@
 				p.guardareventodrop(event.id,event.start.format(),event.end.format());
 			},
 			eventClick: function(calEvent, jsEvent, view) {	
+					
 					document.getElementById('agendaConsulta').reset();		
 					var arreglo_fecha = calEvent.start.format().split("T");		
 					$('#modAgendarcon').modal('show');
@@ -153,6 +154,10 @@
 			        $("#telefono1").val(calEvent.telefono1);
 			        $("#telefono2").val(calEvent.telefono2);
 			        $("#referidopor").val(calEvent.refdoctor);
+			        $('#quien').text(calEvent.NOMBRE);
+			        $('#className').val(calEvent.className['0']);
+			        $('#sCargo').val(calEvent.tipoCargo);
+
 			        accion = 'editarcita';
 			},
 			drop: function (date, allDay,view) { // this function is called when something is dropped
@@ -199,7 +204,7 @@
 				$("#cFin").val(fin.toISOString());
 				$("#desde").val(date.format("HH:mm"));
 				fin.add(30,'m');
-				//accion = 'crear';
+				
 				accion = 'guardarcita';
 				$("#hasta").val(fin.format("HH:mm"));
 				$('#title').focus();
@@ -228,7 +233,7 @@
 
 	p.guardarCita = function(evento) {
 		var form = document.getElementById('agendaConsulta');
-
+		console.log($(form).serialize());
 		$.ajax({
             type: "POST",
             url: ruta+"/agenda/"+accion,

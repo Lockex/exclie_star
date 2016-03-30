@@ -147,12 +147,67 @@ REGISTRANDO PACIENTE
 		return new JsonModel(array('patient'=>$paciente,'ante'=>$antecedentes));
 	}
 
-	public function fotopacienteAction(){
+	public function fotoAction(){
+		$this->layout('layout/vacio');
+		
+		if($this->request->isPost()){
+			$oM = $this->getObjectManager();
+			$data = array_merge_recursive(
+				$this->getRequest()->getPost()->toArray(),
+				$this->getRequest()->getFiles()->toArray()
+			);
+			
+			if($data['image']['name']) {
+				$nombre = explode('/',$data['image']['type']);
+				$tipo = $nombre[1];
+				
+				$paciente = $oM->find('Application\Entity\Pacientes', $data['pac']);
+				$ruta = getcwd() . '/public/imagenes/pacientes/' . $data['pac'];
 
+                if (!file_exists($ruta)){
+                	mkdir($ruta);
+                } 
+
+                if($paciente->getIMAGEN()){
+                	unlink($ruta.'/'.$paciente->getIMAGEN());
+                }
+
+                $adapter = new \Zend\File\Transfer\Adapter\Http();
+				$adapter->setDestination($ruta);
+
+				$nombre = 'perfil'.uniqid().'.'.$tipo;
+
+				$adapter->addfilter('Rename', array(
+				'target' => $ruta . '/' .$nombre ,
+				'overwrite' => true,
+				));
+				
+				if($adapter->receive()){
+					$paciente->setImagen($nombre);
+					$oM->merge($paciente);
+					$oM->flush();
+				}
+            }
+           
+		}
+
+		return new JsonModel();
 	}
 
-	public function eliminarpacienteAction(){
-
+	public function verfotoAction(){
+		$this->layout('layout/vacio');
+		
+		if($this->request->isPost()){
+			$oM = $this->getObjectManager();
+			$id_paciente = $this->request->getPost('id_pac');
+			$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
+			$paciente 	 = $query->getArrayResult();
+		
+		return new JsonModel(array('patient'=>$paciente));
+		}
+	
 	}
+
+	
 
 }

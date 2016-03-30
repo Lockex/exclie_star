@@ -1,3 +1,7 @@
+a:link   
+{   
+ text-decoration:none;   
+} 
 #test{
 	border-style: solid;
 	border-color: #0AA89E;
@@ -18,23 +22,42 @@
 	border-color: #0AA89E;
 	
 	cursor: crosshair;
-	
+}
+
+#color-evento i.fa
+{
+	padding: 2px;
+	min-width: 56px;
+    width: 56px;
+    height: 30px;
+
 
 }
 
-
-
-#foto:hover {
+#foto img:hover{
+	position: absolute;
+	display: block;
 	opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
-    position: absolute;
-    
-}
-#foto:hover #drop-foto{
-	display: block;
+    z-index: 1;
 }
 
-	
+#textofoto{
+	/*position: absolute;*/
+	z-index: 5;
+	margin-left: 65px;
+	margin-top: 35px;
+}
+
+#foto:hover + #textofoto{
+	 opacity: 1.0;
 }
 
 
+
+.thumb-image {
+    float:left;
+    width:100px;
+    position:relative;
+    padding:5px;
+}

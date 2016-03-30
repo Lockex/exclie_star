@@ -63,6 +63,8 @@ class Agendas {
     protected $doctor;
     /** @ORM\Column(type="string",nullable=true) */
     protected $reservado;
+    /** @ORM\Column(type="string",nullable=true) */
+    protected $tipoCargo;
     
     public function __construct()
     {
@@ -803,6 +805,30 @@ class Agendas {
     public function setReservado($reservado)
     {
         $this->reservado = $reservado;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of tipoCargo.
+     *
+     * @return mixed
+     */
+    public function getTipoCargo()
+    {
+        return $this->tipoCargo;
+    }
+
+    /**
+     * Sets the value of tipoCargo.
+     *
+     * @param mixed $tipoCargo the tipo cargo
+     *
+     * @return self
+     */
+    public function setTipoCargo($tipoCargo)
+    {
+        $this->tipoCargo = $tipoCargo;
 
         return $this;
     }

@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/fullcalendar/fullcalendar.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
 <form action="#" class="form" id="agendaConsulta">
 
 	<input type="hidden" name="start" id="start">
@@ -17,6 +18,13 @@
 	        	</h4>
 	      	</div>
 	      	<div class="modal-body">
+	      	<div class="row">
+	      		<div class="col-sm-4"></div>
+	      		<div class="col-sm-4"></div>
+	      		<div class="col-sm-4">
+	      			<span class="text-medium text-primary pull-right"><p class="form-control-static" id="quien"></p></span>
+	      		</div>
+	      	</div>
 	      		<div class="row">
 	      			<div class="col-sm-4">
 	      				<div class="form-group">
@@ -86,7 +94,26 @@
 							<label for="telefono2">TELÉFONO 2</label>	
 						</div>						
 					</div>					
-				</div>						
+				</div>	
+				<div class="row">
+					<div class="form-group" id='color-evento'>
+						<div class="col-sm-12" >
+							<i class="fa fa-circle fa-2x text-primary" onclick="color('','Consulta de primera vez');"></i>
+							<i class="fa fa-circle fa-2x text-warning" onclick="color('event-warning','Consulta de seguimiento');"></i>
+							<i class="fa fa-circle fa-2x text-blue" onclick="color('event-blue','Retiro de puntos');"></i>
+							<i class="fa fa-circle fa-2x text-success" onclick="color('event-success','Aplicación de Zoladex');"></i>
+							<i class="fa fa-circle fa-2x text-rosa" onclick="color('event-rosa','Resultados');"></i>
+							<i class="fa fa-circle fa-2x text-accent" onclick="color('event-morado','Orden de Internamiento');"></i>
+							<i class="fa fa-circle fa-2x text-lima" onclick="color('event-lima','Llenar Informe');"></i>
+							<i class="fa fa-circle fa-2x text-cafe" onclick="color('event-cafe','Procedimiento Especial');"></i>
+							<i class="fa fa-circle fa-2x text-danger" onclick="color('event-danger','Embarazo');"></i>
+							<i class="fa fa-circle fa-2x text-rosota" onclick="color('event-rosota','Aplicación de Pellets');"></i>
+							<i class="fa fa-circle fa-2x text-azul-gris" onclick="color('event-azul-gris','Cirugía');"></i>
+							<i class="fa fa-circle fa-2x text-azul-cielo" onclick="color('event-azul-cielo','Capacitación');"></i>
+						</div>
+					</div>
+				</div>
+								
 	      	</div>
 	      	<div class="modal-footer">
 	      		<a href="#" onclick="borrarevento();" id="lBorrar" style="float:left">Eliminar evento</a>
@@ -111,55 +138,73 @@
 				<li class="tile">
 					<div class="tile-content">
 						<div class="tile-text">Consulta de primera vez</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-primary"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-primary"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-warning">
 					<div class="tile-content">
 						<div class="tile-text">Consulta de seguimiento</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-warning"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-warning"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-blue">
 					<div class="tile-content">
 						<div class="tile-text">Retiro de Puntos</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-blue"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-blue"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-success">
 					<div class="tile-content">
 						<div class="tile-text">Aplicación de Zoladex</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-success"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-success"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-rosa">
 					<div class="tile-content">
 						<div class="tile-text">Resultados</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-rosa"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-rosa"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-morado">
 					<div class="tile-content">
 						<div class="tile-text">Orden de Internamiento</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-accent"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-accent"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-lima">
 					<div class="tile-content">
 						<div class="tile-text">Llenar Informe</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-lima"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-lima"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-cafe">
 					<div class="tile-content">
 						<div class="tile-text">Procedimiento Especial</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-cafe"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-cafe"></i></div>
 					</div>
 				</li>
 				<li class="tile" data-class-name="event-danger">
 					<div class="tile-content">
 						<div class="tile-text">Embarazo</div>
-						<div class="tile-icon"><i class="fa fa-circle-thin text-danger"></i></div>
+						<div class="tile-icon"><i class="fa fa-circle text-danger"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-rosota">
+					<div class="tile-content">
+						<div class="tile-text">Aplicación de Pellets</div>
+						<div class="tile-icon"><i class="fa fa-circle text-rosota"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-azul-gris">
+					<div class="tile-content">
+						<div class="tile-text">Cirugía</div>
+						<div class="tile-icon"><i class="fa fa-circle text-azul-gris"></i></div>
+					</div>
+				</li>
+				<li class="tile" data-class-name="event-azul-cielo">
+					<div class="tile-content">
+						<div class="tile-text">Capacitación</div>
+						<div class="tile-icon"><i class="fa fa-circle text-azul-cielo"></i></div>
 					</div>
 				</li>
 			</ul>
@@ -200,11 +245,17 @@
 <script>
 	var ruta = '<?php echo $this->basePath(); ?>';
 
+
 function borrarevento () {
 	
 	$.post('<?php echo $this->basePath() ?>/agenda/borrarevento',{id:$("#idevento").val()},
 		function (data){
 			location.reload();
 	});
+}
+
+function color(color,valor){
+	toastr.info(valor);
+	$('#className').val(color);
 }
 </script>

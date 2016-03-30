@@ -9,10 +9,8 @@
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
             </a>
-		</div><!--end .tools -->
-	</div><!--end .card-head -->
-	<!-- TERMINA CABECERA -->
-
+		</div>
+	</div>
 	<div class="card-body">
 		<div class="row">
 			<!-- BEGIN CONTACTS MAIN CONTENT -->
@@ -27,8 +25,7 @@
 					<?php } ?>
 					&nbsp;&nbsp;
 				</div>
-				
-				<!-- TERMINA DATOS PACIENTE -->
+				<!-- COMIENZA NAVEGACION -->
 				<ul class="nav nav-tabs" data-toggle="tabs">
 					<li id='licons' class="active"><a href="#addconsulta">CONSULTA</a></li>
 					<li id='lireproduccion'><a href="#reproduccion">REPRODUCCIÓN ASISTIDA</a></li>
@@ -52,15 +49,13 @@
 						<div id="resultaNotas">
 						
 						</div>
-					</div><!--end #notes -->
-					<!-- TERMINA NOTAS PACIENTE -->
-
+					</div>
+					
 					<!-- COMIENZA REPRODUCCION ASISTIDA -->
 					<div class="tab-pane" id="reproduccion">
 						<div id="monito"></div>
 					</div>
-					<!-- TERMINA REPRODUCCION ASISTIDA -->
-					
+										
 					<!-- BEGIN HISTORIAL ANTERIOR  -->
 					<div class="tab-pane" id="histoAntes">
 						<br/>
@@ -84,8 +79,8 @@
 													    <ol class="indicator"></ol>
 													</div>
 												</div>
-											</div><!--end .col -->
-										</div><!--end .list-results -->
+											</div>
+										</div>
 								<?php } ?>
 								<div class=" col-md-12">
 									<div class="card">
@@ -99,12 +94,11 @@
 													<h3>  Agrega los expedientes  <br/><br/></h3>
 												</div>
 											</form>
-										</div><!--end .card-body -->
-									</div><!--end .card -->
-								</div><!--end .col -->
+										</div>
+									</div>
+								</div>
 							<?php } ?>
-						</div><!--end .row -->
-						<!-- END FILE UPLOAD -->
+						</div>
 					</div>
 					<!-- END HISTORIAL ANTERIOR -->
 
@@ -113,48 +107,40 @@
 						<br/>
 						<!-- BEGIN FILE UPLOAD -->
 						<div class="row">
+								<?php if(isset($paciente))  {  ?>
 								<br/>
-								<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
-							
-									<?php foreach($video as $v) { ?>
-										<div class="list-results list-results-underlined">
-												<div class="col-xs-12">
-													<p class="clearfix">
-														<span class="fa fa-fw fa-file fa-2x pull-left text-primary"></span>
-														<span class="pull-left">
-															<span class="text-bold"><?php echo date_format($v['FECHA'],'Y-m-d'); ?></span><br/>
-														</span>
-													</p>
-													<div>
-														<em><?php echo $v['VIDEO']; ?></em>
-													</div>
-												</div><!--end .col -->
-										</div><!--end .list-results -->
-									<?php } ?>
-								<?php } ?>
-						
-								<div class=" col-md-12">
-									<div class="card">
-										<div class="card-head style-primary">
-										
-											<header>Subir Videos</header>
-										</div>
-										<div class="card-body no-padding">
-											<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
-											<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
-											<div class="dz-message">
-												<h3 >Agrega aquí los videos  <br/><br/></h3>
+									<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
+											<div id="resultaVideos"></div>
+											<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
+											    <div class="slides"></div>
+											    <h3 class="title"></h3>
+											    <a class="prev">‹</a>
+											    <a class="next">›</a>
+											    <a class="play-pause"></a>
 											</div>
-											</form>
-										</div><!--end .card-body -->
-									</div><!--end .card -->
-								</div><!--end .col -->
-							
-						</div><!--end .row -->
-						<!-- END FILE UPLOAD -->
+										
+									<?php } ?>
+						
+									<div class=" col-md-12">
+										<div class="card">
+											<div class="card-head style-primary">
+											
+												<header>Subir Videos</header>
+											</div>
+											<div class="card-body no-padding">
+												<form action="<?php echo $this->basePath() ?>/consultados/guardarvideo" class="dropzone dz-clickable" id="dropa">
+												<input type="hidden" id="pacid" name="pacid" value= <?php echo $paciente[0]['ID'];?> >
+												<div class="dz-message">
+													<h3 >Agrega aquí los videos  <br/><br/></h3>
+												</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								<?php } ?>
+						</div>
 					</div>
-					<!--Fin mostrar videos -->
-
+					
 					<!-- BEGIN ADDCONSULTA DETAILS -->
 					<div class="tab-pane active" id="addconsulta">
 						<br>
@@ -163,14 +149,17 @@
 						</div>
 						<br>
 						<br>
-						<form class="form form-validate" id="formConsul" novalidate="novalidate">
+						<form enctype="multipart/form-data" class="form form-validate" id="formConsul" novalidate="novalidate" action="" method="POST">
 							<input type="hidden" name="idconsg" id="idconsg">
 							
 						<?php if(isset($consultas)){ $numero_consul = count($consultas);} ?>
+							<!-- COMIENZA CONSULTA DE SEGUIMIENTO -->
 							<?php if($numero_consul >= '1'){ ?>
 							<div class="card">
+								
 								<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
 								<input type="hidden" name="tipocons" value="1">
+								<input type="hidden" name="imagen" id="hImagen">
 								<div class="card-body ">
 									<div class="row">
 										<div class="col-md-7">
@@ -268,6 +257,16 @@
 													<span class="input-group-addon">mmHg</span>
 												</div>
 											</div>
+											<div class="form-group">
+												<div class="pull-right">
+												<button type="button" class="btn ink-reaction btn-floating-action btn-lg btn-primary" id="tomarFotos"><i class="fa fa-camera"></i></button>
+												</div>
+												<div id="wrapper">
+													
+												    <br />
+												    <div id="image-holder" ></div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<hr>
@@ -317,11 +316,13 @@
 									
 									
 								</div><!--end .card-body -->
-							</div><!--end .card -->
+							</div>
+							<!-- COMIENZA CONSULTA DE PRIMERA VEZ -->
 							<?php }else if($numero_consul == '0'){ ?>
 							<div class="card">
 								<input type="hidden" name="idpac" value="<?php echo $paciente[0]['ID']; ?>">
 								<input type="hidden" name="tipocons" value="0">
+								<input type="hidden" name="imagen" id="hImagen">
 								<div class="card-body ">
 									<div class="row">
 										<div class="col-md-6">
@@ -759,36 +760,32 @@
 												<canvas id="test"></canvas>
 											</div>
 											<input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
-											<!-- END CANVAS  -->
 											
 											<div class="pull-right">	
 												<button type="button" id="limpio" class="btn btn-raised btn-primary ink-reaction" onclick='$("#test").data("jqScribble").clear();'>Limpiar</button>
 												<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="save()" id="saveCons">Guardar</button>
 											</div>
-										</div><!--end .card-tiles -->
-										
+										</div>
 									</div>
-									
-									
-								</div><!--end .card-body -->
-							</div><!--end .card -->
+								</div>
+								<!--end .card-body -->
+							</div>
 							<?php }?>
+							<input id="camera" type="file" style="display:none" accept="image/*" name="fotingas[]" multiple="" />
 						</form>
-					</div><!--end #addconsulta -->
-					<!-- END ADDCONSULTA DETAILS -->
-
+					</div>
+					
 					<!-- COMIENZA RECETAS -->
 					<div class="tab-pane" id="recetas">
 						<br>
 						<div id="resultarecetas">
 							
 						</div>
-					</div><!-- end #recetas -->
-					<!-- TERMINA RECETAS -->
-				</div><!--end .tab-content -->
-			</div><!--end .col -->
+					</div>
+				</div>
+			</div>
 			<!-- END CONTACTS MAIN CONTENT -->
-		</div><!--end .row -->
+		</div>
 	</div>
 
 	<!-- BEGIN OFFCANVAS -->
@@ -893,7 +890,9 @@
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
 	<!-- END OFFCANVAS -->
-
+	
+    	
+    
 </div>
 
 <?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
@@ -904,10 +903,12 @@
 
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
-
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery-indicator.css">
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery-video.css">
 
 <script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery-video.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jquery.jqscribble.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/jqscribble.extrabrushes.js" type="text/javascript"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/consultando.js"></script>
@@ -921,12 +922,12 @@
 		switch(data.accion) {
 			case 'refrescarreceta':
 				if(data.datos.iddoctor == <?php echo $this->identity()->getId(); ?>)
-					consultatablet(data.datos.idconsulta,data.datos.tipo);
+					consultatablet(data.datos.idconsulta,data.datos.tipo,data.datos.consultappal);
 
 			break;
 			case 'mandarmonitoreo':
 				if(data.data.iddoctor == <?php echo $this->identity()->getId(); ?>)
-					monitoreotablet(data.data.idconsulta);
+					monitoreotablet(data.data.idconsulta,data.data.consulppal);
 			break;
 		}
 	});
@@ -934,6 +935,7 @@
 	$(document).ready(function()
 	{
 		mostrarArhivos();
+		mostrarVideos();
 		$("#test").jqScribble();
 		$('#fum').datepicker({format: "dd-mm-yyyy"});
 		fechaActual();
@@ -952,15 +954,16 @@
 	   	mostrarNotas();
 	   	$('#lirecetas').hide();
 		$('#lireproduccion').hide();
+
 	});
 
-	function consultatablet(id,tipo)
+	function consultatablet(id,tipo,cons)
 	{
 		
 		$.ajax({
 	       type: "POST",
 	       url: "<?php echo $this->basePath() ?>/consultados/datosconsulta",
-	       data: {id_consulta:id,tipo_cons:tipo},
+	       data: {id_consulta:id,tipo_cons:tipo,consult:cons},
 	       dataType: "json",
 	       success: function(response) {
 	       		var carpetanum = response['pac'][0];
@@ -969,7 +972,7 @@
 	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
 	       			       		
 	       		$('#lirecetas').show();
-	       		mostrarReceta(response['consultag'][0].ID);
+	       		mostrarReceta(response['consulta'][0]);
 	       		$('#limpio').attr('disabled','disabled');
 
 	       		$('#idconsg').val(response['consultag'][0].ID);
@@ -1189,22 +1192,30 @@
 
 		$("#test").data("jqScribble").save(function(imageData)
 		{	
-			var formulario = $('#formConsul').serialize();
-			var datos = {imagedata: imageData,datos:formulario};
+			$("#hImagen").val(imageData);
+			//var formulario = $('#formConsul').serialize();
+			var formu2 = new FormData($('form#formConsul')[0]);
+			
 			$.ajax({
 			    type: "POST",
+				cache:false,
+		        async: false,
+		        contentType: false,
+		        processData: false,
 			    url: "<?php echo $this->basePath() ?>/consultados/guardarconsulta",
 			    dataType: "json",
-			    data: datos,
+			    data: formu2,
 			    success: function(respuesta) {
-			        idConsulta = respuesta.id;
+			        idConsultag = respuesta.id;
+			        idConsulta = respuesta.idconsulta;
 			        tipoconsu = respuesta.tipocons;
-			        datasocket = {accion:'refrescarreceta',datos:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>,tipo:tipoconsu}};
+			        datasocket = {accion:'refrescarreceta',datos:{consultappal:idConsulta,idconsulta:idConsultag,iddoctor:<?php echo $this->identity()->getId(); ?>,tipo:tipoconsu}};
 			        $('#saveCons').attr('disabled','disabled');
 			        $('#limpio').attr('disabled','disabled');
 	           		$('#consultaid').val(idConsulta);
 	           		console.log(idConsulta);
-	           		
+	           		$('#lirecetas').show();
+	       			mostrarReceta(idConsulta);
 	           		socket.emit('updateconsultas',datasocket);
 	           		
 			    },
@@ -1313,7 +1324,7 @@
 		      });
 		  }
 	});
-	/** TERMINA DROPZONE DE VIDEOS **/
+	
 
   	/** EMPIEZA DROP DE LOS EXPEDIENTES DE HISTORIA **/
 	 var myDropzone = new Dropzone("#drops", {
@@ -1354,7 +1365,7 @@
 		      });
 		  }
 	});
-	/** FINALIZA DROP DE LOS EXPEDIENTES DE HISTORIA **/
+	
 
 	/** EMPIEZA LA GALERIA DE IMAGENES **/
 	document.getElementById('links').onclick = function (event) {
@@ -1366,7 +1377,7 @@
 	    blueimp.Gallery(links, options);
 	};
 
-	/** FINALIZA LA GALERIA DE IMAGENES **/
+	
 
 	/** INICIA MOSTRAR ARCHIVOS **/
 
@@ -1389,6 +1400,31 @@
        });
 	}
 
+	/** INICIA MOSTRAR VIDEOS **/
+
+	function mostrarVideos()
+	{
+		var data ={paciente: <?php echo $paciente[0]['ID']; ?>};
+		
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/listavideos",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           		$('#resultaVideos').html(response);
+           		
+           		
+       
+
+           },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
+	/** INICIA MOSTRAR MONITOREO **/
 	function repasistida()
 	{
 		var data ={paciente: <?php echo $paciente[0]['ID']; ?>};
@@ -1423,12 +1459,14 @@
 	   });
 	}
 
-	function guardamonitoreo(){
-		
-		$("#monitoreo").data("jqScribble").save(function(imageData)
-		{	
+	function guardamonitoreo(a){
+		console.log(a);
+		 $("#monitoreo").data("jqScribble").save(function(imageData)
+		 {	
 			$("#hImagen").val(imageData);
+			$('#htipo').val(a);
 			var formularioMon = $('#formMonitoreo').serialize();
+
 			$.ajax({
 			    type: "POST",
 			    url: "<?php echo $this->basePath() ?>/consultados/guardamonitoreo",
@@ -1436,10 +1474,12 @@
 			    data: formularioMon,
 			    success: function(respuesta) {
 			        idConsulta = respuesta.id;
-			        datasocket = {accion:'mandarmonitoreo',data:{idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
+			        consppal = respuesta.idconsulta;
+			        datasocket = {accion:'mandarmonitoreo',data:{consulppal:consppal,idconsulta:idConsulta,iddoctor:<?php echo $this->identity()->getId(); ?>}};
 			        $('#saveConsm').attr('disabled','disabled');
+			        $('#saveConsmt').attr('disabled','disabled');
 			        $('#consultaid').val(idConsulta);
-	           		console.log(idConsulta);
+	           		//console.log(idConsulta);
 	           		toastr.success('Consulta Guardada.');
 	           		socket.emit('updateconsultas',datasocket);
 	           		
@@ -1449,19 +1489,19 @@
 			    }
 			});
 	
-		});
+		 });
 	}
 
-	function monitoreotablet(id)
+	function monitoreotablet(id,cons)
 	{
 		
 		$.ajax({
 	       type: "POST",
 	       url: "<?php echo $this->basePath() ?>/consultados/datosconsultamoni",
-	       data: {id_consulta:id},
+	       data: {id_consulta:id,consppal:cons},
 	       dataType: "json",
 	       success: function(response) {
-	       		console.log(response);
+	       		//console.log(response);
 	       		$('#lirecetas').show();
 	       		$('#saveConsm').attr('disabled','disabled');
 	       		$('#repasistida').val(response['consultam'][0].REPRODUCCION);
@@ -1692,18 +1732,81 @@
 	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
 	       		$("#monitoreo").data("jqScribble").update({backgroundImage: imgcons});
 	       		 $('#idconsm').val(response['consultam'][0].ID);
-	       		 console.log('idconsm '+response['consultam'][0].ID);
-	       		mostrarReceta(response['consultam'][0].ID);
-	       		
-	       		
-	       		
-	       		
-	       },
+	       		mostrarReceta(response['consulta'][0]);
+	       	},
 	       error: function(){
 	             toastr.error('Inténtalo más tarde.');
 	       }
 	   });
 	}
+	/** INICIA FOTOS DE CONSULTA */
+	function fotosCons(){
+		var formulario = new FormData($('#formularioFoto')[0]);	
+		
+		$.ajax({
+	      type: "POST",
+	      data:formulario,
+          cache:false,
+          async: false,
+          contentType: false,
+          processData: false,
+	      url: "<?php echo $this->basePath() ?>/consultados/fotingasConsul",	      
+	      dataType: "json",
+		      success: function(data) {
+		        mostrarImagenes();
+	          },
+		      error: function(data){
+		     	console.log('errors');
+		      }
+		  });
+	}
 
 
+	$('#tomarFotos').click(function(){
+		$('#camera').click();
+			
+		});
+	// $('#camera').on('change',function(){
+		
+	// 	fotosCons();
+		
+	// });
+
+	$("#camera").on('change', function () {
+ 	
+	 //Get count of selected files
+	 var countFiles = $(this)[0].files.length;
+
+	 var imgPath = $(this)[0].value;
+	 var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+	 var image_holder = $("#image-holder");
+	 image_holder.empty();
+
+	 if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+	     if (typeof (FileReader) != "undefined") {
+
+	         //loop for each file selected for uploaded.
+	         for (var i = 0; i < countFiles; i++) {
+
+	             var reader = new FileReader();
+	             reader.onload = function (e) {
+	                 $("<img />", {
+	                     "src": e.target.result,
+	                         "class": "thumb-image"
+	                 }).appendTo(image_holder);
+	             }
+
+	             image_holder.show();
+	             reader.readAsDataURL($(this)[0].files[i]);
+	         }
+
+	     } else {
+	         toastr.error("Esté navegaador no soporta FileReader.");
+	     }
+	 } else {
+	     toastr.error("Seleccione solo imagenes");
+	 }
+ });
+
+	
 </script>
