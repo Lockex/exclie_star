@@ -317,6 +317,21 @@ class CapturaController extends AbstractActionController {
     			
 	}
 
+
+	public function dpacienteAction(){
+		$this->layout('layout/vacio');
+		$id_paciente = $this->request->getPost('pac');
+		
+		$oM = $this->getObjectManager();
+		$query 	= $oM->createQuery("SELECT p,n FROM Application\Entity\Pacientes p JOIN p.APELLIDO_PATERNO WHERE p.ID = $id_paciente");
+		$paciente 	 = $query->getArrayResult();
+
+		
+		return new JsonModel(array('pacient'=>$paciente));
+
+    			
+	}
+
 	public function eliminarpacienteAction(){
 		$this->layout('layout/captura');
 		
@@ -355,5 +370,20 @@ class CapturaController extends AbstractActionController {
 
     			
 	}
+
+	public function verimagenesAction(){
+		$this->layout('layout/vacio');
+		$id_paciente = $this->request->getPost('paci');
+		
+		$oM = $this->getObjectManager();
+		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
+		$paciente 	 = $query->getArrayResult();
+
+		$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $id_paciente");
+		$iconsu = $query2->getArrayResult();
+		
+		return new JsonModel(array('pat'=>$paciente,'imacon'=>$iconsu));
+	}
+
 
 }

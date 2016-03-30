@@ -937,13 +937,13 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
-											    <p class="form-control-static" id="nombrePatiente" value=""></p>
+											    <p class="form-control-static" id="nombrePatient" value=""></p>
 												<label for="">Nombre del Paciente</label>												
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" class="form-control" id="fecha_consulta" >
+												<input type="text" class="form-control" id="fecha_consul" >
 												<label for="fecha_consulta">Fecha de Consulta</label>
 											</div>
 										</div>
@@ -1037,7 +1037,7 @@
 <script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/exclie/listarpacientes.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/listarfpacientes.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppCard.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppForm.js"></script>
 
@@ -1052,6 +1052,63 @@
 	<script>
 
 	var ruta = '<?php echo $this->basePath(); ?>';
+
+	$(document).ready(function () {
+		
+		
+			
+		/*====== Buscador Pacientes =======*/
+		function split( val ) {
+          return val.split( /;\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+		$( "#bpaciente" )
+
+	      	// don't navigate away from the field on tab when selecting an item
+	      	.bind( "keydown", function( event ) {
+		        if ( event.keyCode === $.ui.keyCode.TAB &&
+		            $( this ).autocomplete( "instance" ).menu.active ) {
+		          event.preventDefault();
+		        }
+	      	})
+	      	.autocomplete({
+		        source: function( request, response ) {
+		          $.getJSON( ruta + "/pacientes/pacientesjson", {
+		            term: extractLast( request.term )
+		          }, response );
+		        },
+		        search: function() {
+		          // custom minLength
+		          var term = extractLast( this.value );
+		          if ( term.length < 2 ) {
+		            return false;
+		          }
+		        },
+		        focus: function() {
+		          // prevent value inserted on focus
+		          return false;
+		        },
+		        select: function( event, ui ) {
+		          verimagenes(ui.item.id);
+		          //console.log(ui.item.id);
+		          var terms = split( this.value );
+		          // remove the current input
+		          terms.pop();
+		          // add the selected item
+		          terms.push( ui.item.value );
+		          // add placeholder to get the comma-and-space at the end
+		          terms.push( "" );
+		          this.value = "";
+		          return false;
+		        }
+	      }); 
+	});
+
+
 	$(document).ready(function() {
 		$('#capturando').hide();
 		$('#conyuge').hide();
@@ -1087,6 +1144,44 @@
 			    }
 			});
 	});
+
+	function verimagenes (data) {
+        var datos = {pac:data};
+
+	    $.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/Captura/dpaciente",
+		    dataType: "json",
+		    data: datos,
+		    success: function(response) {
+		       //$('#fotoSube').show();
+		       //$('#nombrepatient').val(response['patient'][0].ID);
+		       //$('#paciente').val(response['patient'][0].ID);
+		       //$('#idante').val(response['ante'][0].ID);
+		       //$('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
+		       $('#nombrepatient').val(response['pacient'][0].APELLIDO_PATERNO);
+		       //$('#NOMBRE').val(response['patient'][0].NOMBRE);
+		       //$('#CALLE').val(response['patient'][0].CALLE);
+		       //$('#NUM_EXT').val(response['patient'][0].NUMERO_EXT);
+		       //$('#NUM_INT').val(response['patient'][0].NUMERO_INT);
+		       //$('#COLONIA').val(response['patient'][0].COLONIA);
+		       //$('#TELEFONO1').val(response['patient'][0].TELEFONO_1);
+		       //$('#TELEFONO2').val(response['patient'][0].TELEFONO_2);
+		       //$('#OCUPACION').val(response['patient'][0].OCUPACION);
+		       //$('#sEstadocivil').val(response['patient'][0].ESTADO_CIVIL);
+		       //$('#email').val(response['patient'][0].EMAIL);
+		       //$('#referido').val(response['patient'][0].REFERIDO);
+ 			   //$('#sTipoSanguineo').val(response['patient'][0].TIPO_SANGUINEO.ID);
+ 			   //$('#sEstados').val(response['patient'][0].ESTADO.ID);
+ 			   //$('#sMUNICIPIO').val(response['patient'][0].MUNICIPIO.ID);
+
+		       
+	       	},
+		    error: function() {
+		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+		    }
+		});
+    }
 
 	function nuevoExpediente() {
 		 $("#confirma").modal('show');
