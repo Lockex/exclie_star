@@ -24,7 +24,83 @@
 		this._initCalendar();
 		this._displayDate();
 		this._initBotones();
+		this._buscadorInit();
 
+	};
+	// =========================================================================
+	// FUNCIONES AUXILIARES
+	// =========================================================================
+
+	p._split = function(val) {
+		return val.split( /;\s*/ );
+	};
+
+	p._extractLast = function(term) {
+		return p._split( term ).pop();
+	};
+
+	// =========================================================================
+	// FUNCION DEL BUSCADOR DE PACIENTES
+	// =========================================================================
+
+	p._buscadorInit = function() {
+		$( "#title" )
+
+	      	// don't navigate away from the field on tab when selecting an item
+	      	.bind( "keydown", function( event ) {
+		        if ( event.keyCode === $.ui.keyCode.TAB &&
+		            $( this ).autocomplete( "instance" ).menu.active ) {
+		          event.preventDefault();
+		        }
+	      	})
+	      	.autocomplete({
+		        source: function( request, response ) {
+		          $.getJSON( _ruta + "/agenda/pacientes", {
+		            term: p._extractLast( request.term )
+		          }, response );
+		        },
+		        search: function() {
+		          // custom minLength
+		          var term = p._extractLast( this.value );
+		          if ( term.length < 2 ) {
+		            return false;
+		          }
+		        },
+		        focus: function() {
+		          // prevent value inserted on focus
+		          return false;
+		        },
+		        select: function( event, ui ) {
+		          //p._verpaciente(ui.item.id);
+		          $("#idpaciente").val(ui.item.id);
+          		  $("#title").val(ui.item.value);
+          		  $("#edad").val(p._getEdad(ui.item.fecha))
+		          //console.log(ui.item.id);
+		          var terms = p._split( this.value );
+		          // remove the current input
+		          terms.pop();
+		          // add the selected item
+		          terms.push( ui.item.value );
+		          // add placeholder to get the comma-and-space at the end
+		          terms.push( "" );
+		         // this.value = "";
+		          return false;
+		        }
+      	}); 
+	};
+	// =========================================================================
+	// FUNCION PARA CALCULAR EDAD
+	// =========================================================================
+
+	p._getEdad = function (data) {
+		var hoy = new Date();
+	    var fechaNacimiento = new Date(data);
+	    var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+	    var m = hoy.getMonth() - fechaNacimiento.getMonth();
+	    if (m < 0 || (m === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+	        edad--;
+	    }
+	    return edad;
 	};
 
 	// =========================================================================
@@ -99,6 +175,7 @@
 		});
 	};
 
+
 	// =========================================================================
 	// CALENDAR
 	// =========================================================================
@@ -114,6 +191,10 @@
 		var y = hoy.getFullYear();
 
 		$('#calendar').fullCalendar({
+			 monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		    monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		    dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
 			height: 700,
 			header: false,
 			minTime: "07:00:00",
@@ -233,7 +314,7 @@
 
 	p.guardarCita = function(evento) {
 		var form = document.getElementById('agendaConsulta');
-		console.log($(form).serialize());
+		//console.log($(form).serialize());
 		$.ajax({
             type: "POST",
             url: ruta+"/agenda/"+accion,
@@ -288,5 +369,6 @@
 	// }
 
 	// =========================================================================
+
 	namespace.agenda = new agenda;
 }(this.materialadmin, jQuery)); // pass in (namespace, jQuery):

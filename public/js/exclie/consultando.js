@@ -28,13 +28,13 @@
 	// FUNCIONES AUXILIARES
 	// =========================================================================
 
-	p._split = function(val) {
-		return val.split( /;\s*/ );
-	};
+	// p._split = function(val) {
+	// 	return val.split( /;\s*/ );
+	// };
 
-	p._extractLast = function(term) {
-		return p._split( term ).pop();
-	};
+	// p._extractLast = function(term) {
+	// 	return p._split( term ).pop();
+	// };
 	
 
 	// =========================================================================

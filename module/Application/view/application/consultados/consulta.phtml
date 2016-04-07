@@ -16,6 +16,9 @@
 				<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
 	                <i class="fa fa-plus"></i>
 	            </a>
+	            <a onclick="descargar(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
+	                <i class="fa fa-download"></i>
+	            </a>
             <?php } ?>
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
@@ -312,7 +315,7 @@
 			$('#Edad').text(getEdad(born));
 			$('#aniospac').text(getEdad(born));
 		}
-		    	
+		  	
 	   	
 
 	});
@@ -377,7 +380,6 @@
     }
 
     function detalleHistoCon(consu) {
-    	 console.log(consu);
     	$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/verhistoclicons",
@@ -436,5 +438,26 @@
            }
        });
     }
+
+    function descargar(id)
+    {
+    	$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/descargar",
+           data: {idpac:id},
+           dataType: "HTML",
+           
+           success: function(response) {
+           		var url = "<?php echo $this->basePath()?>/consultados/bajar"
+                window.location.href = url;
+           		
+           },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+    }
+
+  
 
 </script>

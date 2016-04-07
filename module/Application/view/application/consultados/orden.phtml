@@ -1,5 +1,38 @@
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/fullcalendar/fullcalendar.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+<div class="card">
+	<div class="card-head style-primary">
+		<div class="tools">
+			<a class="btn btn-icon-toggle ink-reaction" href="" onclick="agregaOrden();">
+                <i class="fa fa-plus"></i>
+            </a>
+		</div>
+	</div>
+	<div class="card-body">
+		<form class="form form-validate" id="formOrden" novalidate="novalidate">
+			<input type="hidden" name="consultaid" value="<?php echo $cons; ?>">
+			<input type="hidden" name="datosOrden">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<input type="text" class="form-control" id="ordenes" name="orden">
+						<label for="orden">ORDENES</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<textarea id="ckeditor" name="datos"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="card-actionbar">
+			<div class="card-actionbar-row">
+				<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarorden()" id="saveOrden">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
 <form action="#" class="form" id="agendaConsulta">
 
 	<input type="hidden" name="start" id="start">
@@ -124,139 +157,45 @@
 	  </div>
 	</div>
 </form>
+<input type="hidden" id="id_orden">	
+<input type="hidden" id="id_consul">
 
 
-<div class="section-body">
-	<div class="row">
-
-		<!-- BEGIN CALENDAR EVENTS -->
-		<div class="col-sm-3">
-			<h2>Citas</h2>
-			<p class="opacity-75">Por favor arrastre de la lista al calendario para planear sus próximas citas.</p>
-			<br/>
-			<br/>
-			<ul class="list divider-full-bleed list-events">
-				<li class="tile">
-					<div class="tile-content">
-						<div class="tile-text">Consulta de primera vez</div>
-						<div class="tile-icon"><i class="fa fa-circle text-primary"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-warning">
-					<div class="tile-content">
-						<div class="tile-text">Consulta de seguimiento</div>
-						<div class="tile-icon"><i class="fa fa-circle text-warning"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-blue">
-					<div class="tile-content">
-						<div class="tile-text">Retiro de Puntos</div>
-						<div class="tile-icon"><i class="fa fa-circle text-blue"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-success">
-					<div class="tile-content">
-						<div class="tile-text">Aplicación de Zoladex</div>
-						<div class="tile-icon"><i class="fa fa-circle text-success"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-rosa">
-					<div class="tile-content">
-						<div class="tile-text">Resultados</div>
-						<div class="tile-icon"><i class="fa fa-circle text-rosa"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-morado">
-					<div class="tile-content">
-						<div class="tile-text">Orden de Internamiento</div>
-						<div class="tile-icon"><i class="fa fa-circle text-accent"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-lima">
-					<div class="tile-content">
-						<div class="tile-text">Llenar Informe</div>
-						<div class="tile-icon"><i class="fa fa-circle text-lima"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-cafe">
-					<div class="tile-content">
-						<div class="tile-text">Procedimiento Especial</div>
-						<div class="tile-icon"><i class="fa fa-circle text-cafe"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-danger">
-					<div class="tile-content">
-						<div class="tile-text">Embarazo</div>
-						<div class="tile-icon"><i class="fa fa-circle text-danger"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-rosota">
-					<div class="tile-content">
-						<div class="tile-text">Aplicación de Pellets</div>
-						<div class="tile-icon"><i class="fa fa-circle text-rosota"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-azul-gris">
-					<div class="tile-content">
-						<div class="tile-text">Cirugía</div>
-						<div class="tile-icon"><i class="fa fa-circle text-azul-gris"></i></div>
-					</div>
-				</li>
-				<li class="tile" data-class-name="event-azul-cielo">
-					<div class="tile-content">
-						<div class="tile-text">Capacitación</div>
-						<div class="tile-icon"><i class="fa fa-circle text-azul-cielo"></i></div>
-					</div>
-				</li>
-			</ul>
-		</div><!--end .col -->
-		<!-- END CALENDAR EVENTS -->
-		<div class="col-sm-9">
-			<div class="card">
-				<div class="card-head style-primary">
-					<header>
-						<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
-					</header>
-					<div class="tools">
-						<div class="btn-group">
-							<a id="calender-prev" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-left"></i></a>
-							<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
-						</div>
-						<div class="btn-group pull-right">
-						</div>
-					</div>
-					<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-						<li data-mode="month"><a href="#">Mes</a></li>
-						<li data-mode="agendaWeek" class="active"><a href="#">Semana</a></li>
-						<li data-mode="agendaDay"><a href="#">Día</a></li>
-					</ul>
-				</div><!--end .card-head -->
-				<div class="card-body no-padding">
-					<div id="calendar"></div>
-				</div><!--end .card-body -->
-			</div><!--end .card -->
-		</div><!--end .col -->
-		<!-- END CALENDAR -->
-
-	</div><!--end .row -->
-</div><!--end .section-body -->
+<script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/adapters/jquery.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/select2/select2.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/libs/fullcalendar/fullcalendar.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/exclie/agenda.js"></script>
+
+
 <script>
-	var ruta = '<?php echo $this->basePath(); ?>';
-var _ruta = '<?php echo $this->basePath(); ?>';
-
-function borrarevento () {
-	
-	$.post('<?php echo $this->basePath() ?>/agenda/borrarevento',{id:$("#idevento").val()},
-		function (data){
-			location.reload();
+	var ruta = '<?php echo $this->basePath() ?>/';
+	$(document).ready(function() {
+		$( '#ckeditor' ).ckeditor();
 	});
-}
 
-function color(color,valor){
-	toastr.info(valor);
-	$('#className').val(color);
-}
+	function guardarorden()
+	{
+		
+		var contenido = CKEDITOR.instances['ckeditor'].getData();
+		$('#datosOrden').val(contenido);
+		var formulario = $('#formOrden').serialize();
+		$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardarorden",
+			    dataType: "json",
+			    data: formulario,
+			    success: function(respuesta) {
+			      $('#id_orden').val(respuesta['ordenid']);
+			       $('#id_consul').val(respuesta['consultation']);
+			       //verOrden();
+			    },
+			    error: function(){
+			          toastr.error('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+	}
+
+	function verOrden(){
+		window.open('generaorden/'+$('#id_orden').val());
+	}
 </script>

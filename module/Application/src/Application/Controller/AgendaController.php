@@ -109,6 +109,10 @@ class AgendaController extends AbstractActionController
             $om = $this->getObjectManager();
             $agenda = new Agendas();
             //$agenda->setDescripcion($this->request->getPost('descripcion'));
+            
+            if($this->request->getPost('idpaciente')){
+                $agenda->setPaciente($om->find('Application\Entity\Pacientes', $this->request->getPost('idpaciente')));
+            }
             $agenda->setEdad($this->request->getPost('edad'));
             $agenda->setRefdoctor($this->request->getPost('referido'));
             if($this->request->getPost('refdocid'))
@@ -150,6 +154,22 @@ class AgendaController extends AbstractActionController
         $om->flush();
       }
       return new JsonModel();
+    }
+
+    public function pacientesAction() {
+      $dato = $this->getRequest()->getQuery('term');
+      $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.NOMBRE like '%$dato%'");
+      $pacientes = $query->getArrayResult();
+      $json = array();
+      foreach($pacientes as $pac) {
+        $json[] = array('id' => $pac['ID'],'label' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' ['.date_format($pac['FECHA_NACIMIENTO'],'Y/m/d').']',
+        'value' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'],
+        'name' => 'pac'.$pac['ID'],
+        'fecha' => date_format($pac['FECHA_NACIMIENTO'],'Y-m-d'),
+        'idPac' => $pac['ID']);
+      }
+      $resultado = new JsonModel($json);
+      return $resultado;
     }
 
 	/**

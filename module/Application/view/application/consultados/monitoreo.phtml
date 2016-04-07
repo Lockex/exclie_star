@@ -1,5 +1,6 @@
 
 <input type="hidden" name="tipos" id="tipos" value="<?php echo $monitor[0]['FIN']; ?>">
+<input type="hidden" name="tipo1" id="tipo1" value="<?php echo $primera; ?>">
 
 <?php if($monitor[0]['FIN'] == '0'){ ?>
 	<br>
@@ -457,14 +458,18 @@
 	{
 	 	$("#monitoreo").jqScribble({width:(1165),height:(599)});
 	 	var tipos = $('#tipos').val();  
-	 	 
 	 	var paciente = $('#idpac').val();
+	 	var tipo1 = $('#tipo1').val();
 	 	
 	 	if(tipos == '0'){
 	 		var imagenmon = $('#imagenmon').val();
 			var img = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+paciente+"/"+imagenmon;
 		}
 		if(tipos == '1'){
+			var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo2.png";
+		}
+
+		if(tipo1 == '1'){
 			var img = "<?php echo $this->basePath(); ?>/public/img/cuadro_monitoreo2.png";
 		}
 		
