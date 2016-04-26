@@ -56,11 +56,14 @@ class PacientesController extends AbstractActionController {
 REGISTRANDO PACIENTE
  ******************************************************************/
 
-	public function guardarpacienteAction() {
+	public function guardarpacienteAction() 
+	{
 		$om = $this->getObjectManager();
-		if ($this->request->isPost()) {
+		if ($this->request->isPost())
+		{
 			$paciente = new Pacientes();
-			if($this->request->getPost('idpac') != ''){
+			if($this->request->getPost('idpac') != '')
+			{
 				$paciente->setID($this->request->getPost('idpac'));
 			}
 			$paciente->setSEXO($this->request->getPost('SEXO'));
@@ -71,11 +74,13 @@ REGISTRANDO PACIENTE
 			$paciente->setMUNICIPIO($om->find('Application\Entity\Municipios', $this->request->getPost('MUNICIPIO')));
 			$paciente->setCALLE($this->request->getPost('CALLE'));
 			$paciente->setNUMEROINT($this->request->getPost('NUM_INT'));
+			$paciente->setCOLONIA($this->request->getPost('COLONIA'));
 			$paciente->setNUMEROEXT($this->request->getPost('NUM_EXT'));
 			$paciente->setTELEFONO1($this->request->getPost('TELEFONO1'));
 			$paciente->setTELEFONO2($this->request->getPost('TELEFONO2'));
 			$paciente->setOCUPACION($this->request->getPost('OCUPACION'));
 			$paciente->setEMAIL($this->request->getPost('email'));
+			$paciente->setIMAGEN($this->request->getPost('IMAGEN'));
 			$paciente->setREFERIDO($this->request->getPost('referido'));
 			$paciente->setESTADOCIVIL($this->request->getPost('ESTADO_CIVIL'));
 			$paciente->setFECHA_NACIMIENTO(new \DateTime(date('Y-m-d', strtotime($this->request->getPost('FECHA_NACIMIENTO')))));
@@ -84,7 +89,8 @@ REGISTRANDO PACIENTE
 			$paciente->setUSUARIO($this->identity());
 			$paciente->setNOMBRECONYUGE($this->request->getPost('NombreC'));
 			$paciente->setEDADCONYUGE($this->request->getPost('EdadC'));
-			if($this->request->getPost('idpac') == ''){
+			if($this->request->getPost('idpac') == '')
+			{
 				$om->persist($paciente);
 			}else{
 				$om->merge($paciente);
@@ -92,10 +98,18 @@ REGISTRANDO PACIENTE
 			$om->flush();
 
 			$antecedentes = new Antecedentes();
-			if($this->request->getPost('idante') != ''){
+			if($this->request->getPost('idante') != '')
+			{
 				$antecedentes->setID($this->request->getPost('idante'));
 			}
-			$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
+			if($this->request->getPost('idante') != '')
+			{
+				$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.	
+			}
+			if($this->request->getPost('idpac') != '' AND $this->request->getPost('idante') == '')
+			{
+				$antecedentes->setPACIENTE($om->find('Application\Entity\Pacientes',$this->request->getPost('idpac')));
+			}
 			$antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
 			$antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
 			$antecedentes->setALERGIAS($this->request->getPost('ALERGIAS'));
@@ -109,9 +123,11 @@ REGISTRANDO PACIENTE
 			$antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
 			$antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
 
-			if($this->request->getPost('idante') == ''){
+			if($this->request->getPost('idante') == '')
+			{
 				$om->persist($antecedentes);
-			}else{
+			}else
+			{
 				$om->merge($antecedentes);
 			}
 			$om->flush();
@@ -125,15 +141,18 @@ REGISTRANDO PACIENTE
 		 * @return EntityManager
 	*/
 
-	private function getObjectManager() {
-		if (null === $this->_objectManager) {
+	private function getObjectManager() 
+	{
+		if (null === $this->_objectManager)
+		{
 			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 		}
 
 		return $this->_objectManager;
 	}
 
-	public function datospacienteAction(){
+	public function datospacienteAction()
+	{
 		$this->layout('layout/vacio');
 		$id_paciente = $this->request->getPost('pac');
 		
@@ -147,28 +166,33 @@ REGISTRANDO PACIENTE
 		return new JsonModel(array('patient'=>$paciente,'ante'=>$antecedentes));
 	}
 
-	public function fotoAction(){
+	public function fotoAction()
+	{
 		$this->layout('layout/vacio');
 		
-		if($this->request->isPost()){
+		if($this->request->isPost())
+		{
 			$oM = $this->getObjectManager();
 			$data = array_merge_recursive(
 				$this->getRequest()->getPost()->toArray(),
 				$this->getRequest()->getFiles()->toArray()
 			);
 			
-			if($data['image']['name']) {
+			if($data['image']['name'])
+			{
 				$nombre = explode('/',$data['image']['type']);
 				$tipo = $nombre[1];
 				
 				$paciente = $oM->find('Application\Entity\Pacientes', $data['pac']);
 				$ruta = getcwd() . '/public/imagenes/pacientes/' . $data['pac'];
 
-                if (!file_exists($ruta)){
+                if (!file_exists($ruta))
+                {
                 	mkdir($ruta);
                 } 
 
-                if($paciente->getIMAGEN()){
+                if($paciente->getIMAGEN())
+                {
                 	unlink($ruta.'/'.$paciente->getIMAGEN());
                 }
 
@@ -182,7 +206,8 @@ REGISTRANDO PACIENTE
 				'overwrite' => true,
 				));
 				
-				if($adapter->receive()){
+				if($adapter->receive())
+				{
 					$paciente->setImagen($nombre);
 					$oM->merge($paciente);
 					$oM->flush();
@@ -194,10 +219,12 @@ REGISTRANDO PACIENTE
 		return new JsonModel();
 	}
 
-	public function verfotoAction(){
+	public function verfotoAction()
+	{
 		$this->layout('layout/vacio');
 		
-		if($this->request->isPost()){
+		if($this->request->isPost())
+		{
 			$oM = $this->getObjectManager();
 			$id_paciente = $this->request->getPost('id_pac');
 			$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");

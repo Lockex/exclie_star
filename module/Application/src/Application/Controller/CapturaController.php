@@ -52,23 +52,23 @@ class CapturaController extends AbstractActionController {
 			$om->flush();
 
 
-			// $antecedentes = new Antecedentes();
-			// $antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
-			// $antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
-			// $antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
-			// $antecedentes->setALERGIAS($this->request->getPost('ALERGIAS'));
-			// $antecedentes->setTOXICOMANIAS($this->request->getPost('TOXICOMANIAS'));
-			// $antecedentes->setCIRUGIAS($this->request->getPost('CIRUGIAS'));
-			// $antecedentes->setDIABETES($this->request->getPost('DIABETES'));
-			// $antecedentes->setARTRITIS($this->request->getPost('ARTRITIS'));
-			// $antecedentes->setCANCER($this->request->getPost('CANCER'));
-			// $antecedentes->setLUPUS($this->request->getPost('LUPUS'));
-			// $antecedentes->setCARDIOPATIAS($this->request->getPost('CARDIACAS'));
-			// $antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
-			// $antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
+			$antecedentes = new Antecedentes();
+			$antecedentes->setPACIENTE($paciente); // Paciente recién registrado.
+			$antecedentes->setTABAQUISMO($this->request->getPost('TABAQUISMO'));
+			$antecedentes->setALCOHOLISMO($this->request->getPost('ALCOHOLISMO'));
+			$antecedentes->setALERGIAS($this->request->getPost('ALERGIAS'));
+			$antecedentes->setTOXICOMANIAS($this->request->getPost('TOXICOMANIAS'));
+			$antecedentes->setCIRUGIAS($this->request->getPost('CIRUGIAS'));
+			$antecedentes->setDIABETES($this->request->getPost('DIABETES'));
+			$antecedentes->setARTRITIS($this->request->getPost('ARTRITIS'));
+			$antecedentes->setCANCER($this->request->getPost('CANCER'));
+			$antecedentes->setLUPUS($this->request->getPost('LUPUS'));
+			$antecedentes->setCARDIOPATIAS($this->request->getPost('CARDIACAS'));
+			$antecedentes->setHIPERTENSION($this->request->getPost('HIPERTENSION'));
+			$antecedentes->setTIROIDES($this->request->getPost('TIROIDES'));
 
-			// $om->persist($antecedentes);
-			// $om->flush();
+			$om->persist($antecedentes);
+			$om->flush();
 
 
 			$historia = new Expescar();

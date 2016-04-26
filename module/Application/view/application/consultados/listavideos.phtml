@@ -1,34 +1,5 @@
-<!-- <?php foreach($videos as $v) { ?>
-	<a href="<?php echo $this->basePath() ?>/public/imagenes/videos/<?php echo $paciente.'/'.$v['VIDEO']; ?>" title="Galería" data-gallery="">Video</a>
-	
-<?php } ?> -->
+<?php foreach($videos as $v) { ?>
+	<a href="<?php echo $this->basePath() ?>/public/imagenes/videos/<?php echo $paciente.'/'.$v['VIDEO']; ?>" title="Galería" data-gallery="" target="_blank"><?php echo $v['VIDEO']; ?></a>
+	/
+<?php } ?>
 
-<script>
-	 var ruta = '<?php echo $this->basePath(); ?>';
-	var videos = <?php echo json_encode($videos);?>
-	
-	for(var i=0;i<videos.length;i++)
-    {
-       //console.log(videos[i]);
-       		
-    }
-	// Initialize the Gallery as video carousel:
-	blueimp.Gallery([
-	   		{
-		      title: 'Video',
-		      href: 'https://archive.org/download/Sintel/sintel-2048-surround_512kb.mp4',
-		      type: 'video/mp4',
-		      poster: 'https://i.imgur.com/MUSw4Zu.jpg'
-		    },
-		    {
-		   	  title: 'Sintel',
-		      href: 'https://archive.org/download/Sintel/sintel-2048-surround_512kb.mp4',
-		      type: 'video/mp4',
-		      poster: 'https://i.imgur.com/MUSw4Zu.jpg'
-			},
-		  ], {
-		    container: '#blueimp-video-carousel',
-		    carousel: true
-	})
- 
-</script>

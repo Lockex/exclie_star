@@ -8,7 +8,7 @@
 		<div class="tools">
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
-            </a>
+            </a> 
 		</div>
 	</div>
 	<div class="card-body">
@@ -31,6 +31,7 @@
 					<li id='lireproduccion'><a href="#reproduccion">REPRODUCCIÓN ASISTIDA</a></li>
 					<li><a href="#notes">NOTAS</a></li>
 					<li id="lirecetas"><a href="#recetas">RECETAS</a></li>
+					<li id="liordenes"><a href="#ordenes">ORDEN LABORATORIO</a></li>
 					<li><a href="#histoAntes">Historial Anterior</a></li>
 					<li><a href="#videos">Videos</a></li>
 				</ul>
@@ -110,15 +111,7 @@
 								<?php if(isset($paciente))  {  ?>
 								<br/>
 									<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
-											<div id="resultaVideos"></div>
-											<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
-											    <div class="slides"></div>
-											    <h3 class="title"></h3>
-											    <a class="prev">‹</a>
-											    <a class="next">›</a>
-											    <a class="play-pause"></a>
-											</div>
-										
+										<div id="resultaVideos"></div>
 									<?php } ?>
 						
 									<div class=" col-md-12">
@@ -267,6 +260,26 @@
 												    <div id="image-holder" ></div>
 												</div>
 											</div>
+											<div class="form-group" >
+												<div class="list-results list-results-underlined">
+													<div class="col-xs-12">
+														<div id="enlaces" class="links">
+															<div id="fotCons">
+																
+															</div>
+															<div id="blueimp-gallery" class="blueimp-gallery">
+															    <div class="slides"></div>
+															    <h3 class="title"></h3>
+															    <a class="prev">‹</a>
+															    <a class="next">›</a>
+															    <a class="close">×</a>
+															    <a class="play-pause"></a>
+															    <ol class="indicator"></ol>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<hr>
@@ -352,7 +365,10 @@
 											<div class="row">
 												<div class="col-sm-3">
 													<div class="form-group">
-														<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
+														<select class="form-control input-lg" class="form-control input-lg" name="ciclo" id="ciclo1" >
+														<option value="1">Regular</option>
+														<option value="2">Irregular</option>
+													</select class="form-control input-lg">
 														<label for="ciclo">Ciclos</label>
 													</div>
 												</div>
@@ -733,7 +749,7 @@
 											</div>
 											<div class="form-group">
 												<textarea name="imx" id="imx" class="form-control" rows="3"></textarea>
-												<label for="imx">Iny</label>
+												<label for="imx">Idx</label>
 											</div>
 											<div class="form-group">
 												<textarea name="plan" id="plan" class="form-control" rows="3"></textarea>
@@ -779,6 +795,14 @@
 					<div class="tab-pane" id="recetas">
 						<br>
 						<div id="resultarecetas">
+							
+						</div>
+					</div>
+
+					<!-- COMIENZA Ordenes -->
+					<div class="tab-pane" id="ordenes">
+						<br>
+						<div id="resultaordenes">
 							
 						</div>
 					</div>
@@ -940,7 +964,6 @@
 		$('#fum').datepicker({format: "dd-mm-yyyy"});
 		fechaActual();
 		
-
 		var born = document.getElementById("nacim").value;
 		
 		if(born == ''){
@@ -954,6 +977,11 @@
 	   	mostrarNotas();
 	   	$('#lirecetas').hide();
 		$('#lireproduccion').hide();
+		$('#liordenes').hide();
+		$('#fotCons').hide();
+		
+		
+
 
 	});
 
@@ -966,13 +994,29 @@
 	       data: {id_consulta:id,tipo_cons:tipo,consult:cons},
 	       dataType: "json",
 	       success: function(response) {
+	       		console.log(response);
+	       		
 	       		var carpetanum = response['pac'][0];
 	       		var imagencons = response['consultag'][0].IMAGEN;
 	       		var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/'+imagencons;
+	       		var rutafcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/fotos/';
+	       		if( response['fotos']){
+		       		var fotoscons = response['fotos'];
+		       		for (var i = 0, len = fotoscons.length; i < len; i++) {
+					  var th = fotoscons[i].IMAGEN.split('.',2);
+					  var ext = fotoscons[i].IMAGEN.slice(-3)
+					  var name = th.join()+'_th.';
+					  var nombre = name.replace(',','.');
+					  var nomFotoTh = nombre+ext;
+					  $('#fotCons').append('<a href="'+rutafcons+fotoscons[i].IMAGEN+'" title="Galería" data-gallery=""><img src="'+rutafcons+nomFotoTh+'"></a>');
+					}
+				}
 	       		$("#test").data("jqScribble").update({backgroundImage: imgcons});
-	       			       		
+	       		$('#fotCons').show();       		
 	       		$('#lirecetas').show();
-	       		mostrarReceta(response['consulta'][0]);
+	       		$('#liordenes').show();
+	       		mostrarReceta(response['consult']);
+	       		mostrarOrden(response['consult']);
 	       		$('#limpio').attr('disabled','disabled');
 
 	       		$('#idconsg').val(response['consultag'][0].ID);
@@ -990,7 +1034,7 @@
 	       		
 
 	       		if (response['tipo'] == 1) {
-	       			console.log('consulta seg');
+	       			
 		       		$('#motivo').val(response['consultag'][0].MOTIVO_CONS);
 		       		$('#ciclo').val(response['consultag'][0].CICLO);
 		       		if (response['consultag'][0].FUM) {
@@ -1005,7 +1049,7 @@
 		       		}
 		       	}
 	       		if (response['tipo'] == 0) {
-	       			console.log('conslta primera');
+	       			
 	       			$('#motivo').val(response['consultag'][0].PADECIMIENTO);
 	       			$('#ciclo').val(response['consultag'][0].CICLOS);
 	       			$('#menarca').val(response['consultag'][0].MENARCA);
@@ -1210,13 +1254,15 @@
 			        idConsulta = respuesta.idconsulta;
 			        tipoconsu = respuesta.tipocons;
 			        datasocket = {accion:'refrescarreceta',datos:{consultappal:idConsulta,idconsulta:idConsultag,iddoctor:<?php echo $this->identity()->getId(); ?>,tipo:tipoconsu}};
-			        $('#saveCons').attr('disabled','disabled');
+			        //$('#saveCons').attr('disabled','disabled');
 			        $('#limpio').attr('disabled','disabled');
 	           		$('#consultaid').val(idConsulta);
-	           		console.log(idConsulta);
 	           		$('#lirecetas').show();
+	           		$('#liordenes').show();
 	       			mostrarReceta(idConsulta);
+	       			mostrarOrden(idConsulta);
 	           		socket.emit('updateconsultas',datasocket);
+	           		toastr.success('Consulta Guardada.');
 	           		
 			    },
 			    error: function(){
@@ -1279,6 +1325,25 @@
            
            success: function(response) {
            		$('#resultarecetas').html(response);
+           },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
+
+	function mostrarOrden(id)
+	{
+		var data ={consulta: id};
+		console.log(data);
+		$.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/consultados/orden",
+           data: data,
+           dataType: "HTML",
+           
+           success: function(response) {
+           	 	$('#resultaordenes').html(response);
            },
            error: function(){
                  toastr.error('Inténtalo más tarde.');
@@ -1377,7 +1442,15 @@
 	    blueimp.Gallery(links, options);
 	};
 
-	
+	/** EMPIEZA LA GALERIA DE IMAGENES **/
+	document.getElementById('enlaces').onclick = function (event) {
+	    event = event || window.event;
+	    var target = event.target || event.srcElement,
+	        link = target.src ? target.parentNode : target,
+	        options = {index: link, event: event},
+	        links = this.getElementsByTagName('a');
+	    blueimp.Gallery(links, options);
+	};
 
 	/** INICIA MOSTRAR ARCHIVOS **/
 
@@ -1428,7 +1501,7 @@
 	function repasistida()
 	{
 		var data ={paciente: <?php echo $paciente[0]['ID']; ?>};
-		
+		console.log(data);
 		$.ajax({
 	       type: "POST",
 	       url: "<?php echo $this->basePath() ?>/consultados/monitoreo",
@@ -1807,6 +1880,8 @@
 	     toastr.error("Seleccione solo imagenes");
 	 }
  });
+
+	
 
 	
 </script>

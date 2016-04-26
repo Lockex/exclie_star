@@ -6,7 +6,7 @@
 	<input type="hidden" name="end" id="end">
 	<input type="hidden" name="className" id="className">
 	<input type="hidden" name="idevento" id="idevento">
-
+	<input type="hidden" name="idpaciente" id="idpaciente">
 	
 	<div class="modal fade" id="modAgendarcon" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
@@ -19,6 +19,7 @@
 	      	</div>
 	      	<div class="modal-body">
 	      	<div class="row">
+
 	      		<div class="col-sm-4"></div>
 	      		<div class="col-sm-4"></div>
 	      		<div class="col-sm-4">
@@ -244,7 +245,7 @@
 <script src="<?php echo $this->basePath() ?>/public/js/exclie/agenda.js"></script>
 <script>
 	var ruta = '<?php echo $this->basePath(); ?>';
-
+var _ruta = '<?php echo $this->basePath(); ?>';
 
 function borrarevento () {
 	

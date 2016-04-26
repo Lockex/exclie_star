@@ -9,9 +9,7 @@ use Zend\Form\Annotation;
  * Doctrine ORM implementation of Usuarios entity
  *
  * @ORM\Entity
- * @ORM\Table(name="`Usuarios`",
- *   indexes={@ORM\Index(name="search_idx", columns={"USUARIO", "NOMBRE", "EMAIL"})}
- * )
+ * @ORM\Table(name="`usuarios`")
  */
 class Usuarios {
 	/**
@@ -87,7 +85,30 @@ class Usuarios {
 	 * @ORM\Column(type="boolean", nullable=false)
 	 */
 	protected $EMAILCONFIRMADO;
-
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $DIRECCION;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $COLONIA;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $CELULAR;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected $TRABAJO;
 	/**
 	 * Gets the value of ID.
 	 *
@@ -307,4 +328,110 @@ class Usuarios {
 
 		return $this;
 	}
+
+    /**
+     * Gets the value of ROL.
+     *
+     * @return CsnUser\Entity\Role
+     */
+    public function getROL()
+    {
+        return $this->ROL;
+    }
+
+    /**
+     * Gets the value of DIRECCION.
+     *
+     * @return string
+     */
+    public function getDIRECCION()
+    {
+        return $this->DIRECCION;
+    }
+
+    /**
+     * Sets the value of DIRECCION.
+     *
+     * @param string $DIRECCION the 
+     *
+     * @return self
+     */
+    public function setDIRECCION($DIRECCION)
+    {
+        $this->DIRECCION = $DIRECCION;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of COLONIA.
+     *
+     * @return string
+     */
+    public function getCOLONIA()
+    {
+        return $this->COLONIA;
+    }
+
+    /**
+     * Sets the value of COLONIA.
+     *
+     * @param string $COLONIA the 
+     *
+     * @return self
+     */
+    public function setCOLONIA($COLONIA)
+    {
+        $this->COLONIA = $COLONIA;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of CELULAR.
+     *
+     * @return string
+     */
+    public function getCELULAR()
+    {
+        return $this->CELULAR;
+    }
+
+    /**
+     * Sets the value of CELULAR.
+     *
+     * @param string $CELULAR the 
+     *
+     * @return self
+     */
+    public function setCELULAR($CELULAR)
+    {
+        $this->CELULAR = $CELULAR;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of TRABAJO.
+     *
+     * @return string
+     */
+    public function getTRABAJO()
+    {
+        return $this->TRABAJO;
+    }
+
+    /**
+     * Sets the value of TRABAJO.
+     *
+     * @param string $TRABAJO the 
+     *
+     * @return self
+     */
+    public function setTRABAJO($TRABAJO)
+    {
+        $this->TRABAJO = $TRABAJO;
+
+        return $this;
+    }
 }

@@ -54,7 +54,7 @@
     <script src="<?php echo $this->basePath() ?>/public/js/libs/toastr/toastr.js"></script>
 
     <script >
-   // var socket = io.connect("http://192.168.100.6:3000");
+    //var socket = io.connect("http://192.168.100.3:3000");
     var socket = io.connect("http://localhost:3000");
       
      
@@ -156,7 +156,7 @@
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
                                 <?php if($this->identity()->getFOTO() != ''){ ?>
-                                    <img src="<?php echo $this->basePath() ?>/public/img/<?php echo $this->identity()->getFOTO(); ?>" alt="" />
+                                     <img src="<?php echo $this->basePath() ?>/public/imagenes/usuario/<?php echo $this->identity()->getID(); ?>/<?php echo $this->identity()->getFOTO(); ?>" alt="" id="perfilFoto"/>
                                 <?php }else{ ?>
                                     <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg" alt="" />
                                 <?php } ?>
@@ -167,7 +167,7 @@
                             </a>
                             <ul class="dropdown-menu animation-dock">
                                 <!-- <li class="dropdown-header">Config</li> -->
-                                <!-- <li><a href="../../html/pages/profile.html">My profile</a></li> -->
+                                <li><a href="<?php echo $this->basePath() ?>/usuario"><i class="fa fa-fw fa-cog text-danger"></i>Perfil</a></li>
                                 <!-- <li><a href="../../html/pages/blog/post.html">My blog <span class="badge style-danger pull-right">16</span></a></li>
                                 <li><a href="../../html/pages/calendar.html">My appointments</a></li>
                                 <li class="divider"></li>

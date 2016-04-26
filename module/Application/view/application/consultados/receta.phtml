@@ -61,7 +61,7 @@
 </div>
 <input type="hidden" id="id_receta">	
 <input type="hidden" id="id_consul">
-
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script>
 	var contador = 0;
 	var ruta = '<?php echo $this->basePath() ?>/';
@@ -122,7 +122,6 @@
 
     function mostrarmed(data){
     	var datos = {med:data};
-    	console.log(datos);
     }
 
 	function fechaActual2()
@@ -182,17 +181,14 @@
 		  	medicamentos= JSON.stringify(medicamentos);
 		  	$('#array-med').val(medicamentos);
 		    var datastring = $('#formReceta').serialize();
-		    console.log(datastring);
-			$.ajax({
+		    $.ajax({
 			    type: "POST",
 			    url: "<?php echo $this->basePath() ?>/consultados/guardareceta",
 			    dataType: "json",
 			    data: datastring,
 			    success: function(respuesta) {
-			       console.log(respuesta);
 			       $('#id_receta').val(respuesta['recetaid']);
 			       $('#id_consul').val(respuesta['consulta']);
-			       console.log(respuesta['recetaid']);
 			       verReceta();
 			    },
 			    error: function(){

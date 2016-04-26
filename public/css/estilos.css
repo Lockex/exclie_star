@@ -1,3 +1,8 @@
+.ui-autocomplete {
+	z-index: 1051;
+	
+}
+
 a:link   
 {   
  text-decoration:none;   
@@ -34,26 +39,49 @@ a:link
 
 }
 
-#foto img:hover{
-	position: absolute;
+#fotoSube img:hover{
+	
 	display: block;
 	opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
     z-index: 1;
 }
 
-#textofoto{
-	/*position: absolute;*/
-	z-index: 5;
-	margin-left: 65px;
-	margin-top: 35px;
+#fotoSube:hover .edita{
+	display: block;
+	
 }
 
-#foto:hover + #textofoto{
-	 opacity: 1.0;
+.edita{
+	position : absolute;
+    display:none;
+    top:40%; 
+    left:40%;
+    z-index:100;
 }
 
+#foto img:hover{
+	
+	display: block;
+	opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+    z-index: 1;
+}
 
+#foto:hover .icono{
+	display: block;
+	
+}
+
+.icono{
+	position : absolute;
+    display:none;
+    top:20%; 
+    width:40px;
+    margin:0 auto; left:0px;
+    right:0px;
+    z-index:100;
+}
 
 .thumb-image {
     float:left;

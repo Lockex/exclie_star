@@ -1,0 +1,315 @@
+<div class="section-body style-primary force-padding text-shadow">
+	<div class="row">
+		<div class="col-md-3 col-xs-5" id="foto" >
+			<?php if($this->identity()->getFOTO() != ''){ ?>
+            <img class="img-circle border-white border-xl" width="180px" height="180px" src="<?php echo $this->basePath() ?>/public/imagenes/usuario/<?php echo $this->identity()->getID(); ?>/<?php echo $this->identity()->getFOTO(); ?>" alt="" id="fotoperfil"/>
+		    <?php }else{ ?>
+		        <img class="img-circle border-white border-xl" width="180px" height="180px" src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg" alt="" id="fotoperfil"/>
+		    <?php } ?>
+		    
+			<div class="icono pull-right">
+				<i class="md md-edit"></i>
+			</div>
+                    
+   			<form action="" id="formularioFoto" >
+      			<input type="file" style="display:none" id="camara" accept="image/*" name="image">
+      		</form>
+   			
+			<h3><?php echo $this->identity()->getNOMBRE(); ?><br/><small><?php echo $this->identity()->getROLE()->getName(); ?></small></h3>
+		</div>
+	</div>
+</div>
+<br>
+
+	
+	<div class="row">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-head style-primary">
+					<header><small>Cambiar Contraseña</small></header>
+				</div>
+				<div class="card-body">
+					<form action="" class="form form-validate" name="f1" novalidate="novalidate" id="f1">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="password" class="form-control input-lg" name="PASSWORD" id="PASSWORD" required data-rule-minlength="5">
+									<label for="PASSWORD">Contraseña Actual</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="password" class="form-control input-lg" name="clave1" id="clave1" required data-rule-minlength="5">
+									<label for="clave1">Contraseña nueva</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="password" class="form-control input-lg" name="clave2" id="clave2" required data-rule-minlength="5">
+									<label for="clave2">Confirmar contraseña</label>
+								</div>
+							</div>
+						</div>
+						<div class="pull-right">
+							<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="editaContra()">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div><!--end .col -->
+		<!-- END MESSAGE ACTIVITY -->
+		
+	<!-- BEGIN PROFILE MENUBAR -->
+		<div class="col-lg-offset-1 col-lg-3 col-md-4">
+			<div class="card card-underline">
+				<div class="card-head style-primary">
+					<header class="opacity-75"><small>Información Personal</small></header>
+					<div class="tools">
+						<a class="btn btn-icon-toggle ink-reaction" onclick="editaInfo();"><i class="md md-edit"></i></a>
+					</div><!--end .tools -->
+				</div><!--end .card-head -->
+				<div class="card-body no-padding">
+					<ul class="list" id="infoN">
+						<li class="tile">
+							<a class="tile-content ink-reaction">
+								<div class="tile-icon">
+									<i class="md md-location-on"></i>
+								</div>
+								<div class="tile-text">
+									<p class="form-control-static" id="direccion"></p>
+									<small>Dirección</small>
+								</div>
+							</a>
+						</li>
+						<li class="tile">
+							<a class="tile-content ink-reaction">
+								<div class="tile-icon"></div>
+								<div class="tile-text">
+									<p class="form-control-static" id="colonia"></p>
+									<small>Colonia</small>
+								</div>
+							</a>
+						</li>
+						<li class="divider-inset"></li>
+						<li class="tile">
+							<a class="tile-content ink-reaction">
+								<div class="tile-icon">
+									<i class="fa fa-phone"></i>
+								</div>
+								<div class="tile-text">
+									<p class="form-control-static" id="celular"></p>
+									<small>Celular</small>
+								</div>
+							</a>
+						</li>
+						<li class="tile">
+							<a class="tile-content ink-reaction">
+								<div class="tile-icon"></div>
+								<div class="tile-text">
+									<p class="form-control-static" id="trabajo"></p>
+									<small>Trabajo</small>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<div id="infoE" style="display: none;">
+						<form action="" name="f2" id="f2">
+							<ul class="list">
+								<li class="tile">
+									<a class="tile-content ink-reaction">
+										<div class="tile-icon">
+											<i class="md md-location-on"></i>
+										</div>
+										<div class="tile-text">
+											<input type="text" name="direccion" id="edireccion">
+											<small>Direccion</small>
+										</div>
+									</a>
+								</li>
+								<li class="tile">
+									<a class="tile-content ink-reaction">
+										<div class="tile-icon"></div>
+										<div class="tile-text">
+											<input type="text" name="colonia" id="ecolonia">
+											<small>Colonia</small>
+										</div>
+									</a>
+								</li>
+								<li class="divider-inset"></li>
+								<li class="tile">
+									<a class="tile-content ink-reaction">
+										<div class="tile-icon">
+											<i class="fa fa-phone"></i>
+										</div>
+										<div class="tile-text">
+											<input type="text" name="celular" id="ecelular" data-inputmask="'mask': '(999) 999-9999'">
+											<small>Celular</small>
+										</div>
+									</a>
+								</li>
+								<li class="tile">
+									<a class="tile-content ink-reaction">
+										<div class="tile-icon"></div>
+										<div class="tile-text">
+											<input type="text" name="trabajo" id="etrabajo" data-inputmask="'mask': '(999) 999-9999'">
+											<small>Trabajo</small>
+										</div>
+									</a>
+								</li>
+							</ul>
+							<div class="pull-right">
+								<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="editaDatos()">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div><!--end .card-body -->
+			</div><!--end .card -->
+		</div><!--end .col -->
+		<!-- END PROFILE MENUBAR -->
+		
+	</div>
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
+
+<script>
+	$(document).ready(function()
+	{
+		$(":input").inputmask();
+		verDatos();
+
+	});
+
+	
+	function editaContra()
+	{
+		clave1 = document.f1.clave1.value;
+   		clave2 = document.f1.clave2.value; 
+   		var formulario = $('#f1').serialize();
+   		if (clave1 == clave2)
+	   	{
+	   		$.ajax({
+			    type: "POST",
+				url: "<?php echo $this->basePath() ?>/usuario/cambiarpassword",
+			    dataType: "json",
+			    data: formulario,
+			    success: function(respuesta) {
+			    	toastr.info(respuesta.mensaje); 
+			    	$('#clave1').val('');
+			    	$('#clave2').val('');
+			    	$('#PASSWORD').val('');         		
+			    },
+			    error: function(){
+			        toastr.error('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+	   	}else{ 
+	      	toastr.error("Las dos claves son distintas...");
+	    }
+		 
+	}
+
+	function editaInfo()
+	{
+		$('#infoE').show();
+		$('#infoN').hide();
+	}
+
+	function foto()
+	{
+		
+	}
+
+	function editaDatos()
+	{
+		var formulario = $('#f2').serialize();
+		$.ajax({
+		    type: "POST",
+			url: "<?php echo $this->basePath() ?>/usuario/cambiardatos",
+		    dataType: "json",
+		    data: formulario,
+		    success: function(respuesta) {
+		    	toastr.success('Se Guardaron los cambios.');
+		    	$('#infoE').hide();
+				$('#infoN').show();
+				verDatos(); 		
+		    },
+		    error: function(){
+		        toastr.error('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});
+	}
+
+	function verDatos(){
+		$.ajax({
+		    type: "GET",
+			url: "<?php echo $this->basePath() ?>/usuario/verdatos",
+		    dataType: "json",
+		    success: function(respuesta) {
+		    	$('#direccion').text(respuesta['datos'][0]['DIRECCION']);
+				$('#colonia').text(respuesta['datos'][0]['COLONIA']);
+				$('#celular').text(respuesta['datos'][0]['CELULAR']);
+				$('#trabajo').text(respuesta['datos'][0]['TRABAJO']);  
+				$('#edireccion').val(respuesta['datos'][0]['DIRECCION']);
+				$('#ecolonia').val(respuesta['datos'][0]['COLONIA']);
+				$('#ecelular').val(respuesta['datos'][0]['CELULAR']);
+				$('#etrabajo').val(respuesta['datos'][0]['TRABAJO']); 
+				$('#usu').val(respuesta['datos'][0]['ID']); 		
+		    },
+		    error: function(){
+		        toastr.error('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});
+	}
+
+	$('#fotoperfil').click(function(){
+		$('#camara').click();
+			
+	});
+	$('#camara').on('change',function(){
+		
+		subirFoto();
+		
+	});
+
+	function subirFoto(){
+		var formulario = new FormData($('#formularioFoto')[0]);	
+		$.ajax({
+	      type: "POST",
+	      data:formulario,
+          cache:false,
+          async: false,
+          contentType: false,
+          processData: false,
+	      url: "<?php echo $this->basePath() ?>/usuario/foto",	      
+	      dataType: "json",
+		      success: function(data) {
+		        mostrarImagen();
+	          },
+		      error: function(data){
+		     	toastr.error('Inténtalo más tarde.');
+		      }
+		  });
+	}
+
+	
+	
+	function mostrarImagen() {
+	  $.ajax({
+           type: "POST",
+           url: "<?php echo $this->basePath() ?>/usuario/verfoto",
+           dataType: "json",
+           success: function(response) {
+           		var foto = response['foto'][0].FOTO;
+	       		var id = response['foto'][0].ID;
+	       		console.log(foto);
+	      	 	$("#foto").html("<img class='img-circle border-white border-xl' src='<?php echo $this->basePath()?>/public/imagenes/usuario/"+id+"/"+foto+"' style='width:180;' height='180'>");
+	      	 	$("#perfilFoto").html("<img src='<?php echo $this->basePath()?>/public/imagenes/usuario/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
+           	},
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
+</script>

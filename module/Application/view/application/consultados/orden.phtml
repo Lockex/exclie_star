@@ -1,0 +1,194 @@
+<div class="card">
+	<div class="card-head style-primary"></div>
+	<div class="card-body">
+		<form class="form form-validate" id="formOrden" novalidate="novalidate">
+			<input type="hidden" name="consultaid" value="<?php echo $cons; ?>" id="consultaid">
+			<input type="hidden" id="OrdenNew" name="OrdenNew">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<select class="form-control" name="tipo[]" id="sOrden" multiple="multiple">
+													
+						</select>
+						<label for="orden">Orden</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group pull-right">
+						<button type="button" class="btn ink-reaction btn-floating-action btn-lg btn-primary" onclick="agregaOrden();"><i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<textarea id="ckeditor"></textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="card-actionbar">
+			<div class="card-actionbar-row">
+				<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardaOrden()" id="saveOrden">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Modal Form para agregar Ordenes-->
+<div class="modal fade" id="modOrdenes" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        	<h4 class="modal-title">
+        		Agregar Orden de laboratorio
+        	</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form class="form form-validate" id="formTipoOrden" novalidate="novalidate">
+      		<input type="hidden" id="datosOrden" name="datosOrden">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" class="form-control" id="ordentipo" name="ordentipo">
+						<label for="orden">Nombre</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<textarea id="ckdatos"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+      	<div class="modal-footer">
+      		<button type="button" class="btn btn-primary" id="btnGuardarTipoOrden" onclick="agregaTipoOrden();">GUARDAR</button>        
+      	</div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="id_orden">	
+<input type="hidden" id="id_consul">
+
+
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/select2/select2.css" />
+<script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/adapters/jquery.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/select2/select2.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+
+
+<script>
+	var ruta = '<?php echo $this->basePath() ?>/';
+	$(document).ready(function() {
+		$( '#ckeditor' ).ckeditor();
+		$( '#ckdatos' ).ckeditor();
+		tipos();
+		$('#sOrden').select2({
+		  placeholder: 'Selecciona Orden',
+		  
+		});
+		 $('#sOrden').change(function(){
+		 	 verdatos($('#sOrden').val());
+		 }); 
+	});
+
+	function agregaOrden()
+	{
+		$("#modOrdenes").modal('show');
+	}
+
+	function agregaTipoOrden()
+	{
+		
+		var contenido = CKEDITOR.instances['ckdatos'].getData();
+		$('#datosOrden').val(contenido);
+		var formulario = $('#formTipoOrden').serialize();
+		$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardatipoorden",
+			    dataType: "json",
+			    data: formulario,
+			    success: function(respuesta) {
+			      $("#modOrdenes").modal('hide');
+			      tipos();
+			    },
+			    error: function(){
+			          toastr.error('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+	}
+
+	function tipos()
+	{
+		$('#sOrden').empty();
+		$.ajax({
+           type: "GET",
+           url: "<?php echo $this->basePath() ?>/consultados/ordentipos",
+           dataType: "JSON",
+           success: function(data) {
+           		for (i=0; i<data.length; i++) {
+		       		$('#sOrden').append('<option value="' + data[i].ID + '">' + data[i].NOMBRE + '</option>');
+		    	}
+		   },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
+
+	function verdatos(datos){
+		
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/verorden",
+	       dataType: "JSON",
+	       data: {datos},
+	       success: function(response) {
+	       		var data = response;
+	       		var valores = '';
+	       		for (i=0; i<data.length; i++) {
+		       		 valores += data[i][0].DATOS+ '<br/>.*';
+		       	}
+		       	$('#ckeditor').val(valores)
+		   },
+	       error: function(){
+	             toastr.error('Inténtalo más tarde.');
+	       }
+	   });
+	}
+
+	function guardaOrden()
+	{
+		var ids = $('#sOrden').val();
+		var conId = $('#consultaid').val();
+		var contiene = CKEDITOR.instances['ckeditor'].getData();
+		var data = {ordenes:ids,consul:conId,nuevos:contiene};
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/guardarorden",
+	       dataType: "JSON",
+	       data: data,
+	       success: function(respuesta) {
+	       		toastr.success('Orden Guardada.');
+	       		$('#id_orden').val(respuesta['ordenid']);
+			    $('#id_consul').val(respuesta['consulta']);
+			    verOrden();
+		   },
+	       error: function(){
+	             toastr.error('Inténtalo más tarde.');
+	       }
+	   });
+	}
+
+	function verOrden()
+	{
+		window.open('generaorden/'+$('#id_orden').val());
+	}
+
+	
+</script>

@@ -42,7 +42,21 @@ return array(
                     ),
                 ),
             ),
-
+             'usuario' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/usuario[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Usuario',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'pacientes' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -194,6 +208,7 @@ return array(
             'Application\Controller\Notas' => 'Application\Controller\NotasController',
             'Application\Controller\Captura' => 'Application\Controller\CapturaController',
             'Application\Controller\Agenda' => 'Application\Controller\AgendaController',
+             'Application\Controller\Usuario' => 'Application\Controller\UsuarioController',
         ),
     ),
     'view_manager' => array(
