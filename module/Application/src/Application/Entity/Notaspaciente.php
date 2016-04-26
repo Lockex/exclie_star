@@ -12,7 +12,7 @@ class Notaspaciente {
     protected $NOTAS;
     /** @ORM\Column(type="date") */
     protected $FECHA;
-     /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
+     /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $PACIENTE;
 
 

@@ -8,9 +8,9 @@ class Fotosconsulta {
      * @ORM\Column(type="integer")
      */
     protected $ID;
-    /** @ORM\ManyToOne(targetEntity="Consultas") @ORM\JoinColumn(referencedColumnName="ID") */
+    /** @ORM\ManyToOne(targetEntity="Consultas") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $ID_CONS;
-    /** @ORM\ManyToOne(targetEntity="Cgineco") @ORM\JoinColumn(referencedColumnName="ID") */
+    /** @ORM\ManyToOne(targetEntity="Cgineco") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $ID_CONSGINECO;
      /** @ORM\Column(type="string") */
     protected $IMAGEN;

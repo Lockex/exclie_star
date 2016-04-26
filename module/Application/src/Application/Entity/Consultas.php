@@ -10,7 +10,7 @@ class Consultas {
     protected $ID;
     /** @ORM\Column(type="date") */
     protected $FECHA_CONS;
-    /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
+    /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $PACIENTE;
     /** @ORM\ManyToOne(targetEntity="Usuarios") @ORM\JoinColumn(referencedColumnName="id") */
     protected $MEDICO;

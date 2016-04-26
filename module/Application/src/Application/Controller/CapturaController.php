@@ -320,10 +320,14 @@ class CapturaController extends AbstractActionController {
 
 	public function dpacienteAction(){
 		$this->layout('layout/vacio');
+
+
 		$id_paciente = $this->request->getPost('pac');
+
+		
 		
 		$oM = $this->getObjectManager();
-		$query 	= $oM->createQuery("SELECT p,n FROM Application\Entity\Pacientes p JOIN p.APELLIDO_PATERNO WHERE p.ID = $id_paciente");
+		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
 		$paciente 	 = $query->getArrayResult();
 
 		
@@ -338,37 +342,31 @@ class CapturaController extends AbstractActionController {
 		$om = $this->getObjectManager();
 		$pid = $this->request->getPost('pac');			
 
-		
-		
-		$query2 = $om->createQuery("SELECT a.ID FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pid ");		
-		$eant = $query2->getArrayResult();	
-
-		
-		
-		if($eant)
-		{
-			$bante = $om->find('Application\Entity\Antecedentes', $eant[0]['ID']);		
-			$om->remove($bante);
-			$om->flush();
-		}
-		
-
-		
-		$query1 = $om->createQuery("SELECT a.ID FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pid ");		
-		$eant = $query1->getArrayResult();	
-
-		
 		$bpac = $om->find('Application\Entity\Pacientes', $pid);
-		//print_r($bpac);
-		
 		$om->remove($bpac);
 		$om->flush();
 		
-
+		
 		return new JsonModel();
 		
 
     			
+	}
+
+	public function getpacientesAction(){
+		$oM = $this->getObjectManager();
+		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p ");
+		$paciente 	 = $query->getArrayResult();
+		return new JsonModel(array('pacientes'=>$paciente));
+
+	}
+
+	public function corregirAction(){
+		$oM = $this->getObjectManager();
+		$query 	= $oM->createQuery("SELECT count(p.ID) FROM Application\Entity\Pacientes p ORDER BY CONCAT(p.NOMBRE,' ',p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO)");
+		$paciente 	 = $query->getArrayResult();
+		return new JsonModel(array('pacientes'=>$paciente));
+
 	}
 
 	public function verimagenesAction(){
@@ -376,7 +374,7 @@ class CapturaController extends AbstractActionController {
 		$id_paciente = $this->request->getPost('paci');
 		
 		$oM = $this->getObjectManager();
-		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
+		$query 	= $oM->createQuery("SELECT count(p.ID) FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
 		$paciente 	 = $query->getArrayResult();
 
 		$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $id_paciente");

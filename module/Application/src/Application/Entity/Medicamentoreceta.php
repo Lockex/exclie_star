@@ -12,7 +12,7 @@ class Medicamentoreceta {
     protected $FRECUENCIA;
     /** @ORM\ManyToOne(targetEntity="Medicamentos") @ORM\JoinColumn(referencedColumnName="ID") */
     protected $MEDICAMENTO;
-    /** @ORM\ManyToOne(targetEntity="Recetas") @ORM\JoinColumn(referencedColumnName="ID") */
+    /** @ORM\ManyToOne(targetEntity="Recetas") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $RECETA;
 
     /**

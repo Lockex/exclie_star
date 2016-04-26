@@ -1,6 +1,6 @@
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css?1423553989" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css?1423553990" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css?1423553990" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css" />
 
 <form id="felimpaciente" action="<?php echo $this->basePath() ?>/captura/eliminarpaciente" method="POST">
 
@@ -31,23 +31,19 @@
 										
 									</tr>
 								</thead>
-								<tbody>
-									<?php foreach ($pacient as $key => $pac): ?>										
-										<tr class="gradeX">											
+								<tbody id="listadop">
+									<div ></div>
+									<!--  <?php foreach ($pacient as $pac): ?>										
+										<tr>											
 											<td><?php echo $pac['ID'];?></td>											
 											<td><?php echo $pac['APELLIDO_PATERNO'];?></td>
 											<td><?php echo $pac['APELLIDO_MATERNO'];?></td>
 											<td><?php echo $pac['NOMBRE'];?></td>
 											<td><?php echo $pac['TELEFONO_1'];?></td>
 											<td><?php echo $pac['CALLE'];?> <?php echo $pac['NUMERO_EXT'];?></td>											
-											<td><button id="paid" name="paid" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="eliminar(<?php echo $pac['ID'];?>)" data-original-title="Eliminar Paciente" ><i class="fa fa-trash-o"></i> </button></td>
-
-											
-											
-											
-											
-										</tr>
-									<?php endforeach ?>																							
+											<td><button id="paid" name="paid" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="eliminar(<?php echo $pac['ID'];?>)" data-original-title="Eliminar Paciente" ><i class="fa fa-trash-o"></i></button></td>
+									 	</tr>
+									<?php endforeach ?> -->	 																						
 								</tbody>
 							</table>
 						</div><!--end .table-responsive -->
@@ -58,7 +54,23 @@
 	</div>
 </div>
 </form>
-
+<div id="confirma" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Borrar Paciente</h4>
+			</div>
+			<div class="modal-body">
+				<p>¿Estás Seguro, que quieres eliminar el paciente?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary btn-ok" id="Acepta">Aceptar</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/jquery.dataTables.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
@@ -66,7 +78,13 @@
 
 <script>
 
+$(document).ready(function()
+{
+		
+	mostrarpacientes();
+	   	
 
+});
 
 function eliminar (ID) {
 	
@@ -76,7 +94,8 @@ function eliminar (ID) {
 		    dataType: "json",
 		    data: {pac: ID},
 		    success: function(data) {
-		       console.log(data);
+		    	//toastr.success("El Paciente se eliminó.");
+		       mostrarpacientes();
 		       
 		      
 
@@ -85,6 +104,36 @@ function eliminar (ID) {
 		          alert('Ocurrió un error, inténtelo más tarde.');
 		    }
 		});  
+	}
+
+	function mostrarpacientes(){
+		$.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/captura/getpacientes",
+		    dataType: "json",
+		    
+		    success: function(data) {
+
+		      document.getElementById("listadop").innerHTML="";
+		      for (var i = 0; i < data['pacientes'].length; i++) {
+				var row = $("<tr />")
+			    $("#listadop").append(row); 
+			    row.append($("<td>" + data['pacientes'][i].ID + "</td>"));
+			    row.append($("<td>" + data['pacientes'][i].APELLIDO_PATERNO + "</td>"));
+			    row.append($("<td>" + data['pacientes'][i].APELLIDO_MATERNO + "</td>"));
+			    row.append($("<td>" + data['pacientes'][i].NOMBRE + "</td>"));
+			    row.append($("<td>" + data['pacientes'][i].TELEFONO_1 + "</td>"));
+			    row.append($("<td>" + data['pacientes'][i].CALLE + "</td>"));
+			    row.append($("<td><a onclick='eliminar(" + data['pacientes'][i].ID + ");' class='btn btn-icon-toggle ink-reaction' href='#'><i class='fa fa-trash-o'></i></a></td>"));
+			    
+			  }	
+		     
+
+		    },
+		    error: function() {
+		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+		    }
+		});
 	}
 
 </script>

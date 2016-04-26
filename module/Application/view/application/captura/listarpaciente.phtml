@@ -917,16 +917,7 @@
 				            </form>
 						</div><!--end .tools -->
 
-						<div class="tools">
-							<?php if(isset($paciente))  {  ?>
-								<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
-					                <i class="fa fa-plus"></i>
-					            </a>
-				            <?php } ?>
-							<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
-				                <i class="fa fa-user"></i>
-				            </a>
-        				</div><!--end .tools -->
+						
 						
 					</div>
 					<div class="card-body">
@@ -937,7 +928,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
-											    <p class="form-control-static" id="nombrePatient" value=""></p>
+											    <p class="form-control-static" name="nombrepatient" id="nombrePatient"></p>
 												<label for="">Nombre del Paciente</label>												
 											</div>
 										</div>
@@ -949,21 +940,50 @@
 										</div>
 									</div>
 
-									<div class="margin-bottom-xxl">
-										<div class="pull-left width-3 clearfix hidden-xs">
-											<?php if(!isset($paciente) || $paciente[0]['IMAGEN'] == '')  {  ?>
-												<img alt="" src="<?php echo $this->basePath(); ?>/public/img/avatar7.jpg" class="img-circle size-2">
-											<?php } else  {?>
-												 <img  src="<?php echo $this->basePath().'/public/imagenes/Pacientes/'.$paciente[0]['ID'].'/'.$paciente[0]['IMAGEN'];?>"  class="img-circle size-2" >
-			                          		<?php } ?> 
+									<div class="row">	
+										<div class="col-md-12">
+											<div class="card">
+												<div class="card-head style-primary">
+													<header>Subir Imagenes</header>
+												</div>
+												<div class="card-body no-padding">
+													<form action="<?php echo $this->basePath() ?>/captura/guardarimagenescons" class="dropzone dz-clickable" id="dropa">
+														<input type="hidden" id="idPaciente" name="idPaciente">
+														<input type="hidden" id="fecha_consulta2" name="fecha_consulta">
+														<div class="dz-message">
+															<h3>Agrega aquí las imagenes</h3>
+														</div>	
+													</form>
+												</div><!--end .card-body -->
+											</div><!--end .card -->
 										</div>
-										<?php if(!isset($paciente)){ ?>
-											<h1 class="text-light no-margin"><?php echo "No hay paciente definido"; ?></h1>
-										<?php }else{ ?>
-											<h1 class="text-light no-margin"><?php echo $paciente[0]['NOMBRE'].' '.$paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO']; ?></h1>
-										<?php } ?>
-											&nbsp;&nbsp;
-									</div><!--end .margin-bottom-xxl -->
+									</div>	
+
+									<div class="card-actionbar">
+										<div class="card-actionbar-row">
+											<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="nuevoExpediente()" id="nuevoExp">Terminar</button>
+										</div>
+									</div>
+
+									<div id="confirma" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">Terminar con Expediente</h4>
+												</div>
+												<div class="modal-body">
+													<p>¿Estás Seguro, que ya terminaste con el expediente?</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+													<button type="button" class="btn btn-primary btn-ok" id="Acepta">Aceptar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
 								</form>
 							</div>
 						</div>
@@ -1037,7 +1057,7 @@
 <script src="<?php echo $this->basePath() ?>/public/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/exclie/listarfpacientes.js"></script>
+
 <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppCard.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/core/source/AppForm.js"></script>
 
@@ -1150,16 +1170,16 @@
 
 	    $.ajax({
 		    type: "POST",
-		    url: "<?php echo $this->basePath() ?>/Captura/dpaciente",
+		    url: "<?php echo $this->basePath() ?>/captura/dpaciente",
 		    dataType: "json",
 		    data: datos,
 		    success: function(response) {
 		       //$('#fotoSube').show();
 		       //$('#nombrepatient').val(response['patient'][0].ID);
-		       //$('#paciente').val(response['patient'][0].ID);
+		      // $('#pac').val(response['pacient'][0].ID);
 		       //$('#idante').val(response['ante'][0].ID);
 		       //$('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
-		       $('#nombrepatient').val(response['pacient'][0].APELLIDO_PATERNO);
+		       $('#nombrePatient').text(response['pacient'][0].NOMBRE+ ' '+response['pacient'][0].APELLIDO_PATERNO + ' '+response['pacient'][0].APELLIDO_MATERNO);
 		       //$('#NOMBRE').val(response['patient'][0].NOMBRE);
 		       //$('#CALLE').val(response['patient'][0].CALLE);
 		       //$('#NUM_EXT').val(response['patient'][0].NUMERO_EXT);

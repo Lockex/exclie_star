@@ -169,7 +169,7 @@ class ConsultadosController extends AbstractActionController {
 			
 			
 			
-			$total = count($datos['fotingas'])-1;
+			$total = count($datos['fotingas']);
 					
 			/* INICIA TRATAMIENTO DE FECHAS*/
 			$fecha_hoy = new \DateTime();
@@ -242,64 +242,47 @@ class ConsultadosController extends AbstractActionController {
 					$objectManager->persist($consulta);
 					$objectManager->flush();
 
-					
-					print_r($datos['fotingas']);
-					
-					for($i=0;$i <= $total;$i++){
-						$tmpFilePath = $datos['fotingas'][$i]['tmp_name'];
-						if($tmpFilePath != ""){
-            
-			                //save the filename
-			                $shortname = 'foto-'.$datos['fotingas'][$i]['name'];
+				  $ruta2 = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac').'/fotos';
 
-			                //save the url and the file
-			                $ruta2 = getcwd() . '/public/imagenes/consultas/' . $this->request->getPost('idpac');
+						if (!file_exists($ruta2)) {
+							mkdir($ruta2);
+						}
+					
+				for($i=0;$i < $total;$i++){
 
-							if (!file_exists($ruta2)) {
-								mkdir($ruta2);
+					
+	    
+		                //save the filename
+		                $shortname = 'foto-'.$datos['fotingas'][$i]['name'];
+
+		                //save the url and the file
+		              echo $shortname;
+
+		               
+		                	$foto = new Fotosconsulta();
+
+							$foto->setIDCONS($consulta);
+							$foto->setIDCONSGINECO($gine);
+							$foto->setIMAGEN($shortname);
+							$adapter = new \Zend\File\Transfer\Adapter\Http();
+							$adapter->setDestination($ruta2);
+							$adapter->addfilter('Rename', array(
+								'target' => $ruta2 . '/' . $shortname,
+								'overwrite' => true,
+							));
+							
+
+							if ($adapter->receive()) {
+								 //echo 'recibe '.$shortname;
+								$this->createthumb($ruta2 . '/' . $shortname, 100, 100);
+								$objectManager->persist($foto);
+								$objectManager->flush();
 							}
+		                    
 
-			               
-			                	$foto = new Fotosconsulta();
-
-								$foto->setIDCONS($consulta);
-								$foto->setIDCONSGINECO($gine);
-								$foto->setIMAGEN($shortname);
-								
-								$adapter->addfilter('Rename', array(
-									'target' => $ruta2 . '/' . $shortname,
-									'overwrite' => true,
-								));
-								
-
-								if ($adapter->receive()) {
-									//$this->createthumb($ruta2 . '/' . $shortname, 100, 100);
-									$objectManager->persist($foto);
-									$objectManager->flush();
-								}
-			                    
-
-			               
-			              }
-						//$nombreFoto = $datos['fotingas'][$i]['name'];
+		               
+		         
 						
-						// $foto = new Fotosconsulta();
-
-						// $foto->setIDCONS($consulta);
-						// $foto->setIDCONSGINECO($gine);
-						// $foto->setIMAGEN($nombreFoto);
-						
-						// $adapter->addfilter('Rename', array(
-						// 	'target' => $ruta . '/' . $nombreFoto,
-						// 	'overwrite' => true,
-						// ));
-						
-
-						// if ($adapter->receive()) {
-						// 	$this->createthumb($ruta . '/' . $nombreFoto, 100, 100);
-						// 	$objectManager->persist($foto);
-						// 	$objectManager->flush();
-						// }
 					}
 
 					return new JsonModel(array('id' => $gine->getID(),'tipocons'=>$this->request->getPost('tipocons'),'idconsulta' => $consulta->getID()));
