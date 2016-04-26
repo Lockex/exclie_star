@@ -1,5 +1,4 @@
 <div class="card">
-
 	<!-- BEGIN BUSCADOR DE PACIENTES -->
 	<div class="card-head style-primary-dark">
 		<div class="tools pull-left">
@@ -16,7 +15,10 @@
 				<a onclick="nuevaConsulta(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
 	                <i class="fa fa-plus"></i>
 	            </a>
-	            <a onclick="descargar(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
+	            <!-- <a onclick="descargar(<?php echo $paciente[0]['ID']; ?>);" class="btn btn-icon-toggle ink-reaction" href="#">
+	                <i class="fa fa-download"></i>
+	            </a> -->
+	            <a onclick="historialc();" class="btn btn-icon-toggle ink-reaction" href="#">
 	                <i class="fa fa-download"></i>
 	            </a>
             <?php } ?>
@@ -41,7 +43,7 @@
 							<li><a href="#"> <span class="pull-right badge style-accent">71</span></a></li> -->
 						</ul>
 						<hr>
-						<ul class="list divider-full-bleed">
+						<ul class="list divider-full-bleed pre-scrollable">
 							<li><small class="text-primary">LISTADO</small></li>
 							<?php if(!isset($consultas)){ ?>
 							<p>No hay consultas </p>
@@ -279,7 +281,7 @@
 		<!-- END CONTACTS COMMON DETAILS -->	
 	</div>
 </div>
-
+<input type="hidden" id="idpac" value="<?php echo $paciente[0]["ID"]?>">
 <?php 	if($paciente[0]["FECHA_NACIMIENTO"]){ ?>
 <input type="hidden" value="<?php echo date_format($paciente[0]["FECHA_NACIMIENTO"],"Y-m-d") ?>" id="nacim">
 <?php }else{ ?>
@@ -349,7 +351,10 @@
            
            success: function(response) {
            		$('#consultita').html(response);
-           		
+           		$('#notes').removeClass('active');
+           		$('#archivo').removeClass('active');
+           		$('#historia').removeClass('active');
+           		$('#verconsulta').addClass('active');
            },
            error: function(){
                  toastr.error('Inténtalo más tarde.');
@@ -439,25 +444,28 @@
        });
     }
 
-    function descargar(id)
-    {
-    	$.ajax({
-           type: "POST",
-           url: "<?php echo $this->basePath() ?>/consultados/descargar",
-           data: {idpac:id},
-           dataType: "HTML",
+    // function descargar(id)
+    // {
+    // 	$.ajax({
+    //        type: "POST",
+    //        url: "<?php echo $this->basePath() ?>/consultados/descargar",
+    //        data: {idpac:id},
+    //        dataType: "HTML",
            
-           success: function(response) {
-           		var url = "<?php echo $this->basePath()?>/consultados/bajar"
-                window.location.href = url;
+    //        success: function(response) {
+	   //     		// var url = "<?php echo $this->basePath()?>/consultados/bajar"
+	   //       //    window.location.href = url;
            		
-           },
-           error: function(){
-                 toastr.error('Inténtalo más tarde.');
-           }
-       });
-    }
-
+    //        },
+    //        error: function(){
+    //              toastr.error('Inténtalo más tarde.');
+    //        }
+    //    });
+    // }
+    function historialc()
+	{
+		window.open('consultados/generahistorial/'+$('#idpac').val());
+	}
   
 
 </script>

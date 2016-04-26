@@ -2,7 +2,12 @@
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-/** @ORM\Entity */
+/**
+ * Doctrine ORM implementation of Usuarios entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="`ordentipos`")
+ */
 class Ordentipos {
     /** @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")  

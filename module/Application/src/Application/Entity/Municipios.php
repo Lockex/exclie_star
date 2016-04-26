@@ -1,7 +1,12 @@
 <?php 
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
-/** @ORM\Entity */
+/**
+ * Doctrine ORM implementation of Usuarios entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="`municipios`")
+ */
 class Municipios {
     /** @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")  

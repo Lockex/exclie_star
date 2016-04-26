@@ -8,7 +8,7 @@
 		<div class="tools">
 			<a class="btn btn-icon-toggle ink-reaction" href="#datosgenerales" data-toggle="offcanvas">
                 <i class="fa fa-user"></i>
-            </a>
+            </a> 
 		</div>
 	</div>
 	<div class="card-body">
@@ -111,15 +111,7 @@
 								<?php if(isset($paciente))  {  ?>
 								<br/>
 									<?php if(!isset($videos) || $videos == ''){ echo 'No hay Videos' ; } else{ ?>
-											<div id="resultaVideos"></div>
-											<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
-											    <div class="slides"></div>
-											    <h3 class="title"></h3>
-											    <a class="prev">‹</a>
-											    <a class="next">›</a>
-											    <a class="play-pause"></a>
-											</div>
-										
+										<div id="resultaVideos"></div>
 									<?php } ?>
 						
 									<div class=" col-md-12">
@@ -373,7 +365,10 @@
 											<div class="row">
 												<div class="col-sm-3">
 													<div class="form-group">
-														<input type="text" class="form-control" id="ciclo" name="ciclo" data-inputmask="'mask': '99X99 '">
+														<select class="form-control input-lg" class="form-control input-lg" name="ciclo" id="ciclo1" >
+														<option value="1">Regular</option>
+														<option value="2">Irregular</option>
+													</select class="form-control input-lg">
 														<label for="ciclo">Ciclos</label>
 													</div>
 												</div>
@@ -754,7 +749,7 @@
 											</div>
 											<div class="form-group">
 												<textarea name="imx" id="imx" class="form-control" rows="3"></textarea>
-												<label for="imx">Iny</label>
+												<label for="imx">Idx</label>
 											</div>
 											<div class="form-group">
 												<textarea name="plan" id="plan" class="form-control" rows="3"></textarea>
@@ -980,12 +975,11 @@
 		}
 		    	
 	   	mostrarNotas();
-	   	//$('#lirecetas').hide();
+	   	$('#lirecetas').hide();
 		$('#lireproduccion').hide();
-		//$('#liordenes').hide();
+		$('#liordenes').hide();
 		$('#fotCons').hide();
-		mostrarOrden(45);
-		mostrarReceta(45);
+		
 		
 
 
@@ -1341,7 +1335,7 @@
 	function mostrarOrden(id)
 	{
 		var data ={consulta: id};
-		
+		console.log(data);
 		$.ajax({
            type: "POST",
            url: "<?php echo $this->basePath() ?>/consultados/orden",

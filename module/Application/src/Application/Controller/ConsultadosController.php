@@ -15,6 +15,7 @@ use Application\Entity\Medicamentos;
 use Application\Entity\Fotosconsulta;
 use Application\Entity\Ordentipos;
 use Application\Entity\Ordenes;
+use Application\Entity\Ordenfinal;
 
 use DOMPDFModule\View\Model\PdfModel;
 
@@ -1065,86 +1066,146 @@ class ConsultadosController extends AbstractActionController {
 
 	}
 
-	public function descargarAction(){
+	// public function descargarAction(){
 
-      $this->layout('layout/vacio');
+ //      $this->layout('layout/vacio');
 
-      $pac = $this->request->getPost('idpac');
+ //      $om = $this->getObjectManager();
 
-      $query = $this->getObjectManager()->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $pac");
+ //      $pac = $this->request->getPost('idpac');
 
-      $imagenes = $query->getArrayResult();
+ //      $query = $om->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $pac");
 
-            
-      $zip = new ZipArchive();
+ //      $imagenes = $query->getArrayResult();
 
-      $filename = "imagenes.zip";
+      
+      // $zip = new ZipArchive();
 
-      $zip->open($filename,ZipArchive::CREATE);
+      // $filename = "imagenes.zip";
+
+      // $zip->open($filename,ZipArchive::CREATE);
     
-      foreach($imagenes as $i) { 
+      // foreach($imagenes as $i) { 
 
         
-        $zip->addFile('./public/imagenes/Consultas/'.$pac.'/'.$i['IMAGEN'],$i['IMAGEN']);
+      //   $zip->addFile('./public/imagenes/Consultas/'.$pac.'/'.$i['IMAGEN'],$i['IMAGEN']);
 
-      }
+      // }
       
-       $zip->close();
+      //  $zip->close();
        
                
-       return $filename;      
+      //  return $filename;   
+       
 
-      }
-      protected function bajarAction(){
-    
-        $direct = getcwd();
-        $cadena = $direct;
-        $buscar = "\\";
-        $reemplazar = "/";
-        $base_dir = str_replace($buscar, $reemplazar, $cadena);
-        $filename = $base_dir.'/imagenes.zip';
-      
+   // }
+
+    public function generahistorialAction(){
+
+      $om = $this->getObjectManager();
+
+      $pac = $this->params()->fromRoute('id');
+
+      $imagenes = $om->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $pac")->getArrayResult();
+
+      $paciente  = $om->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pac")->getArrayResult();
+      $expescar  = $om->createQuery("SELECT e FROM Application\Entity\Expescar e WHERE e.PACIENTE = $pac")->getArrayResult();
+      $consultas = $om->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pac AND c.ESPEC != 'Captura'")->getArrayResult();
+      $antes  	 = $om->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pac")->getArrayResult();
+
+       
+
+      foreach($consultas as $consul){
+      	$id = $consul['CONSULTA'];
+      	if($consul['ESPEC'] =='Cgineco'){
+      		$gineco[] = $om->createQuery("SELECT g  FROM Application\Entity\Cgineco g WHERE g.ID = $id")->getArrayResult();
+      		
+
+      		
+        }
+        if($consul['ESPEC']=='Cgineco2'){
+      		$moni[] = $om->createQuery("SELECT m FROM Application\Entity\Monitoreo m WHERE m.ID = $id")->getArrayResult();
+        }
+
         
-        header('Content-type: application/zip');
-        header('Content-Disposition: attachment; filename=imagenes.zip');
-        readfile($filename);
-      
-        unlink($filename);
-      }
 
-      public function ordenAction() {
+     }
+
+        //print_r($gineco);
+
+        
+	  // foreach ($moni as $key) {
+	  // 	echo $key[0]['ID'].'<br>';
+	  // }
+	 
+	  
+	  $pdf = new PdfModel();
+	  $pdf->setOption('filename',$pac.'-Expediente.pdf');
+	  if($imagenes){
+	  	$pdf->setVariables(array(
+	  		'paciente' => $paciente,
+	  		'imagenes' => $imagenes,
+	  		'gine'	   => $gineco,
+	  		'monito'   => $moni,
+	  		
+			
+	  		
+		));
+	  }else{
+	  	
+	  	$pdf->setVariables(array(
+
+			'paciente'   => $paciente,
+			'expescar'   => $expescar,
+			'antes'	     => $antes,
+			'gine'	     => $gineco,
+			'monito'	 => $moni,
+			
+		));
+	  }
+	    
+	 return $pdf;   
+
+    }
+	protected function bajarAction(){
+
+		$direct = getcwd();
+		$cadena = $direct;
+		$buscar = "\\";
+		$reemplazar = "/";
+		$base_dir = str_replace($buscar, $reemplazar, $cadena);
+		$filename = $base_dir.'/imagenes.zip';
+
+
+		header('Content-type: application/zip');
+		header('Content-Disposition: attachment; filename=imagenes.zip');
+		readfile($filename);
+
+		unlink($filename);
+	}
+
+	public function ordenAction() {
 		$this->layout('layout/vacio');
 		$om = $this->getObjectManager();
 		$id_consulta = $this->request->getPost('consulta');
 
+
 		return new ViewModel(array('cons' => $id_consulta));
 	}
 
-	public function ordenesAction(){
+	public function ordentiposAction(){
 		
 		$dato = $this->getRequest()->getQuery('term');
-		$query = $this->getObjectManager()->createQuery("SELECT o FROM Application\Entity\Ordentipos o
-        WHERE CONCAT(o.NOMBRE,' ',o.ID) like '%$dato%'
-        OR CONCAT(o.NOMBRE,' ',o.ID) like '%$dato%'");
-		$ordenes = $query->getArrayResult();
-		$jsonOrd = array();
-		foreach ($ordenes as $ords) {
-			
-			$jsonOrd[] = array('id' => $ords['ID'], 'label' => $ords['NOMBRE'],
-				'value' => $ords['NOMBRE'],
-				'name' => 'ord' . $ords['ID'],
-				'idOrd' => $ords['ID'],
-			);
-		}
-		$resultado = new JsonModel($jsonOrd);
-		return $resultado;
+		$tipos = $this->getObjectManager()->createQuery("SELECT o FROM Application\Entity\Ordentipos o")->getArrayResult();
+		return new JsonModel($tipos);
+		
 	}
 
 	public function guardatipoordenAction(){
 		$oM = $this->getObjectManager();
 
-		$nombre = $this->request->getPost('orden');
-		$datos = $this->request->getPost('datos');
+		$nombre = $this->request->getPost('ordentipo');
+		$datos = $this->request->getPost('datosOrden');
 
 		$tiporden = new Ordentipos;
 
@@ -1154,46 +1215,50 @@ class ConsultadosController extends AbstractActionController {
 		$oM->persist($tiporden);
 		$oM->flush();
 
-		return new JsonModel(array('ordenid' => $orden->getID(), 'consultation' => $consulta));
+		return new JsonModel();
+	}
+
+	public function verordenAction()
+	{
+		$om = $this->getObjectManager();
+
+		$datos = $this->request->getPost('datos');
+		
+		foreach($datos as $dato){
+			$orden[] = $om->createQuery("SELECT o.DATOS FROM Application\Entity\Ordentipos o WHERE o.ID = $dato")->getArrayResult();
+		}
+
+		return new JsonModel($orden);
 	}
 
 	public function guardarordenAction() {
-		$oM = $this->getObjectManager();
+		$om = $this->getObjectManager();
 
 		if ($this->request->getPost()) {
-			//$consulta = $this->request->getPost('consultaid');
-			//$consulta_id = $oM->find('Application\Entity\Consultas', $consulta);
-			$nombre = $this->request->getPost('orden');
-			$datos = $this->request->getPost('datos');
-			
-			//$ordenNombre = $oM->getRepository('Application\Entity\Ordentipos')->findOneBy(array('NOMBRE' => $nombre));
-					 				
-			
-		 	
-		 	//if($ordenNombre == null){
-		 		$tiporden = new Ordentipos;
+			$ordenes = $this->request->getPost('ordenes');
+			$consulta = $this->request->getPost('consul');
+			$newdata = $this->request->getPost('nuevos');
+			$idcons = $om->find('Application\Entity\Consultas',$this->request->getPost('consul'));
 
-		 		$tiporden->setNOMBRE($nombre);
-		 		$tiporden->setDATOS($datos);
-				
-				$oM->persist($tiporden);
-				$oM->flush();
-				
-			// 	$orden = new Ordenes;
-			// 	$orden->setTIPO($tiporden->getID());
-			// 	$orden->setCONSULTA($consulta_id);
-				
-			// }else{
-			// 	 $idorden = $ordenNombre->getID();
-			// 	 $orden_id = $oM->find('Application\Entity\Ordentipos', $idorden);
-			// 	 $orden->setTIPO($orden_id);
-			// 	 $orden->setCONSULTA($consulta_id);
-			// }
-			 
-			// $oM->persist($orden);
-			// $oM->flush();
+			
+			$ordeng = new Ordenes;
+
+			$ordeng->setDATOSNUEVOS($newdata);
+			$ordeng->setCONSULTA($idcons);
+
+			
+			
+		 foreach($ordenes as $orden){
+			
+			$ordeng->addTIPOS($om->find('Application\Entity\Ordentipos', $orden));
+		 }
+			$om->persist($ordeng);
+			$om->flush();
+			
+		
 		}
-		return new JsonModel(array('ordenid' => $orden->getID(), 'consultation' => $consulta));
+		return new JsonModel(array('ordenid' => $ordeng->getID(), 'consulta' => $consulta));
+		
 	}
 
 	public function generaordenAction() {
@@ -1202,30 +1267,24 @@ class ConsultadosController extends AbstractActionController {
 
 		$oM = $this->getObjectManager();
 
-		$query = $oM->createQuery("SELECT u FROM Application\Entity\Usuarios u WHERE u.ID = " . $this->identity()->getId());
-		$usuario = $query->getArrayResult();
-
 		$id = $this->params()->fromRoute('id');
 
-		$query2 = $oM->createQuery("SELECT m,r,a FROM Application\Entity\Medicamentoreceta m JOIN m.MEDICAMENTO a LEFT JOIN m.RECETA r WHERE r.ID = $id");
-		$meds = $query2->getArrayResult();
+		$ordenes = $oM->createQuery("SELECT o.DATOSNUEVOS,ti.NOMBRE,cs.ID as cid FROM Application\Entity\Ordenes o LEFT JOIN o.TIPO ti LEFT JOIN o.CONSULTA cs WHERE o.ID = $id")->getArrayResult();
 
-		$receta = $oM->find('Application\Entity\Recetas', $id);
+		$orden = $oM->find('Application\Entity\Ordenes', $id);
 
-		$consulta_id = $receta->getCONSULTAS()->getID();
+		$consulta_id = $orden->getCONSULTA()->getID();
 
 		$consulta = $oM->find('Application\Entity\Consultas', $consulta_id);
 
 		$paciente_id = $consulta->getPaciente()->getID();
 
-		$query3 = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id");
-		$paciente = $query3->getArrayResult();
+		$paciente = $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $paciente_id")->getArrayResult();
+		
 
 		$pdf = new PdfModel();
 
 		$pdf->setVariables(array(
-
-			'doctor' => $usuario,
 
 			'pacienten' => $paciente[0]['NOMBRE'],
 
@@ -1233,15 +1292,12 @@ class ConsultadosController extends AbstractActionController {
 
 			'pacientem' => $paciente[0]['APELLIDO_MATERNO'],
 
-			'sexo' => [0]['SEXO'],
+			'ordenes' => $ordenes,
 
-			'edad' => [0]['FECHA_NACIMIENTO'],
-
-			'medicinas' => $meds,
-
-			'idp' => $paciente_id,
 		));
 
 		return $pdf;
 	}
+
+	
 }

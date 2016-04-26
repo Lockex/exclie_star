@@ -1,166 +1,81 @@
 <div class="card">
-	<div class="card-head style-primary">
-		<div class="tools">
-			<a class="btn btn-icon-toggle ink-reaction" href="" onclick="agregaOrden();">
-                <i class="fa fa-plus"></i>
-            </a>
-		</div>
-	</div>
+	<div class="card-head style-primary"></div>
 	<div class="card-body">
 		<form class="form form-validate" id="formOrden" novalidate="novalidate">
-			<input type="hidden" name="consultaid" value="<?php echo $cons; ?>">
-			<input type="hidden" name="datosOrden">
+			<input type="hidden" name="consultaid" value="<?php echo $cons; ?>" id="consultaid">
+			<input type="hidden" id="OrdenNew" name="OrdenNew">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="form-group">
-						<input type="text" class="form-control" id="ordenes" name="orden">
-						<label for="orden">ORDENES</label>
+						<select class="form-control" name="tipo[]" id="sOrden" multiple="multiple">
+													
+						</select>
+						<label for="orden">Orden</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group pull-right">
+						<button type="button" class="btn ink-reaction btn-floating-action btn-lg btn-primary" onclick="agregaOrden();"><i class="fa fa-plus"></i></button>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<textarea id="ckeditor" name="datos"></textarea>
+						<textarea id="ckeditor"></textarea>
 					</div>
 				</div>
 			</div>
 		</form>
 		<div class="card-actionbar">
 			<div class="card-actionbar-row">
-				<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardarorden()" id="saveOrden">Guardar</button>
+				<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="guardaOrden()" id="saveOrden">Guardar</button>
 			</div>
 		</div>
 	</div>
 </div>
-<form action="#" class="form" id="agendaConsulta">
 
-	<input type="hidden" name="start" id="start">
-	<input type="hidden" name="end" id="end">
-	<input type="hidden" name="className" id="className">
-	<input type="hidden" name="idevento" id="idevento">
-	<input type="hidden" name="idpaciente" id="idpaciente">
-	
-	<div class="modal fade" id="modAgendarcon" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg">
-	    <div class="modal-content">
-	      	<div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-	        	<h4 class="modal-title">
-	        		Cita
-	        	</h4>
-	      	</div>
-	      	<div class="modal-body">
-	      	<div class="row">
-
-	      		<div class="col-sm-4"></div>
-	      		<div class="col-sm-4"></div>
-	      		<div class="col-sm-4">
-	      			<span class="text-medium text-primary pull-right"><p class="form-control-static" id="quien"></p></span>
-	      		</div>
-	      	</div>
-	      		<div class="row">
-	      			<div class="col-sm-4">
-	      				<div class="form-group">
-	      					<label>Fecha</label>
-	      					<input class="form-control" type="date" id="cFecha">	
-	      				</div>
-	      				
-	      			</div>
-	      			<div class="col-sm-4">
-	      				<div class="form-group">
-	      					<label>Inicio:</label>
-	      					<input class="form-control" type="time" id="desde">	
-	      				</div>	      				
-	      			</div>
-	      			<div class="col-sm-4">
-	      				<div class="form-group">
-	      					<label>Fin: </label>
-	      					<input class="form-control col-sm-4" type="time" id="hasta">	
-	      				</div>	      				
-	      			</div>	
-	      		</div>      							
-				<div class="row">
-					<div class="col-sm-6">							
-						<div class="form-group">
-							<input type="text" class="form-control" id="title" name="title">
-							<label for="title">PACIENTE</label>	
-						</div>							
-					</div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<input type="text" class="form-control" id="edad" name="edad">
-							<label for="edad">EDAD</label>	
-						</div>						
-					</div>
-					<!-- <div class="col-sm-3" style="margin-bottom:10px">
-					    <button id="bNuevopaciente" type="button" class="btn btn-default btn-raised glyphicon glyphicon-user" onclick="pacientesModal()" style="margin-top:23px;padding:6px 12px"> Registrar</button>
-					</div> -->	
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<input type="text" class="form-control" name="referido" id="referidopor">
-							<label for="referidopor">REFERIDO POR</label>	
-						</div>							
-					</div>
-					<div class="form-group col-sm-4">
-						<select name="scargo" class="form-control" id="sCargo">
-							<option value="1">PARTICULAR</option>
-							<option value="2">BANCO
-							<option value="3">IMSS</option>
-							<option value="4">CORTESÍA</option>
-						</select>
-						<label for="sCargo">CARGO</label>
-					</div>												
-				</div>										
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<input type="text" class="form-control" id="telefono1" name="telefono1">
-							<label for="telefono1">TELÉFONO 1</label>	
-						</div>
-						
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<input type="text" class="form-control" id="telefono2" name="telefono2">
-							<label for="telefono2">TELÉFONO 2</label>	
-						</div>						
-					</div>					
-				</div>	
-				<div class="row">
-					<div class="form-group" id='color-evento'>
-						<div class="col-sm-12" >
-							<i class="fa fa-circle fa-2x text-primary" onclick="color('','Consulta de primera vez');"></i>
-							<i class="fa fa-circle fa-2x text-warning" onclick="color('event-warning','Consulta de seguimiento');"></i>
-							<i class="fa fa-circle fa-2x text-blue" onclick="color('event-blue','Retiro de puntos');"></i>
-							<i class="fa fa-circle fa-2x text-success" onclick="color('event-success','Aplicación de Zoladex');"></i>
-							<i class="fa fa-circle fa-2x text-rosa" onclick="color('event-rosa','Resultados');"></i>
-							<i class="fa fa-circle fa-2x text-accent" onclick="color('event-morado','Orden de Internamiento');"></i>
-							<i class="fa fa-circle fa-2x text-lima" onclick="color('event-lima','Llenar Informe');"></i>
-							<i class="fa fa-circle fa-2x text-cafe" onclick="color('event-cafe','Procedimiento Especial');"></i>
-							<i class="fa fa-circle fa-2x text-danger" onclick="color('event-danger','Embarazo');"></i>
-							<i class="fa fa-circle fa-2x text-rosota" onclick="color('event-rosota','Aplicación de Pellets');"></i>
-							<i class="fa fa-circle fa-2x text-azul-gris" onclick="color('event-azul-gris','Cirugía');"></i>
-							<i class="fa fa-circle fa-2x text-azul-cielo" onclick="color('event-azul-cielo','Capacitación');"></i>
-						</div>
+<!--Modal Form para agregar Ordenes-->
+<div class="modal fade" id="modOrdenes" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        	<h4 class="modal-title">
+        		Agregar Orden de laboratorio
+        	</h4>
+      	</div>
+      	<div class="modal-body">
+      		<form class="form form-validate" id="formTipoOrden" novalidate="novalidate">
+      		<input type="hidden" id="datosOrden" name="datosOrden">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" class="form-control" id="ordentipo" name="ordentipo">
+						<label for="orden">Nombre</label>
 					</div>
 				</div>
-								
-	      	</div>
-	      	<div class="modal-footer">
-	      		<a href="#" onclick="borrarevento();" id="lBorrar" style="float:left">Eliminar evento</a>
-	        	<button type="button" class="btn btn-primary" id="btnGuardarcita">GUARDAR</button>        
-	      	</div>
-	    </div>
-	  </div>
-	</div>
-</form>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<textarea id="ckdatos"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+      	<div class="modal-footer">
+      		<button type="button" class="btn btn-primary" id="btnGuardarTipoOrden" onclick="agregaTipoOrden();">GUARDAR</button>        
+      	</div>
+    </div>
+  </div>
+</div>
+
 <input type="hidden" id="id_orden">	
 <input type="hidden" id="id_consul">
 
 
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/select2/select2.css" />
 <script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/ckeditor.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/ckeditor/adapters/jquery.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/select2/select2.min.js"></script>
@@ -171,23 +86,36 @@
 	var ruta = '<?php echo $this->basePath() ?>/';
 	$(document).ready(function() {
 		$( '#ckeditor' ).ckeditor();
+		$( '#ckdatos' ).ckeditor();
+		tipos();
+		$('#sOrden').select2({
+		  placeholder: 'Selecciona Orden',
+		  
+		});
+		 $('#sOrden').change(function(){
+		 	 verdatos($('#sOrden').val());
+		 }); 
 	});
 
-	function guardarorden()
+	function agregaOrden()
+	{
+		$("#modOrdenes").modal('show');
+	}
+
+	function agregaTipoOrden()
 	{
 		
-		var contenido = CKEDITOR.instances['ckeditor'].getData();
+		var contenido = CKEDITOR.instances['ckdatos'].getData();
 		$('#datosOrden').val(contenido);
-		var formulario = $('#formOrden').serialize();
+		var formulario = $('#formTipoOrden').serialize();
 		$.ajax({
 			    type: "POST",
-			    url: "<?php echo $this->basePath() ?>/consultados/guardarorden",
+			    url: "<?php echo $this->basePath() ?>/consultados/guardatipoorden",
 			    dataType: "json",
 			    data: formulario,
 			    success: function(respuesta) {
-			      $('#id_orden').val(respuesta['ordenid']);
-			       $('#id_consul').val(respuesta['consultation']);
-			       //verOrden();
+			      $("#modOrdenes").modal('hide');
+			      tipos();
 			    },
 			    error: function(){
 			          toastr.error('Ocurrió un error, inténtelo más tarde.');
@@ -195,7 +123,72 @@
 			});
 	}
 
-	function verOrden(){
+	function tipos()
+	{
+		$('#sOrden').empty();
+		$.ajax({
+           type: "GET",
+           url: "<?php echo $this->basePath() ?>/consultados/ordentipos",
+           dataType: "JSON",
+           success: function(data) {
+           		for (i=0; i<data.length; i++) {
+		       		$('#sOrden').append('<option value="' + data[i].ID + '">' + data[i].NOMBRE + '</option>');
+		    	}
+		   },
+           error: function(){
+                 toastr.error('Inténtalo más tarde.');
+           }
+       });
+	}
+
+	function verdatos(datos){
+		
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/verorden",
+	       dataType: "JSON",
+	       data: {datos},
+	       success: function(response) {
+	       		var data = response;
+	       		var valores = '';
+	       		for (i=0; i<data.length; i++) {
+		       		 valores += data[i][0].DATOS+ '<br/>.*';
+		       	}
+		       	$('#ckeditor').val(valores)
+		   },
+	       error: function(){
+	             toastr.error('Inténtalo más tarde.');
+	       }
+	   });
+	}
+
+	function guardaOrden()
+	{
+		var ids = $('#sOrden').val();
+		var conId = $('#consultaid').val();
+		var contiene = CKEDITOR.instances['ckeditor'].getData();
+		var data = {ordenes:ids,consul:conId,nuevos:contiene};
+		$.ajax({
+	       type: "POST",
+	       url: "<?php echo $this->basePath() ?>/consultados/guardarorden",
+	       dataType: "JSON",
+	       data: data,
+	       success: function(respuesta) {
+	       		toastr.success('Orden Guardada.');
+	       		$('#id_orden').val(respuesta['ordenid']);
+			    $('#id_consul').val(respuesta['consulta']);
+			    verOrden();
+		   },
+	       error: function(){
+	             toastr.error('Inténtalo más tarde.');
+	       }
+	   });
+	}
+
+	function verOrden()
+	{
 		window.open('generaorden/'+$('#id_orden').val());
 	}
+
+	
 </script>

@@ -78,6 +78,9 @@ return array(
 				'Application\Controller\Index' => array(
 					'all' => 'Invitado'
 				),
+				 'Application\Controller\Usuario' => array(
+                    'all'   => 'Admin',
+                ),
 				'Application\Controller\Pacientes' => array(
 					'all' => 'Invitado',					
 				),

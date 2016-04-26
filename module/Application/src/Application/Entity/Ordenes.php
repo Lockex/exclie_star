@@ -2,19 +2,38 @@
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-/** @ORM\Entity */
+/**
+ * Doctrine ORM implementation of Usuarios entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="`ordenes`")
+ */
 class Ordenes {
     /** @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")  
      * @ORM\Column(type="integer")
      */
     protected $ID;
-    /** @ORM\ManyToOne(targetEntity="Ordentipos") @ORM\JoinColumn(referencedColumnName="ID") */
+   /** @ORM\Column(type="text",nullable=true) */
+    protected $DATOSNUEVOS;
+    /**
+       * @var Array
+       * 
+       * @ORM\ManyToMany(targetEntity="Ordentipos", cascade={"persist"})
+       * @ORM\JoinTable(name="Ordenfinal",
+       *      joinColumns={@ORM\JoinColumn(referencedColumnName="ID")},
+       *      inverseJoinColumns={@ORM\JoinColumn(name="TIPO_id", referencedColumnName="ID")}
+       *      )
+       */
     protected $TIPO;
     /** @ORM\ManyToOne(targetEntity="Consultas") @ORM\JoinColumn(referencedColumnName="ID") */
     protected $CONSULTA;
 
-
+    public function __construct()
+    {
+        $this->TIPO = new ArrayCollection();
+    }
+   
 
     /**
      * Gets the value of ID.
@@ -41,25 +60,25 @@ class Ordenes {
     }
 
     /**
-     * Gets the value of TIPO.
+     * Gets the value of DATOSNUEVOS.
      *
      * @return mixed
      */
-    public function getTIPO()
+    public function getDATOSNUEVOS()
     {
-        return $this->TIPO;
+        return $this->DATOSNUEVOS;
     }
 
     /**
-     * Sets the value of TIPO.
+     * Sets the value of DATOSNUEVOS.
      *
-     * @param mixed $TIPO the 
+     * @param mixed $DATOSNUEVOS the 
      *
      * @return self
      */
-    public function setTIPO($TIPO)
+    public function setDATOSNUEVOS($DATOSNUEVOS)
     {
-        $this->TIPO = $TIPO;
+        $this->DATOSNUEVOS = $DATOSNUEVOS;
 
         return $this;
     }
@@ -87,4 +106,30 @@ class Ordenes {
 
         return $this;
     }
+
+     /**
+    * Get TIPOS
+    *
+    * @param Collection
+    *
+    * @return 
+    */
+   public function addTIPO(Collection $TIPO)
+   {
+       foreach ($TIPO as $TIPOS) {
+           $this->addTIPO($TIPOS);
+        }
+
+       return $this;
+   }
+   public function addTIPOS(\Application\Entity\Ordentipos $ORDEN)
+   {
+       $this->TIPO[] = $ORDEN;
+       return $this;
+   }
+   public function removeTIPO(\Application\Entity\Ordentipos $ORDEN)
+   {
+       $this->TIPO->removeElement($ORDEN);
+       return $this;
+   }
 }

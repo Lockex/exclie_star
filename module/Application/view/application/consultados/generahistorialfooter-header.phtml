@@ -1,0 +1,415 @@
+<style> 
+
+
+.page {
+  page-break-after:always;
+  position: relative;
+}
+
+
+@page{
+  margin: 240px 60px 30px 30px 90px;
+}
+p {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 10px;
+}
+
+
+</style>
+
+<link type="text/css" rel="stylesheet" href="<?php echo getcwd() ?>/public/css/theme-default/bootstrap.css" />
+<div class="page">
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td align="center" style="width:23%;"><img src="<?php echo getcwd().'/public/img/gine.png';?>" height="98"></td>
+        <td style="width:43%; text-align: center;">
+          <p style="font-size: 14px;"><b>Dr. Jaime Escárcega Preciado</b></p>
+          <p>GINECOLOGÍA Y OBSTETRICIA / BIOLOGÍA DE LA REPRODUCCIÓN</p>
+          <p><b>Cédula Profesional </b> 1363699 / Universidad Autónoma de Chihuahua</p>
+          <p><b>Cédula Especialidad </b> 9426903 / Universidad Autónoma de Chihuahua</p>
+        </td>
+        <td style="width:33%; text-align: center;">
+          <p> 
+            <?php date_default_timezone_set('America/Chihuahua');
+            $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+            echo date('d')." de ".$meses[date('n')-1]. " de ".date('Y') ;
+            ?>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <?php //print_r($expescar); ?>
+  <?php if(!isset($imagenes)){ ?>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:33%; text-align: left;">
+          <p><b>Paciente:</b> <?php echo $paciente[0]['APELLIDO_PATERNO'].' '.$paciente[0]['APELLIDO_MATERNO'].' '.$paciente[0]['NOMBRE']; ?></p>
+          <p><b>Fecha de Consulta:</b><?php echo date_format($expescar[0]['FECHA_CONS'],'Y-m-dd'); ?> </p>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Sexo:</b> <?php if($paciente[0]['SEXO'] == 2){echo 'Femenino';} ?></p>
+          <p><b>Motivo de Consulta:</b><?php echo $expescar[0]['PADECIMIENTO']; ?> </p>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Fecha de Nacimiento:</b> <?php if($paciente[0]['FECHA_NACIMIENTO']){echo date_format($paciente[0]['FECHA_NACIMIENTO'],'Y-m-dd');} ?></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  
+  <h2 class="text-primary">Historial Médico</h2>
+  <h3 class="text-primary">Antecedentes No Patológicos</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:33%; text-align: left;">
+          <p><b>Tabaquismo:</b></p>
+            <?php if($antes[0]['TABAQUISMO']){ echo $antes[0]['TABAQUISMO'];}else{ ?>
+             <p>--</p>
+            <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Alcoholismo:</b></p> 
+          <?php if($antes[0]['ALCOHOLISMO']){ echo $antes[0]['ALCOHOLISMO'];}else{ ?> 
+            <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Drogas:</b></p>
+          <?php if($antes[0]['TOXICOMANIAS']){ echo $antes[0]['TOXICOMANIAS'];}else{ ?> 
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Antecedentes Patológicos</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:33%; text-align: left;">
+          <p><b>Diabetes:</b></p>
+          <?php if($antes[0]['DIABETES']){  ?>
+            <?php if($antes[0]['DIABETES']==1) {?>
+             <p>MADRE</p>
+            <?php }if ($antes[0]['DIABETES']==2) { ?>
+              <p>PADRE</p>
+            <?php }if ($antes[0]['DIABETES']==3) { ?>
+              <p>MADRE y PADRE</p>
+            <?php }if ($antes[0]['DIABETES']==4) { ?>
+              <p>ABUELA</p>
+            <?php }if ($antes[0]['DIABETES']==5) { ?>
+            <p>ABUELO</p>
+            <?php }if ($antes[0]['DIABETES']==6) { ?>
+            <p>ABUELA Y ABUELO</p>
+            <?php } ?>
+          <?php }else{ ?>
+            <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Enfermedades Tiroideas:</b> </p>
+          <?php if($antes[0]['TIROIDES']){ ?>
+            <?php if($antes[0]['TIROIDES']==1) {?>
+                <p>MADRE</p>
+              <?php }if ($antes[0]['TIROIDES']==2) { ?>
+                <p>PADRE</p>
+              <?php }if ($antes[0]['TIROIDES']==3) { ?>
+                <p>MADRE y PADRE</p>
+              <?php }if ($antes[0]['TIROIDES']==4) { ?>
+                <p>ABUELA</p>
+              <?php }if ($antes[0]['TIROIDES']==5) { ?>
+              <p>ABUELO</p>
+              <?php }if ($antes[0]['TIROIDES']==6) { ?>
+              <p>ABUELA Y ABUELO</p>
+            <?php } ?>
+          <?php }else{ ?>
+            <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Cardiopatias:</b></p>
+          <?php if($antes[0]['CARDIOPATIAS']){ ?> 
+            <?php if($antes[0]['CARDIOPATIAS']==1) {?>
+                  <p>MADRE</p>
+                <?php }if ($antes[0]['CARDIOPATIAS']==2) { ?>
+                  <p>PADRE</p>
+                <?php }if ($antes[0]['CARDIOPATIAS']==3) { ?>
+                  <p>MADRE y PADRE</p>
+                <?php }if ($antes[0]['CARDIOPATIAS']==4) { ?>
+                  <p>ABUELA</p>
+                <?php }if ($antes[0]['CARDIOPATIAS']==5) { ?>
+                <p>ABUELO</p>
+                <?php }if ($antes[0]['CARDIOPATIAS']==6) { ?>
+                <p>ABUELA Y ABUELO</p>
+            <?php } ?>
+          <?php }else{ ?>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:33%; text-align: left;">
+          <p><b>Cancer:</b></p>
+          <?php if($antes[0]['CANCER']){ ?>
+            <?php if($antes[0]['CANCER']==1) {?>
+                  <p>MADRE</p>
+                <?php }if ($antes[0]['CANCER']==2) { ?>
+                  <p>PADRE</p>
+                <?php }if ($antes[0]['CANCER']==3) { ?>
+                  <p>MADRE y PADRE</p>
+                <?php }if ($antes[0]['CANCER']==4) { ?>
+                  <p>ABUELA</p>
+                <?php }if ($antes[0]['CANCER']==5) { ?>
+                <p>ABUELO</p>
+                <?php }if ($antes[0]['CANCER']==6) { ?>
+                <p>ABUELA Y ABUELO</p>
+             <?php } ?>
+          <?php }else{ ?>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Hipertensión:</b></p>
+          <?php if($antes[0]['HIPERTENSION']){ ?>
+            <?php if($antes[0]['HIPERTENSION']==1) {?>
+                  <p>MADRE</p>
+                <?php }if ($antes[0]['HIPERTENSION']==2) { ?>
+                  <p>PADRE</p>
+                <?php }if ($antes[0]['HIPERTENSION']==3) { ?>
+                  <p>MADRE y PADRE</p>
+                <?php }if ($antes[0]['HIPERTENSION']==4) { ?>
+                  <p>ABUELA</p>
+                <?php }if ($antes[0]['HIPERTENSION']==5) { ?>
+                <p>ABUELO</p>
+                <?php }if ($antes[0]['HIPERTENSION']==6) { ?>
+                <p>ABUELA Y ABUELO</p>
+            <?php } ?>
+          <?php }else{ ?>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Alergias</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td align="left">
+          <p><?php if($antes[0]['ALERGIAS']){ echo $antes[0]['ALERGIAS'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Antecedentes Gineco-Obstericos</h3>
+  <!-- Comienza expercar -->
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:30%; text-align: left;">
+          <p><b>Mernarca:</b></p>
+          <p><?php if($expescar[0]['MENARCA']){ echo $expescar[0]['MENARCA'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>FUM:</b> </p>
+          <p><?php if($expescar[0]['FUM']){ echo $expescar[0]['FUM'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>IVSA:</b> </p>
+          <p><?php if($expescar[0]['IVSA']){ echo $expescar[0]['IVSA'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>Papanicolao:</b> </p>
+          <p><?php if($expescar[0]['PAP']){ echo $expescar[0]['PAP'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:20%; text-align: left;">
+          <p><b>Ciclos:</b></p>
+          <p><?php if($expescar[0]['CICLOS']){ echo $expescar[0]['CICLOS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Duración:</b></p>
+          <p><?php if($expescar[0]['DURACION']){ echo $expescar[0]['DURACION'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Duración:</b></p>
+          <p><?php if($expescar[0]['DURACION']){ echo $expescar[0]['DURACION'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Dismenorrea:</b> </p>
+          <p><?php if($expescar[0]['DISMENORREA']){ echo $expescar[0]['DISMENORREA'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Flujo:</b> </p>
+          <p><?php if($expescar[0]['FLUJO']){ echo $expescar[0]['FLUJO'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:30%; text-align: left;">
+          <p><b>Anticonceptivos:</b> </p>
+          <p><?php if($expescar[0]['ANTICONCEPTIVOS']){ echo $expescar[0]['ANTICONCEPTIVOS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>Galactorrea:</b> </p>
+          <p><?php if($expescar[0]['GALACTORREA']){ echo $expescar[0]['GALACTORREA'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>Hirsutismo:</b> </p>
+          <p><?php if($expescar[0]['HIRSUTISM']){ echo $expescar[0]['HIRSUTISM'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:30%; text-align: left;">
+          <p><b>Cirugias Previas:</b> </p>
+          <p><?php if($expescar[0]['CIRUGIAS_PREVIAS']){ echo $expescar[0]['CIRUGIAS_PREVIAS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+      <tr>
+         <td style="width:20%; text-align: left;">
+           <p><b>Gestas:</b></p>
+          <p><?php if($expescar[0]['GESTAS']){ echo $expescar[0]['GESTAS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Partos:</b></p>
+          <p><?php if($expescar[0]['PARTOS']){ echo $expescar[0]['PARTOS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+          <p><b>Abortos:</b></p>
+          <p><?php if($expescar[0]['ABORTOS']){ echo $expescar[0]['ABORTOS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+           <p><b>Cesareas:</b></p>
+          <p><?php if($expescar[0]['CESAREAS']){ echo $expescar[0]['CESAREAS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:20%; text-align: left;">
+           <p><b>Ectopicos:</b></p>
+          <p><?php if($expescar[0]['ECTOPICOS']){ echo $expescar[0]['ECTOPICOS'];}else{ ?> </p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Examén Físico</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:50%; text-align: left;">
+          <p><b>Sistema Digestivo:</b><?php if($expescar[0]['SIST_DIGESTIVO']){ echo $expescar[0]['SIST_DIGESTIVO'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:50%; text-align: left;">
+          <p><b>Sistema Urinario:</b><?php if($expescar[0]['SIST_URINARIO']){ echo $expescar[0]['SIST_URINARIO'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Signos Vitales</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:33%; text-align: left;">
+          <p><b>Peso:</b><?php if($expescar[0]['PESO']){ echo $expescar[0]['PESO'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Presión:</b><?php if($expescar[0]['PRESION']){ echo $expescar[0]['PRESION'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:33%; text-align: left;">
+          <p><b>Tiroides:</b><?php if($expescar[0]['TIROIDESNUM']){ echo $expescar[0]['TIROIDESNUM'];}else{  ?></p>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="text-primary">Exploración Física</h3>
+  <p><?php if($expescar[0]['IMAGEN']){ ?>
+    <img src="<?php echo getcwd().'/public/imagenes/consultas/'.$paciente[0]['ID'].'/'.$expescar[0]['IMAGEN'];?>" width="100%">
+    <?php }else{  ?></p>
+    <p>--</p>
+  <?php } ?>
+  <h3 class="text-primary">Diagnóstico y Tratamiento</h3>
+  <table style="width:100%;">
+    <tbody>
+      <tr>
+        <td style="width:50%; text-align: left;">
+          <p><b>Tratamiento:</b></p>
+           <?php if($expescar[0]['PLAN']){ echo $expescar[0]['PLAN'];}else{  ?>
+           <p>--</p>
+          <?php } ?>
+        </td>
+        <td style="width:50%; text-align: left;">
+          <p><b>Impresión Diagnostica:</b></p>
+          <?php if($expescar[0]['IMX']){ echo $expescar[0]['IMX'];}else{  ?>
+          <p>--</p>
+          <?php } ?>
+        </td>
+      </tr>
+     </tbody>
+  </table>
+  <!-- termina expescar -->
+  <?php }else{ ?>
+
+    <h2 class="text-primary">Historial Médico</h2>
+    <?php foreach ($imagenes as $ima) { ?>
+      <img src="<?php echo getcwd().'/public/imagenes/consultas/'.$paciente[0]['ID'].'/'.$ima['IMAGEN'];?>" width="100%"><br>
+    
+    <?php } ?>
+  <?php } ?>
+</div> 
+
+ 

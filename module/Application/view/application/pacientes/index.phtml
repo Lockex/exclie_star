@@ -1,5 +1,9 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/estilos.css" />
+	<form action="" id="formularioFoto" >
+		<input type="file" style="display:none" id="camara" accept="image/*" name="image">
+		<input type="hidden" name="pac" id="pac">
+	</form>
 	<div class="section-body">		
 		<!-- BEGIN FORM WIZARD -->
 		<div class="row">
@@ -27,429 +31,430 @@
 										<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">ANTECEDENTES 2</span></a></li>
 									</ul>
 								</div><!--end .form-wizard-nav -->
-								<div class="tab-content clearfix">
-									
-								<br>
-									<div class="tab-pane active" id="tab1">
-										<div class="row pull-left">
-											<div class="col-md-4" id="fotoSube">
-												<div id="foto" class="form-element col-lg-3">
-													<img src="<?php echo $this->basePath() ?>/public/img/def-woman.png" style="width:150px; ">
-												</div>
-						 	                    <div id="textofoto">
-								        			<span>Subir foto de Paciente</span>
-								       			</div>
-								       			<form action="" id="formularioFoto" >
-									      			<input type="file" style="display:none" id="camara" accept="image/*" name="image">
-									      			<input type="hidden" name="pac" id="pac">
-									      		</form>
-							       			</div>
-							       			<div class="col-md-8"></div>
-							       		</div>
-						       			<form id="form" class="form form-validate" action="<?php echo $this->basePath() ?>/pacientes/guardarpaciente" method="POST" novalidate="novalidate"> 
-						    			<div class="row">
-											<label class="radio-inline radio-styled">
-												<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
-											</label>
-											<label class="radio-inline radio-styled">
-												<input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
-											</label>
-										</div>
-										<br/>
-										<input type="hidden" name="idpac" id="idpac">
-										<input type="hidden" name="idante" id="idante">
-										<div class="row">						
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="APELLIDO_PATERNO" required data-rule-minlength="2">
-													<label for="APELLIDO_PATERNO">APELLIDO PATERNO</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="APELLIDO_MATERNO">
-													<label for="APELLIDO_MATERNO">APELLIDO MATERNO</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" id="NOMBRE" name="NOMBRE" required data-rule-minlength="2">
-													<label for="NOMBRE">NOMBRE(s)</label>
-												</div>
-											</div>
-										</div>
-										<div class="row">						
-											<div class="col-sm-4">																	
-												<div class="form-group control-width-normal">
-													<div class="input-group date" id="demo-date">
-														<div class="input-group-content">
-															<input id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" type="text" class="form-control">
-															<label>FECHA DE NACIMIENTO</label>
-														</div>
-														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								<form id="form" class="form form-validate" action="<?php echo $this->basePath() ?>/pacientes/guardarpaciente" method="POST" novalidate="novalidate">
+									<div class="tab-content clearfix">
+										
+										<br>
+										
+										<div class="tab-pane active" id="tab1">
+											<div class="row pull-left">
+												<div class="col-md-12" id="fotoSube">
+													<div id="fotop" class="form-element">
+														<img src="<?php echo $this->basePath() ?>/public/img/def-woman.png" style="width:150px; ">
 													</div>
-												</div><!--end .form-group -->
+							 	                    <div class="edita pull-right text-primary">
+														<i class="md md-edit"></i>
+													</div>
+									       			
+								       			</div>
+								       			<div class="col-md-8"></div>
+								       		</div>
+							       			 
+							    			<div class="row">
+												<label class="radio-inline radio-styled">
+													<input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
+												</label>
+												<label class="radio-inline radio-styled">
+													<input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
+												</label>
 											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<select class="form-control input-lg" class="form-control input-lg" name="ESTADO" id="sEstados">
-														<?php foreach ($estados as $key => $estado): ?>
-															<option value="<?php echo $estado['ID'] ?>" 
-															<?php if ($estado['ID'] == 8): // Chihuahua predefinido ?>
-																selected
-															<?php endif ?>><?php echo $estado['NOMBRE']; ?></option>
-														<?php endforeach ?>
-													</select class="form-control input-lg">
-													<label for="ciudad">CIUDAD</label>
+											<br/>
+											<input type="hidden" name="idpac" id="idpac">
+											<input type="hidden" name="idante" id="idante">
+											<input type="hidden" name="IMAGEN" id="IMAGEN">
+											<div class="row">						
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="APELLIDO_PATERNO" required data-rule-minlength="2">
+														<label for="APELLIDO_PATERNO">APELLIDO PATERNO</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="APELLIDO_MATERNO">
+														<label for="APELLIDO_MATERNO">APELLIDO MATERNO</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" id="NOMBRE" name="NOMBRE" required data-rule-minlength="2">
+														<label for="NOMBRE">NOMBRE(s)</label>
+													</div>
 												</div>
 											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<select class="form-control input-lg" class="form-control input-lg" name="MUNICIPIO" id="sMUNICIPIO">
-														<?php foreach ($municipios as $key => $municipio): ?>
-															<option value="<?php echo $municipio['ID'] ?>" 
-															<?php if ($municipio['ID'] == 233): // Chihuahua predefinido ?>
-																selected	
-															<?php endif ?>><?php echo $municipio['NOMBRE']; ?></option>
-														<?php endforeach ?>
-													</select class="form-control input-lg">
-													<label for="municipio">MUNICIPIO</label>
+											<div class="row">						
+												<div class="col-sm-4">																	
+													<div class="form-group control-width-normal">
+														<div class="input-group date" id="demo-date">
+															<div class="input-group-content">
+																<input id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" type="text" class="form-control">
+																<label>FECHA DE NACIMIENTO</label>
+															</div>
+															<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+														</div>
+													</div><!--end .form-group -->
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<select class="form-control input-lg" class="form-control input-lg" name="ESTADO" id="sEstados">
+															<?php foreach ($estados as $key => $estado): ?>
+																<option value="<?php echo $estado['ID'] ?>" 
+																<?php if ($estado['ID'] == 8): // Chihuahua predefinido ?>
+																	selected
+																<?php endif ?>><?php echo $estado['NOMBRE']; ?></option>
+															<?php endforeach ?>
+														</select class="form-control input-lg">
+														<label for="ciudad">CIUDAD</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<select class="form-control input-lg" class="form-control input-lg" name="MUNICIPIO" id="sMUNICIPIO">
+															<?php foreach ($municipios as $key => $municipio): ?>
+																<option value="<?php echo $municipio['ID'] ?>" 
+																<?php if ($municipio['ID'] == 233): // Chihuahua predefinido ?>
+																	selected	
+																<?php endif ?>><?php echo $municipio['NOMBRE']; ?></option>
+															<?php endforeach ?>
+														</select class="form-control input-lg">
+														<label for="municipio">MUNICIPIO</label>
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="CALLE" id="CALLE">
-													<label for="CALLE">CALLE</label>
+											<div class="row">
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="CALLE" id="CALLE">
+														<label for="CALLE">CALLE</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="NUM_EXT" id="NUM_EXT">
+														<label for="NUM_EXT">NUM EXT.</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="NUM_INT" id="NUM_INT">
+														<label for="NUM_INT">NUM INT.</label>
+													</div>
 												</div>
 											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="NUM_EXT" id="NUM_EXT">
-													<label for="NUM_EXT">NUM EXT.</label>
+											<div class="row">
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="COLONIA" id="COLONIA">
+														<label for="COLONIA">COLONIA</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="TELEFONO1" id="TELEFONO1" data-inputmask="'mask': '(999) 999-9999'">
+														<label for="TELEFONO1">TELÉFONO 1</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="TELEFONO2" id="TELEFONO2" data-inputmask="'mask': '(999) 999-9999'">
+														<label for="TELEFONO2">TELÉFONO 2</label>
+													</div>
 												</div>
 											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="NUM_INT" id="NUM_INT">
-													<label for="NUM_INT">NUM INT.</label>
+											<div class="row">						
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="OCUPACION" id="OCUPACION">
+														<label for="OCUPACION">OCUPACIÓN</label>
+													</div>
 												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil" onchange="ocultarCoyuge();">
+															<option value="1">Soltero(a)</option>
+															<option value="2">Casado(a)</option>
+															<option value="3">Viudo(a)</option>
+														</select class="form-control input-lg">
+														<label for="Estadocivil">ESTADO CIVIL</label>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<select class="form-control input-lg" class="form-control input-lg" name="TIPO_SANGUINEO" id="sTipoSanguineo">
+															<option value="9">Desconoce</option>
+															<option value="1">O+</option>
+															<option value="2">A+</option>
+															<option value="3">O-</option>
+															<option value="4">B+</option>
+															<option value="5">A-</option>
+															<option value="6">B-</option>
+															<option value="7">AB+</option>
+															<option value="8">AB-</option>
+														</select class="form-control input-lg">
+														<label for="TipoSanguineo">TIPO DE SANGRE</label>
+													</div>
+												</div>						
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="COLONIA" id="COLONIA">
-													<label for="COLONIA">COLONIA</label>
+											<div class="row">
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="email" id="email">
+														<label for="email">CORREO ELECTRÓNICO</label>
+													</div>
 												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="TELEFONO1" id="TELEFONO1" data-inputmask="'mask': '(999) 999-9999'">
-													<label for="TELEFONO1">TELÉFONO 1</label>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="referido" id="referido">
+														<label for="referido">REFERIDO POR</label>
+													</div>
 												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="TELEFONO2" id="TELEFONO2" data-inputmask="'mask': '(999) 999-9999'">
-													<label for="TELEFONO2">TELÉFONO 2</label>
+												<div class="col-sm-4"></div>
+											</div>	
+											<div class="row" id="conyuge">
+												<h3 class="text-primary">DATOS DEL CONYUGE</h3>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="NombreC" id="NombreC">
+														<label for="NombreC">NOMBRE</label>
+													</div>
 												</div>
-											</div>
-										</div>
-										<div class="row">						
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="OCUPACION" id="OCUPACION">
-													<label for="OCUPACION">OCUPACIÓN</label>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<input type="text" class="form-control input-lg" name="EdadC" id="EdadC">
+														<label for="EdadC">EDAD</label>
+													</div>
 												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil" onchange="ocultarCoyuge();">
-														<option value="1">Soltero(a)</option>
-														<option value="2">Casado(a)</option>
-														<option value="3">Viudo(a)</option>
-													</select class="form-control input-lg">
-													<label for="Estadocivil">ESTADO CIVIL</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<select class="form-control input-lg" class="form-control input-lg" name="TIPO_SANGUINEO" id="sTipoSanguineo">
-														<option value="9">Desconoce</option>
-														<option value="1">O+</option>
-														<option value="2">A+</option>
-														<option value="3">O-</option>
-														<option value="4">B+</option>
-														<option value="5">A-</option>
-														<option value="6">B-</option>
-														<option value="7">AB+</option>
-														<option value="8">AB-</option>
-													</select class="form-control input-lg">
-													<label for="TipoSanguineo">TIPO DE SANGRE</label>
-												</div>
-											</div>						
-										</div>
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="email" id="email">
-													<label for="email">CORREO ELECTRÓNICO</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="referido" id="referido">
-													<label for="referido">REFERIDO POR</label>
-												</div>
-											</div>
-											<div class="col-sm-4"></div>
-										</div>	
-										<div class="row" id="conyuge">
-											<h3 class="text-primary">DATOS DEL CONYUGE</h3>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="NombreC" id="NombreC">
-													<label for="NombreC">NOMBRE</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<input type="text" class="form-control input-lg" name="EdadC" id="EdadC">
-													<label for="EdadC">EDAD</label>
-												</div>
-											</div>
-											<div class="col-sm-4"></div>
-										</div>	
-									</div><!--end #tab1 -->
+												<div class="col-sm-4"></div>
+											</div>	
+										</div><!--end #tab1 -->
 
-									<!-- EMPIEZAN ANTECEDENTES -->
-									<div class="tab-pane" id="tab2">
-										<h3>Por favor contesta lo siguiente:</h3>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divFuma">
-														<span style="font-size:18px">¿FUMA?</span>
-													</label>												
-												</div>		
+										<!-- EMPIEZAN ANTECEDENTES -->
+										<div class="tab-pane" id="tab2">
+											<h3>Por favor contesta lo siguiente:</h3>
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divFuma">
+															<span style="font-size:18px">¿FUMA?</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-4 hidden" id="divFuma">
+													<input type="text" id="tabaquismo" class="form-control" name="TABAQUISMO">
+													<label>¿QUE TANTO FUMA?</label>
+												</div>
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divBebe">
+															<span style="font-size:18px">¿BEBE ALCOHOL?</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-4 hidden" id="divBebe" >
+													<input type="text" id="alcoholismo" class="form-control" name="ALCOHOLISMO">
+													<label>¿QUE TANTO BEBE ALCOHOL?</label>
+												</div>											
 											</div>
-											<div class="form-group col-sm-4 hidden" id="divFuma">
-												<input type="text" id="tabaquismo" class="form-control" name="TABAQUISMO">
-												<label>¿QUE TANTO FUMA?</label>
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divDroga">
+															<span style="font-size:18px">¿USA ALGUNA DROGA?</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-4 hidden" id="divDroga" >
+													<input type="text" id="toxicomanias" class="form-control" name="TOXICOMANIAS">
+													<label>¿CUAL(es) DROGA(s) USA?</label>
+												</div>
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divCirugia">
+															<span style="font-size:18px">¿HA TENIDO CIRUGIAS?</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-4 hidden" id="divCirugia" >
+													<input type="text" id="cirugias" class="form-control" name="CIRUGIAS">
+													<label>¿QUE CIRUGIAS?</label>
+												</div>
 											</div>
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divBebe">
-														<span style="font-size:18px">¿BEBE ALCOHOL?</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-4 hidden" id="divBebe" >
-												<input type="text" id="alcoholismo" class="form-control" name="ALCOHOLISMO">
-												<label>¿QUE TANTO BEBE ALCOHOL?</label>
-											</div>											
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divDroga">
-														<span style="font-size:18px">¿USA ALGUNA DROGA?</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-4 hidden" id="divDroga" >
-												<input type="text" id="toxicomanias" class="form-control" name="TOXICOMANIAS">
-												<label>¿CUAL(es) DROGA(s) USA?</label>
-											</div>
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divCirugia">
-														<span style="font-size:18px">¿HA TENIDO CIRUGIAS?</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-4 hidden" id="divCirugia" >
-												<input type="text" id="cirugias" class="form-control" name="CIRUGIAS">
-												<label>¿QUE CIRUGIAS?</label>
-											</div>
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divAlergia">
-														<span style="font-size:18px">¿TIENE ALERGIAS?</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-4 hidden" id="divAlergia" >
-												<input type="text" id="alergias" class="form-control" name="ALERGIAS">
-												<label>¿A QUÉ ES ALÉRGICO?</label>
-											</div>											
-										</div>	
-									</div><!--end #tab2 -->
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divAlergia">
+															<span style="font-size:18px">¿TIENE ALERGIAS?</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-4 hidden" id="divAlergia" >
+													<input type="text" id="alergias" class="form-control" name="ALERGIAS">
+													<label>¿A QUÉ ES ALÉRGICO?</label>
+												</div>											
+											</div>	
+										</div><!--end #tab2 -->
 
-									<div class="tab-pane" id="tab3">
-										<h3>Algun pariente ha padecido de:</h3>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divDiabetes">
-														<span style="font-size:18px">DIABETES</span>
-													</label>												
-												</div>		
+										<div class="tab-pane" id="tab3">
+											<h3>Algun pariente ha padecido de:</h3>
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divDiabetes">
+															<span style="font-size:18px">DIABETES</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divDiabetes">
+													<select class="form-control" name="DIABETES" id="sDiabetes">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE DIABETES?</label>
+												</div>
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divHipertension">
+															<span style="font-size:18px">HIPERTENSIÓN</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divHipertension" >
+													<select class="form-control" name="HIPERTENSION" id="sHipertension">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE HIPERTENSIÓN?</label>
+												</div>											
 											</div>
-											<div class="form-group col-sm-3 hidden" id="divDiabetes">
-												<select class="form-control" name="DIABETES" id="sDiabetes">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE DIABETES?</label>
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divArtritis">
+															<span style="font-size:18px">ARTRITIS</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divArtritis" >
+													<select class="form-control" name="ARTRITIS" id="sArtritis">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE ARTRITIS?</label>
+												</div>
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divTiroides">
+															<span style="font-size:18px">ENFERMEDADES DE TIROIDES</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divTiroides" >
+													<select class="form-control" name="TIROIDES" id="sTiroides">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE DE TIROIDES?</label>
+												</div>
 											</div>
-											<div class="form-group col-sm-3">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divHipertension">
-														<span style="font-size:18px">HIPERTENSIÓN</span>
-													</label>												
-												</div>		
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divCancer">
+															<span style="font-size:18px">CANCER</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divCancer" >
+													<select class="form-control" name="CANCER" id="sCancer">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE CANCER?</label>
+												</div>											
 											</div>
-											<div class="form-group col-sm-3 hidden" id="divHipertension" >
-												<select class="form-control" name="HIPERTENSION" id="sHipertension">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE HIPERTENSIÓN?</label>
-											</div>											
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divArtritis">
-														<span style="font-size:18px">ARTRITIS</span>
-													</label>												
-												</div>		
+											<div class="row">
+												<div class="form-group col-sm-2">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divLupus">
+															<span style="font-size:18px">LUPUS</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divLupus" >
+													<select class="form-control" name="LUPUS" id="sLupus">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE LUPUS?</label>
+												</div>											
 											</div>
-											<div class="form-group col-sm-3 hidden" id="divArtritis" >
-												<select class="form-control" name="ARTRITIS" id="sArtritis">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE ARTRITIS?</label>
-											</div>
-											<div class="form-group col-sm-3">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divTiroides">
-														<span style="font-size:18px">ENFERMEDADES DE TIROIDES</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-3 hidden" id="divTiroides" >
-												<select class="form-control" name="TIROIDES" id="sTiroides">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE DE TIROIDES?</label>
-											</div>
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divCancer">
-														<span style="font-size:18px">CANCER</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-3 hidden" id="divCancer" >
-												<select class="form-control" name="CANCER" id="sCancer">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE CANCER?</label>
-											</div>											
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-2">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divLupus">
-														<span style="font-size:18px">LUPUS</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-3 hidden" id="divLupus" >
-												<select class="form-control" name="LUPUS" id="sLupus">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE LUPUS?</label>
-											</div>											
-										</div>
-										<div class="row">
-											<div class="form-group col-sm-3">
-												<div>
-													<label class="checkbox checkbox-styled">
-														<input type="checkbox" divref="divCardiacas">
-														<span style="font-size:18px">ENFERMEDADES CARDIACAS</span>
-													</label>												
-												</div>		
-											</div>
-											<div class="form-group col-sm-3 hidden" id="divCardiacas" >
-												<select class="form-control" name="CARDIACAS" id="sCardiacas">
-													<option value="">SELECCIONA</option>
-													<option value="1">MADRE</option>
-													<option value="2">PADRE</option>
-													<option value="3">MADRE Y PADRE</option>
-													<option value="4">ABUELA</option>
-													<option value="5">ABUELO</option>
-													<option value="6">ABUELA Y ABUELO</option>
-												</select>
-												<label>¿QUIEN PACEDE CARDIACAS?</label>
-											</div>											
-										</div>	
-									</div><!--end #tab3 -->	
-										</form>	
-								</div><!--end .tab-content -->
+											<div class="row">
+												<div class="form-group col-sm-3">
+													<div>
+														<label class="checkbox checkbox-styled">
+															<input type="checkbox" divref="divCardiacas">
+															<span style="font-size:18px">ENFERMEDADES CARDIACAS</span>
+														</label>												
+													</div>		
+												</div>
+												<div class="form-group col-sm-3 hidden" id="divCardiacas" >
+													<select class="form-control" name="CARDIACAS" id="sCardiacas">
+														<option value="">SELECCIONA</option>
+														<option value="1">MADRE</option>
+														<option value="2">PADRE</option>
+														<option value="3">MADRE Y PADRE</option>
+														<option value="4">ABUELA</option>
+														<option value="5">ABUELO</option>
+														<option value="6">ABUELA Y ABUELO</option>
+													</select>
+													<label>¿QUIEN PACEDE CARDIACAS?</label>
+												</div>											
+											</div>	
+										</div><!--end #tab3 -->	
+										
+									</div><!--end .tab-content -->
+								</form>	
 								<ul class="pager wizard">									
 									<li class="previous"><a class="btn-raised" href="javascript:void(0);">Atrás</a></li>									
 									<li class="next"><a class="btn-raised" href="javascript:void(0);">Siguiente</a></li>
@@ -548,11 +553,11 @@
 		    dataType: "json",
 		    data: datos,
 		    success: function(response) {
+		    	console.log(response);
 		       $('#fotoSube').show();
 		       $('#idpac').val(response['patient'][0].ID);
 		       $('#pac').val(response['patient'][0].ID);
 		       $('#paciente').val(response['patient'][0].ID);
-		       $('#idante').val(response['ante'][0].ID);
 		       $('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
 		       $('#APELLIDO_MATERNO').val(response['patient'][0].APELLIDO_MATERNO);
 		       $('#NOMBRE').val(response['patient'][0].NOMBRE);
@@ -569,6 +574,7 @@
  			   $('#sTipoSanguineo').val(response['patient'][0].TIPO_SANGUINEO.ID);
  			   $('#sEstados').val(response['patient'][0].ESTADO.ID);
  			   $('#sMUNICIPIO').val(response['patient'][0].MUNICIPIO.ID);
+ 			   $('#IMAGEN').val(response['patient'][0].IMAGEN);
  			   
 		       if (response['patient'][0].FECHA_NACIMIENTO != '') {
 	       			var fecha   = response['patient'][0].FECHA_NACIMIENTO.date;
@@ -593,82 +599,90 @@
 	       			$('#EdadC').val('');
 	       		}
 
-	       		if (response['ante'][0].TABAQUISMO != '') {
-	       			$('#divFuma').removeClass('hidden');
-	       			$('input[divref="divFuma"]').attr('checked',true);
-	       			$('#tabaquismo').val(response['ante'][0].TABAQUISMO);
-	       		}
-
-	       		if (response['ante'][0].ALCOHOLISMO) {
-	       			$("#divBebe").removeClass('hidden');
-	       			$('input[divref="divBebe"]').attr('checked',true);
-	       			$('#tabaquismo').val(response['ante'][0].ALCOHOLISMO);
-	       		}
-
-	       		if (response['ante'][0].DROGAS) {
-	       			$("#divDroga").removeClass('hidden');
-	       			$('input[divref="divDroga"]').attr('checked',true);
-	       			$('#toxicomanias').val(response['ante'][0].DROGAS);
-	       		}
-	       		
-	       		if (response['ante'][0].CIRUGIAS) {
-	       			$("#divCirugia").removeClass('hidden');
-	       			$('input[divref="divCirugia"]').attr('checked',true);
-	       			$('#cirugias').val(response['ante'][0].CIRUGIAS);
-	       		}
-
-	       		if (response['ante'][0].ALERGIAS) {
-	       			$("#divAlergia").removeClass('hidden');
-	       			$('input[divref="divAlergia"]').attr('checked',true);
-	       			$('#alergias').val(response['ante'][0].ALERGIAS);
-	       		}
-
-	       		if (response['ante'][0].DIABETES) {
-	       			$("#divDiabetes").removeClass('hidden');
-	       			$('input[divref="divDiabetes"]').attr('checked',true);
-	       			$('#sDiabetes').val(response['ante'][0].DIABETES);
-	       		}
-
-	       		if (response['ante'][0].ARTRITIS) {
-	       			$("#divArtritis").removeClass('hidden');
-	       			$('input[divref="divArtritis"]').attr('checked',true);
-	       			$('#sArtritis').val(response['ante'][0].ARTRITIS);
-	       		}
-
-	       		if (response['ante'][0].CANCER) {
-	       			$("#divCancer").removeClass('hidden');
-	       			$('input[divref="divCancer"]').attr('checked',true);
-	       			$('#sCancer').val(response['ante'][0].CANCER);
-	       		}
-
-	       		if (response['ante'][0].LUPUS) {
-	       			$("#divLupus").removeClass('hidden');
-	       			$('input[divref="divLupus"]').attr('checked',true);
-	       			$('#sLupus').val(response['ante'][0].LUPUS);
-	       		}
-
-	       		if (response['ante'][0].CARDIOPATIAS) {
-	       			$("#divCardiacas").removeClass('hidden');
-	       			$('input[divref="divCardiacas"]').attr('checked',true);
-	       			$('#sCardiacas').val(response['ante'][0].CARDIOPATIAS);
-	       		}
-
-	       		if (response['ante'][0].HIPERTENSION) {
-	       			$("#divHipertension").removeClass('hidden');
-	       			$('input[divref="divHipertension"]').attr('checked',true);
-	       			$('#sHipertension').val(response['ante'][0].HIPERTENSION);
-	       		}
-
-	       		if (response['ante'][0].TIROIDES) {
-	       			$("#divTiroides").removeClass('hidden');
-	       			$('input[divref="divTiroides"]').attr('checked',true);
-	       			$('#sTiroides').val(response['ante'][0].TIROIDES);
-	       		}
 	       		if (response['patient'][0].IMAGEN){
-	       			var foto = response['patient'][0].IMAGEN;
-		       		var id = response['patient'][0].ID
-		      	 	$("#foto").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
-		      	}
+		       			var foto = response['patient'][0].IMAGEN;
+			       		var id = response['patient'][0].ID;
+			       		$('#fotop').html('');
+			      	 	$("#fotop").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
+			    }
+
+	       		if(response['ante']){
+	       			$('#idante').val(response['ante'][0].ID);
+		       
+
+		       		if (response['ante'][0].TABAQUISMO != '') {
+		       			$('#divFuma').removeClass('hidden');
+		       			$('input[divref="divFuma"]').attr('checked',true);
+		       			$('#tabaquismo').val(response['ante'][0].TABAQUISMO);
+		       		}
+
+		       		if (response['ante'][0].ALCOHOLISMO) {
+		       			$("#divBebe").removeClass('hidden');
+		       			$('input[divref="divBebe"]').attr('checked',true);
+		       			$('#alcoholismo').val(response['ante'][0].ALCOHOLISMO);
+		       		}
+
+		       		if (response['ante'][0].TOXICOMANIAS) {
+		       			$("#divDroga").removeClass('hidden');
+		       			$('input[divref="divDroga"]').attr('checked',true);
+		       			$('#toxicomanias').val(response['ante'][0].TOXICOMANIAS);
+		       		}
+		       		
+		       		if (response['ante'][0].CIRUGIAS) {
+		       			$("#divCirugia").removeClass('hidden');
+		       			$('input[divref="divCirugia"]').attr('checked',true);
+		       			$('#cirugias').val(response['ante'][0].CIRUGIAS);
+		       		}
+
+		       		if (response['ante'][0].ALERGIAS) {
+		       			$("#divAlergia").removeClass('hidden');
+		       			$('input[divref="divAlergia"]').attr('checked',true);
+		       			$('#alergias').val(response['ante'][0].ALERGIAS);
+		       		}
+
+		       		if (response['ante'][0].DIABETES) {
+		       			$("#divDiabetes").removeClass('hidden');
+		       			$('input[divref="divDiabetes"]').attr('checked',true);
+		       			$('#sDiabetes').val(response['ante'][0].DIABETES);
+		       		}
+
+		       		if (response['ante'][0].ARTRITIS) {
+		       			$("#divArtritis").removeClass('hidden');
+		       			$('input[divref="divArtritis"]').attr('checked',true);
+		       			$('#sArtritis').val(response['ante'][0].ARTRITIS);
+		       		}
+
+		       		if (response['ante'][0].CANCER) {
+		       			$("#divCancer").removeClass('hidden');
+		       			$('input[divref="divCancer"]').attr('checked',true);
+		       			$('#sCancer').val(response['ante'][0].CANCER);
+		       		}
+
+		       		if (response['ante'][0].LUPUS) {
+		       			$("#divLupus").removeClass('hidden');
+		       			$('input[divref="divLupus"]').attr('checked',true);
+		       			$('#sLupus').val(response['ante'][0].LUPUS);
+		       		}
+
+		       		if (response['ante'][0].CARDIOPATIAS) {
+		       			$("#divCardiacas").removeClass('hidden');
+		       			$('input[divref="divCardiacas"]').attr('checked',true);
+		       			$('#sCardiacas').val(response['ante'][0].CARDIOPATIAS);
+		       		}
+
+		       		if (response['ante'][0].HIPERTENSION) {
+		       			$("#divHipertension").removeClass('hidden');
+		       			$('input[divref="divHipertension"]').attr('checked',true);
+		       			$('#sHipertension').val(response['ante'][0].HIPERTENSION);
+		       		}
+
+		       		if (response['ante'][0].TIROIDES) {
+		       			$("#divTiroides").removeClass('hidden');
+		       			$('input[divref="divTiroides"]').attr('checked',true);
+		       			$('#sTiroides').val(response['ante'][0].TIROIDES);
+		       		}
+		       		
+			    }
 	       	},
 		    error: function() {
 		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
@@ -702,7 +716,7 @@
 	}
 
 	
-	$('#foto').click(function(){
+	$('#fotop').click(function(){
 		$('#camara').click();
 			
 		});
@@ -725,10 +739,11 @@
 	      url: "<?php echo $this->basePath() ?>/pacientes/foto",	      
 	      dataType: "json",
 		      success: function(data) {
-		        mostrarImagen();
+		      	mostrarImagen();
+		      	toastr.success('La foto se guardó correctamente.');
 	          },
 		      error: function(data){
-		     	console.log('errors');
+		     	toastr.error('Inténtelo más tarde.');
 		      }
 		  });
 	}
@@ -748,7 +763,7 @@
            		var foto = response['patient'][0].IMAGEN;
 	       		var id = response['patient'][0].ID
 
-	      	 	$("#foto").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
+	      	 	$("#fotop").html("<img src='<?php echo $this->basePath()?>/public/imagenes/pacientes/"+id+"/"+foto+"' style='width:200px;' height='200px'>");
            	},
            error: function(){
                  toastr.error('Inténtalo más tarde.');
