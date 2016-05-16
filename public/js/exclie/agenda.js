@@ -7,6 +7,7 @@
 		// Initialize app when document is ready
 		$(document).ready(function () {
 			o.initialize();
+
 		});
 
 	};
@@ -25,6 +26,8 @@
 		this._displayDate();
 		this._initBotones();
 		this._buscadorInit();
+
+
 
 	};
 	// =========================================================================
@@ -75,6 +78,8 @@
 		          $("#idpaciente").val(ui.item.id);
           		  $("#title").val(ui.item.value);
           		  $("#edad").val(p._getEdad(ui.item.fecha))
+          		  $("#referidopor").val(ui.item.referido);
+          		  $("#telefono1").val(ui.item.tel);
 		          //console.log(ui.item.id);
 		          var terms = p._split( this.value );
 		          // remove the current input
@@ -359,14 +364,7 @@
 		});
 	}
 
-	// p.borrarevento = function() {
-	// 	console.log($("#idevento").val());
-	// 	$.post('<?php echo $this->basePath() ?>/agenda/borrarevento',{id:$("#idevento").val()},
-	// 	function (data){
-	// 		location.reload();
-	// 	});
-
-	// }
+	
 
 	// =========================================================================
 

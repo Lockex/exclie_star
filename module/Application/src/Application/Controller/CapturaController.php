@@ -13,16 +13,29 @@ use Zend\View\Model\ViewModel;
 class CapturaController extends AbstractActionController {
 	protected $_objectManager;
 
-	public function indexAction() {
+	public function indexAction()
+	{
+		 $this->layout('layout/captura');
+		
+		return new ViewModel();
+	}
+
+	public function registroAction()
+	{
 		$this->layout('layout/captura');
 		$om = $this->getObjectManager();
 		$estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
 		$municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
+		
 		$data = array('estados' => $estados, 'municipios' => $municipios);
+			
 		return new ViewModel($data);
+		
+		
 	}
 
-	public function guardarpacienteAction() {
+	public function guardarpacienteAction()
+	{
 		$om = $this->getObjectManager();
 		if ($this->request->isPost()) {
 			$paciente = new Pacientes();
@@ -33,6 +46,7 @@ class CapturaController extends AbstractActionController {
 			$paciente->setESTADO($om->find('Application\Entity\Estados', $this->request->getPost('ESTADO')));
 			$paciente->setMUNICIPIO($om->find('Application\Entity\Municipios', $this->request->getPost('MUNICIPIO')));
 			$paciente->setCALLE($this->request->getPost('CALLE'));
+			$paciente->setEDAD($this->request->getPost('EDAD'));
 			$paciente->setNUMEROINT($this->request->getPost('NUM_INT'));
 			$paciente->setNUMEROEXT($this->request->getPost('NUM_EXT'));
 			$paciente->setCOLONIA($this->request->getPost('COLONIA'));
@@ -135,7 +149,8 @@ class CapturaController extends AbstractActionController {
 		return new JsonModel(array('id' => $id, 'nombre' => $paciente->getNOMBRE(), 'apellido' => $paciente->getAPELLIDO_PATERNO()));
 	}
 
-	public function guardarimagenesconsAction() {
+	public function guardarimagenesconsAction()
+	{
 		if ($this->request->isPost()) {
 
 			$om = $this->getObjectManager();
@@ -188,7 +203,8 @@ class CapturaController extends AbstractActionController {
 		return new JsonModel();
 	}
 
-	public function eliminarFotoAction() {
+	public function eliminarFotoAction()
+	{
 		if ($this->request->getPost()) {
 			$om = $this->getObjectManager();
 			$imagen = $this->request->getPost('archivo');
@@ -214,7 +230,8 @@ class CapturaController extends AbstractActionController {
 		}
 	}
 
-	public function createthumb($name, $new_w, $new_h) {
+	public function createthumb($name, $new_w, $new_h)
+	{
 		$system = explode(".", $name);
 		$extension = end($system);
 		$nom = array_pop($system);
@@ -252,7 +269,8 @@ class CapturaController extends AbstractActionController {
 	 *
 	 * @return EntityManager
 	 */
-	private function getObjectManager() {
+	private function getObjectManager()
+	{
 		if (null === $this->_objectManager) {
 			$this->_objectManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 		}
@@ -260,100 +278,31 @@ class CapturaController extends AbstractActionController {
 		return $this->_objectManager;
 	}
 
-	/**
-	 * get entityManager
-	 *
-	 * @return Doctrine\ORM\EntityManager
-	 */
-	
-	private function getEntityManager() {
-		if (null === $this->entityManager) {
-			$this->entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-		}
-
-		return $this->entityManager;
-	}
-	
-
-	public function listarpacienteAction(){
+	public function listadepacientesAction()
+	{
 		$this->layout('layout/captura');
 		$om = $this->getObjectManager();
+		$pacient = $om->createQuery("SELECT p FROM Application\Entity\Pacientes p")->getArrayResult();
 
-		
-		$estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
-		$municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
-		$data = array('estados' => $estados, 'municipios' => $municipios);	
-		//return new ViewModel($data);
-
-		if ($this->request->isPost()) {
-			$pacienteid = $this->request->getPost('pac');
-			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
-			$paciente = $query->getArrayResult();
-
-			
-
-			$dat = array('paciente' => $paciente);
-
-		} else {
-
-			$dat = array();
-		}
-		return new ViewModel($data,$dat);
-
-		
-		
-			
+		return new ViewModel(array("pacient" => $pacient));
 	}
 
-	public function listadepacientesAction(){
-		$this->layout('layout/captura');
-		$em = $this->getEntityManager();
-
-		
-			$pacient = $em->createQuery("SELECT r FROM Application\Entity\Pacientes r")->getArrayResult();
-
-			return new ViewModel(array("pacient" => $pacient));
-
-    			
-	}
-
-
-	public function dpacienteAction(){
-		$this->layout('layout/vacio');
-
-
-		$id_paciente = $this->request->getPost('pac');
-
-		
-		
-		$oM = $this->getObjectManager();
-		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
-		$paciente 	 = $query->getArrayResult();
-
-		
-		return new JsonModel(array('pacient'=>$paciente));
-
-    			
-	}
-
-	public function eliminarpacienteAction(){
+	public function eliminarpacienteAction()
+	{
 		$this->layout('layout/captura');
 		
 		$om = $this->getObjectManager();
-		$pid = $this->request->getPost('pac');			
+		$pid = $this->request->getPost('pac');	
 
 		$bpac = $om->find('Application\Entity\Pacientes', $pid);
 		$om->remove($bpac);
 		$om->flush();
-		
-		
+				
 		return new JsonModel();
-		
-
-    			
 	}
 
-	public function getpacientesAction(){
+	public function getpacientesAction()
+	{
 		$oM = $this->getObjectManager();
 		$query 	= $oM->createQuery("SELECT p FROM Application\Entity\Pacientes p ");
 		$paciente 	 = $query->getArrayResult();
@@ -361,27 +310,186 @@ class CapturaController extends AbstractActionController {
 
 	}
 
-	public function corregirAction(){
+	public function corregirAction()
+	{
 		$oM = $this->getObjectManager();
-		$query 	= $oM->createQuery("SELECT count(p.ID) FROM Application\Entity\Pacientes p ORDER BY CONCAT(p.NOMBRE,' ',p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO)");
-		$paciente 	 = $query->getArrayResult();
+		$paciente 	= $oM->createQuery("SELECT count(p.ID) FROM Application\Entity\Pacientes p ORDER BY CONCAT(p.NOMBRE,' ',p.APELLIDO_PATERNO,' ',p.APELLIDO_MATERNO)")->getArrayResult();
+		
 		return new JsonModel(array('pacientes'=>$paciente));
+		
 
 	}
 
-	public function verimagenesAction(){
+	
+
+	public function getimagesAction()
+	{
 		$this->layout('layout/vacio');
-		$id_paciente = $this->request->getPost('paci');
-		
-		$oM = $this->getObjectManager();
-		$query 	= $oM->createQuery("SELECT count(p.ID) FROM Application\Entity\Pacientes p WHERE p.ID = $id_paciente");
-		$paciente 	 = $query->getArrayResult();
+		$om = $this->getObjectManager();
+		$id = $this->request->getPost('pac');
 
-		$query2 = $oM->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $id_paciente");
-		$iconsu = $query2->getArrayResult();
-		
-		return new JsonModel(array('pat'=>$paciente,'imacon'=>$iconsu));
+		$images = $om->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $id")->getArrayResult();
+		return new JsonModel(array('images'=>$images,'carpeta'=>$id));
 	}
 
+	public function pacientesAction() {
+      $dato = $this->getRequest()->getQuery('term');
+      $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.NOMBRE like '%$dato%'");
+      $pacientes = $query->getArrayResult();
+      $json = array();
+      foreach($pacientes as $pac) {
+        $json[] = array('id' => $pac['ID'],'label' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' ['.date_format($pac['FECHA_NACIMIENTO'],'Y/m/d').']',
+        'value' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'],
+        'name' => 'pac'.$pac['ID'],
+        'fecha' => date_format($pac['FECHA_NACIMIENTO'],'Y-m-d'),
+        'idPac' => $pac['ID']);
+      }
+      $resultado = new JsonModel($json);
+      return $resultado;
+    }
+
+	public function verexpedienteAction()
+	{
+		$this->layout('layout/captura');
+		$om = $this->getObjectManager();
+		$estados = $om->createQuery("SELECT e FROM Application\Entity\Estados e")->getArrayResult();
+		$municipios = $om->createQuery("SELECT m FROM Application\Entity\Municipios m")->getArrayResult();
+
+		if($this->request->isPost()){
+			
+			$pac = $this->request->getPost('pac');
+			$paciente = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pac")->getArrayResult();
+			
+			return new ViewModel(array('paciente'=>$paciente,'estados' => $estados, 'municipios' => $municipios));
+
+		}else{
+			$data = array('estados' => $estados, 'municipios' => $municipios);
+			
+			return new ViewModel($data);
+		}
+	}
+	
+	public function moverarchivosAction()
+	{
+		$this->layout('layout/vacio');
+		$om = $this->getObjectManager();
+
+		$original  = $this->request->getPost('original');
+		$duplicado = $this->request->getPost('duplicado');
+
+		$rutaOrigen  = getcwd(). '/public/imagenes/consultas/' . $duplicado . '/';
+		$rutaDestino = getcwd(). '/public/imagenes/consultas/' . $original . '/';
+
+		//cp /ruta/al/directorio/origen/* /ruta/al/directorio/destino
+		//cp -Rpv /carpetaorigen/* /carpetadestino/
+		//mv $rutaOrigen.'* '.$rutaDestino;
+		//cp -r $rutaOrigen.'* '.$rutaDestino;
+		$this->recurse_copy($rutaOrigen,$rutaDestino);
+		
+		/****** Cambio en la base de datos  *******/
+		
+		$images = $om->getRepository('Application\Entity\Imagenesconsultas')->findBy(array('PACIENTE'=>$duplicado));
+		foreach ($images as $ima) {
+			$ima->setPACIENTE($om->find('Application\Entity\Pacientes',$original));
+			$om->merge($ima);
+		}
+		$om->flush();
+		$expes = $om->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.ESPEC='Expescar' AND c.PACIENTE = $duplicado")->getArrayResult();
+		$borraEx = $expes[0]['ID'];
+		
+		$expescar = $om->find('Application\Entity\Consultas',$borraEx);
+		$om->remove($expescar);
+		$om->flush();
+		
+		$consults = $om->getRepository('Application\Entity\Consultas')->findBy(array('PACIENTE'=>$duplicado));
+		foreach($consults as $con){
+			 $con->setPACIENTE($om->find('Application\Entity\Pacientes',$original));
+			 $om->merge($con);
+		}
+		$om->flush();
+		
+		$pac = $om->find('Application\Entity\Pacientes', $duplicado);
+		$om->remove($pac);
+		$om->flush();
+		
+		return new JsonModel();
+		
+	}
+
+	public function datospacienteAction()
+	{
+		$this->layout('layout/captura');
+		$om = $this->getObjectManager();
+		$pac = $this->request->getPost('pac');
+		
+		$paciente = $om->createQuery("SELECT p,t,m,e FROM Application\Entity\Pacientes p JOIN p.TIPO_SANGUINEO t JOIN p.MUNICIPIO m LEFT JOIN p.ESTADO e WHERE p.ID = $pac")->getArrayResult();
+
+		$images = $om->createQuery("SELECT i FROM Application\Entity\Imagenesconsultas i WHERE i.PACIENTE = $pac")->getArrayResult();
+		
+		return new JsonModel(array('paciente'=>$paciente,'imagenes'=>$images,'carpeta'=>$pac));
+	}
+
+	public function pacienteduplicadoAction()
+	{
+		$this->layout('layout/captura');
+		
+		
+		return new ViewModel();
+	}
+
+	public function patientsAction()
+	{
+      $dato = $this->getRequest()->getQuery('term');
+      $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.NOMBRE like '%$dato%'");
+      $pacientes = $query->getArrayResult();
+      $json = array();
+      foreach($pacientes as $pac) {
+        $json[] = array('id' => $pac['ID'],'label' => '['.$pac['ID'].']'.$pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'],
+        'value' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'],
+        'name' => 'pac'.$pac['ID'],
+        'idPac' => $pac['ID']);
+      }
+      $resultado = new JsonModel($json);
+      return $resultado;
+    }
+			
+    function recurse_copy($src,$dst)
+    { 
+	    $dir = opendir($src); 
+	    @mkdir($dst); 
+	    while(false !== ( $file = readdir($dir)) ) { 
+	        if (( $file != '.' ) && ( $file != '..' )) { 
+	            if ( is_dir($src . '/' . $file) ) { 
+	                recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	            else { 
+	                copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	        } 
+	    } 
+	    closedir($dir); 
+	} 
+
+	function eliminarimageAction()
+	{
+		$om = $this->getObjectManager();
+		$idPaciente = $this->request->getPost('pac');
+		$borra = $om->find('Application\Entity\Imagenesconsultas', $this->request->getPost('id'));
+
+		$nombre = $borra->getIMAGEN();
+		$om->remove($borra);
+		$om->flush();
+
+		$filename = explode(".", $nombre);
+
+		$ruta = getcwd() . '/public/imagenes/consultas/' . $idPaciente . '/' . $nombre;
+		unlink($ruta);
+
+		$thumb = getcwd() . '/public/imagenes/consultas/' . $idPaciente . '/' . $filename[0].'_th.'.$filename[1];
+		unlink($thumb);
+		
+		return new JsonModel();
+	}
+			
 
 }

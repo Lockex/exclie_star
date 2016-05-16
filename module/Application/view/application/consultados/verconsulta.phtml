@@ -1,5 +1,26 @@
 <div class="card">
 	<div class="card-body ">
+		<?php if(count($recetas)!= 0){ ?>
+		<div class="row text-primary">
+			<div class="col-md-12">
+				<h4 class="text-primary">Recetas</h4>
+					<?php foreach($recetas as $rece){ ?>
+						<ul class="list divider-full-bleed">
+							<li class="tile">
+								<a class="tile-content ink-reaction" onclick="verReceta(<?php echo $rece['ID'];?>);">
+									<div class="tile-icon">
+										<i class="md md-receipt"></i>
+									</div>
+									<div class="tile-text">
+										<?php echo date_format($rece['FECHA_INICIO'],'Y-m-d') ?>
+									</div>
+								</a>
+							</li>
+						</ul>
+					<?php } ?>
+			</div>
+		</div>
+		<?php } ?>
 		<div class="row">
 			<div class="col-md-7">
 				<div class="form-group">
@@ -133,10 +154,6 @@
 								<div id="blueimp-gallery" class="blueimp-gallery">
 								    <div class="slides"></div>
 								    <h3 class="title"></h3>
-								    <a class="prev">‹</a>
-								    <a class="next">›</a>
-								    <a class="close">×</a>
-								    <a class="play-pause"></a>
 								    <ol class="indicator"></ol>
 								</div>
 							</div>
@@ -172,6 +189,52 @@
 	</div><!--end .card-body -->
 	
 </div><!--end .card -->
+
+<div id="prescription" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Receta Medica</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-9"></div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<h4 class="text-primary">Fecha</h4>
+							<p class="form-control-static" id="FechaReceta"></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped" id="table-med-receta">
+			              <thead>
+			                  <th class="text-primary">Nombre/Sal</th>
+			                  <th class="text-primary">Prescripción</th>
+			              </thead>
+			              <tbody class="medicam">
+			              </tbody>
+			            </table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<h4 class="text-primary">Indicaciones Generales</h4>
+							<p class="form-control-static" id="indicaciones"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<!-- <button type="button" class="btn btn-primary btn-ok" id="Imprime">Imprimir</button> -->
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	document.getElementById('linkas').onclick = function (event) {
 	    event = event || window.event;
@@ -180,5 +243,45 @@
 	        options = {index: link, event: event},
 	        links = this.getElementsByTagName('a');
 	    blueimp.Gallery(links, options);
-	};  
+	}; 
+
+	function verReceta(id)
+	{
+		$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/consultados/verprescript",
+			    dataType: "json",
+			    data: {id:id},
+			    success: function(response) {
+			        console.dir(response);
+			        $('#medicam').html('');
+			     
+			        $('#indicaciones').text(response['receta'][0].INDICACIONES_ADICIONALES);
+			        var fecha   = response['receta'][0].FECHA_INICIO.date;
+	       			var arr 	= fecha.split(" ");
+	       			var mes 	= arr[0];
+	       			var separa  = mes.split("-"); 
+	       			var Mes 	= separa[2];
+	       			var dia 	= separa[1];
+	       			var anio 	= separa[0];
+	       			$('#FechaReceta').text(dia + "-" + Mes + "-" + anio);
+
+			        var medicinas = response['medicinas'];
+			        var total = medicinas.length;
+			      	
+	                for (var i = 0, len = total; i < len; i++) {
+	                  $(".table tbody.medicam").append("<tr class='trmedicamento'  >"+
+				           "<td id='tdMed'>"+response['medicinas'][0]['MEDICAMENTO'].NOMBRE +"</td>"+
+				           "<td id='tdFrec'>"+response['medicinas'][0].FRECUENCIA+"</td>"+
+				           "</tr>");
+	                  
+	                }
+					$("#prescription").modal('show');
+
+			    },
+			    error: function(){
+			          toastr.error('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+	} 
 </script>

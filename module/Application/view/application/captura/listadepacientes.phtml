@@ -1,59 +1,42 @@
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css" />
-
-<form id="felimpaciente" action="<?php echo $this->basePath() ?>/captura/eliminarpaciente" method="POST">
-
-<div class="row">
-	<div class="card">
-		<div class="col-md-12">
-			<div class="card-head style-primary">
-				<div class="tools pull-left">
-					<form class="navbar-search" role="search">
-				        <h3>Lista de Pacientes</h3>
-				     </form>
-				</div><!--end .tools -->					
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="table-responsive">
-							<table id="datatable1" class="table table-striped table-hover">
-								<thead>
-									<tr>
-										<th class="sort-numeric">ID</th>
-										<th class="sort-alpha">Apellido Paterno</th>
-										<th class="sort-alpha">Apellido Materno</th>
-										<th class="sort-alpha">Nombre(s)</th>
-										<th class="sort-numeric">Telefono</th>
-										<th class="sort-alpha">Dirección</th>
-										<th class=""></th>
-										
-									</tr>
-								</thead>
-								<tbody id="listadop">
-									<div ></div>
-									<!--  <?php foreach ($pacient as $pac): ?>										
-										<tr>											
-											<td><?php echo $pac['ID'];?></td>											
-											<td><?php echo $pac['APELLIDO_PATERNO'];?></td>
-											<td><?php echo $pac['APELLIDO_MATERNO'];?></td>
-											<td><?php echo $pac['NOMBRE'];?></td>
-											<td><?php echo $pac['TELEFONO_1'];?></td>
-											<td><?php echo $pac['CALLE'];?> <?php echo $pac['NUMERO_EXT'];?></td>											
-											<td><button id="paid" name="paid" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="eliminar(<?php echo $pac['ID'];?>)" data-original-title="Eliminar Paciente" ><i class="fa fa-trash-o"></i></button></td>
-									 	</tr>
-									<?php endforeach ?> -->	 																						
-								</tbody>
-							</table>
-						</div><!--end .table-responsive -->
-					</div><!--end .col -->
-				</div><!--end .row -->
-			</div>
+<div class="card">
+	<div class="card-head style-primary">
+		<header>Lista de Pacientes</headers>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="tabla1"  class="table table-striped table-hover" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Apellido Paterno</th>
+						<th>Apellido Materno</th>
+						<th>Nombre(s)</th>
+						<th>Telefono</th>
+						<th>Dirección</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="listado">
+					  <?php foreach ($pacient as $pac): ?>										
+					<tr>											
+						<td><?php echo $pac['ID'];?></td>											
+						<td><?php echo $pac['APELLIDO_PATERNO'];?></td>
+						<td><?php echo $pac['APELLIDO_MATERNO'];?></td>
+						<td><?php echo $pac['NOMBRE'];?></td>
+						<td><?php echo $pac['TELEFONO_1'];?></td>
+						<td><?php echo $pac['CALLE'].' '.$pac['NUMERO_EXT'];?></td>
+						<td><button id="ima" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="verImagenes(<?php echo $pac['ID'];?>)" data-original-title="Fotos del Paciente" ><i class="fa fa-file-image-o"></i></button></td>
+						<td><button id="paid" type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" onclick="eliminar(<?php echo $pac['ID'];?>)" data-original-title="Eliminar Paciente" ><i class="fa fa-trash-o"></i></button></td>
+				 	</tr> 
+				<?php endforeach ?>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
-</form>
+
+
 <div id="confirma" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -71,69 +54,153 @@
 		</div>
 	</div>
 </div>
+
+
+<div id="verFotos" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Imagenes de Paciente</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-primary"><b>Total de Imagenes: </b><div id="total"></div></p>
+				<div class="list-results list-results-underlined">
+					<div class="col-xs-12">
+						<div id="links" class="links">
+							<div id="imagenes"></div>
+							<div id="blueimp-gallery" class="blueimp-gallery">
+							    <div class="slides"></div>
+							    <h3 class="title"></h3>
+							    <ol class="indicator"></ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary btn-ok" id="Acepta">Aceptar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-1/libs/jquery-ui/jquery-ui-theme.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
+
+<script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/jquery.dataTables.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoTableDynamic.js"></script>
+<!--<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoTableDynamic.js"></script>-->
 
 <script>
-
 $(document).ready(function()
 {
-		
-	mostrarpacientes();
-	   	
-
+	
+	//mostrarpacientes();
+	$('#tabla1').DataTable();
 });
 
 function eliminar (ID) {
+	$("#confirma").modal('show');
+	$('#confirma').modal({ backdrop: 'static', keyboard: false })
+		.on('click', '#Acepta', function (e) {
+
+            $("#confirma").modal('hide');
+			$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/captura/eliminarpaciente",
+			    dataType: "json",
+			    data: {pac: ID},
+			    success: function(response) {
+			       toastr.success("El Paciente se eliminó.");
+			       mostrarpacientes();
+			    },
+			    error: function(){
+			          alert('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+		}); 
+}
+
+function mostrarpacientes() {
+	$.ajax({
+	    type: "POST",
+	    url: "<?php echo $this->basePath() ?>/captura/getpacientes",
+	    dataType: "json",
+	    success: function(response) {
+	      
+	      document.getElementById("listado").innerHTML="";
+	      for (var i = 0; i < response['pacientes'].length; i++) {
+			var row = $("<tr />");
+		    $("#listado").append(row); 
+		    row.append($("<td>" + response['pacientes'][i].ID + "</td>"));
+		    row.append($("<td>" + response['pacientes'][i].APELLIDO_PATERNO + "</td>"));
+		    row.append($("<td>" + response['pacientes'][i].APELLIDO_MATERNO + "</td>"));
+		    row.append($("<td>" + response['pacientes'][i].NOMBRE + "</td>"));
+		    row.append($("<td>" + response['pacientes'][i].TELEFONO_1 + "</td>"));
+		    row.append($("<td>" + response['pacientes'][i].CALLE + "</td>"));
+		    row.append($("<td><a onclick='verImagenes(" + response['pacientes'][i].ID + ");' class='btn btn-icon-toggle ink-reaction' href='#'><i class='fa fa-file-image-o'></i></a></td>"));
+		    row.append($("<td><a onclick='eliminar(" + response['pacientes'][i].ID + ");' class='btn btn-icon-toggle ink-reaction' href='#'><i class='fa fa-trash-o'></i></a></td>"));
+		    "<button id='ima' type='button' class='btn btn-icon-toggle' data-toggle='tooltip' data-placement='top' onclick='verImagenes(" + response['pacientes'][i].ID + ");' data-original-title='Fotos del Paciente' >"
+		  }	
+	    },
+	    error: function() {
+	        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+	    }
+	});
+}
+
+function verImagenes(id) {
 	
-		$.ajax({
-		    type: "POST",
-		    url: "<?php echo $this->basePath() ?>/captura/eliminarpaciente",
-		    dataType: "json",
-		    data: {pac: ID},
-		    success: function(data) {
-		    	//toastr.success("El Paciente se eliminó.");
-		       mostrarpacientes();
-		       
-		      
+	$.ajax({
+	    type: "POST",
+	    url: "<?php echo $this->basePath() ?>/captura/getimages",
+	    data: {pac: id},
+	    dataType: "json",
+	    success: function(response) {
+	     var total = response['images'].length;
+		 if(total ==0) {
+		 	toastr.info('No Hay Fotos de este Paciente.');
+		 }else{
+		 	$("#verFotos").modal('show');
+		 	$('#imagenes').html('');
+		 	$('#total').text(total);
+		 	var carpetanum = response['carpeta'];
+		 	var imgcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/';
+       		var rutafcons = "<?php echo $this->basePath(); ?>/public/imagenes/consultas/"+carpetanum+'/';
+       		if( response['images']){
+	       		var fotoscons = response['images'];
+	       		for (var i = 0, len = fotoscons.length; i < len; i++) {
+				  var th = fotoscons[i].IMAGEN.split('.',1);
+				  var ext = fotoscons[i].IMAGEN.slice(-3)
+				  var name = th.join()+'_th.';
+				  var nombre = name.replace(',','.');
+				  var nomFotoTh = nombre+ext;
+				  $('#imagenes').append('<a href="'+rutafcons+fotoscons[i].IMAGEN+'" title="Galería" data-gallery=""><img src="'+rutafcons+nomFotoTh+'"></a>');
+				}
+			}
+		 }
+		},
+	    error: function() {
+	        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+	    }
+	});
+}
 
-		    },
-		    error: function(){
-		          alert('Ocurrió un error, inténtelo más tarde.');
-		    }
-		});  
-	}
-
-	function mostrarpacientes(){
-		$.ajax({
-		    type: "POST",
-		    url: "<?php echo $this->basePath() ?>/captura/getpacientes",
-		    dataType: "json",
-		    
-		    success: function(data) {
-
-		      document.getElementById("listadop").innerHTML="";
-		      for (var i = 0; i < data['pacientes'].length; i++) {
-				var row = $("<tr />")
-			    $("#listadop").append(row); 
-			    row.append($("<td>" + data['pacientes'][i].ID + "</td>"));
-			    row.append($("<td>" + data['pacientes'][i].APELLIDO_PATERNO + "</td>"));
-			    row.append($("<td>" + data['pacientes'][i].APELLIDO_MATERNO + "</td>"));
-			    row.append($("<td>" + data['pacientes'][i].NOMBRE + "</td>"));
-			    row.append($("<td>" + data['pacientes'][i].TELEFONO_1 + "</td>"));
-			    row.append($("<td>" + data['pacientes'][i].CALLE + "</td>"));
-			    row.append($("<td><a onclick='eliminar(" + data['pacientes'][i].ID + ");' class='btn btn-icon-toggle ink-reaction' href='#'><i class='fa fa-trash-o'></i></a></td>"));
-			    
-			  }	
-		     
-
-		    },
-		    error: function() {
-		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
-		    }
-		});
-	}
-
+/** EMPIEZA LA GALERIA DE IMAGENES **/
+document.getElementById('links').onclick = function (event) {
+    var event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event},
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};
 </script>

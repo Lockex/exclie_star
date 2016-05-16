@@ -141,8 +141,6 @@ class AgendaController extends AbstractActionController
             );
             return new JsonModel(array('mensaje' => 'Guardado', 'evento' => $evento));
         } 
-
-        
     }
 
     public function borrareventoAction(){
@@ -158,14 +156,16 @@ class AgendaController extends AbstractActionController
 
     public function pacientesAction() {
       $dato = $this->getRequest()->getQuery('term');
-      $query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.NOMBRE like '%$dato%'");
-      $pacientes = $query->getArrayResult();
+      $pacientes = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.NOMBRE like '%$dato%'")->getArrayResult();
+
       $json = array();
       foreach($pacientes as $pac) {
         $json[] = array('id' => $pac['ID'],'label' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'].' ['.date_format($pac['FECHA_NACIMIENTO'],'Y/m/d').']',
         'value' => $pac['NOMBRE'].' '.$pac['APELLIDO_PATERNO'].' '.$pac['APELLIDO_MATERNO'],
         'name' => 'pac'.$pac['ID'],
         'fecha' => date_format($pac['FECHA_NACIMIENTO'],'Y-m-d'),
+        'referido' => $pac['REFERIDO'],
+        'tel' => $pac['TELEFONO_1'],
         'idPac' => $pac['ID']);
       }
       $resultado = new JsonModel($json);

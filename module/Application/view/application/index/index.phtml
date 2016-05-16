@@ -22,77 +22,65 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="<?php echo $this->basePath();?>/public/img/gine.png" alt="" class="p">
+                            <img src="<?php echo $this->basePath();?>/public/img/gine.png" alt="" class="p" style="align-content: center;">
                         </div>
                         <div class="col-md-6">
                             <br><br><br>
                             <br><br><br>
-                            <!-- BEGIN ALERT - BOUNCE RATES -->
+                            <?php if($this->identity()->getRole()->getId()==1 || $this->identity()->getRole()->getId()==2 || $this->identity()->getRole()->getId()==3 || $this->identity()->getRole()->getId()==5){ ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <a href="<?php echo $this->basePath() ?>/agenda" >
-                                    <div class="card">
-                                        <div class="card-body no-padding">
-                                            <div class="alert alert-callout alert-info no-margin">
-                                                <strong class="pull-right text-xl"><i class="fa fa-calendar"></i></strong>
-                                                <strong class="text-xl">Agenda</strong><br/>
-                                                <span class=""></span>
-                                                <div class="stick-bottom-left-right">
-                                                    <div class="progress progress-hairline no-margin">
-                                                        <div class="progress-bar progress-bar-info" style="width:43%"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="card card-bordered style-primary">
+                                        <div class="card-body">
+                                            <strong class="pull-right text-xl"><i class="fa fa-calendar fa-2x"></i></strong>
+                                            <strong class="text-xl">Agenda</strong><br/>
                                         </div><!--end .card-body -->
                                     </div><!--end .card -->
                                     </a>
-                                </div><!--end .col -->
+                                </div>
                             </div>
-                            <!-- END ALERT - BOUNCE RATES -->
-                             <!-- BEGIN ALERT - BOUNCE RATES -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a href="<?php echo $this->basePath() ?>/consultados" >
-                                    <div class="card">
-                                        <div class="card-body no-padding">
-                                            <div class="alert alert-callout alert-success no-margin">
-                                                <strong class="pull-right text-xl"><i class="fa fa-stethoscope"></i></strong>
-                                                <strong class="text-xl">Consultas</strong><br/>
-                                                <span class=""></span>
-                                                <div class="stick-bottom-left-right">
-                                                    <div class="progress progress-hairline no-margin">
-                                                        <div class="progress-bar progress-bar-success" style="width:43%"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!--end .card-body -->
-                                    </div><!--end .card -->
-                                    </a>
-                                </div><!--end .col -->
-                            </div>
-                            <!-- END ALERT - BOUNCE RATES -->
-                            <!-- BEGIN ALERT - BOUNCE RATES -->
                             <div class="row">
                                 <div class="col-md-6">
                                     <a href="<?php echo $this->basePath() ?>/pacientes" >
-                                    <div class="card">
-                                        <div class="card-body no-padding">
-                                            <div class="alert alert-callout alert-warning no-margin">
-                                                <strong class="pull-right text-xl"><i class="fa fa-user-plus"></i></strong>
-                                                <strong class="text-xl">Pacientes</strong><br/>
-                                                <span class=""></span>
-                                                <div class="stick-bottom-left-right">
-                                                    <div class="progress progress-hairline no-margin">
-                                                        <div class="progress-bar progress-bar-warning" style="width:43%"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="card card-bordered style-primary">
+                                        <div class="card-body">
+                                            <strong class="pull-right text-xl"><i class="fa fa-user-plus fa-2x"></i></strong>
+                                            <strong class="text-xl">Pacientes</strong><br/>
                                         </div><!--end .card-body -->
                                     </div><!--end .card -->
                                     </a>
-                                </div><!--end .col -->
+                                </div>
                             </div>
-                            <!-- END ALERT - BOUNCE RATES -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?php echo $this->basePath() ?>/consultados/listapaciente" >
+                                    <div class="card card-bordered style-primary">
+                                        <div class="card-body">
+                                            <strong class="pull-right text-xl"><i class="fa fa-download fa-2x"></i></strong>
+                                            <strong class="text-xl">Descarga de Expediente</strong><br/>
+                                        </div><!--end .card-body -->
+                                    </div><!--end .card -->
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            
+                            <?php } ?>
+                            <?php if($this->identity()->getRole()->getId()==1 || $this->identity()->getRole()->getId()==2 || $this->identity()->getRole()->getId()==3 ){ ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?php echo $this->basePath() ?>/consultados" >
+                                    <div class="card card-bordered style-primary">
+                                        <div class="card-body">
+                                            <strong class="pull-right text-xl"><i class="fa fa-stethoscope fa-2x"></i></strong>
+                                            <strong class="text-xl">Consultas</strong><br/>
+                                        </div><!--end .card-body -->
+                                    </div><!--end .card -->
+                                    </a>
+                                </div>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

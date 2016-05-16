@@ -2,7 +2,7 @@
 namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * Doctrine ORM implementation of Usuarios entity
+ * Doctrine ORM implementation of Fotosconsulta entity
  *
  * @ORM\Entity
  * @ORM\Table(name="`fotosconsulta`")

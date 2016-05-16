@@ -4,7 +4,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 /**
- * Doctrine ORM implementation of Usuarios entity
+ * Doctrine ORM implementation of Pacientes entity
  *
  * @ORM\Entity
  * @ORM\Table(name="`pacientes`")
@@ -20,9 +20,9 @@ class Pacientes {
     protected $CURP;
     /** @ORM\Column(type="integer",nullable=true) */
     protected $SEXO;
-    /** @ORM\Column(type="string",nullable=true) */
+    /** @ORM\Column(type="string") */
     protected $NOMBRE;
-    /** @ORM\Column(type="string",nullable=true) */
+    /** @ORM\Column(type="string") */
     protected $APELLIDO_PATERNO;
     /** @ORM\Column(type="string",nullable=true) */
     protected $APELLIDO_MATERNO;
@@ -88,6 +88,8 @@ class Pacientes {
     protected $NOMBRE_CONYUGE;
     /** @ORM\Column(type="string", nullable=true) */
     protected $EDAD_CONYUGE;
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $EDAD;
 
 
     public function __construct()
@@ -2043,6 +2045,30 @@ class Pacientes {
     public function setEDADCONYUGE($EDAD_CONYUGE)
     {
         $this->EDAD_CONYUGE = $EDAD_CONYUGE;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of EDAD.
+     *
+     * @return mixed
+     */
+    public function getEDAD()
+    {
+        return $this->EDAD;
+    }
+
+    /**
+     * Sets the value of EDAD.
+     *
+     * @param mixed $EDAD the 
+     *
+     * @return self
+     */
+    public function setEDAD($EDAD)
+    {
+        $this->EDAD = $EDAD;
 
         return $this;
     }

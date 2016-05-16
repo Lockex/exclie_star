@@ -1,4 +1,4 @@
-	<?php foreach($files as $fl) { ?>
-		<?php $nomfil = explode('.',$fl['ARCHIVO']); ?>
-		<a href="<?php echo $this->basePath() ?>/public/imagenes/historianterior/<?php echo $paciente.'/'.$fl['ARCHIVO']; ?>" title="Galería" data-gallery=""><img src="<?php echo $this->basePath() ?>/public/imagenes/historianterior/<?php echo $paciente.'/'.$nomfil[0].'_th.'.$nomfil[1]; ?>"></a>
-	<?php } ?>
+<?php foreach($files as $fl) { ?>
+	<?php $nomfil = explode('.',$fl['ARCHIVO']); ?>
+	<a href="<?php echo $this->basePath() ?>/public/imagenes/historianterior/<?php echo $paciente.'/'.$fl['ARCHIVO']; ?>" title="Galería" data-gallery=""><img src="<?php echo $this->basePath() ?>/public/imagenes/historianterior/<?php echo $paciente.'/'.$nomfil[0].'_th.'.$nomfil[1]; ?>"></a>
+<?php } ?>

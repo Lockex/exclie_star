@@ -14,6 +14,7 @@
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/fontRoboto.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/bootstrap.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/materialadmin.css" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/toastr/toastr.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/font-awesome.min.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/material-design-iconic-font.min.css" />
         <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css" />
@@ -48,10 +49,11 @@
     <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/js/libs/toastr/toastr.js"></script>
 
 
     <!-- END JAVASCRIPT -->
-    <body class="menubar-hoverable header-fixed full-content">
+    <body class="header-fixed full-content">
 
         <!-- BEGIN HEADER-->
         <header id="header" >
@@ -76,7 +78,11 @@
                     <ul class="header-nav header-nav-profile">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                                <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg?1403934956" alt="" />
+                                <?php if($this->identity()->getFOTO() != ''){ ?>
+                                     <img src="<?php echo $this->basePath() ?>/public/imagenes/usuario/<?php echo $this->identity()->getID(); ?>/<?php echo $this->identity()->getFOTO(); ?>" alt="" id="perfilFoto"/>
+                                <?php }else{ ?>
+                                    <img src="<?php echo $this->basePath() ?>/public/img/avatar1.jpg" alt="" />
+                                <?php } ?>
                                 <span class="profile-info">
                                     <?php echo $this->identity()->getNOMBRE(); ?>
                                     <small><?php echo $this->identity()->getROLE()->getName(); ?></small>
@@ -94,7 +100,7 @@
         <!-- END HEADER-->
 
         <!-- BEGIN BASE-->
-        <div id="base" style="padding-left:0px">
+        <div id="base">
 
             <!-- BEGIN OFFCANVAS LEFT -->
             <div class="offcanvas">
@@ -108,7 +114,81 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
+            
+             <!-- BEGIN MENUBAR-->
+            <div id="menubar" class="menubar-inverse">
+                <div class="menubar-fixed-panel">
+                    <div>
+                        <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="<?php echo $this->basePath() ?>">
+                            <span class="text-lg text-bold text-primary ">EXCLIE</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="menubar-scroll-panel">
 
+                    <!-- BEGIN MAIN MENU -->
+                    <ul id="main-menu" class="gui-controls">
+
+                        <!-- BEGIN INICIO -->
+                        <li>
+                            <a href="<?php echo $this->basePath() ?>/captura/" >
+                                <div class="gui-icon"><i class="md md-home"></i></div>
+                                <span class="title">Inicio</span>
+                            </a>
+                        </li><!--end /menu-li -->
+                        <!-- END INICIO -->
+
+                        <!-- BEGIN ESTUDIOS -->
+                        <!-- <li class="gui-folder">
+                            <a>
+                                <div class="gui-icon"><i class="md md-email"></i></div>
+                                <span class="title">Estudios</span>
+                            </a> -->
+                            <!--start submenu -->
+                           <!--  <ul>
+                                <li><a href="<?php echo $this->basePath() ?>/main" ><span class="title">Lista</span></a></li>
+                                <li><a href="<?php echo $this->basePath() ?>/main/estudios" ><span class="title">Interpretaciones</span></a></li>
+                                <li><a href="<?php echo $this->basePath() ?>/reporte" ><span class="title">Reportes</span></a></li>
+                                <li><a href="<?php echo $this->basePath() ?>/inventario" ><span class="title">Inventario</span></a></li> -->
+                            <!-- </ul> --><!--end /submenu -->
+                        <!-- </li> --><!--end /menu-li -->
+                        <!-- END ESTUDIOS -->
+                        <!-- BEGIN CONSULTA -->
+                       <li>
+                            <a href="<?php echo $this->basePath() ?>/captura/registro" >
+                                <span class="title">Registro</span>
+                                <div class="gui-icon"><i class="fa fa-user-plus"></i></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->basePath() ?>/captura/listadepacientes" >
+                                <span class="title">Listado de Pacientes</span>
+                                <div class="gui-icon"><i class="fa fa-list-alt"></i></div>
+                            </a>
+                        </li>
+                         <li>
+                            <a href="<?php echo $this->basePath() ?>/captura/verexpediente" >
+                                <span class="title">Ver Expediente</span>
+                                <div class="gui-icon"><i class="fa fa-file-text"></i></div>
+                            </a>
+                        </li>
+                        <!-- END PACIENTE -->
+                    </ul><!--end .main-menu -->
+                    <!-- END MAIN MENU -->
+
+                    <div class="menubar-foot-panel">
+                        <small class="no-linebreak hidden-folded">
+
+                        </small>
+                    </div>
+                </div><!--end .menubar-scroll-panel-->
+            </div><!--end #menubar-->
+            <!-- END MENUBAR -->
            
             
 

@@ -1,0 +1,250 @@
+<div class="card">
+	<div class="card-head style-primary">
+		<header>Cambiar imagenes</header>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<h3 class="text-primary">Paciente Principal</h3>
+			<div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="nombre" id="nombre" required data-rule-minlength="3">
+                    <label for="nombre">Nombre</label>
+                </div>
+            </div>
+            <div class="col-sm-8">
+            	<div class="list-results list-results-underlined">
+					<div class="col-xs-12">
+						<div id="links" class="links">
+							<div id="imagenes"></div>
+							<div id="blueimp-gallery" class="blueimp-gallery">
+							    <div class="slides"></div>
+							    <h3 class="title"></h3>
+							    <ol class="indicator"></ol>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+		</div>
+		<div class="row">
+			<h3 class="text-primary">Paciente duplicado</h3>
+			<div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="nombre2" id="nombre2" required data-rule-minlength="3">
+                    <label for="nombre2">Nombre</label>
+                </div>
+            </div>
+            <div class="col-sm-8">
+            	<div class="list-results list-results-underlined">
+					<div class="col-xs-12">
+						<div id="links" class="links">
+							<div id="imagenes2"></div>
+							<div id="blueimp-gallery" class="blueimp-gallery">
+							    <div class="slides"></div>
+							    <h3 class="title"></h3>
+							    <ol class="indicator"></ol>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+		</div>
+		<div class="row">
+			<form id="formDuplica">
+				<input type="hidden" name="original" id="original">
+				<input type="hidden" name="duplicado" id="duplicado">
+			</form>
+			<div class="card-actionbar">
+				<div class="card-actionbar-row">
+					<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="cambiarFotos()" id="nuevoExp">Cambiar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
+<script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script>
+	var ruta = '<?php echo $this->basePath() ?>/';
+	$(document).ready(function() {
+		
+		/*====== Buscador Medicinas =======*/
+		function split( val ) {
+          return val.split( /;\s*/ );
+        }
+
+        function extractLast( term ) {
+          return split( term ).pop();
+        }
+
+		$( "#nombre" )
+
+	      	// don't navigate away from the field on tab when selecting an item
+	      	.bind( "keydown", function( event ) {
+		        if ( event.keyCode === $.ui.keyCode.TAB &&
+		            $( this ).autocomplete( "instance" ).menu.active ) {
+		          event.preventDefault();
+		        }
+	      	})
+	      	.autocomplete({
+		        source: function( request, response ) {
+		          $.getJSON(ruta+"captura/patients", {
+		            term: extractLast( request.term )
+		          }, response );
+		        },
+		        search: function() {
+		          // custom minLength
+		          var term = extractLast( this.value );
+		          if ( term.length < 2 ) {
+		            return false;
+		          }
+		        },
+		        focus: function() {
+		          // prevent value inserted on focus
+		          return false;
+		        },
+		        select: function( event, ui ) {
+		          mostrarimgs(ui.item.id);
+		          $('#original').val(ui.item.id);
+		          //console.log(ui.item.id);
+		          var terms = split( this.value );
+		          // remove the current input
+		          terms.pop();
+		          // add the selected item
+		          terms.push( ui.item.value );
+		          // add placeholder to get the comma-and-space at the end
+		          terms.push( "" );
+		          this.value = terms.join( "" );
+		          return false;
+		        }
+	      }); 
+
+	      	$( "#nombre2" )
+
+	      	// don't navigate away from the field on tab when selecting an item
+	      	.bind( "keydown", function( event ) {
+		        if ( event.keyCode === $.ui.keyCode.TAB &&
+		            $( this ).autocomplete( "instance" ).menu.active ) {
+		          event.preventDefault();
+		        }
+	      	})
+	      	.autocomplete({
+		        source: function( request, response ) {
+		          $.getJSON(ruta+"captura/patients", {
+		            term: extractLast( request.term )
+		          }, response );
+		        },
+		        search: function() {
+		          // custom minLength
+		          var term = extractLast( this.value );
+		          if ( term.length < 2 ) {
+		            return false;
+		          }
+		        },
+		        focus: function() {
+		          // prevent value inserted on focus
+		          return false;
+		        },
+		        select: function( event, ui ) {
+		          mostrarimgs2(ui.item.id);
+		          $('#duplicado').val(ui.item.id);
+		          //console.log(ui.item.id);
+		          var terms = split( this.value );
+		          // remove the current input
+		          terms.pop();
+		          // add the selected item
+		          terms.push( ui.item.value );
+		          // add placeholder to get the comma-and-space at the end
+		          terms.push( "" );
+		          this.value = terms.join( "" );
+		          return false;
+		        }
+	      }); 
+    });
+
+    function mostrarimgs(id) 
+    {
+    	$.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/captura/getimages",
+		    dataType: "json",
+		    data: {pac:id},
+		    success: function(response) {
+		       if(response['images'].length != 0){
+	               	$('#imagenes').html('');
+				 	var total = response['images'].length;
+				 	var carpetanum = response['carpeta'];
+				 	var imgcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+		       		var rutafcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+		       		if(response['images']){
+			       		var fotoscons = response['images'];
+			       		for (var i = 0, len = fotoscons.length; i < len; i++) {
+						  var th = fotoscons[i].IMAGEN.split('.',1);
+						  var ext = fotoscons[i].IMAGEN.slice(-3)
+						  var name = th.join()+'_th.';
+						  var nombre = name.replace(',','.');
+						  var nomFotoTh = nombre+ext;
+						  $('#imagenes').append('<a href="'+rutafcons+fotoscons[i].IMAGEN+'" title="Galería" data-gallery=""><img src="'+rutafcons+nomFotoTh+'"></a>');
+						}
+					}
+				}
+		    },
+		    error: function(){
+		          toastr.error('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});
+    }
+
+    function mostrarimgs2(id) 
+    {
+    	$.ajax({
+		    type: "POST",
+		    url: "<?php echo $this->basePath() ?>/captura/getimages",
+		    dataType: "json",
+		    data: {pac:id},
+		    success: function(response) {
+		       if(response['images'].length != 0){
+	               	$('#imagenes2').html('');
+				 	var total = response['images'].length;
+				 	var carpetanum = response['carpeta'];
+				 	var imgcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+		       		var rutafcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+		       		if(response['images']){
+			       		var fotoscons = response['images'];
+			       		for (var i = 0, len = fotoscons.length; i < len; i++) {
+						  var th = fotoscons[i].IMAGEN.split('.',1);
+						  var ext = fotoscons[i].IMAGEN.slice(-3)
+						  var name = th.join()+'_th.';
+						  var nombre = name.replace(',','.');
+						  var nomFotoTh = nombre+ext;
+						  $('#imagenes2').append('<a href="'+rutafcons+fotoscons[i].IMAGEN+'" title="Galería" data-gallery=""><img src="'+rutafcons+nomFotoTh+'"></a>');
+						}
+					}
+				}
+		    },
+		    error: function(){
+		          toastr.error('Ocurrió un error, inténtelo más tarde.');
+		    }
+		});
+    }
+
+    function cambiarFotos()
+    {
+    	var formulario = $('#formDuplica').serialize();
+			$.ajax({
+			    type: "POST",
+			    url: "<?php echo $this->basePath() ?>/captura/moverarchivos",
+			    dataType: "json",
+			    data: formulario,
+			    success: function(respuesta) {
+			       toastr.success('Imagenes guardadas y Paciente Eliminado.');
+		       	   window.location.href = '<?php echo $this->basePath() ?>/captura/pacienteduplicado';
+
+			    },
+			    error: function(){
+			          alert('Ocurrió un error, inténtelo más tarde.');
+			    }
+			});
+    }
+</script>

@@ -1,28 +1,11 @@
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/wizard/wizard.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/jquery.dataTables.css?1423553989" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css?1423553990" />
-<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/DataTables/extensions/dataTables.tableTools.css?1423553990" />
-
-
-<div class="card-head style-primary-dark">
-	<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-		<li class="active"><a href="#registropaciente">Registrar Paciente</a></li>
-		<li><a href="#buscarpac">Buscar Paciente</a></li>
-		<li><a href="#pacientes">Paciente</a></li>
-		
-	</ul>
-</div><!--end .card-head -->
-<div class="card-body tab-content">
-	<div class="tab-pane active" id="registropaciente">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
+<div class="card">
 	<div id="verpacientes">
 		
-		<!--<div class="card-head style-primary">
+		<div class="card-head style-primary">
 			<header>Registro de paciente</header>
-		</div> -->
+		</div>
 		<div class="card-body ">
 			<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
 				<form id="formPac" class="form form-validate floating-label" novalidate="novalidate">
@@ -822,9 +805,9 @@
 	</div>
 	<div id="capturando">
 		<div class="card">
-			<!--<div class="card-head style-primary">
+			<div class="card-head style-primary">
 				<header>Agregar Consultas</header>
-			</div>-->
+			</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-12">
@@ -894,154 +877,6 @@
 	</div>
 </div>
 
-			
-				
-														
-			</div><!--end .col -->
-			
-		</div><!--end .row -->
-	</div><!--end .tab-pane -->
-
-	<div class="tab-pane" id="buscarpac">
-		<div class="row">
-			<div class="card">
-				<div class="col-md-12">
-					<div class="card-head style-primary">
-						<div class="tools pull-left">
-							<form class="navbar-search" role="search">
-				                <div class="form-group">
-				                    <input type="text" id="bpaciente" class="form-control" name="bpaciente" placeholder="Buscar Paciente">
-				                    <input type="hidden" class="form-control" id="bpatiente">
-				                </div>
-				                <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-				            </form>
-						</div><!--end .tools -->
-
-						
-						
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-								<form action="" id="formcapt" class="form form-validate" novalidate="novalidate">
-									
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-											    <p class="form-control-static" name="nombrepatient" id="nombrePatient"></p>
-												<label for="">Nombre del Paciente</label>												
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="text" class="form-control" id="fecha_consul" >
-												<label for="fecha_consulta">Fecha de Consulta</label>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">	
-										<div class="col-md-12">
-											<div class="card">
-												<div class="card-head style-primary">
-													<header>Subir Imagenes</header>
-												</div>
-												<div class="card-body no-padding">
-													<form action="<?php echo $this->basePath() ?>/captura/guardarimagenescons" class="dropzone dz-clickable" id="dropa">
-														<input type="hidden" id="idPaciente" name="idPaciente">
-														<input type="hidden" id="fecha_consulta2" name="fecha_consulta">
-														<div class="dz-message">
-															<h3>Agrega aquí las imagenes</h3>
-														</div>	
-													</form>
-												</div><!--end .card-body -->
-											</div><!--end .card -->
-										</div>
-									</div>	
-
-									<div class="card-actionbar">
-										<div class="card-actionbar-row">
-											<button type="button" class="btn btn-raised btn-primary ink-reaction" onclick="nuevoExpediente()" id="nuevoExp">Terminar</button>
-										</div>
-									</div>
-
-									<div id="confirma" class="modal fade">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title">Terminar con Expediente</h4>
-												</div>
-												<div class="modal-body">
-													<p>¿Estás Seguro, que ya terminaste con el expediente?</p>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-													<button type="button" class="btn btn-primary btn-ok" id="Acepta">Aceptar</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-								</form>
-							</div>
-						</div>
-					</div>																
-				</div><!--end .col -->
-			</div>
-			
-		</div><!--end .row -->
-	</div><!--end .tab-pane -->
-
-	<div class="tab-pane" id="pacientes">
-		<div class="row">
-			<div class="card">
-				<div class="col-md-12">
-					<div class="card-head style-primary">
-						<div class="tools pull-left">
-							<form class="navbar-search" role="search">
-				                <h3>Lista de Pacientes</h3>
-				            </form>
-						</div><!--end .tools -->		
-						
-					</div>
-					<div class="card-body">
-						<!--<div class="row">
-							<div class="col-lg-12">
-								<div class="table-responsive">
-									<table id="datatable1" class="table table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Apellido Paterno</th>
-												<th>Apellido Materno</th>
-												<th>Nombre(S)</th>
-												<th class="sort-numeric">Engine version</th>
-												<th class="sort-alpha">CSS grade</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="gradeX">
-												<td>Trident</td>
-												<td>Internet Explorer 4.0</td>
-												<td>Win 95+</td>
-												<td>4</td>
-												<td>X</td>
-											</tr>																						
-										</tbody>
-									</table>-->
-								<!--</div>end .table-responsive -->
-							<!--</div>end .col -->
-						<!--</div>end .row -->
-																						
-					</div><!--end .col -->
-				</div>
-			</div>			
-		</div><!--end .row -->
-	</div><!--end .tab-pane -->
-</div><!--end .card-body.tab-content -->
-
-
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/wizard/wizard.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/bootstrap-datepicker/datepicker3.css">
@@ -1058,77 +893,9 @@
 <script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 
-<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppCard.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/core/source/AppForm.js"></script>
-
-<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/jquery.dataTables.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/libs/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/js/core/demo/DemoTableDynamic.js"></script>
-
-
 
 
 	<script>
-
-	var ruta = '<?php echo $this->basePath(); ?>';
-
-	$(document).ready(function () {
-		
-		
-			
-		/*====== Buscador Pacientes =======*/
-		function split( val ) {
-          return val.split( /;\s*/ );
-        }
-
-        function extractLast( term ) {
-          return split( term ).pop();
-        }
-
-		$( "#bpaciente" )
-
-	      	// don't navigate away from the field on tab when selecting an item
-	      	.bind( "keydown", function( event ) {
-		        if ( event.keyCode === $.ui.keyCode.TAB &&
-		            $( this ).autocomplete( "instance" ).menu.active ) {
-		          event.preventDefault();
-		        }
-	      	})
-	      	.autocomplete({
-		        source: function( request, response ) {
-		          $.getJSON( ruta + "/pacientes/pacientesjson", {
-		            term: extractLast( request.term )
-		          }, response );
-		        },
-		        search: function() {
-		          // custom minLength
-		          var term = extractLast( this.value );
-		          if ( term.length < 2 ) {
-		            return false;
-		          }
-		        },
-		        focus: function() {
-		          // prevent value inserted on focus
-		          return false;
-		        },
-		        select: function( event, ui ) {
-		          verimagenes(ui.item.id);
-		          //console.log(ui.item.id);
-		          var terms = split( this.value );
-		          // remove the current input
-		          terms.pop();
-		          // add the selected item
-		          terms.push( ui.item.value );
-		          // add placeholder to get the comma-and-space at the end
-		          terms.push( "" );
-		          this.value = "";
-		          return false;
-		        }
-	      }); 
-	});
-
-
 	$(document).ready(function() {
 		$('#capturando').hide();
 		$('#conyuge').hide();
@@ -1164,44 +931,6 @@
 			    }
 			});
 	});
-
-	function verimagenes (data) {
-        var datos = {pac:data};
-
-	    $.ajax({
-		    type: "POST",
-		    url: "<?php echo $this->basePath() ?>/captura/dpaciente",
-		    dataType: "json",
-		    data: datos,
-		    success: function(response) {
-		       //$('#fotoSube').show();
-		       //$('#nombrepatient').val(response['patient'][0].ID);
-		      // $('#pac').val(response['pacient'][0].ID);
-		       //$('#idante').val(response['ante'][0].ID);
-		       //$('#APELLIDO_PATERNO').val(response['patient'][0].APELLIDO_PATERNO);
-		       $('#nombrePatient').text(response['pacient'][0].NOMBRE+ ' '+response['pacient'][0].APELLIDO_PATERNO + ' '+response['pacient'][0].APELLIDO_MATERNO);
-		       //$('#NOMBRE').val(response['patient'][0].NOMBRE);
-		       //$('#CALLE').val(response['patient'][0].CALLE);
-		       //$('#NUM_EXT').val(response['patient'][0].NUMERO_EXT);
-		       //$('#NUM_INT').val(response['patient'][0].NUMERO_INT);
-		       //$('#COLONIA').val(response['patient'][0].COLONIA);
-		       //$('#TELEFONO1').val(response['patient'][0].TELEFONO_1);
-		       //$('#TELEFONO2').val(response['patient'][0].TELEFONO_2);
-		       //$('#OCUPACION').val(response['patient'][0].OCUPACION);
-		       //$('#sEstadocivil').val(response['patient'][0].ESTADO_CIVIL);
-		       //$('#email').val(response['patient'][0].EMAIL);
-		       //$('#referido').val(response['patient'][0].REFERIDO);
- 			   //$('#sTipoSanguineo').val(response['patient'][0].TIPO_SANGUINEO.ID);
- 			   //$('#sEstados').val(response['patient'][0].ESTADO.ID);
- 			   //$('#sMUNICIPIO').val(response['patient'][0].MUNICIPIO.ID);
-
-		       
-	       	},
-		    error: function() {
-		        toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
-		    }
-		});
-    }
 
 	function nuevoExpediente() {
 		 $("#confirma").modal('show');
@@ -1252,8 +981,6 @@
 		      });
 		  }
 	});
-
-
 
 	
 

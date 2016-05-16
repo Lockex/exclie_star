@@ -31,18 +31,18 @@ class ConsultadosController extends AbstractActionController {
 
 	public function consultaAction() {
 		if ($this->request->isPost()) {
+			$om = $this->getObjectManager();
 			$pacienteid = $this->request->getPost('pac');
-			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
-			$paciente = $query->getArrayResult();
+			
+			$paciente = $om->createQuery("SELECT p,t FROM Application\Entity\Pacientes p JOIN p.TIPO_SANGUINEO t WHERE p.ID = $pacienteid")->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid AND c.ESPEC != 'Captura' ORDER BY c.FECHA_CONS DESC");
-			$consultas = $query2->getArrayResult();
+			$consultas = $om->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid AND c.ESPEC != 'Captura' ORDER BY c.FECHA_CONS DESC")->getArrayResult();
 
-			$query3 = $this->getObjectManager()->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC");
-			$notas = $query3->getArrayResult();
+			$notas = $om->createQuery("SELECT n FROM Application\Entity\Notaspaciente n WHERE n.PACIENTE = $pacienteid ORDER BY n.FECHA DESC")->getArrayResult();
 
-			$query4 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-			$antecedentes = $query4->getArrayResult();
+			$antecedentes = $om->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid")->getArrayResult();
+
+			//$recetas = $om->getRepository('Application\Entity\Recetas')->findBy(array('CONSULTAS'=>$duplicado));
 
 			$data = array('paciente' => $paciente, 'consultas' => $consultas, 'notas' => $notas, 'antecedentes' => $antecedentes);
 
@@ -55,21 +55,18 @@ class ConsultadosController extends AbstractActionController {
 
 	public function consultandoAction() {
 		if ($this->request->isPost()) {
+			$om = $this->getObjectManager();
 			$pacienteid = $this->request->getPost('pacienteid');
-			$query = $this->getObjectManager()->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid");
-			$paciente = $query->getArrayResult();
+			
+			$paciente = $om->createQuery("SELECT p FROM Application\Entity\Pacientes p WHERE p.ID = $pacienteid")->getArrayResult();
 
-			$query3 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid");
-			$antecedentes = $query3->getArrayResult();
+			$antecedentes = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Antecedentes a WHERE a.PACIENTE = $pacienteid")->getArrayResult();
 
-			$query2 = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC");
-			$consultas = $query2->getArrayResult();
+			$consultas = $this->getObjectManager()->createQuery("SELECT c FROM Application\Entity\Consultas c WHERE c.PACIENTE = $pacienteid ORDER BY c.FECHA_CONS DESC")->getArrayResult();
 
-			$query5 = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Historianterior a WHERE a.PACIENTE = $pacienteid");
-			$archivos = $query5->getArrayResult();
+			$archivos = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Historianterior a WHERE a.PACIENTE = $pacienteid")->getArrayResult();
 
-			$query4 = $this->getObjectManager()->createQuery("SELECT v FROM Application\Entity\Videoconsulta v WHERE v.PACIENTE = $pacienteid");
-			$videos = $query4->getArrayResult();
+			$videos = $this->getObjectManager()->createQuery("SELECT v FROM Application\Entity\Videoconsulta v WHERE v.PACIENTE = $pacienteid")->getArrayResult();
 
 			$data = array('paciente' => $paciente, 'antecedentes' => $antecedentes, 'consultas' => $consultas, 'files' => $archivos,'videos' => $videos);
 
@@ -82,33 +79,32 @@ class ConsultadosController extends AbstractActionController {
 
 	public function listanotasAction() {
 		$this->layout('layout/vacio');
+		$om = $this->getObjectManager();
 
 		$paciente = $this->request->getPost('paciente');
-		$query = $this->getObjectManager()->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $paciente ORDER BY a.ID DESC");
-		$notas = $query->getArrayResult();
+		$notas = $om->createQuery("SELECT a FROM Application\Entity\Notaspaciente a WHERE a.PACIENTE = $paciente ORDER BY a.ID DESC")->getArrayResult();
 
 		return new ViewModel(array('notas' => $notas));
 	}
 
 	public function verconsultaAction() {
 		$this->layout('layout/vacio');
-		$objectManager = $this->getObjectManager();
+		$om = $this->getObjectManager();
 
 		$idconsul = $this->request->getPost('id_consulta');
-		$query2 = $objectManager->createQuery("SELECT c.CONSULTA FROM Application\Entity\Consultas c WHERE c.ID = $idconsul");
-		$gineid = $query2->getArrayResult();
+		$gineid = $om->createQuery("SELECT c.CONSULTA FROM Application\Entity\Consultas c WHERE c.ID = $idconsul")->getArrayResult();
 
 		$id_gine = $gineid[0]['CONSULTA'];
-		$query = $objectManager->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $id_gine");
-		$consultas = $query->getArrayResult();
+		$consultas = $om->createQuery("SELECT g FROM Application\Entity\Cgineco g WHERE g.ID = $id_gine")->getArrayResult();
 
-		$query3 = $objectManager->createQuery("SELECT f FROM Application\Entity\Fotosconsulta f WHERE f.ID_CONS =$idconsul");
-		$fotos = $query3->getArrayResult();
+		$fotos = $om->createQuery("SELECT f FROM Application\Entity\Fotosconsulta f WHERE f.ID_CONS =$idconsul")->getArrayResult();
 
 		$str = $consultas[0]['IMAGEN'];
 		$pac = explode('-', $str, 2);
 
-		return new ViewModel(array('consultag' => $consultas, 'pacin' => $pac,'fotos'=>$fotos));
+		$recetas = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.CONSULTAS = $idconsul")->getArrayResult();
+
+		return new ViewModel(array('consultag' => $consultas, 'pacin' => $pac,'fotos'=>$fotos,'recetas'=>$recetas));
 
 	}
 
@@ -118,7 +114,7 @@ class ConsultadosController extends AbstractActionController {
 
 		$idconsulta = $this->request->getPost('id_consulta');
 		$tipoconsul = $this->request->getPost('tipo_cons');
-		$cons= $this->request->getPost('consult');
+		$cons 		= $this->request->getPost('consult');
 
 		if($tipoconsul == '1'){
 
@@ -1297,6 +1293,33 @@ class ConsultadosController extends AbstractActionController {
 		));
 
 		return $pdf;
+	}
+
+	public function verprescriptAction()
+	{
+		$om = $this->getObjectManager();
+		$id = $this->request->getPost('id');
+		$meds = $om->createQuery("SELECT m,r,a FROM Application\Entity\Medicamentoreceta m JOIN m.MEDICAMENTO a LEFT JOIN m.RECETA r WHERE r.ID = $id")->getArrayResult();
+		$receta = $om->createQuery("SELECT r FROM Application\Entity\Recetas r WHERE r.ID = $id")->getArrayResult();
+		
+		return new JsonModel(array('medicinas'=>$meds,'receta'=>$receta));
+	}
+
+	public function listapacienteAction()
+	{
+		$om 		= $this->getObjectManager();
+		$pacientes 	= $om->createQuery("SELECT p FROM Application\Entity\Pacientes p ")->getArrayResult();		
+		
+		return new ViewModel(array('pacientes'=>$pacientes));
+	}
+
+	public function getpacientesAction()
+	{
+		$om = $this->getObjectManager();
+		$paciente 	= $om->createQuery("SELECT p FROM Application\Entity\Pacientes p ")->getArrayResult();
+		
+		return new JsonModel(array('pacientes'=>$paciente));
+
 	}
 
 	

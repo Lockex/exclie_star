@@ -3,7 +3,7 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
- * Doctrine ORM implementation of Usuarios entity
+ * Doctrine ORM implementation of Agendas entity
  *
  * @ORM\Entity
  * @ORM\Table(name="`agendas`")
@@ -16,7 +16,7 @@ class Agendas {
     protected $id;
     /** @ORM\ManyToOne(targetEntity="Usuarios") @ORM\JoinColumn(referencedColumnName="id") */
     protected $usuariox;
-    /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID") */
+    /** @ORM\ManyToOne(targetEntity="Pacientes") @ORM\JoinColumn(referencedColumnName="ID",onDelete="CASCADE") */
     protected $paciente;
     /** @ORM\ManyToOne(targetEntity="Doctores") @ORM\JoinColumn(referencedColumnName="ID") */
     protected $refdocid;

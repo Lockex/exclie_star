@@ -4,7 +4,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 /**
- * Doctrine ORM implementation of Usuarios entity
+ * Doctrine ORM implementation of Antecedentes entity
  *
  * @ORM\Entity
  * @ORM\Table(name="`antecedentes`")

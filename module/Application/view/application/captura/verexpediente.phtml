@@ -1,0 +1,378 @@
+<div class="card">
+	<!-- BEGIN BUSCADOR DE PACIENTES -->
+	<div class="card-head style-primary-dark">
+		<div class="tools pull-left">
+			<form class="navbar-search" role="search">
+                <div class="form-group">
+                    <input type="text" id="buscadorpacientes" class="form-control" name="buscadorpacientes" placeholder="Buscar Paciente">
+                    <input type="hidden" class="form-control" id="idpaciente">
+                </div>
+                <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+            </form>
+		</div>
+    </div>
+    <div class="card-body">
+        <div class="card-body ">
+            <form id="formPac" class="form form-validate" novalidate="novalidate">
+                <input type="hidden" id="idpac" name="idpac">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="radio-inline radio-styled">
+                                <input type="radio" name="SEXO" value="1"><span>MASCULINO</span>
+                            </label>
+                            <label class="radio-inline radio-styled">
+                                <input type="radio" name="SEXO" value="2" checked><span>FEMENINO</span>
+                            </label>
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <br/>
+                    <div class="row">                       
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="APELLIDO_PATERNO" id="APELLIDO_PATERNO" required data-rule-minlength="3">
+                                <label for="APELLIDO_PATERNO">APELLIDO PATERNO</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="APELLIDO_MATERNO" id="APELLIDO_MATERNO">
+                                <label for="APELLIDO_MATERNO">APELLIDO MATERNO</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" id="NOMBRE" name="NOMBRE" required data-rule-minlength="3">
+                                <label for="NOMBRE">NOMBRE(s)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" id="EDAD" name="EDAD">
+                                <label for="edad">EDAD</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control input-lg" class="form-control input-lg" name="ESTADO" id="sEstados">
+                                    <?php foreach ($estados as $key => $estado): ?>
+                                        <option value="<?php echo $estado['ID'] ?>" 
+                                        <?php if ($estado['ID'] == 8): // Chihuahua predefinido ?>
+                                            selected
+                                        <?php endif ?>><?php echo $estado['NOMBRE']; ?></option>
+                                    <?php endforeach ?>
+                                </select class="form-control input-lg">
+                                <label for="Lastname1">CIUDAD</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control input-lg" class="form-control input-lg" name="MUNICIPIO" id="sEstados">
+                                    <?php foreach ($municipios as $key => $municipio): ?>
+                                        <option value="<?php echo $municipio['ID'] ?>" 
+                                        <?php if ($municipio['ID'] == 233): // Chihuahua predefinido ?>
+                                            selected    
+                                        <?php endif ?>><?php echo $municipio['NOMBRE']; ?></option>
+                                    <?php endforeach ?>
+                                </select class="form-control input-lg">
+                                <label for="Lastname1">MUNICIPIO</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="CALLE" id="CALLE">
+                                <label for="Lastname1">CALLE</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="NUM_EXT" id="NUM_EXT">
+                                <label for="Lastname1">NUM EXT.</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="NUM_INT" id="NUM_INT">
+                                <label for="Lastname1">NUM INT.</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="COLONIA" id="COLONIA">
+                                <label for="Lastname1">COLONIA</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="TELEFONO1" id="TELEFONO1" data-inputmask="'mask': '(999) 999-9999'">
+                                <label for="Lastname1">TELÉFONO 1</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="TELEFONO2" id="TELEFONO2" data-inputmask="'mask': '(999) 999-9999'">
+                                <label for="Lastname1">TELÉFONO 2</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                       
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="EMAIL" id="EMAIL">
+                                <label for="EMAIL">CORREO ELECTRÓNICO</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="referido" id="referido">
+                                <label for="EMAIL">RECOMENDADO POR</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control input-lg" class="form-control input-lg" name="TIPO_SANGUINEO" id="sTipoSanguineo">
+                                    <option value="9">Desconoce</option>
+                                    <option value="1">O+</option>
+                                    <option value="2">A+</option>
+                                    <option value="3">O-</option>
+                                    <option value="4">B+</option>
+                                    <option value="5">A-</option>
+                                    <option value="6">B-</option>
+                                    <option value="7">AB+</option>
+                                    <option value="8">AB-</option>
+                                </select class="form-control input-lg">
+                                <label for="TIPO_SANGUINEO">TIPO DE SANGRE</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select class="form-control input-lg" class="form-control input-lg" name="ESTADO_CIVIL" id="sEstadocivil" onchange="ocultarCoyuge();">
+                                    <option value="1">Soltero(a)</option>
+                                    <option value="2">Casado(a)</option>
+                                    <option value="3">Viudo(a)</option>
+                                </select class="form-control input-lg">
+                                <label for="ESTADO_CIVIL">ESTADO CIVIL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="conyuge">
+                        <h3 class="text-primary">Datos del Conyuge</h3>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="NombreC" id="NombreC">
+                                <label for="NombreC">Nombre</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" name="EdadC" id="EdadC">
+                                <label for="EdadC">Edad</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                    <div class="row">
+                        <h3 class="text-primary">Imágenes del Paciente</h3>
+                        <div class="list-results list-results-underlined">
+                            <div class="col-xs-12">
+                                <div id="links" class="links">
+                                    <div id="imagenes"></div>
+                                    <div id="blueimp-gallery" class="blueimp-gallery">
+                                        <div class="slides"></div>
+                                        <h3 class="title"></h3>
+                                        <ol class="indicator"></ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                                                             
+            </form>
+        <br>
+            <div class="row" id="dropzz">
+            <h3 class="text-primary">Agregar Imagenes de expedientes al usuario</h3>
+                <div class="col-md-12 pull-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="fecha_consulta" >
+                        <label for="fecha_consulta">Fecha de Consulta</label>
+                    </div>
+                </div>
+                <form action="<?php echo $this->basePath() ?>/captura/guardarimagenescons" class="dropzone dz-clickable" id="avienta">
+                    <input type="hidden" id="idPaciente" name="idPaciente">
+                    <input type="hidden" id="fecha_consulta2" name="fecha_consulta">
+                    <div class="dz-message">
+                        <h3>  Agrega los expedientes  <br/><br/></h3>
+                    </div>
+                </form>    
+            </div>   
+        </div>
+    </div>
+</div>
+
+
+
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/dropzone/dropzone-theme.css">
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/css/blueimp-gallery.min.css">
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/jquery-ui/jquery-ui-theme.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/css/theme-default/libs/bootstrap-datepicker/datepicker3.css">
+<link type="text/css" rel="stylesheet" href="<?php echo $this->basePath() ?>/public/js/libs/context-menu/jquery.contextMenu.css">
+
+<script src="<?php echo $this->basePath() ?>/public/js/libs/dropzone/dropzone.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/context-menu/jquery.contextMenu.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/Gallery-master/js/blueimp-gallery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/exclie/expediente.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/moment/moment.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+<script>
+    var _ruta = '<?php echo $this->basePath(); ?>';
+    var ruta = '<?php echo $this->basePath(); ?>';
+    $(document).ready(function() {
+       $('#conyuge').hide();
+       $('#dropzz').hide();
+
+       $("#fecha_consulta").on('change',function () {
+            var valorfec = $('#fecha_consulta').val();
+            $("#fecha_consulta2").val(valorfec);
+        
+        });
+
+        $(function() {
+        $.contextMenu({
+            selector: '.context-menu-one', 
+            callback: function(key, options) {
+                var m =  options.$trigger.attr("id");
+                //window.console && console.log(m) || alert(m); 
+                eliminarImagen(m);
+            },
+            items: {
+                "delete": {name: "Eliminar", icon: "delete"},
+                "sep1": "---------",
+                "quit": {name: "Salir", icon: function(){
+                    return 'context-menu-icon context-menu-icon-quit';
+                }}
+            }
+        });
+
+           
+    });
+  
+          
+     
+    });
+
+        /** EMPIEZA LA GALERIA DE IMAGENES **/
+    document.getElementById('links').onclick = function (event) {
+        var event = event || window.event;
+        var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+        blueimp.Gallery(links, options);
+    };
+
+    Dropzone.autoDiscover = false;
+    /** EMPIEZA DROP DE LOS EXPEDIENTES DE HISTORIA **/
+     var myDropzone = new Dropzone("#avienta", {
+        paramName: "file", // The name that will be used to transfer the file
+          accept: function(file, done) {
+            done();
+            //mostrarArhivos();
+          },
+          addRemoveLinks: true,
+          removedfile: function(file){
+            var datos = {archivo:file.name,id:$('#patient').val()};
+            console.log(datos);
+            $.ajax({
+                  type: "POST",
+                  url: "<?php echo $this->basePath() ?>/captura/eliminarFoto",
+                  data: datos,
+                  dataType: "json",
+                  success: function(data) {
+                          var _ref;
+                             if (file.previewElement) {
+                               if ((_ref = file.previewElement) != null) {
+                                 _ref.parentNode.removeChild(file.previewElement);
+                               }
+                             }
+                             return this._updateMaxFilesReachedClass();
+                             mostrarArhivos();
+                        },
+                  error: function(data){
+                              var _ref;
+                                if (file.previewElement) {
+                                  if ((_ref = file.previewElement) != null) {
+                                    _ref.parentNode.removeChild(file.previewElement);
+                                  }
+                                }
+                                return this._updateMaxFilesReachedClass();
+
+                  }
+              });
+          }
+    });
+
+     function eliminarImagen(id)
+     {
+        var pac = $('#idpac').val();
+        var id = id;
+        var data = {pac:pac,id:id};
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $this->basePath() ?>/captura/eliminarimage",
+            dataType: "json",
+            data: data,
+            success: function(data) {
+               toastr.success('Imagen Eliminada');
+               mostrarimgs(pac);
+            },
+            error: function() {
+                toastr.error('Ocurrió un error, inténtelo de nuevo mas tarde');
+            }
+        }); 
+     }
+
+     function mostrarimgs(id) 
+    {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $this->basePath() ?>/captura/getimages",
+            dataType: "json",
+            data: {pac:id},
+            success: function(response) {
+               if(response['images'].length != 0){
+                    $('#imagenes').html('');
+                    var total = response['images'].length;
+                    var carpetanum = response['carpeta'];
+                    var imgcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+                    var rutafcons = ruta+"/public/imagenes/consultas/"+carpetanum+'/';
+                    if(response['images']){
+                        var fotoscons = response['images'];
+                        for (var i = 0, len = fotoscons.length; i < len; i++) {
+                          var th = fotoscons[i].IMAGEN.split('.',1);
+                          var ext = fotoscons[i].IMAGEN.slice(-3)
+                          var name = th.join()+'_th.';
+                          var nombre = name.replace(',','.');
+                          var nomFotoTh = nombre+ext;
+                          $('#imagenes').append('<a href="'+rutafcons+fotoscons[i].IMAGEN+'" title="Galería" data-gallery=""><img src="'+rutafcons+nomFotoTh+'"></a>');
+                        }
+                    }
+                    
+                }
+            },
+            error: function(){
+                  toastr.error('Ocurrió un error, inténtelo más tarde.');
+            }
+        });
+    }
+</script>

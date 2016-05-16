@@ -3,7 +3,7 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
- * Doctrine ORM implementation of Usuarios entity
+ * Doctrine ORM implementation of Ordenes entity
  *
  * @ORM\Entity
  * @ORM\Table(name="`ordenes`")

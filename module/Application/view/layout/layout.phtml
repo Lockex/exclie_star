@@ -248,30 +248,38 @@
                         <!-- </li> --><!--end /menu-li -->
                         <!-- END ESTUDIOS -->
                         <!-- BEGIN CONSULTA -->
+                        <?php if($this->identity()->getRole()->getId()==1 || $this->identity()->getRole()->getId()==2 || $this->identity()->getRole()->getId()==3 || $this->identity()->getRole()->getId()==5){ ?>
                         <li>
                             <a href="<?php echo $this->basePath() ?>/agenda" >
                                 <span class="title">Agenda</span>
                                 <div class="gui-icon"><i class="md md-event-busy"></i></div>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?php echo $this->basePath() ?>/consultados" >
-                                <span class="title">Consulta</span>
-                                <div class="gui-icon"><i class="fa fa-medkit"></i></div>
-                            </a>
-                        </li>
-                        <!-- END CONSULTA -->
-                        <!-- BEGIN PACIENTE -->
+                        
                         <li>
                             <a href="<?php echo $this->basePath() ?>/pacientes" >
                                 <span class="title">Paciente</span>
                                 <div class="gui-icon"><i class="fa fa-user"></i></div>
                             </a>
                         </li>
-                        <!-- END PACIENTE -->
+                        <li>
+                            <a href="<?php echo $this->basePath() ?>/consultados/listapaciente" >
+                                <span class="title">Descarga de Expediente</span>
+                                <div class="gui-icon"><i class="fa fa-download"></i></div>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php if($this->identity()->getRole()->getId()==1 || $this->identity()->getRole()->getId()==2 || $this->identity()->getRole()->getId()==3 ){ ?>
+                        <li>
+                            <a href="<?php echo $this->basePath() ?>/consultados" >
+                                <span class="title">Consulta</span>
+                                <div class="gui-icon"><i class="fa fa-medkit"></i></div>
+                            </a>
+                        </li>
+                        <?php } ?>
                     </ul><!--end .main-menu -->
                     <!-- END MAIN MENU -->
-
+                    
                     <div class="menubar-foot-panel">
                         <small class="no-linebreak hidden-folded">
 

@@ -191,6 +191,7 @@
                     </a>
                 </div>
             </div>
+            
             <div class="offcanvas-body no-padding">
 				<div class="hbox-column col-md-12 style-default-light">
 					<div class="row">
@@ -211,12 +212,11 @@
 									<span class="opacity-50">Dirección</span><br/>
 									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?>&nbsp;No. <?php echo $paciente[0]['NUMERO_EXT']; ?></span><br>
 									<span class="text-medium"><?php echo $paciente[0]['COLONIA']; ?></span><br>
-									<span class="text-medium"><span class="opacity-50">C.P. </span><?php echo $paciente[0]['CODIGO_POSTAL']; ?></span>
 								</dd>
 								<dt><span class="fa fa-fw fa-home fa-lg opacity-50"></span></dt>
 								<dd>
 									<span class="opacity-50">Tipo Sanguíneo</span><br/>
-									<span class="text-medium"><?php echo $paciente[0]['CALLE']; ?></span>
+									<span class="text-medium"><?php echo $paciente[0]['TIPO_SANGUINEO']['NOMBRE']; ?></span>
 								</dd>
 							</dl><!--end .dl-horizontal -->
 							<?php } ?>

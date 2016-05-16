@@ -87,6 +87,8 @@ return array(
 
 				 'Application\Controller\Consultados' => array(
                     'all'   => 'Admin',
+                    'listapaciente' => 'Recepción',
+                    'generahistorial' => 'Recepción',
                     
                 ),
 				 'Application\Controller\Consultas' => array(
